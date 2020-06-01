@@ -22,7 +22,7 @@ public class MD5Hash {
 	
 	    MD5Hash myHasher = new MD5Hash();
 	    //Hashing a password list..., here you can add values
-	    String[] passwordList = {"password","123","0000","progEX"};
+	    String[] passwordList = {"gdrz567","123","0000","progEX"};
 	    String[] hashes = myHasher.hashPasswords(passwordList);
 	    
 	    //Printing all passwords, hashed passwords and check
