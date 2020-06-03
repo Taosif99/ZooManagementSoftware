@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.progex.zoomanagementsoftware.main;;
+import com.progex.zoomanagementsoftware.datatypes.Methods;
 import javax.swing.JFrame;
 
 

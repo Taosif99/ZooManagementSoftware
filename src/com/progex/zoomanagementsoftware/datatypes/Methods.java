@@ -1,5 +1,5 @@
 
-package com.progex.zoomanagementsoftware.main;
+package com.progex.zoomanagementsoftware.datatypes;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

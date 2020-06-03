@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.progex.zoomanagementsoftware.main;
+package com.progex.zoomanagementsoftware.admin;
 
 /**
  *
