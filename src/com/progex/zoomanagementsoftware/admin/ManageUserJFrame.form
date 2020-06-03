@@ -38,14 +38,6 @@
                       </Group>
                       <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jTextFieldConfirmPassword" pref="141" max="32767" attributes="0"/>
-                              <Component id="jTextFieldBirthday" max="32767" attributes="0"/>
-                              <Component id="jTextFieldUsername" max="32767" attributes="0"/>
-                              <Component id="jTextFieldEMail" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextFieldPassword" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jComboBoxShift" min="-2" pref="91" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jTextFieldCountry" min="-2" pref="141" max="-2" attributes="0"/>
@@ -83,6 +75,14 @@
                               </Group>
                               <EmptySpace min="-2" pref="213" max="-2" attributes="0"/>
                           </Group>
+                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jTextFieldConfirmPassword" pref="141" max="32767" attributes="0"/>
+                              <Component id="jTextFieldBirthday" max="32767" attributes="0"/>
+                              <Component id="jTextFieldUsername" max="32767" attributes="0"/>
+                              <Component id="jTextFieldEMail" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jTextFieldPassword" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jComboBoxShift" min="-2" pref="91" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -97,7 +97,11 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="0" pref="124" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jLabelID" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jTextFieldID" min="-2" pref="61" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="61" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -110,6 +114,8 @@
                   <Component id="jComboBoxSalutation" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabelBirthday" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldBirthday" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelID" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldID" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -373,6 +379,16 @@
           <Dimension value="[87, 23]"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelID">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Calibri" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="ID"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextFieldID">
     </Component>
   </SubComponents>
 </Form>

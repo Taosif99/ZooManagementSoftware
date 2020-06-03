@@ -58,6 +58,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jButtonAddUser = new javax.swing.JButton();
         jButtonUpdateUser = new javax.swing.JButton();
         jButtonDeleteUser = new javax.swing.JButton();
+        jLabelID = new javax.swing.JLabel();
+        jTextFieldID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,6 +133,9 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jButtonDeleteUser.setMaximumSize(new java.awt.Dimension(87, 23));
         jButtonDeleteUser.setMinimumSize(new java.awt.Dimension(87, 23));
 
+        jLabelID.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelID.setText("ID");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,13 +154,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                             .addComponent(jLabelCountry))
                         .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextFieldConfirmPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                                .addComponent(jTextFieldBirthday)
-                                .addComponent(jTextFieldUsername)
-                                .addComponent(jTextFieldEMail)
-                                .addComponent(jTextFieldPassword)
-                                .addComponent(jComboBoxShift, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextFieldCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -182,7 +180,14 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                             .addComponent(jLabelShift)
                                             .addComponent(jLabelUsername)
                                             .addComponent(jLabelConfirmPassword))))
-                                .addGap(213, 213, 213))))
+                                .addGap(213, 213, 213))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextFieldConfirmPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                                .addComponent(jTextFieldBirthday)
+                                .addComponent(jTextFieldUsername)
+                                .addComponent(jTextFieldEMail)
+                                .addComponent(jTextFieldPassword)
+                                .addComponent(jComboBoxShift, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelPhoneNumber)
                         .addGap(18, 18, 18)
@@ -192,7 +197,11 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                             .addComponent(jButtonAddUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonUpdateUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonDeleteUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(0, 124, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabelID)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,7 +211,9 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                     .addComponent(jLabelSalutation)
                     .addComponent(jComboBoxSalutation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelBirthday)
-                    .addComponent(jTextFieldBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelID)
+                    .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -316,6 +327,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelCountry;
     private javax.swing.JLabel jLabelEMail;
     private javax.swing.JLabel jLabelFirstname;
+    private javax.swing.JLabel jLabelID;
     private javax.swing.JLabel jLabelLastname;
     private javax.swing.JLabel jLabelPassword;
     private javax.swing.JLabel jLabelPhoneNumber;
@@ -330,6 +342,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldCountry;
     private javax.swing.JTextField jTextFieldEMail;
     private javax.swing.JTextField jTextFieldFirstname;
+    private javax.swing.JTextField jTextFieldID;
     private javax.swing.JTextField jTextFieldLastname;
     private javax.swing.JTextField jTextFieldPassword;
     private javax.swing.JTextField jTextFieldPhoneNumber;
