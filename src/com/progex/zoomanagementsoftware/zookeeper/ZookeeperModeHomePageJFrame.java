@@ -32,29 +32,42 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButtonMeineNächsteFütterungZookeeper = new javax.swing.JButton();
         jButtonAlleFütterungenFürHeuteZookeeper = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelZookeeperHomePageLetzteAnmeldungUhrzeit = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabelZookeeperHomePageNächsteFütterung = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabelZooKeeperHomePageTierpflegerName = new javax.swing.JLabel();
+        jLabelZookeeperModeHomePageDatum = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel1.setText("Letze Anmeldung: ");
 
+        jButton1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jButton1.setText("Abmelden");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel2.setText("Hallo ");
 
+        jButtonMeineNächsteFütterungZookeeper.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jButtonMeineNächsteFütterungZookeeper.setText("Meine Nächste Fütterung ");
 
+        jButtonAlleFütterungenFürHeuteZookeeper.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jButtonAlleFütterungenFürHeuteZookeeper.setText("Alle Fütterungen für heute");
 
-        jLabel3.setText("Datum");
+        jLabelZookeeperHomePageLetzteAnmeldungUhrzeit.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
+        jLabel4.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel4.setText("Nächste Fütterung in: ");
 
-        jLabel5.setText("jLabel5");
+        jLabelZookeeperHomePageNächsteFütterung.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+
+        jLabelZooKeeperHomePageTierpflegerName.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+
+        jLabelZookeeperModeHomePageDatum.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -69,25 +82,28 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
                             .addComponent(jButtonMeineNächsteFütterungZookeeper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelZookeeperHomePageNächsteFütterung, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(22, 22, 22)
-                                .addComponent(jLabel6)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jLabel6))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
-                                .addComponent(jButton1)))))
+                                .addComponent(jLabelZookeeperModeHomePageDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelZookeeperHomePageLetzteAnmeldungUhrzeit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(171, 171, 171)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(145, 145, 145)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelZooKeeperHomePageTierpflegerName)
+                .addContainerGap(204, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,19 +112,24 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelZookeeperHomePageLetzteAnmeldungUhrzeit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelZookeeperModeHomePageDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabelZooKeeperHomePageTierpflegerName))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5)
+                    .addComponent(jLabelZookeeperHomePageNächsteFütterung)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonMeineNächsteFütterungZookeeper, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonAlleFütterungenFürHeuteZookeeper, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -156,9 +177,11 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonMeineNächsteFütterungZookeeper;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabelZooKeeperHomePageTierpflegerName;
+    private javax.swing.JLabel jLabelZookeeperHomePageLetzteAnmeldungUhrzeit;
+    private javax.swing.JLabel jLabelZookeeperHomePageNächsteFütterung;
+    private javax.swing.JLabel jLabelZookeeperModeHomePageDatum;
     // End of variables declaration//GEN-END:variables
 }
