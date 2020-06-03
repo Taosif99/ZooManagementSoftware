@@ -27,7 +27,7 @@ public class Methods {
  *  Method which changes time every 60 seconds
  * @param jLabelShowTime The label in which current time and date shall be shown
  */
-        public void showTimeAndDate(JLabel jLabelShowTime) {
+        public void showTimeAndDate(JLabel jLabelShowDateTime) {
        
             
             Date date = new Date();        
@@ -36,7 +36,7 @@ public class Methods {
             String dateString = dateAndTime.substring(0,10);
             String dateTime = dateAndTime.substring(11,16);
             //System.out.println(dateAndTime); //Debug
-            jLabelShowTime.setText("Zeit: "+ dateTime +" Datum: " +dateString);  
+            jLabelShowDateTime.setText("Zeit: "+ dateTime +" Datum: " +dateString);  
            
            //Each Minute get current Time 60000 
            new Timer(60000, new ActionListener() {
@@ -48,7 +48,7 @@ public class Methods {
                 String dateString = dateAndTime.substring(0,10);
                 String dateTime = dateAndTime.substring(11,16);
                 //System.out.println(dateAndTime); //Debug
-                jLabelShowTime.setText("Zeit: "+ dateTime +" Datum: " +dateString);                 
+                jLabelShowDateTime.setText("Zeit: "+ dateTime +" Datum: " +dateString);                 
             }
         }).start();
     }
