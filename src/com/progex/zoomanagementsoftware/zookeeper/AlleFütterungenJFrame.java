@@ -5,6 +5,8 @@
  */
 package com.progex.zoomanagementsoftware.zookeeper;
 
+import com.progex.zoomanagementsoftware.datatypes.Methods;
+
 /**
  *
  * @author khali
@@ -16,6 +18,8 @@ public class AlleFütterungenJFrame extends javax.swing.JFrame {
      */
     public AlleFütterungenJFrame() {
         initComponents();
+        Methods methods = new Methods();
+        methods.showTimeAndDate(jLabelAlleFütterungenUhrzeit);
     }
 
     /**
@@ -38,6 +42,7 @@ public class AlleFütterungenJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jButtonAlleFütterungLogout.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonAlleFütterungLogout.setText("Abmelden");
         jButtonAlleFütterungLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -45,6 +50,7 @@ public class AlleFütterungenJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButtonAlleFütterungenNächsteFütterungAnzeigen.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jButtonAlleFütterungenNächsteFütterungAnzeigen.setText("Nächste Fütterung anzeigen");
 
         jTableAlleFütterungen.setModel(new javax.swing.table.DefaultTableModel(
@@ -60,6 +66,7 @@ public class AlleFütterungenJFrame extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableAlleFütterungen);
 
+        jRadioButtonAlleFütterungenInKilogramm.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jRadioButtonAlleFütterungenInKilogramm.setText("Futtermenge in Kilogramm");
         jRadioButtonAlleFütterungenInKilogramm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,6 +74,7 @@ public class AlleFütterungenJFrame extends javax.swing.JFrame {
             }
         });
 
+        jRadioButtonAlleFütterungenInGramm.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jRadioButtonAlleFütterungenInGramm.setText("Futtermenge in Gramm");
         jRadioButtonAlleFütterungenInGramm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,7 +82,8 @@ public class AlleFütterungenJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabelAlleFütterungenUhrzeit.setText("Datum");
+        jLabelAlleFütterungenUhrzeit.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jLabelAlleFütterungenUhrzeit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabelAlleFütterungenUhrzeit.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jLabelAlleFütterungenUhrzeitAncestorAdded(evt);
@@ -85,6 +94,7 @@ public class AlleFütterungenJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButtonAlleFütterungenZurück.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jButtonAlleFütterungenZurück.setText("Zurück");
         jButtonAlleFütterungenZurück.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,9 +112,9 @@ public class AlleFütterungenJFrame extends javax.swing.JFrame {
                     .addComponent(jButtonAlleFütterungenNächsteFütterungAnzeigen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonAlleFütterungenZurück)
-                        .addGap(159, 159, 159)
-                        .addComponent(jLabelAlleFütterungenUhrzeit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelAlleFütterungenUhrzeit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonAlleFütterungLogout))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,10 +130,11 @@ public class AlleFütterungenJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAlleFütterungLogout)
-                    .addComponent(jButtonAlleFütterungenZurück)
-                    .addComponent(jLabelAlleFütterungenUhrzeit))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonAlleFütterungLogout)
+                        .addComponent(jButtonAlleFütterungenZurück))
+                    .addComponent(jLabelAlleFütterungenUhrzeit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
