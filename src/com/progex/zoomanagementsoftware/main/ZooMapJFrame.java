@@ -3,29 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.progex.zoomanagementsoftware.main;
-import java.awt.event.WindowEvent;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+package com.progex.zoomanagementsoftware.main;;
 import javax.swing.JFrame;
-import javax.swing.Timer;
+
 
 /**
  *
- * @author Ouchen
+ * 
  */
 public class ZooMapJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ZooMapJFrame
+     * @param goBackFrame The frame which will appear when the go back button is used
      */
     public ZooMapJFrame(JFrame goBackFrame) {
         initComponents();
         this.goBackFrame = goBackFrame;    
+        methods = new Methods();
+        methods.showTimeAndDate(jLabelShowTime);
+        //ShowTime();
     }
-    
-    
-
+  
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,7 +42,7 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabelShowTime.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        jLabelShowTime.setText("TODO: Current Time");
+        jLabelShowTime.setText("TIME  and Date");
         jLabelShowTime.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         jLabelLegend.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -64,7 +64,7 @@ public class ZooMapJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
                         .addComponent(jLabelShowTime)
                         .addGap(40, 40, 40))
                     .addGroup(layout.createSequentialGroup()
@@ -141,4 +141,5 @@ public class ZooMapJFrame extends javax.swing.JFrame {
 
     //Own delcared private variable
     private javax.swing.JFrame goBackFrame;
+    private Methods methods;
 }
