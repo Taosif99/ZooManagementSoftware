@@ -22,7 +22,6 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         this.goBackFrame = goBackFrame;    
         methods = new Methods();
         methods.showTimeAndDate(jLabelShowTime);
-        //ShowTime();
     }
   
    
