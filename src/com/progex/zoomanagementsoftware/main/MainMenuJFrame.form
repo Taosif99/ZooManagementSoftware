@@ -43,12 +43,10 @@
           </Group>
           <Group type="102" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="jLabelWelcome" min="-2" pref="512" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jLabelWelcomeStatement" min="-2" pref="402" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabelWelcome" alignment="0" min="-2" pref="512" max="-2" attributes="0"/>
+                  <Component id="jLabelWelcomeStatement" alignment="0" min="-2" pref="402" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
