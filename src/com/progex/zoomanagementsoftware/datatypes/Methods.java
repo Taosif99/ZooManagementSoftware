@@ -1,5 +1,5 @@
 
-package com.progex.zoomanagementsoftware.main;
+package com.progex.zoomanagementsoftware.datatypes;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +25,7 @@ public class Methods {
       
  /**
  *  Method which changes time every 60 seconds
- * @param jLabelShowTime The label in which current time and tate shall be shown
+ * @param jLabelShowTime The label in which current time and date shall be shown
  */
         public void showTimeAndDate(JLabel jLabelShowTime) {
        
@@ -35,7 +35,7 @@ public class Methods {
             String dateAndTime = s.format(date);
             String dateString = dateAndTime.substring(0,10);
             String dateTime = dateAndTime.substring(11,16);
-            System.out.println(dateAndTime); //Debug
+            //System.out.println(dateAndTime); //Debug
             jLabelShowTime.setText("Zeit: "+ dateTime +" Datum: " +dateString);  
            
            //Each Minute get current Time 60000 
@@ -47,7 +47,7 @@ public class Methods {
                 String dateAndTime = s.format(date);
                 String dateString = dateAndTime.substring(0,10);
                 String dateTime = dateAndTime.substring(11,16);
-                System.out.println(dateAndTime); //Debug
+                //System.out.println(dateAndTime); //Debug
                 jLabelShowTime.setText("Zeit: "+ dateTime +" Datum: " +dateString);                 
             }
         }).start();

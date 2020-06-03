@@ -42,7 +42,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
 
         jLabelWelcome.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
         jLabelWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelWelcome.setText("Welcome to our zoo !");
+        jLabelWelcome.setText("Willkommen im Zoo!");
         jLabelWelcome.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabelWelcomeStatement.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N

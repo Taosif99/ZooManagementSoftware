@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.progex.zoomanagementsoftware.main;;
+import com.progex.zoomanagementsoftware.datatypes.Methods;
 import javax.swing.JFrame;
 
 
@@ -22,7 +23,6 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         this.goBackFrame = goBackFrame;    
         methods = new Methods();
         methods.showTimeAndDate(jLabelShowTime);
-        //ShowTime();
     }
   
    
