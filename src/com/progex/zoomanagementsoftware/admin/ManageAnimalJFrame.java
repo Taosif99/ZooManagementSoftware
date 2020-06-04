@@ -32,7 +32,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         updateButtonsAndLabels();
         Methods methods = new Methods();    
         methods.showTimeAndDate(jLabelShowDateTime);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
     }
     
     
