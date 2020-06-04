@@ -91,6 +91,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jTableUserData = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1280, 600));
+        setResizable(false);
 
         jLabelSalutation.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelSalutation.setText("Anrede");
