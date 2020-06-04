@@ -5,6 +5,8 @@
  */
 package com.progex.zoomanagementsoftware.admin;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Ouchen
@@ -14,12 +16,10 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     /**
      * Creates new form ManageUserJFrame
      */
-    
-    
     public ManageUserJFrame() {
         initComponents();
         updateButtons();
-
+        
         // myInitComponents();
     
     }
