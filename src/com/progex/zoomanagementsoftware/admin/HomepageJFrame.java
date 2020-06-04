@@ -6,7 +6,6 @@
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.datatypes.Methods;
-import com.progex.zoomanagementsoftware.main.ZooMapJFrame;
 import javax.swing.JFrame;
 
 /**
