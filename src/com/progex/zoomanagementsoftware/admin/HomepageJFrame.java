@@ -59,6 +59,8 @@ public class HomepageJFrame extends javax.swing.JFrame {
         jTableLastLoginAdminsData = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1280, 600));
+        setResizable(false);
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelShowDateTime.setText("TIME");
@@ -230,6 +232,7 @@ public class HomepageJFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonManageUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageUserActionPerformed
