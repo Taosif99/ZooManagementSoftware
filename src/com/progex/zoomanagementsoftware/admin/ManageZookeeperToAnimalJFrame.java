@@ -70,6 +70,8 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tierpfleger/-in zu Tier Zuweisung hinzufügen");
+        setPreferredSize(new java.awt.Dimension(1280, 600));
+        setResizable(false);
 
         buttonGroupOperation.add(jRadioButtonAdd);
         jRadioButtonAdd.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
