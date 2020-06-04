@@ -6,6 +6,7 @@
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import javax.swing.JFrame;
 
 /**
  *
@@ -15,9 +16,12 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ManageFoodJFrame
+     * @param goBackFrame The frame which will appear when the go back button is used
      */
-    public ManageFoodJFrame() {
+    public ManageFoodJFrame(JFrame goBackFrame) {
+        
         initComponents();
+        this.goBackFrame = goBackFrame;
         myInitComponents();
         
     }
@@ -331,7 +335,10 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
-        // TODO add your handling code here:
+        
+        goBackFrame.setVisible(true);
+        //Close frame
+        this.dispose();
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
@@ -452,7 +459,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageFoodJFrame().setVisible(true);
+                new ManageFoodJFrame(null).setVisible(true);
             }
         });
     }
@@ -489,4 +496,6 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldStock;
     private javax.swing.JTextField jTextStockRoomNumber;
     // End of variables declaration//GEN-END:variables
+    
+    private javax.swing.JFrame goBackFrame;
 }

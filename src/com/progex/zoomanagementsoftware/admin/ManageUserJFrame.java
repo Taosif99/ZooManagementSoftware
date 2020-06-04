@@ -15,9 +15,11 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ManageUserJFrame
+     * @param goBackFrame The frame which will appear when the go back button is used
      */
-    public ManageUserJFrame() {
+    public ManageUserJFrame(JFrame goBackFrame) {
         initComponents();
+        this.goBackFrame = goBackFrame;
         updateButtons();
         
         // myInitComponents();
@@ -456,7 +458,10 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddUserActionPerformed
 
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
-        // TODO GO BACK TO MAIN MENU OF ADMIN
+        
+        goBackFrame.setVisible(true);
+        //Close frame
+        this.dispose();
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
@@ -583,7 +588,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageUserJFrame().setVisible(true);
+                new ManageUserJFrame(null).setVisible(true);
             }
         });
     }
@@ -637,4 +642,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldUsername;
     private javax.swing.JTextField jTextFieldZIP;
     // End of variables declaration//GEN-END:variables
+
+     //Own delcared private variable
+    private javax.swing.JFrame goBackFrame;
 }

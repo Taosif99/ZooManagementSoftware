@@ -6,6 +6,8 @@
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import javax.swing.JFrame;
+
 
 /**
  *
@@ -15,13 +17,17 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ZookeeperToAnimalJFrame
+     * @param goBackFrame The frame which will appear when the go back button is used
      */
-    public ManageZookeeperToAnimalJFrame() {
+    public ManageZookeeperToAnimalJFrame(JFrame goBackFrame) {
+        
         initComponents();
+        this.goBackFrame = goBackFrame;
         myInitComponents();
     }
     
     public void myInitComponents(){
+        
         updateButtonsAndLabels();
         Methods methods = new Methods();    
         methods.showTimeAndDate(jLabelShowDateTime);
@@ -303,7 +309,10 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonDeleteActionPerformed
 
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
-        // TODO add your handling code here:
+        
+        goBackFrame.setVisible(true);
+        //Close frame
+        this.dispose();
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
@@ -380,7 +389,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageZookeeperToAnimalJFrame().setVisible(true);
+                new ManageZookeeperToAnimalJFrame(null).setVisible(true);
             }
         });
     }
@@ -412,4 +421,6 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldZookeepeFirstName;
     private javax.swing.JTextField jTextFieldZookeeperLastName;
     // End of variables declaration//GEN-END:variables
+
+    private javax.swing.JFrame goBackFrame;
 }

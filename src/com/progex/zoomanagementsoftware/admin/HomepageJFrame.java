@@ -237,26 +237,25 @@ public class HomepageJFrame extends javax.swing.JFrame {
          //Set Main Menue to not visible
         this.setVisible(false);
         
-        
         JFrame thisFrame = this; 
         /* Create and display the JFrame MangeUser*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageUserJFrame().setVisible(true);
+                new ManageUserJFrame(thisFrame).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButtonManageUserActionPerformed
 
     private void jButtonManageAnimalsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageAnimalsActionPerformed
         
+        //Set Main Menue to not visible
         this.setVisible(false);
-        
         
         JFrame thisFrame = this; 
         /* Create and display the JFrame MangeUser*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageAnimalJFrame().setVisible(true);
+                new ManageUserJFrame(thisFrame).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButtonManageAnimalsActionPerformed
@@ -265,14 +264,13 @@ public class HomepageJFrame extends javax.swing.JFrame {
          
         this.setVisible(false);
         
-        
         JFrame thisFrame = this; 
         /* Create and display the JFrame MangeUser*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageFoodJFrame().setVisible(true);
+                new ManageFoodJFrame(thisFrame).setVisible(true);
             }
-        });    // TODO add your handling code here:
+        });
     }//GEN-LAST:event_jButtonManageFoodActionPerformed
 
     private void jButtonManageCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageCompoundActionPerformed
@@ -284,9 +282,9 @@ public class HomepageJFrame extends javax.swing.JFrame {
         /* Create and display the JFrame MangeUser*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageCompoundJFrame().setVisible(true);
+                new ManageCompoundJFrame(thisFrame).setVisible(true);
             }
-        });       // TODO add your handling code here:
+        });
     }//GEN-LAST:event_jButtonManageCompoundActionPerformed
 
     private void jButtonManageTakesCareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageTakesCareActionPerformed
@@ -298,7 +296,7 @@ public class HomepageJFrame extends javax.swing.JFrame {
         /* Create and display the JFrame MangeUser*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageZookeeperToAnimalJFrame().setVisible(true);
+                new ManageZookeeperToAnimalJFrame(thisFrame).setVisible(true);
             }
         });  // TODO add your handling code here:
     }//GEN-LAST:event_jButtonManageTakesCareActionPerformed
@@ -313,7 +311,7 @@ public class HomepageJFrame extends javax.swing.JFrame {
         /* Create and display the JFrame MangeUser*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageFoodToAnimalJFrame().setVisible(true);
+                new ManageFoodToAnimalJFrame(thisFrame).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButtonManageEatsActionPerformed

@@ -18,15 +18,12 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     /**
      * Creates new form ManageUserJFrame
      */
-    
-    
-    public ManageFoodToAnimalJFrame() {
+    public ManageFoodToAnimalJFrame(JFrame goBackFrame) {
+        
         initComponents();
+        this.goBackFrame = goBackFrame;
         myInitComponents();
-    
     }
-    
-    
     
      public void myInitComponents(){
         updateButtonsAndLabels();
@@ -34,7 +31,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         methods.showTimeAndDate(jLabelShowDateTime);
         //this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
     }
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -494,25 +490,25 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
-        // TODO GO BACK TO MAIN MENU OF ADMIN
+        
+        goBackFrame.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
         
-     
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
 
     private void jRadioButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonUpdateActionPerformed
         
-     
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonUpdateActionPerformed
 
     
     private void jRadioButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDeleteActionPerformed
         
-    
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonDeleteActionPerformed
 
@@ -557,11 +553,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
      */
     private void updateButtonsAndLabels(){
         
-        
-       
             System.out.println("FoodToAnimal Mode");
-           
-             
+
             if (jRadioButtonAdd.isSelected()){
                 System.out.println("    Add mode");
                 jLabelUpdateDelete.setText(" ");
@@ -577,9 +570,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 jLabelSearch.setEnabled(false);
                 jButtonSearch.setEnabled(false);
           
-                
-                
-               
             } else if (jRadioButtonUpdate.isSelected()){
                 System.out.println("    Update mode");
                
@@ -596,8 +586,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 jButtonSearch.setEnabled(true);
                 jLabelAnimalID.setEnabled(true); 
                 jLabelDateTimeID.setEnabled(true); 
-                
-                
+                    
             } else if (jRadioButtonDelete.isSelected()){
                 System.out.println("    Delete mode");
                 
@@ -618,11 +607,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             }
                  
     }
-    
-    
-    
-    
-    
+
     /**
      * @param args the command line arguments
      */
@@ -652,7 +637,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageFoodToAnimalJFrame().setVisible(true);
+                new ManageFoodToAnimalJFrame(null).setVisible(true);
             }
         });
     }
@@ -702,4 +687,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldFoodName;
     private javax.swing.JTextField jTextFieldStartFeedingTime;
     // End of variables declaration//GEN-END:variables
+
+    private javax.swing.JFrame goBackFrame;
 }
