@@ -12,23 +12,23 @@ import javax.swing.JOptionPane;
  *
  * @author oLLii
  */
-public class ZeitJFrame extends javax.swing.JFrame {
+public class ChooseAnimalJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form ZeitjFrame
+     * Creates new form TiernamejFrame
      */
-    public ZeitJFrame() {
+    public ChooseAnimalJFrame() {
         initComponents();
         myInitComponents();
     }
-    
-    public void myInitComponents(){
+
+     public void myInitComponents(){
         
         Methods methods = new Methods();    
         methods.showTimeAndDate(jLabelShowDateTime);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
     }
-
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,21 +39,21 @@ public class ZeitJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPaneAnimalTable = new javax.swing.JScrollPane();
-        jTableZeit = new javax.swing.JTable();
-        jLabelZeit = new javax.swing.JLabel();
+        jTableAninmalData = new javax.swing.JTable();
+        jLabelAnimal = new javax.swing.JLabel();
         jLabelShowDateTime = new javax.swing.JLabel();
-        jButtonZurueck = new javax.swing.JButton();
+        jButtonBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jScrollPaneAnimalTable.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        jTableZeit.setModel(new javax.swing.table.DefaultTableModel(
+        jTableAninmalData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tiername", "Gehegename", "Futter"
+                "Fütterungszeit", "Gehegename", "Futter"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -64,56 +64,62 @@ public class ZeitJFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableZeit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTableZeit.getTableHeader().setReorderingAllowed(false);
-        jScrollPaneAnimalTable.setViewportView(jTableZeit);
+        jTableAninmalData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTableAninmalData.getTableHeader().setReorderingAllowed(false);
+        jScrollPaneAnimalTable.setViewportView(jTableAninmalData);
 
-        jLabelZeit.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelZeit.setText("Fütterungseit");
+        jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelAnimal.setText("Tiername");
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelShowDateTime.setText("TIME");
 
-        jButtonZurueck.setText("Zurück");
+        jButtonBack.setText("Zurück");
+        jButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(73, 73, 73)
-                                .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(266, 266, 266)
-                                .addComponent(jLabelZeit)))
-                        .addGap(0, 54, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButtonZurueck)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelShowDateTime)))
+                .addContainerGap()
+                .addComponent(jButtonBack)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelShowDateTime)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 97, Short.MAX_VALUE)
+                .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(95, 95, 95))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(282, 282, 282)
+                .addComponent(jLabelAnimal)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelShowDateTime)
-                    .addComponent(jButtonZurueck))
-                .addGap(7, 7, 7)
-                .addComponent(jLabelZeit)
-                .addGap(18, 18, 18)
+                    .addComponent(jButtonBack))
+                .addGap(33, 33, 33)
+                .addComponent(jLabelAnimal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,30 +138,32 @@ public class ZeitJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ZeitJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseAnimalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ZeitJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseAnimalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ZeitJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseAnimalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ZeitJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseAnimalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ZeitJFrame().setVisible(true);
+                new ChooseAnimalJFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonZurueck;
+    private javax.swing.JButton jButtonBack;
+    private javax.swing.JLabel jLabelAnimal;
     private javax.swing.JLabel jLabelShowDateTime;
-    private javax.swing.JLabel jLabelZeit;
     private javax.swing.JScrollPane jScrollPaneAnimalTable;
-    private javax.swing.JTable jTableZeit;
+    private javax.swing.JTable jTableAninmalData;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,23 +12,23 @@ import javax.swing.JOptionPane;
  *
  * @author oLLii
  */
-public class TiernameJFrame extends javax.swing.JFrame {
+public class ChooseTimeJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form TiernamejFrame
+     * Creates new form ZeitjFrame
      */
-    public TiernameJFrame() {
+    public ChooseTimeJFrame() {
         initComponents();
         myInitComponents();
     }
-
-     public void myInitComponents(){
+    
+    public void myInitComponents(){
         
         Methods methods = new Methods();    
         methods.showTimeAndDate(jLabelShowDateTime);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
     }
-     
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,21 +39,21 @@ public class TiernameJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPaneAnimalTable = new javax.swing.JScrollPane();
-        jTableTiername = new javax.swing.JTable();
-        jLabelTiername = new javax.swing.JLabel();
+        jTableTimeData = new javax.swing.JTable();
+        jLabelTime = new javax.swing.JLabel();
         jLabelShowDateTime = new javax.swing.JLabel();
-        jButtonZurueck = new javax.swing.JButton();
+        jButtonBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jScrollPaneAnimalTable.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        jTableTiername.setModel(new javax.swing.table.DefaultTableModel(
+        jTableTimeData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Fütterungszeit", "Gehegename", "Futter"
+                "Tiername", "Gehegename", "Futter"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -64,49 +64,52 @@ public class TiernameJFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableTiername.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTableTiername.getTableHeader().setReorderingAllowed(false);
-        jScrollPaneAnimalTable.setViewportView(jTableTiername);
+        jTableTimeData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTableTimeData.getTableHeader().setReorderingAllowed(false);
+        jScrollPaneAnimalTable.setViewportView(jTableTimeData);
 
-        jLabelTiername.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelTiername.setText("Tiername");
+        jLabelTime.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelTime.setText("Fütterungszeit");
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelShowDateTime.setText("TIME");
 
-        jButtonZurueck.setText("Zurück");
+        jButtonBack.setText("Zurück");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButtonZurueck)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelShowDateTime)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(73, 73, 73)
+                                .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(266, 266, 266)
+                                .addComponent(jLabelTime)))
+                        .addGap(0, 54, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonBack)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelShowDateTime)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 97, Short.MAX_VALUE)
-                .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(282, 282, 282)
-                .addComponent(jLabelTiername)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelShowDateTime)
-                    .addComponent(jButtonZurueck))
-                .addGap(33, 33, 33)
-                .addComponent(jLabelTiername)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                    .addComponent(jButtonBack))
+                .addGap(7, 7, 7)
+                .addComponent(jLabelTime)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -129,30 +132,32 @@ public class TiernameJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TiernameJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseTimeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TiernameJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseTimeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TiernameJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseTimeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TiernameJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseTimeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TiernameJFrame().setVisible(true);
+                new ChooseTimeJFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonZurueck;
+    private javax.swing.JButton jButtonBack;
     private javax.swing.JLabel jLabelShowDateTime;
-    private javax.swing.JLabel jLabelTiername;
+    private javax.swing.JLabel jLabelTime;
     private javax.swing.JScrollPane jScrollPaneAnimalTable;
-    private javax.swing.JTable jTableTiername;
+    private javax.swing.JTable jTableTimeData;
     // End of variables declaration//GEN-END:variables
 }

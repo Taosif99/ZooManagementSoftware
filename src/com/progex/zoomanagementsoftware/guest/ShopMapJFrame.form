@@ -27,12 +27,12 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jButtonZurueck" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonBack" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="355" max="32767" attributes="0"/>
                       <Component id="jLabelShowDateTime" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabelLegende" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelLegend" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -46,10 +46,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelShowDateTime" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonZurueck" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonBack" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="287" max="32767" attributes="0"/>
-              <Component id="jLabelLegende" min="-2" max="-2" attributes="0"/>
+              <Component id="jLabelLegend" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -64,12 +64,12 @@
         <Property name="text" type="java.lang.String" value="TIME"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonZurueck">
+    <Component class="javax.swing.JButton" name="jButtonBack">
       <Properties>
         <Property name="text" type="java.lang.String" value="Zur&#xfc;ck"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelLegende">
+    <Component class="javax.swing.JLabel" name="jLabelLegend">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="12" style="0"/>

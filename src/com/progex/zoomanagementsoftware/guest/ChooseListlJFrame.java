@@ -12,12 +12,12 @@ import javax.swing.JOptionPane;
  *
  * @author oLLii
  */
-public class AuswahvonListelJFrame extends javax.swing.JFrame {
+public class ChooseListlJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form AuswahlJFrame
      */
-    public AuswahvonListelJFrame() {
+    public ChooseListlJFrame() {
         initComponents();
         myInitComponents();
     }
@@ -38,39 +38,39 @@ public class AuswahvonListelJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonZurueck = new javax.swing.JButton();
+        jButtonBack = new javax.swing.JButton();
         jLabelShowDateTime = new javax.swing.JLabel();
-        jLabelTiername = new javax.swing.JLabel();
-        jLabelZeit = new javax.swing.JLabel();
-        jLabelstatic = new javax.swing.JLabel();
-        jLabelGehege = new javax.swing.JLabel();
-        jLabelstatic1 = new javax.swing.JLabel();
-        jLabelFutter = new javax.swing.JLabel();
+        jLabelAnimal = new javax.swing.JLabel();
+        jLabelTime = new javax.swing.JLabel();
+        jLabelCompoundStatic = new javax.swing.JLabel();
+        jLabelCompound = new javax.swing.JLabel();
+        jLabelFeedStatic = new javax.swing.JLabel();
+        jLabelFeed = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButtonZurueck.setText("Zurück");
+        jButtonBack.setText("Zurück");
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelShowDateTime.setText("TIME");
 
-        jLabelTiername.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelTiername.setText("Tiername :");
+        jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelAnimal.setText("Tiername :");
 
-        jLabelZeit.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelZeit.setText("Zeit XX:XX -XX:XX");
+        jLabelTime.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelTime.setText("Zeit XX:XX -XX:XX");
 
-        jLabelstatic.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelstatic.setText("Gehege:");
+        jLabelCompoundStatic.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelCompoundStatic.setText("Gehege:");
 
-        jLabelGehege.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelGehege.setText("xxx Gehege");
+        jLabelCompound.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelCompound.setText("xxx Gehege");
 
-        jLabelstatic1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelstatic1.setText("Futter:");
+        jLabelFeedStatic.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelFeedStatic.setText("Futter:");
 
-        jLabelFutter.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelFutter.setText("xxx Futter");
+        jLabelFeed.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelFeed.setText("xxx Futter");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,21 +78,21 @@ public class AuswahvonListelJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonZurueck)
+                .addComponent(jButtonBack)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelShowDateTime)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(154, 154, 154)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelstatic1)
-                    .addComponent(jLabelstatic)
-                    .addComponent(jLabelTiername))
+                    .addComponent(jLabelFeedStatic)
+                    .addComponent(jLabelCompoundStatic)
+                    .addComponent(jLabelAnimal))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelZeit)
-                    .addComponent(jLabelGehege)
-                    .addComponent(jLabelFutter))
+                    .addComponent(jLabelTime)
+                    .addComponent(jLabelCompound)
+                    .addComponent(jLabelFeed))
                 .addContainerGap(174, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -100,20 +100,20 @@ public class AuswahvonListelJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonZurueck)
+                    .addComponent(jButtonBack)
                     .addComponent(jLabelShowDateTime))
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelTiername)
-                    .addComponent(jLabelZeit))
+                    .addComponent(jLabelAnimal)
+                    .addComponent(jLabelTime))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelstatic)
-                    .addComponent(jLabelGehege))
+                    .addComponent(jLabelCompoundStatic)
+                    .addComponent(jLabelCompound))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelstatic1)
-                    .addComponent(jLabelFutter))
+                    .addComponent(jLabelFeedStatic)
+                    .addComponent(jLabelFeed))
                 .addContainerGap(187, Short.MAX_VALUE))
         );
 
@@ -137,33 +137,35 @@ public class AuswahvonListelJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AuswahvonListelJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseListlJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AuswahvonListelJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseListlJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AuswahvonListelJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseListlJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AuswahvonListelJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseListlJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AuswahvonListelJFrame().setVisible(true);
+                new ChooseListlJFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonZurueck;
-    private javax.swing.JLabel jLabelFutter;
-    private javax.swing.JLabel jLabelGehege;
+    private javax.swing.JButton jButtonBack;
+    private javax.swing.JLabel jLabelAnimal;
+    private javax.swing.JLabel jLabelCompound;
+    private javax.swing.JLabel jLabelCompoundStatic;
+    private javax.swing.JLabel jLabelFeed;
+    private javax.swing.JLabel jLabelFeedStatic;
     private javax.swing.JLabel jLabelShowDateTime;
-    private javax.swing.JLabel jLabelTiername;
-    private javax.swing.JLabel jLabelZeit;
-    private javax.swing.JLabel jLabelstatic;
-    private javax.swing.JLabel jLabelstatic1;
+    private javax.swing.JLabel jLabelTime;
     // End of variables declaration//GEN-END:variables
 }

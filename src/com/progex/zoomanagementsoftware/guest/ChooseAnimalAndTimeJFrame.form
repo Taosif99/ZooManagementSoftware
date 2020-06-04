@@ -27,7 +27,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButtonZurueck" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonBack" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabelShowDateTime" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -35,16 +35,16 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelChoose" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="jLabelZeit" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabelTime" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="jComboZeit" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jComboTime" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Component id="jLabelName" min="-2" max="-2" attributes="0"/>
@@ -54,13 +54,13 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
-                                      <Component id="jButtonSuchen" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jButtonSearch" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                              <Component id="jLabelFindeHeraus" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelFindOut" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="0" pref="33" max="32767" attributes="0"/>
@@ -75,13 +75,13 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButtonZurueck" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonBack" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabelShowDateTime" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-              <Component id="jLabelFindeHeraus" min="-2" max="-2" attributes="0"/>
+              <Component id="jLabelFindOut" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <Component id="jLabelChoose" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelName" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -89,23 +89,23 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabelZeit" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jComboZeit" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jComboTime" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-              <Component id="jButtonSuchen" min="-2" max="-2" attributes="0"/>
+              <Component id="jButtonSearch" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="47" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButtonZurueck">
+    <Component class="javax.swing.JButton" name="jButtonBack">
       <Properties>
         <Property name="text" type="java.lang.String" value="Zur&#xfc;ck"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelFindeHeraus">
+    <Component class="javax.swing.JLabel" name="jLabelFindOut">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="1"/>
@@ -113,7 +113,7 @@
         <Property name="text" type="java.lang.String" value="Finde heraus wann welches Tier gef&#xfc;ttert wird"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="jLabelChoose">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="12" style="0"/>
@@ -129,7 +129,7 @@
         <Property name="text" type="java.lang.String" value="Tiername:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelZeit">
+    <Component class="javax.swing.JLabel" name="jLabelTime">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="12" style="0"/>
@@ -152,7 +152,7 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboZeit">
+    <Component class="javax.swing.JComboBox" name="jComboTime">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
@@ -167,12 +167,12 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonSuchen">
+    <Component class="javax.swing.JButton" name="jButtonSearch">
       <Properties>
         <Property name="text" type="java.lang.String" value="Suchen"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSuchenActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSearchActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelShowDateTime">

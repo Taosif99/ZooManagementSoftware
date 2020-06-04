@@ -12,12 +12,12 @@ import javax.swing.JOptionPane;
  *
  * @author oLLii
  */
-public class AuswahlTierZeitJFrame extends javax.swing.JFrame {
+public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form AuswahlTierZeitJFrame
      */
-    public AuswahlTierZeitJFrame() {
+    public ChooseAnimalAndTimeJFrame() {
         initComponents();
         myInitComponents();
     }
@@ -38,40 +38,40 @@ public class AuswahlTierZeitJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonZurueck = new javax.swing.JButton();
-        jLabelFindeHeraus = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jButtonBack = new javax.swing.JButton();
+        jLabelFindOut = new javax.swing.JLabel();
+        jLabelChoose = new javax.swing.JLabel();
         jLabelName = new javax.swing.JLabel();
-        jLabelZeit = new javax.swing.JLabel();
+        jLabelTime = new javax.swing.JLabel();
         jComboBoxName = new javax.swing.JComboBox<>();
-        jComboZeit = new javax.swing.JComboBox<>();
-        jButtonSuchen = new javax.swing.JButton();
+        jComboTime = new javax.swing.JComboBox<>();
+        jButtonSearch = new javax.swing.JButton();
         jLabelShowDateTime = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButtonZurueck.setText("Zurück");
+        jButtonBack.setText("Zurück");
 
-        jLabelFindeHeraus.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelFindeHeraus.setText("Finde heraus wann welches Tier gefüttert wird");
+        jLabelFindOut.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelFindOut.setText("Finde heraus wann welches Tier gefüttert wird");
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        jLabel1.setText("Bitte treffe mindestens eine Auswahl");
+        jLabelChoose.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        jLabelChoose.setText("Bitte treffe mindestens eine Auswahl");
 
         jLabelName.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jLabelName.setText("Tiername:");
 
-        jLabelZeit.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        jLabelZeit.setText("Fütterungszeit:");
+        jLabelTime.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        jLabelTime.setText("Fütterungszeit:");
 
         jComboBoxName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboZeit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButtonSuchen.setText("Suchen");
-        jButtonSuchen.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSearch.setText("Suchen");
+        jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSuchenActionPerformed(evt);
+                jButtonSearchActionPerformed(evt);
             }
         });
 
@@ -86,32 +86,32 @@ public class AuswahlTierZeitJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButtonZurueck)
+                        .addComponent(jButtonBack)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelShowDateTime))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(112, 112, 112)
-                                .addComponent(jLabel1))
+                                .addComponent(jLabelChoose))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(62, 62, 62)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabelZeit)
+                                            .addComponent(jLabelTime)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jComboZeit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jComboTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabelName)
                                             .addGap(80, 80, 80)
                                             .addComponent(jComboBoxName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(135, 135, 135)
-                                        .addComponent(jButtonSuchen))))
+                                        .addComponent(jButtonSearch))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(41, 41, 41)
-                                .addComponent(jLabelFindeHeraus)))
+                                .addComponent(jLabelFindOut)))
                         .addGap(0, 33, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -120,29 +120,29 @@ public class AuswahlTierZeitJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonZurueck)
+                    .addComponent(jButtonBack)
                     .addComponent(jLabelShowDateTime))
                 .addGap(39, 39, 39)
-                .addComponent(jLabelFindeHeraus)
+                .addComponent(jLabelFindOut)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addComponent(jLabelChoose)
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelName)
                     .addComponent(jComboBoxName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelZeit)
-                    .addComponent(jComboZeit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelTime)
+                    .addComponent(jComboTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addComponent(jButtonSuchen)
+                .addComponent(jButtonSearch)
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonSuchenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuchenActionPerformed
+    private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
         
         //wenn keine Eingabe
         JOptionPane.showMessageDialog(null, "Sie haben keine Fütterungszeit und kein Tier ausgewählt\n\nBitte treffen sie mindestens eine Auswahl","Fehlermeldung", JOptionPane.CANCEL_OPTION);
@@ -152,7 +152,7 @@ public class AuswahlTierZeitJFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Es finden keine Fütterungen um diese Uhrzeit heute statt \n\nVielleicht haben sie an einem anderen Tag mehr Glück :)","Schade", JOptionPane.CANCEL_OPTION); 
         //wenn Tier und Uhrzeit false
         JOptionPane.showMessageDialog(null, "Es finden keine Fütterungen für 'Tier' um  'Uhrzeit' heute statt!\n\nSuchen Sie nur nach dem Tier, um Verfügbare Uhrzeiten angezeigt zu bekommen","Schade", JOptionPane.CANCEL_OPTION);
-    }//GEN-LAST:event_jButtonSuchenActionPerformed
+    }//GEN-LAST:event_jButtonSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,33 +171,34 @@ public class AuswahlTierZeitJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AuswahlTierZeitJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseAnimalAndTimeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AuswahlTierZeitJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseAnimalAndTimeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AuswahlTierZeitJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseAnimalAndTimeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AuswahlTierZeitJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseAnimalAndTimeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AuswahlTierZeitJFrame().setVisible(true);
+                new ChooseAnimalAndTimeJFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonSuchen;
-    private javax.swing.JButton jButtonZurueck;
+    private javax.swing.JButton jButtonBack;
+    private javax.swing.JButton jButtonSearch;
     private javax.swing.JComboBox<String> jComboBoxName;
-    private javax.swing.JComboBox<String> jComboZeit;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelFindeHeraus;
+    private javax.swing.JComboBox<String> jComboTime;
+    private javax.swing.JLabel jLabelChoose;
+    private javax.swing.JLabel jLabelFindOut;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelShowDateTime;
-    private javax.swing.JLabel jLabelZeit;
+    private javax.swing.JLabel jLabelTime;
     // End of variables declaration//GEN-END:variables
 }

@@ -25,7 +25,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButtonZurueck" min="-2" max="-2" attributes="0"/>
+              <Component id="jButtonBack" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jLabelShowDateTime" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -33,15 +33,15 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="154" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jLabelstatic1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelstatic" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelTiername" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelFeedStatic" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelCompoundStatic" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelAnimal" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabelZeit" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelGehege" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelFutter" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelTime" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelCompound" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelFeed" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="174" max="32767" attributes="0"/>
           </Group>
@@ -52,23 +52,23 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButtonZurueck" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonBack" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabelShowDateTime" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabelTiername" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelZeit" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelAnimal" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelTime" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabelstatic" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelGehege" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelCompoundStatic" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelCompound" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabelstatic1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelFutter" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelFeedStatic" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelFeed" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="187" max="32767" attributes="0"/>
           </Group>
@@ -76,7 +76,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButtonZurueck">
+    <Component class="javax.swing.JButton" name="jButtonBack">
       <Properties>
         <Property name="text" type="java.lang.String" value="Zur&#xfc;ck"/>
       </Properties>
@@ -89,7 +89,7 @@
         <Property name="text" type="java.lang.String" value="TIME"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelTiername">
+    <Component class="javax.swing.JLabel" name="jLabelAnimal">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="1"/>
@@ -97,7 +97,7 @@
         <Property name="text" type="java.lang.String" value="Tiername :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelZeit">
+    <Component class="javax.swing.JLabel" name="jLabelTime">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="1"/>
@@ -105,7 +105,7 @@
         <Property name="text" type="java.lang.String" value="Zeit XX:XX -XX:XX"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelstatic">
+    <Component class="javax.swing.JLabel" name="jLabelCompoundStatic">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="1"/>
@@ -113,7 +113,7 @@
         <Property name="text" type="java.lang.String" value="Gehege:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelGehege">
+    <Component class="javax.swing.JLabel" name="jLabelCompound">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="1"/>
@@ -121,7 +121,7 @@
         <Property name="text" type="java.lang.String" value="xxx Gehege"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelstatic1">
+    <Component class="javax.swing.JLabel" name="jLabelFeedStatic">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="1"/>
@@ -129,7 +129,7 @@
         <Property name="text" type="java.lang.String" value="Futter:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelFutter">
+    <Component class="javax.swing.JLabel" name="jLabelFeed">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="1"/>
