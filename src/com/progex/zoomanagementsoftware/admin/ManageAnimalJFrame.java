@@ -167,7 +167,12 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButtonHelp.setText("HIlfe");
+        jButtonHelp.setText("Hilfe");
+        jButtonHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHelpActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelOperationLayout = new javax.swing.GroupLayout(jPanelOperation);
         jPanelOperation.setLayout(jPanelOperationLayout);
@@ -318,13 +323,13 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                     .addComponent(jTextFieldAnimalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelAnimalName))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelSex)
-                    .addComponent(jTextFieldSex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldSex, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDateOfBirth)
-                    .addComponent(jTextFieldDateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelDateOfBirth, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextFieldDateOfBirth, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelSpecies)
@@ -350,6 +355,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelID)
                     .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelSearch)
@@ -445,12 +451,34 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                                                        
     }//GEN-LAST:event_jButtonDeleteAnimalActionPerformed
 
+    private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
+        
+        String mode = updateButtonsAndLabels();
+        //System.out.println(mode); //Debug
+        
+        //Get the mode
+         switch(mode){
+        
+             case "add":
+                 JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+                 break;
+             
+             case "update":
+                 JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Tieres ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
+                 break;
+             case "delete":
+                 JOptionPane.showMessageDialog(null, "Bitte die ID des zu löschenden Tieres ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
+                 break;  
+         }
+    }//GEN-LAST:event_jButtonHelpActionPerformed
+
     
      /**
      * Method to disable/enable buttons and labels depending on
      *  operation selection.
+     * @return The mode as String, null if unknown mode
      */
-    private void updateButtonsAndLabels(){
+    private String updateButtonsAndLabels(){
          
         //TODO statt Textfeld UpdateDelete 
             System.out.println("Animal Mode");
@@ -467,12 +495,9 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 jButtonSearch.setEnabled(false);
                 jButtonAssignFeedingTimes.setEnabled(true);
                 jButtonAssignZookeeper.setEnabled(true);
-                
+                return "add";
             } else if (jRadioButtonUpdate.isSelected()){
                 System.out.println("    Update mode");
-               
-                //jLabelUpdateDelete.setText("Bitte die Daten des zu updatenden Tieres ausfüllen \n"
-                //        + "oder den Datensatz in der Tabelle anklicken und bearbeiten! ");
                 jButtonAddAnimal.setEnabled(false);
                 jButtonUpdateAnimal.setEnabled(true);
                 jButtonDeleteAnimal.setEnabled(false);
@@ -482,12 +507,9 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 jButtonSearch.setEnabled(true);
                 jButtonAssignFeedingTimes.setEnabled(true);
                 jButtonAssignZookeeper.setEnabled(true);   
-                
+                return "update";
             } else if (jRadioButtonDelete.isSelected()){
                 System.out.println("    Delete mode");
-                
-                //jLabelUpdateDelete.setText("Bitte die ID des zu löschenden Tieres ausfüllen \n"
-                //        + "oder den Datensatz in der Tabelle anklicken! ");
                 jButtonAddAnimal.setEnabled(false);
                 jButtonUpdateAnimal.setEnabled(false);
                 jButtonDeleteAnimal.setEnabled(true);
@@ -497,9 +519,10 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 jButtonSearch.setEnabled(true);
                 jButtonAssignFeedingTimes.setEnabled(false);
                 jButtonAssignZookeeper.setEnabled(false);
+                return "delete";
             }
                  
-        
+        return null;
     }
     
     
