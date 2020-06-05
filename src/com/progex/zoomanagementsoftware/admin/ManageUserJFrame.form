@@ -9,6 +9,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Benutzer Verwalten"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -34,12 +35,9 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButtonSearch" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
-                          <Component id="jLabelSearch" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jLabelSearch" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="485" max="-2" attributes="0"/>
@@ -139,7 +137,12 @@
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jButtonAnimalsToZookeeper" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jButtonSearch" min="-2" pref="141" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabelID" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
@@ -160,9 +163,9 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jButtonGoBack" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelShowDateTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelShowDateTime" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -186,9 +189,9 @@
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jComboBoxSalutation" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelSalutation" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelSalutation" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -209,11 +212,13 @@
                           <Component id="jLabelLastname" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jTextFieldStreet" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelUsername" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldUsername" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelStreet" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabelUsername" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldUsername" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelStreet" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -255,7 +260,10 @@
                   <Group type="102" attributes="0">
                       <Component id="jLabelSearch" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButtonSearch" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jButtonAnimalsToZookeeper" max="32767" attributes="0"/>
+                          <Component id="jButtonSearch" pref="35" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace pref="29" max="32767" attributes="0"/>
@@ -772,6 +780,14 @@
         </Property>
         <Property name="text" type="java.lang.String" value="TIME"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonAnimalsToZookeeper">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tierart um die sich gek&#xfc;mmert werden soll ?"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAnimalsToZookeeperActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

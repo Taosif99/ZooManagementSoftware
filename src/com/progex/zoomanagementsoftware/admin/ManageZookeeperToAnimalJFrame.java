@@ -114,7 +114,6 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         jLabelSelectZookeeper.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelSelectZookeeper.setText("Bitte Tierpfleger/-in auswählen");
 
-        jScrollTakesCareTable.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollTakesCareTable.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         jTableTakesCareData.setModel(new javax.swing.table.DefaultTableModel(
@@ -153,7 +152,6 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             }
         });
 
-        jScrollZookeeperTable.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollZookeeperTable.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         jTableZookeeperData.setModel(new javax.swing.table.DefaultTableModel(

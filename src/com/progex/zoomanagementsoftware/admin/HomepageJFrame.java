@@ -129,7 +129,6 @@ public class HomepageJFrame extends javax.swing.JFrame {
         jLabelLastLogins.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelLastLogins.setText("Letzte Zugriffe:");
 
-        jScrollPaneLastLoginAdminsTable.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPaneLastLoginAdminsTable.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         jTableLastLoginAdminsData.setModel(new javax.swing.table.DefaultTableModel(
@@ -245,7 +244,7 @@ public class HomepageJFrame extends javax.swing.JFrame {
         /* Create and display the JFrame MangeUser*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageUserJFrameOld(thisFrame).setVisible(true);
+                new ManageUserJFrame(thisFrame).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButtonManageUserActionPerformed
@@ -294,10 +293,8 @@ public class HomepageJFrame extends javax.swing.JFrame {
     private void jButtonManageTakesCareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageTakesCareActionPerformed
         
         this.setVisible(false);
-        
-        
         JFrame thisFrame = this; 
-        /* Create and display the JFrame MangeUser*/
+        /* Create and display the JFrame MangeZookeeperToAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ManageZookeeperToAnimalJFrame(thisFrame).setVisible(true);

@@ -8,7 +8,7 @@ package com.progex.zoomanagementsoftware.admin;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.table.TableColumnModel;
+//import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -23,7 +23,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     public ManageUserJFrame(JFrame goBackFrame) {
         initComponents();
         this.goBackFrame = goBackFrame;
-        
         myInitComponents();
     }
     
@@ -37,13 +36,16 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         methods.showTimeAndDate(jLabelShowDateTime);  
         
         //Initialize table
+        /* Example how to adjust a table column with for implementation phase...
         TableColumnModel columnModel = jTableUserData.getColumnModel();
-        
+    
         columnModel.getColumn(0).setPreferredWidth(180);
         columnModel.getColumn(1).setPreferredWidth(180);
         columnModel.getColumn(2).setPreferredWidth(180);
         columnModel.getColumn(3).setPreferredWidth(180);
-    }
+        
+        */
+     }
     
     
     /**
@@ -105,8 +107,10 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jLabelSearch = new javax.swing.JLabel();
         jButtonSearch = new javax.swing.JButton();
         jLabelShowDateTime = new javax.swing.JLabel();
+        jButtonAnimalsToZookeeper = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Benutzer Verwalten");
         setResizable(false);
 
         jLabelID.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -343,6 +347,13 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelShowDateTime.setText("TIME");
 
+        jButtonAnimalsToZookeeper.setText("Tierart um die sich gekümmert werden soll ?");
+        jButtonAnimalsToZookeeper.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnimalsToZookeeperActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -351,9 +362,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelSearch, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addComponent(jLabelSearch))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -431,7 +440,11 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                         .addContainerGap()
                                         .addComponent(jButtonGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButtonAnimalsToZookeeper)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelID)
                                 .addGap(30, 30, 30)
@@ -446,7 +459,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonGoBack)
                             .addComponent(jLabelShowDateTime))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -467,8 +480,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jRadioButtonZookeeper)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxSalutation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxSalutation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelSalutation))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -485,11 +498,12 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                             .addComponent(jComboBoxShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelLastname))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldStreet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelUsername)
-                            .addComponent(jTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelStreet))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelUsername)
+                                .addComponent(jTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelStreet)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelZIP)
@@ -523,7 +537,9 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonAnimalsToZookeeper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -674,10 +690,26 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonUpdateUserActionPerformed
 
+    private void jButtonAnimalsToZookeeperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnimalsToZookeeperActionPerformed
+        
+        //TODO IN IMPLEMENTATION PHASE:
+        //GETTING ID OF INSERTED USER AND PASS IT TO THE MANAGEZOOKEEPERTOANIMAL JFRAME
+        this.setVisible(false);
+        JFrame thisFrame = this; 
+        /* Create and display the JFrame MangeZookeeperToAnimal*/
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ManageZookeeperToAnimalJFrame(thisFrame).setVisible(true);
+            }
+        });
+        
+    }//GEN-LAST:event_jButtonAnimalsToZookeeperActionPerformed
+
     
     /**
      * Method to disable/enable buttons depending user/zookeeper mode
      * and operation selection.
+     *@return The mode as String, null if unknown mode
      */
     private String updateButtonsAndLabels(){
         
@@ -686,7 +718,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             System.out.println("Admin Mode");
              jComboBoxShift.setEnabled(false);
              jLabelShift.setEnabled(false);
-            if (jRadioButtonAdd.isSelected()){
+             jButtonAnimalsToZookeeper.setEnabled(false);
+             if (jRadioButtonAdd.isSelected()){
                 System.out.println("    Add mode");
                 
                 jButtonAddUser.setEnabled(true);
@@ -737,7 +770,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
              
             if (jRadioButtonAdd.isSelected()){
                 System.out.println("    Add mode");
-                
+                jButtonAnimalsToZookeeper.setEnabled(true);
                 jButtonAddUser.setEnabled(true);
                 jButtonUpdateUser.setEnabled(false);
                 jButtonDeleteUser.setEnabled(false);
@@ -750,7 +783,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 return "Add zookeeper";
             } else if (jRadioButtonUpdate.isSelected()){
                 System.out.println("    Update mode");
-                
+                jButtonAnimalsToZookeeper.setEnabled(true);
                 jButtonAddUser.setEnabled(false);
                 jButtonUpdateUser.setEnabled(true);
                 jButtonDeleteUser.setEnabled(false);
@@ -763,7 +796,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 
             } else if (jRadioButtonDelete.isSelected()){
                 System.out.println("    Delete mode");
-                
+                jButtonAnimalsToZookeeper.setEnabled(false);
                 jButtonAddUser.setEnabled(false);
                 jButtonUpdateUser.setEnabled(false);
                 jButtonDeleteUser.setEnabled(true);
@@ -826,6 +859,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroupOperation;
     private javax.swing.ButtonGroup buttonGroupUserType;
     private javax.swing.JButton jButtonAddUser;
+    private javax.swing.JButton jButtonAnimalsToZookeeper;
     private javax.swing.JButton jButtonDeleteUser;
     private javax.swing.JButton jButtonGoBack;
     private javax.swing.JButton jButtonHelp;
