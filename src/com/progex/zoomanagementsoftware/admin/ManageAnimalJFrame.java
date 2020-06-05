@@ -167,7 +167,12 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButtonHelp.setText("HIlfe");
+        jButtonHelp.setText("Hilfe");
+        jButtonHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHelpActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelOperationLayout = new javax.swing.GroupLayout(jPanelOperation);
         jPanelOperation.setLayout(jPanelOperationLayout);
@@ -408,11 +413,33 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonAssignFeedingTimesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssignFeedingTimesActionPerformed
-        // TODO GO TO FeedingTime FORM
+        // GO TO FeedingTime FORM
+         this.setVisible(false);
+        
+        
+        JFrame thisFrame = this; 
+        /* Create and display the JFrame FoodToAnimal*/
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ManageFoodToAnimalJFrame(thisFrame).setVisible(true);
+            }
+        });
     }//GEN-LAST:event_jButtonAssignFeedingTimesActionPerformed
 
     private void jButtonAssignZookeeperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssignZookeeperActionPerformed
-        // TODO GOTO Relationship between Animal and Zookeeper FORM
+        //  GOTO Relationship between Animal and Zookeeper FORM
+         this.setVisible(false);
+        
+        
+        JFrame thisFrame = this; 
+        /* Create and display the JFrame MangeUser*/
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ManageZookeeperToAnimalJFrame(thisFrame).setVisible(true);
+            }
+        });
+        
+        
     }//GEN-LAST:event_jButtonAssignZookeeperActionPerformed
 
     private void jButtonUpdateAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateAnimalActionPerformed

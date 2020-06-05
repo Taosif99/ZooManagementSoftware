@@ -181,6 +181,11 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
         jButtonAddFood.setText("Hinzufügen");
         jButtonAddFood.setPreferredSize(new java.awt.Dimension(73, 23));
+        jButtonAddFood.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddFoodActionPerformed(evt);
+            }
+        });
 
         jButtonDeleteFood.setText("Löschen");
         jButtonDeleteFood.setPreferredSize(new java.awt.Dimension(73, 23));
@@ -340,10 +345,10 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         System.out.println(decision);
 
         //Falls Fehler beim Löschen
-        JOptionPane.showMessageDialog(null, "Gehege konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+        JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
         
         //Falls Löschen erfolgreich, pfeil wäre besser
-        JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButtonDeleteFoodActionPerformed
 
     private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
@@ -363,6 +368,15 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             break;
         }
     }//GEN-LAST:event_jButtonHelpActionPerformed
+
+    private void jButtonAddFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddFoodActionPerformed
+        
+         //Falls Fehler beim Einfügen
+         JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+        
+         //Falls Einfügen erfolgreich, Pfeil wäre besser
+         JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButtonAddFoodActionPerformed
     
     /**
      * Method to disable/enable buttons and labels depending on

@@ -377,8 +377,11 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonHelp">
           <Properties>
-            <Property name="text" type="java.lang.String" value="HIlfe"/>
+            <Property name="text" type="java.lang.String" value="Hilfe"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonHelpActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
