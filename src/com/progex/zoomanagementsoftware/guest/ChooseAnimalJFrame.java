@@ -5,6 +5,7 @@
  */
 package com.progex.zoomanagementsoftware.guest;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -18,6 +19,16 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
      * Creates new form TiernamejFrame
      */
     public ChooseAnimalJFrame() {
+        
+        setUndecorated(true);
+        setAlwaysOnTop(true);
+        setResizable(false);
+        setVisible(true);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int x =(int)tk.getScreenSize().getWidth();
+        int y =(int)tk.getScreenSize().getHeight();
+        setSize(x,y);
+        
         initComponents();
         myInitComponents();
     }
@@ -113,12 +124,16 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
         // TODO add your handling code here:
+        
+        this.toBack();
+        this.setVisible(false);
+        
+        new ChooseAnimalAndTimeJFrame().toFront();
+        new ChooseAnimalJFrame().setState(java.awt.Frame.NORMAL);
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     /**

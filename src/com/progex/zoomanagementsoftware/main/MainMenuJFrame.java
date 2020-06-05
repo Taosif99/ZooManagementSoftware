@@ -5,6 +5,8 @@
  */
 package com.progex.zoomanagementsoftware.main;
 
+
+import com.progex.zoomanagementsoftware.guest.ChooseAnimalAndTimeJFrame;
 import javax.swing.JFrame;
 
 /**
@@ -54,6 +56,11 @@ public class MainMenuJFrame extends javax.swing.JFrame {
 
         jButtonGuestFeedingTime.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonGuestFeedingTime.setText("Fütterungszeit");
+        jButtonGuestFeedingTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuestFeedingTimeActionPerformed(evt);
+            }
+        });
 
         jButtonShowMap.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonShowMap.setText("Karte anzeigen");
@@ -125,6 +132,15 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
         
     }//GEN-LAST:event_jButtonShowMapActionPerformed
+
+    private void jButtonGuestFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuestFeedingTimeActionPerformed
+        // TODO add your handling code here:
+        this.toBack();
+        this.setVisible(false);
+        
+        new ChooseAnimalAndTimeJFrame().toFront();
+        new ChooseAnimalAndTimeJFrame().setState(java.awt.Frame.NORMAL);
+    }//GEN-LAST:event_jButtonGuestFeedingTimeActionPerformed
 
     
     /**

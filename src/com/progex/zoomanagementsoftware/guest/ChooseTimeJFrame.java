@@ -5,6 +5,7 @@
  */
 package com.progex.zoomanagementsoftware.guest;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -18,6 +19,15 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
      * Creates new form ZeitjFrame
      */
     public ChooseTimeJFrame() {
+        setUndecorated(true);
+        setAlwaysOnTop(true);
+        setResizable(false);
+        setVisible(true);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int x =(int)tk.getScreenSize().getWidth();
+        int y =(int)tk.getScreenSize().getHeight();
+        setSize(x,y);
+        
         initComponents();
         myInitComponents();
     }
@@ -75,6 +85,11 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
         jLabelShowDateTime.setText("TIME");
 
         jButtonBack.setText("Zurück");
+        jButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,9 +126,17 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(44, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
+        // TODO add your handling code here:
+        
+         this.toBack();
+        this.setVisible(false);
+        
+        new ChooseAnimalAndTimeJFrame().toFront();
+        new ChooseAnimalAndTimeJFrame().setState(java.awt.Frame.NORMAL);
+    }//GEN-LAST:event_jButtonBackActionPerformed
 
     /**
      * @param args the command line arguments

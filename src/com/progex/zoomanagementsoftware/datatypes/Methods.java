@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.Timer;
 import javax.swing.JLabel;
+import java.awt.Toolkit;
 
 /**
  *
@@ -52,4 +53,11 @@ public class Methods {
             }
         }).start();
     }
+        
+        public void fullscreen()  {
+            
+            
+            
+            
+        }  
 }

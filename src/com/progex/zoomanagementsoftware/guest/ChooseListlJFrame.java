@@ -5,6 +5,7 @@
  */
 package com.progex.zoomanagementsoftware.guest;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -18,6 +19,16 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
      * Creates new form AuswahlJFrame
      */
     public ChooseListlJFrame() {
+        
+        setUndecorated(true);
+        setAlwaysOnTop(true);
+        setResizable(false);
+        setVisible(true);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int x =(int)tk.getScreenSize().getWidth();
+        int y =(int)tk.getScreenSize().getHeight();
+        setSize(x,y);
+        
         initComponents();
         myInitComponents();
     }
@@ -116,8 +127,6 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
                     .addComponent(jLabelFeed))
                 .addContainerGap(187, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     /**
