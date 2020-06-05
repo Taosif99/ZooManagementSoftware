@@ -7,6 +7,7 @@ package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -66,7 +67,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         jButtonDeleteFood = new javax.swing.JButton();
         jLabelZookeeperID = new javax.swing.JLabel();
         jTextFieldUserID = new javax.swing.JTextField();
-        jLabelDelete = new javax.swing.JLabel();
+        jButtonHelp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tierpfleger/-in zu Tier Zuweisung hinzufügen");
@@ -179,8 +180,10 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         jLabelAskAnimalName.setText("Bitte Tiernamen eingeben");
 
         jButtonAddFood.setText("Hinzufügen");
+        jButtonAddFood.setPreferredSize(new java.awt.Dimension(73, 23));
 
         jButtonDeleteFood.setText("Löschen");
+        jButtonDeleteFood.setPreferredSize(new java.awt.Dimension(73, 23));
         jButtonDeleteFood.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeleteFoodActionPerformed(evt);
@@ -190,23 +193,21 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         jLabelZookeeperID.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelZookeeperID.setText("BenutzerID");
 
-        jLabelDelete.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabelDelete.setText("DeleteText");
+        jButtonHelp.setText("Hilfe");
+        jButtonHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHelpActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonGoBack)
-                        .addGap(443, 443, 443)
-                        .addComponent(jLabelShowDateTime)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
+                        .addContainerGap(108, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jButtonSearchZookeeper)
@@ -226,13 +227,23 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                                 .addComponent(jLabelAskAnimalName)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextFieldAnimalName, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButtonAddFood, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonAddFood, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelOperation)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonDeleteFood, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabelOperation)
-                            .addComponent(jRadioButtonAdd))
-                        .addGap(61, 61, 61)
+                                .addComponent(jButtonHelp))
+                            .addComponent(jRadioButtonAdd)
+                            .addComponent(jButtonDeleteFood, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(137, 137, 137))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonGoBack)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelShowDateTime)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelZookeeperID)
@@ -241,26 +252,27 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jScrollTakesCareTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jButtonSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabelSearch, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(jLabelDelete))
-                        .addGap(29, 29, 29))))
+                                .addComponent(jLabelSearch, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addContainerGap(81, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGoBack)
-                    .addComponent(jLabelShowDateTime))
-                .addGap(36, 36, 36)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelShowDateTime)
+                    .addComponent(jButtonGoBack))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelOperation)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelOperation)
+                            .addComponent(jButtonHelp))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioButtonAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioButtonDelete)
-                        .addGap(48, 48, 48)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelZookeeperFirstName)
                             .addComponent(jTextFieldZookeepeFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -278,26 +290,25 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelAskAnimalName)
                             .addComponent(jTextFieldAnimalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonAddFood, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonDeleteFood, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelDelete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonAddFood, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonDeleteFood, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelZookeeperID)
                             .addComponent(jTextFieldUserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollTakesCareTable, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(1, 1, 1)
                         .addComponent(jLabelSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
@@ -322,14 +333,42 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonDeleteFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteFoodActionPerformed
-        // TODO add your handling code here:
+        
+        int decision = JOptionPane.showConfirmDialog(null, "Sind Sie sicher?", "Löschbestätigung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                  
+        //OK = 0, cancel =2
+        System.out.println(decision);
+
+        //Falls Fehler beim Löschen
+        JOptionPane.showMessageDialog(null, "Gehege konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+        
+        //Falls Löschen erfolgreich, pfeil wäre besser
+        JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButtonDeleteFoodActionPerformed
+
+    private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
+
+        String mode = updateButtonsAndLabels();
+        //System.out.println(mode); //Debug
+
+        //Get the mode
+        switch(mode){
+
+            case "add":
+            JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+            break;
+
+            case "delete":
+            JOptionPane.showMessageDialog(null, "Bitte die ID des Benutzers und den Tiernamen ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
+            break;
+        }
+    }//GEN-LAST:event_jButtonHelpActionPerformed
     
     /**
      * Method to disable/enable buttons and labels depending on
      * operation selection.
      */
-    private void updateButtonsAndLabels(){
+    private String updateButtonsAndLabels(){
         
         //\n bei den update texten funktioniert nicht, dadurch verschiebt sich
         //das Fenster
@@ -337,28 +376,30 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
    
             if (jRadioButtonAdd.isSelected()){
                 System.out.println("    Add mode");
-                jLabelDelete.setText("");
                 jButtonAddFood.setEnabled(true);
                 jButtonDeleteFood.setEnabled(false);
                 jTextFieldUserID.setEnabled(false);
                 jLabelZookeeperID.setEnabled(false);
                 jLabelSearch.setEnabled(false);
                 jButtonSearch.setEnabled(false);
+                
+                return "add";
            
             } else if (jRadioButtonDelete.isSelected()){
                 
                 System.out.println("    Delete mode");
                 
-                jLabelDelete.setText("Bitte die ID des Benutzers und den Tiernamen ausfüllen"
-                        + "oder den\nDatensatz in der Tabelle anklicken! ");
-                //jLabelUpdateDelete.setText("");
                 jButtonAddFood.setEnabled(false);
                 jButtonDeleteFood.setEnabled(true);
                 jTextFieldUserID.setEnabled(true);
                 jLabelZookeeperID.setEnabled(true);
                 jLabelSearch.setEnabled(true);
                 jButtonSearch.setEnabled(true);
+                
+                return "delete";
             }
+            
+            return null;
     }
     /**
      * @param args the command line arguments
@@ -401,10 +442,10 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAddFood;
     private javax.swing.JButton jButtonDeleteFood;
     private javax.swing.JButton jButtonGoBack;
+    private javax.swing.JButton jButtonHelp;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtonSearchZookeeper;
     private javax.swing.JLabel jLabelAskAnimalName;
-    private javax.swing.JLabel jLabelDelete;
     private javax.swing.JLabel jLabelOperation;
     private javax.swing.JLabel jLabelSearch;
     private javax.swing.JLabel jLabelSelectZookeeper;

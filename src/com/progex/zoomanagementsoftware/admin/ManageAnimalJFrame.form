@@ -111,12 +111,12 @@
                   <Component id="jLabelAnimalName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabelSex" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldSex" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabelDateOfBirth" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldDateOfBirth" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>

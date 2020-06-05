@@ -7,6 +7,7 @@ package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -52,6 +53,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         jRadioButtonAdd = new javax.swing.JRadioButton();
         jRadioButtonUpdate = new javax.swing.JRadioButton();
         jRadioButtonDelete = new javax.swing.JRadioButton();
+        jButtonHelp = new javax.swing.JButton();
         jLabelStockRoomNumber = new javax.swing.JLabel();
         jLabelStock = new javax.swing.JLabel();
         jTextFieldStock = new javax.swing.JTextField();
@@ -63,7 +65,6 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         jLabelShowDateTime = new javax.swing.JLabel();
         jLabelID = new javax.swing.JLabel();
         jTextFieldID = new javax.swing.JTextField();
-        jLabelUpdateDelete = new javax.swing.JLabel();
         jButtonSearch = new javax.swing.JButton();
         jLabelSearch = new javax.swing.JLabel();
         jRadioButtonKg = new javax.swing.JRadioButton();
@@ -74,7 +75,6 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Futter verwalten");
-        setPreferredSize(new java.awt.Dimension(1280, 600));
         setResizable(false);
 
         jButtonGoBack.setText("Zurück");
@@ -118,6 +118,13 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButtonHelp.setText("Hilfe");
+        jButtonHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHelpActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelOperationLayout = new javax.swing.GroupLayout(jPanelOperation);
         jPanelOperation.setLayout(jPanelOperationLayout);
         jPanelOperationLayout.setHorizontalGroup(
@@ -127,15 +134,20 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                 .addGroup(jPanelOperationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButtonDelete)
                     .addComponent(jRadioButtonUpdate)
-                    .addComponent(jLabelOperation)
+                    .addGroup(jPanelOperationLayout.createSequentialGroup()
+                        .addComponent(jLabelOperation)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonHelp))
                     .addComponent(jRadioButtonAdd))
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanelOperationLayout.setVerticalGroup(
             jPanelOperationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOperationLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelOperation)
+                .addGap(0, 0, 0)
+                .addGroup(jPanelOperationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelOperation)
+                    .addComponent(jButtonHelp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRadioButtonAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -152,6 +164,12 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         jLabelStock.setText("Menge");
 
         jButtonAddFood.setText("Hinzufügen");
+        jButtonAddFood.setPreferredSize(new java.awt.Dimension(73, 23));
+        jButtonAddFood.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddFoodActionPerformed(evt);
+            }
+        });
 
         jButtonUpdateFood.setText("Updaten");
         jButtonUpdateFood.addActionListener(new java.awt.event.ActionListener() {
@@ -161,6 +179,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         });
 
         jButtonDeleteFood.setText("Löschen");
+        jButtonDeleteFood.setPreferredSize(new java.awt.Dimension(73, 23));
         jButtonDeleteFood.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeleteFoodActionPerformed(evt);
@@ -194,9 +213,6 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
         jLabelID.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelID.setText("ID");
-
-        jLabelUpdateDelete.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabelUpdateDelete.setText("UpdateAndDeleteText");
 
         jButtonSearch.setText("Suche");
         jButtonSearch.setMaximumSize(new java.awt.Dimension(73, 23));
@@ -234,81 +250,77 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonGoBack)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                        .addGap(110, 110, 110)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanelOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelStockRoomNumber)
-                                    .addComponent(jLabelStock))
-                                .addGap(22, 22, 22)
+                                .addGap(19, 19, 19)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextFieldStock, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jRadioButtonKg)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jRadioButtonGramm))
-                                    .addComponent(jTextStockRoomNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jButtonAddFood, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonUpdateFood, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonDeleteFood, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabellFoodName)
-                                .addGap(56, 56, 56)
-                                .addComponent(jTextFieldFoodName, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(79, 79, 79)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabelStockRoomNumber)
+                                            .addComponent(jLabelStock))
+                                        .addGap(22, 22, 22)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jTextFieldStock, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jRadioButtonKg)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jRadioButtonGramm))
+                                            .addComponent(jTextStockRoomNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jButtonAddFood, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButtonUpdateFood, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButtonDeleteFood, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabellFoodName)
+                                        .addGap(56, 56, 56)
+                                        .addComponent(jTextFieldFoodName, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonGoBack)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelShowDateTime)
-                    .addComponent(jLabelUpdateDelete)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jScrollPaneFoodTable, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabelSearch))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelID)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jRadioButtonKgTable)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButtonGrammTable)
-                                .addGap(73, 73, 73)))))
-                .addContainerGap(319, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPaneFoodTable, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelSearch))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabelID)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jRadioButtonKgTable)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jRadioButtonGrammTable)
+                            .addGap(73, 73, 73))))
+                .addGap(131, 131, 131))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonGoBack)
+                    .addComponent(jLabelShowDateTime))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelShowDateTime)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelUpdateDelete)
-                        .addGap(11, 11, 11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelID)
                             .addComponent(jRadioButtonKgTable)
                             .addComponent(jRadioButtonGrammTable))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPaneFoodTable, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelSearch)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPaneFoodTable, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonGoBack)
-                        .addGap(26, 26, 26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanelOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -330,7 +342,11 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                         .addComponent(jButtonUpdateFood, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonDeleteFood, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelSearch)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -360,11 +376,28 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonDeleteActionPerformed
 
     private void jButtonUpdateFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateFoodActionPerformed
-        // TODO add your handling code here:
+        
+         //Falls Fehler beim Updaten
+         JOptionPane.showMessageDialog(null, "Futter konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+        
+         //Falls Updaten erfolgreich, pfeil wäre besser
+         JOptionPane.showMessageDialog(null, "Futter wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButtonUpdateFoodActionPerformed
 
     private void jButtonDeleteFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteFoodActionPerformed
-        // TODO add your handling code here:
+        
+        int decision = JOptionPane.showConfirmDialog(null, "Sind Sie sicher?", "Löschbestätigung",
+        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        //OK = 0, cancel =2
+        System.out.println(decision);
+        
+        //Falls Fehler beim Löschen
+        JOptionPane.showMessageDialog(null, "Futter konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+        
+        //Falls Löschen erfolgreich, pfeil wäre besser
+        JOptionPane.showMessageDialog(null, "Futter wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+        
+
     }//GEN-LAST:event_jButtonDeleteFoodActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
@@ -375,19 +408,49 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonKgTableActionPerformed
 
+    private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
+
+        String mode = updateButtonsAndLabels();
+        //System.out.println(mode); //Debug
+
+        //Get the mode
+        switch(mode){
+
+            case "add":
+            JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+            break;
+
+            case "update":
+            JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Futters ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
+            break;
+            
+            case "delete":
+            JOptionPane.showMessageDialog(null, "Bitte die ID des zu löschenden Futters ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
+            break;
+        }
+    }//GEN-LAST:event_jButtonHelpActionPerformed
+
+    private void jButtonAddFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddFoodActionPerformed
+        
+          //Falls Fehler beim Einfügen
+         JOptionPane.showMessageDialog(null, "Futter konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+        
+         //Falls Einfügen erfolgreich, Pfeil wäre besser
+         JOptionPane.showMessageDialog(null, "Futter konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButtonAddFoodActionPerformed
+
      /**
      * Method to disable/enable buttons and labels depending on
      * operation selection.
      */
-    private void updateButtonsAndLabels(){
+    private String updateButtonsAndLabels(){
         
-        //\n bei den update texten funktioniert nicht, dadurch verschiebt sich
-        //das Fenster
             System.out.println("Manage Food");
    
             if (jRadioButtonAdd.isSelected()){
+                
                 System.out.println("    Add mode");
-                jLabelUpdateDelete.setText("");
+                
                 jButtonAddFood.setEnabled(true);
                 jButtonUpdateFood.setEnabled(false);
                 jButtonDeleteFood.setEnabled(false);
@@ -397,13 +460,13 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                 jButtonSearch.setEnabled(false);
                 jRadioButtonKgTable.setEnabled(false);
                 jRadioButtonGrammTable.setEnabled(false);
+                
+                return "add";
                
             } else if (jRadioButtonUpdate.isSelected()){
                 
                 System.out.println("    Update mode");
-               
-                jLabelUpdateDelete.setText("Bitte die Daten des zu updatenden Futters ausfüllen"
-                        + "oder den \n Datensatz in der Tabelle anklicken und bearbeiten! ");
+
                 jButtonAddFood.setEnabled(false);
                 jButtonUpdateFood.setEnabled(true);
                 jButtonDeleteFood.setEnabled(false);
@@ -413,13 +476,13 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                 jButtonSearch.setEnabled(true);
                 jRadioButtonKgTable.setEnabled(true);
                 jRadioButtonGrammTable.setEnabled(true);
+                
+                return "update";
            
             } else if (jRadioButtonDelete.isSelected()){
                 
                 System.out.println("    Delete mode");
                 
-                jLabelUpdateDelete.setText("Bitte die ID des zu löschenden Futters ausfüllen"
-                        + "oder den\nDatensatz in der Tabelle anklicken! ");
                 jButtonAddFood.setEnabled(false);
                 jButtonUpdateFood.setEnabled(false);
                 jButtonDeleteFood.setEnabled(true);
@@ -429,9 +492,13 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                 jButtonSearch.setEnabled(true);
                 jRadioButtonKgTable.setEnabled(true);
                 jRadioButtonGrammTable.setEnabled(true);
+                
+                return "delete";
             }
+            
+            return null;
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -474,6 +541,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAddFood;
     private javax.swing.JButton jButtonDeleteFood;
     private javax.swing.JButton jButtonGoBack;
+    private javax.swing.JButton jButtonHelp;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtonUpdateFood;
     private javax.swing.JLabel jLabelID;
@@ -482,7 +550,6 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelShowDateTime;
     private javax.swing.JLabel jLabelStock;
     private javax.swing.JLabel jLabelStockRoomNumber;
-    private javax.swing.JLabel jLabelUpdateDelete;
     private javax.swing.JLabel jLabellFoodName;
     private javax.swing.JPanel jPanelOperation;
     private javax.swing.JRadioButton jRadioButtonAdd;
