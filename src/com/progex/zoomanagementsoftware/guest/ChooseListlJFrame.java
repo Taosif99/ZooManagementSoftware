@@ -90,11 +90,11 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButtonBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1797, Short.MAX_VALUE)
                 .addComponent(jLabelShowDateTime)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(154, 154, 154)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelFeedStatic)
                     .addComponent(jLabelCompoundStatic)
@@ -104,7 +104,7 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
                     .addComponent(jLabelTime)
                     .addComponent(jLabelCompound)
                     .addComponent(jLabelFeed))
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addGap(843, 843, 843))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,7 +113,7 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonBack)
                     .addComponent(jLabelShowDateTime))
-                .addGap(45, 45, 45)
+                .addGap(244, 244, 244)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelAnimal)
                     .addComponent(jLabelTime))
@@ -125,7 +125,7 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFeedStatic)
                     .addComponent(jLabelFeed))
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap(688, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -72,7 +72,7 @@ public class ChoosedFromListJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonBack)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 355, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1797, Short.MAX_VALUE)
                         .addComponent(jLabelShowDateTime))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelLegend)
@@ -86,7 +86,7 @@ public class ChoosedFromListJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelShowDateTime)
                     .addComponent(jButtonBack))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 287, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 755, Short.MAX_VALUE)
                 .addComponent(jLabelLegend)
                 .addContainerGap())
         );
