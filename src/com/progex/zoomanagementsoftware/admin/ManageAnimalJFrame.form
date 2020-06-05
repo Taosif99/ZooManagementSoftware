@@ -36,73 +36,65 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButtonGoBack" min="-2" pref="73" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jLabelShowDateTime" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="578" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabelSex" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelAnimalName" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabelDateOfBirth" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelSpecies" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelCompound" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabelSex" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabelAnimalName" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabelDateOfBirth" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabelSpecies" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabelCompound" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jTextCompound" min="-2" pref="141" max="-2" attributes="0"/>
-                                          <Component id="jTextFieldDateOfBirth" min="-2" pref="141" max="-2" attributes="0"/>
-                                          <Component id="jComboBoxSpecies" min="-2" pref="91" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jButtonDeleteAnimal" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jButtonAddAnimal" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jButtonUpdateAnimal" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jButtonAssignFeedingTimes" min="-2" pref="234" max="-2" attributes="0"/>
-                                          <Component id="jButtonAssignZookeeper" min="-2" pref="234" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="jTextCompound" min="-2" pref="141" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldDateOfBirth" min="-2" pref="141" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxSpecies" min="-2" pref="91" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="162" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jTextFieldSex" min="-2" pref="141" max="-2" attributes="0"/>
-                                  <Component id="jTextFieldAnimalName" min="-2" pref="141" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="jButtonDeleteAnimal" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jButtonAddAnimal" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jButtonUpdateAnimal" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jButtonAssignFeedingTimes" min="-2" pref="234" max="-2" attributes="0"/>
+                                  <Component id="jButtonAssignZookeeper" min="-2" pref="234" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="jPanelOperation" min="-2" max="-2" attributes="0"/>
-                          </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jLabelID" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextFieldID" min="-2" pref="61" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jButtonSearch" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
-                              <Component id="jLabelSearch" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jScrollPaneAnimalTable" alignment="1" min="-2" pref="516" max="-2" attributes="0"/>
-                          </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="162" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jTextFieldSex" min="-2" pref="141" max="-2" attributes="0"/>
+                          <Component id="jTextFieldAnimalName" min="-2" pref="141" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="jPanelOperation" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="jLabelID" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jTextFieldID" min="-2" pref="61" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jButtonSearch" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
+                      <Component id="jLabelSearch" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPaneAnimalTable" alignment="1" min="-2" pref="516" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jLabelShowDateTime" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="69" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -119,12 +111,12 @@
                   <Component id="jLabelAnimalName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabelSex" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldSex" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabelDateOfBirth" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldDateOfBirth" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -159,6 +151,7 @@
                   <Component id="jLabelID" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldID" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPaneAnimalTable" min="-2" pref="345" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabelSearch" min="-2" max="-2" attributes="0"/>
@@ -385,8 +378,11 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonHelp">
           <Properties>
-            <Property name="text" type="java.lang.String" value="HIlfe"/>
+            <Property name="text" type="java.lang.String" value="Hilfe"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonHelpActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
