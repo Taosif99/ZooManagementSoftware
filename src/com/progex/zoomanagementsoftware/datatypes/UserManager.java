@@ -1,5 +1,5 @@
 package com.progex.zoomanagementsoftware.datatypes;
-import java.sql.Date;
+
 /**
  * @(#) UserManager.java
  */
