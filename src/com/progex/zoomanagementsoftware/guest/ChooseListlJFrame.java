@@ -20,6 +20,12 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
      */
     public ChooseListlJFrame() {
         
+       
+        initComponents();
+        myInitComponents();
+    }
+    
+    public void myInitComponents(){
         setUndecorated(true);
         setAlwaysOnTop(true);
         setResizable(false);
@@ -28,12 +34,29 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
         int x =(int)tk.getScreenSize().getWidth();
         int y =(int)tk.getScreenSize().getHeight();
         setSize(x,y);
-        
-        initComponents();
-        myInitComponents();
-    }
-    
-    public void myInitComponents(){
+        //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
+        if(x == 1920 && y == 1080){
+            jLabelAnimal.setFont(new java.awt.Font("Calibri", 0, 32));
+            jLabelCompound.setFont(new java.awt.Font("Calibri", 0, 32));
+            jLabelCompoundStatic.setFont(new java.awt.Font("Calibri", 0, 32));
+            jLabelFeed.setFont(new java.awt.Font("Calibri", 0, 32));
+            jLabelFeedStatic.setFont(new java.awt.Font("Calibri", 0, 32));
+            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 32));
+            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 32));
+            
+        }
+        if(x == 1280 && y == 720){
+            
+            jLabelAnimal.setFont(new java.awt.Font("Calibri", 0, 28));
+            jLabelCompound.setFont(new java.awt.Font("Calibri", 0, 28));
+            jLabelCompoundStatic.setFont(new java.awt.Font("Calibri", 0, 28));
+            jLabelFeed.setFont(new java.awt.Font("Calibri", 0, 28));
+            jLabelFeedStatic.setFont(new java.awt.Font("Calibri", 0, 28));
+            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 28));
+            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 28));
+            
+            
+        }
         
         Methods methods = new Methods();    
         methods.showTimeAndDate(jLabelShowDateTime);
@@ -89,8 +112,8 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1797, Short.MAX_VALUE)
+                .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1683, Short.MAX_VALUE)
                 .addComponent(jLabelShowDateTime)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -104,14 +127,16 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
                     .addComponent(jLabelTime)
                     .addComponent(jLabelCompound)
                     .addComponent(jLabelFeed))
-                .addGap(843, 843, 843))
+                .addGap(765, 765, 765))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonBack)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabelShowDateTime))
                 .addGap(244, 244, 244)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -125,7 +150,7 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFeedStatic)
                     .addComponent(jLabelFeed))
-                .addContainerGap(688, Short.MAX_VALUE))
+                .addGap(688, 688, 688))
         );
     }// </editor-fold>//GEN-END:initComponents
 

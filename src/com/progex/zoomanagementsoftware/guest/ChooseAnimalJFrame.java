@@ -20,6 +20,11 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
      */
     public ChooseAnimalJFrame() {
         
+        initComponents();
+        myInitComponents();
+    }
+
+     public void myInitComponents(){
         setUndecorated(true);
         setAlwaysOnTop(true);
         setResizable(false);
@@ -28,12 +33,22 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         int x =(int)tk.getScreenSize().getWidth();
         int y =(int)tk.getScreenSize().getHeight();
         setSize(x,y);
-        
-        initComponents();
-        myInitComponents();
-    }
-
-     public void myInitComponents(){
+        //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
+        if(x == 1920 && y == 1080){
+            
+            jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 60));
+            jTableAninmalData.setFont(new java.awt.Font("Calibri", 1, 30));
+            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 28));
+            
+            
+        }
+        if(x == 1280 && y == 720){
+            
+            
+            jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 48));
+            jTableAninmalData.setFont(new java.awt.Font("Calibri", 1, 26));
+            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 22));
+        } 
         
         Methods methods = new Methods();    
         methods.showTimeAndDate(jLabelShowDateTime);
@@ -59,6 +74,7 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
 
         jScrollPaneAnimalTable.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
+        jTableAninmalData.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jTableAninmalData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -79,7 +95,7 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         jTableAninmalData.getTableHeader().setReorderingAllowed(false);
         jScrollPaneAnimalTable.setViewportView(jTableAninmalData);
 
-        jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
         jLabelAnimal.setText("Tiername");
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -98,7 +114,7 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonBack)
+                .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelShowDateTime)
                 .addContainerGap())
@@ -114,15 +130,14 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelShowDateTime)
-                    .addComponent(jButtonBack))
-                .addGap(41, 41, 41)
+                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
                 .addComponent(jLabelAnimal)
                 .addGap(78, 78, 78)
                 .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(252, Short.MAX_VALUE))
+                .addContainerGap(215, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

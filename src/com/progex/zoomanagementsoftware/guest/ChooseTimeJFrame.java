@@ -10,8 +10,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * 
  * @author oLLii
+ * TODOO grösse in tabel ändern
+ * verweise schliessen oder invisible
+ * 
  */
 public class ChooseTimeJFrame extends javax.swing.JFrame {
 
@@ -19,6 +22,14 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
      * Creates new form ZeitjFrame
      */
     public ChooseTimeJFrame() {
+       
+        
+        initComponents();
+        myInitComponents();
+    }
+    
+    public void myInitComponents(){
+        
         setUndecorated(true);
         setAlwaysOnTop(true);
         setResizable(false);
@@ -27,12 +38,15 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
         int x =(int)tk.getScreenSize().getWidth();
         int y =(int)tk.getScreenSize().getHeight();
         setSize(x,y);
-        
-        initComponents();
-        myInitComponents();
-    }
-    
-    public void myInitComponents(){
+        //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
+        if(x == 1920 && y == 1080){
+            jLabelTime.setFont(new java.awt.Font("Calibri", 1, 60));
+            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 28));
+        }
+        if(x == 1280 && y == 720){
+            jLabelTime.setFont(new java.awt.Font("Calibri", 1, 48));
+            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 22));
+        }
         
         Methods methods = new Methods();    
         methods.showTimeAndDate(jLabelShowDateTime);
@@ -58,6 +72,7 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
 
         jScrollPaneAnimalTable.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
+        jTableTimeData.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jTableTimeData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -78,7 +93,7 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
         jTableTimeData.getTableHeader().setReorderingAllowed(false);
         jScrollPaneAnimalTable.setViewportView(jTableTimeData);
 
-        jLabelTime.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelTime.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
         jLabelTime.setText("Fütterungszeit");
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -97,18 +112,20 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1797, Short.MAX_VALUE)
-                .addComponent(jLabelShowDateTime)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(908, 908, 908)
-                .addComponent(jLabelTime)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1686, Short.MAX_VALUE)
+                        .addComponent(jLabelShowDateTime)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTime)
+                        .addGap(814, 814, 814))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1043, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(437, 437, 437))
+                .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1092, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(411, 411, 411))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,12 +133,12 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelShowDateTime)
-                    .addComponent(jButtonBack))
-                .addGap(296, 296, 296)
+                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(97, 97, 97)
                 .addComponent(jLabelTime)
-                .addGap(40, 40, 40)
-                .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addGap(93, 93, 93)
+                .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(122, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
