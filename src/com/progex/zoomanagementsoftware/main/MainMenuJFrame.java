@@ -18,6 +18,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
      */
     public MainMenuJFrame() {
         initComponents();
+        this.setLocationRelativeTo(null);
+      
     }
 
     /**
@@ -133,7 +135,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
 
     private void jButtonLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLoginMouseClicked
         // TODO add your handling code here:
-        new LoginJFrame().setVisible(true);
+        new LoginJFrame(this).setVisible(true);
         
     }//GEN-LAST:event_jButtonLoginMouseClicked
 

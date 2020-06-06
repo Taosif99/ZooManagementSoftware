@@ -19,15 +19,13 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
     /**
      * Creates new form NächsteFütterungJFrame
      */
-    public NextFeedingTimeJFrame() {
+    public NextFeedingTimeJFrame( ) {
         initComponents();
-        setResizable(false);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);  
-        
-        
+
         // Set date
         Methods methods = new Methods();
         methods.showTimeAndDate(jLabelTime);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -57,6 +55,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         gehege1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jButtonGoBack.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jButtonGoBack.setText("Zurück");
@@ -254,18 +253,21 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
     private void jButtonLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLogoutMouseClicked
         // TODO add your handling code here:
         this.dispose(); //close current JFrame
+        new MainMenuJFrame().setVisible(true);
+        
         
     }//GEN-LAST:event_jButtonLogoutMouseClicked
 
     private void jButtonGoBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGoBackMouseClicked
         // TODO add your handling code here:
-        new ZookeeperModeHomePageJFrame().setVisible(true); // Go back ZooKeeperHomePage
         this.dispose(); // close current JFrame
-        
+        new ZookeeperModeHomePageJFrame().setVisible(true);
     }//GEN-LAST:event_jButtonGoBackMouseClicked
 
     private void jButtonNextFeedingTimeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeMouseClicked
         // TODO add your handling code here:
+        this.dispose();
+        new AllFeedingTimesJFrame().setVisible(true);
 
 
     }//GEN-LAST:event_jButtonNextFeedingTimeMouseClicked
@@ -320,6 +322,8 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         });
     }
 
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel abstellraumnummer;
     private javax.swing.JLabel abstellraumnummer1;

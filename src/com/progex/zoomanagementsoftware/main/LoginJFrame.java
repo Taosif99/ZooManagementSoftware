@@ -17,8 +17,12 @@ public class LoginJFrame extends javax.swing.JFrame {
     /**
      * Creates new form ZooKeeperModeLogin
      */
-    public LoginJFrame() {
+    public LoginJFrame(JFrame goBack) {
         initComponents();
+        this.mainMenuJFrame = goBack;
+        this.setLocationRelativeTo(null);
+        // make previouse jframe invisible
+        
     }
 
     /**
@@ -42,6 +46,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -133,6 +138,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         //if(username and password match)
         new ZookeeperModeHomePageJFrame().setVisible(true);
         this.dispose();
+        mainMenuJFrame.setVisible(false);
 
     }//GEN-LAST:event_jButtonAnmeldenZookeeperLoginMouseClicked
 
@@ -167,11 +173,14 @@ public class LoginJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginJFrame().setVisible(true);
+                new LoginJFrame(null).setVisible(true);
             }
         });
     }
 
+    
+    private javax.swing.JFrame mainMenuJFrame;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnmeldenZookeeperLogin;
     private javax.swing.JLabel jLabelLoginZookeeper;

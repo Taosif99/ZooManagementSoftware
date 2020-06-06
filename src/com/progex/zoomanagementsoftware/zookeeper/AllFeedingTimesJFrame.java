@@ -20,7 +20,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
      */
     public AllFeedingTimesJFrame() {
         initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH);  
+        this.setLocationRelativeTo(null);
         Methods methods = new Methods();
         methods.showTimeAndDate(jLabelTime);
     }
@@ -45,6 +45,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
         jRadioButtonAmountOfFoodInGramm = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jButtonLogout.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jButtonLogout.setText("Logout");
@@ -183,15 +184,15 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
 
     private void jButtonGoBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGoBackMouseClicked
         // TODO add your handling code here:
-        new ZookeeperModeHomePageJFrame().setVisible(true); // Go back ZooKeeperHomePage
         this.dispose(); // close current JFrame
-        
+        new ZookeeperModeHomePageJFrame().setVisible(true);
     }//GEN-LAST:event_jButtonGoBackMouseClicked
 
     private void jButtonNextFeedingTimeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeMouseClicked
         // TODO add your handling code here:
-        new NextFeedingTimeJFrame().setVisible(true); // Open NächsteFütterungJFrame
-        this.dispose(); //close current JFrame        
+  
+        new NextFeedingTimeJFrame().setVisible(true);
+        this.dispose();
         
     }//GEN-LAST:event_jButtonNextFeedingTimeMouseClicked
 
@@ -206,6 +207,8 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     private void jButtonLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLogoutMouseClicked
         // TODO add your handling code here:
         this.dispose(); //close current JFrame
+        new MainMenuJFrame().setVisible(true);
+        
     }//GEN-LAST:event_jButtonLogoutMouseClicked
 
     /**
