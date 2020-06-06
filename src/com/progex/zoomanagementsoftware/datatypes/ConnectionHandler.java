@@ -45,8 +45,8 @@ public class ConnectionHandler
             Class.forName("com.mysql.jdbc.Driver"); 
             System.out.println("Successfully connected !");
             //Bei mir klappt nur das, probiert mal beide versionen
-            connection = DriverManager.getConnection(url+dbName+ "?characterEncoding=latin1", username, password);
-           //connection = DriverManager.getConnection(url+dbName, username, password);
+            connection = DriverManager.getConnection(url+dbName+ "?characterEncoding=latin1", username, password); //Connector 5...
+           //connection = DriverManager.getConnection(url+dbName, username, password); //Connector 8...
        } catch (Exception e) {
            
            
@@ -70,9 +70,7 @@ public class ConnectionHandler
 	*/
         public void test(){
 		
-		
-       
-       
+	
 	   /*For example print all datasets from animal*/
        String query = "SELECT * FROM  animal ";
        Statement statement;
@@ -92,6 +90,7 @@ public class ConnectionHandler
 				String animalName = resultSet.getString("AnimalName");
 				Date birthday = resultSet.getDate("Birthday");
 				String sex = resultSet.getString("Sex");
+                                
 				/**
                                  * In den Manager klassen kann dann hier ein Objekt (wie eine Liste)
                                  * erstellt werden, die dann zurückgegeben wird
@@ -114,5 +113,4 @@ public class ConnectionHandler
         
         return connection;
     }
-	
 }

@@ -114,8 +114,6 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         
         //Set Main Menue to not visible
         this.setVisible(false);
-        
-        
         JFrame thisFrame = this; 
         /* Create and display the form with the Zoo Map */
         java.awt.EventQueue.invokeLater(new Runnable() {
