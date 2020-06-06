@@ -110,6 +110,12 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jLabelConfirmPassword.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelConfirmPassword.setText("Passwort bestätigen");
 
+        jTextFieldUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldUsernameActionPerformed(evt);
+            }
+        });
+
         jComboBoxShift.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Früh", "Nachmittag", "Spät" }));
         jComboBoxShift.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,6 +274,10 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     private void jButtonAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddUserActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAddUserActionPerformed
+
+    private void jTextFieldUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldUsernameActionPerformed
 
     /**
      * @param args the command line arguments

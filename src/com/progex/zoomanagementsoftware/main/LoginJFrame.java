@@ -19,7 +19,6 @@ public class LoginJFrame extends javax.swing.JFrame {
      */
     public LoginJFrame() {
         initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH);  
     }
 
     /**
@@ -30,6 +29,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jRadioButton1 = new javax.swing.JRadioButton();
         jLabelUsernameZookeeperLogin = new javax.swing.JLabel();
@@ -47,16 +47,47 @@ public class LoginJFrame extends javax.swing.JFrame {
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jLabelUsernameZookeeperLogin.setText("Benutzername");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(11, 62, 0, 0);
+        getContentPane().add(jLabelUsernameZookeeperLogin, gridBagConstraints);
 
         jLabelPasswortLoginZookeeper.setText("Passwort");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(14, 62, 0, 0);
+        getContentPane().add(jLabelPasswortLoginZookeeper, gridBagConstraints);
 
         jTextFieldZookeeperLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldZookeeperLoginActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 111;
+        gridBagConstraints.ipady = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(11, 18, 0, 0);
+        getContentPane().add(jTextFieldZookeeperLogin, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 111;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(11, 18, 0, 0);
+        getContentPane().add(jPasswordFieldZookeeperLogin, gridBagConstraints);
 
         jButtonAnmeldenZookeeperLogin.setText("Anmelden");
         jButtonAnmeldenZookeeperLogin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -64,46 +95,24 @@ public class LoginJFrame extends javax.swing.JFrame {
                 jButtonAnmeldenZookeeperLoginMouseClicked(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(16, 59, 26, 55);
+        getContentPane().add(jButtonAnmeldenZookeeperLogin, gridBagConstraints);
 
         jLabelLoginZookeeper.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabelLoginZookeeper.setText("Login");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(62, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonAnmeldenZookeeperLogin)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelUsernameZookeeperLogin)
-                            .addComponent(jLabelPasswortLoginZookeeper)
-                            .addComponent(jLabelLoginZookeeper, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPasswordFieldZookeeperLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldZookeeperLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(57, 57, 57))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelLoginZookeeper)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelUsernameZookeeperLogin)
-                    .addComponent(jTextFieldZookeeperLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelPasswortLoginZookeeper)
-                    .addComponent(jPasswordFieldZookeeperLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButtonAnmeldenZookeeperLogin)
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 16;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(11, 62, 0, 0);
+        getContentPane().add(jLabelLoginZookeeper, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -120,13 +129,11 @@ public class LoginJFrame extends javax.swing.JFrame {
     private void jButtonAnmeldenZookeeperLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAnmeldenZookeeperLoginMouseClicked
         // TODO add your handling code here:
 
-        // when login success open homepage for Zookeeper        
+        // when login success open homepage for Zookeeper
         //if(username and password match)
         new ZookeeperModeHomePageJFrame().setVisible(true);
         this.dispose();
-        
-        
-        
+
     }//GEN-LAST:event_jButtonAnmeldenZookeeperLoginMouseClicked
 
     /**
