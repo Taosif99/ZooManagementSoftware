@@ -6,7 +6,9 @@
 package com.progex.zoomanagementsoftware.zookeeper;
 
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import com.progex.zoomanagementsoftware.main.MainMenuJFrame;
 import java.util.Date;
+import javax.swing.JFrame;
 
 /**
  *
@@ -19,6 +21,8 @@ public class NächsteFütterungJFrame extends javax.swing.JFrame {
      */
     public NächsteFütterungJFrame() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);        
+
         Methods methods = new Methods();
         methods.showTimeAndDate(jLabelNächsteFütterungDatum);
     }
@@ -49,135 +53,81 @@ public class NächsteFütterungJFrame extends javax.swing.JFrame {
         jLabelNächsteFütterungDatum = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jButton1.setText("Zurück");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 81, -1));
 
         jButton2.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jButton2.setText("Abmelden");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 11, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel2.setText("Nächste Fütterung in");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 52, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel3.setText("Futter:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(147, 105, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel4.setText("Futtermenge:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(147, 146, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel5.setText("Tiername:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(147, 187, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel6.setText("Gehege:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(147, 228, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel7.setText("Abstellraum:");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(147, 269, 98, -1));
 
         jLabelNächsteFütterungFutter.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        getContentPane().add(jLabelNächsteFütterungFutter, new org.netbeans.lib.awtextra.AbsoluteConstraints(187, 105, -1, -1));
 
         jLabelNächsteFütterungFutterMenge.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        getContentPane().add(jLabelNächsteFütterungFutterMenge, new org.netbeans.lib.awtextra.AbsoluteConstraints(187, 146, -1, -1));
 
         jLabelNächsteFütterungTiername.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        getContentPane().add(jLabelNächsteFütterungTiername, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 187, -1, -1));
 
         jLabelNächsteFütterungGehgename.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        getContentPane().add(jLabelNächsteFütterungGehgename, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 228, -1, -1));
 
         jLabelNächsteFütterungAbstellRaum.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        getContentPane().add(jLabelNächsteFütterungAbstellRaum, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 269, -1, -1));
 
         jButton3.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jButton3.setText("Alle Fütterungen anzeigen");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 529, 57));
 
         jLabelNächsteFütterungDatum.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(jLabelNächsteFütterungDatum)
-                                .addGap(0, 172, Short.MAX_VALUE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabelNächsteFütterungTiername)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGap(272, 272, 272)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabelNächsteFütterungAbstellRaum)
-                                            .addComponent(jLabelNächsteFütterungGehgename)))
-                                    .addComponent(jLabel2))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(156, 156, 156)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabelNächsteFütterungFutter)
-                                        .addComponent(jLabelNächsteFütterungFutterMenge)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addGap(52, 52, 52))
-                                .addComponent(jLabel4)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel6))
-                                    .addGap(26, 26, 26))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelNächsteFütterungDatum)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabelNächsteFütterungFutter))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabelNächsteFütterungFutterMenge))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabelNächsteFütterungTiername))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabelNächsteFütterungGehgename))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabelNächsteFütterungAbstellRaum))
-                .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        getContentPane().add(jLabelNächsteFütterungDatum, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 11, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -185,6 +135,28 @@ public class NächsteFütterungJFrame extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+        new AlleFütterungenJFrame().setVisible(true); // open AlleFütterungen JFrame
+        this.dispose();//to close the current jframe
+
+        
+        
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        this.dispose(); //close current JFrame
+        
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        new ZookeeperModeHomePageJFrame().setVisible(true); // Go back ZooKeeperHomePage
+        this.dispose(); // close current JFrame
+        
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments

@@ -5,6 +5,9 @@
  */
 package com.progex.zoomanagementsoftware.main;
 
+import com.progex.zoomanagementsoftware.zookeeper.ZookeeperModeHomePageJFrame;
+import javax.swing.JFrame;
+
 /**
  *
  * @author khali
@@ -16,6 +19,7 @@ public class LoginJFrame extends javax.swing.JFrame {
      */
     public LoginJFrame() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);  
     }
 
     /**
@@ -38,6 +42,11 @@ public class LoginJFrame extends javax.swing.JFrame {
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabelUsernameZookeeperLogin.setText("Benutzername");
 
@@ -50,6 +59,11 @@ public class LoginJFrame extends javax.swing.JFrame {
         });
 
         jButtonAnmeldenZookeeperLogin.setText("Anmelden");
+        jButtonAnmeldenZookeeperLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonAnmeldenZookeeperLoginMouseClicked(evt);
+            }
+        });
 
         jLabelLoginZookeeper.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabelLoginZookeeper.setText("Login");
@@ -97,6 +111,23 @@ public class LoginJFrame extends javax.swing.JFrame {
     private void jTextFieldZookeeperLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldZookeeperLoginActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldZookeeperLoginActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jButtonAnmeldenZookeeperLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAnmeldenZookeeperLoginMouseClicked
+        // TODO add your handling code here:
+
+        // when login success open homepage for Zookeeper        
+        //if(username and password match)
+        new ZookeeperModeHomePageJFrame().setVisible(true);
+        this.dispose();
+        
+        
+        
+    }//GEN-LAST:event_jButtonAnmeldenZookeeperLoginMouseClicked
 
     /**
      * @param args the command line arguments

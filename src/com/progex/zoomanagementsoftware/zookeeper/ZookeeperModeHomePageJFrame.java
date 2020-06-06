@@ -5,6 +5,9 @@
  */
 package com.progex.zoomanagementsoftware.zookeeper;
 
+import com.progex.zoomanagementsoftware.main.MainMenuJFrame;
+import javax.swing.JFrame;
+
 /**
  *
  * @author khali
@@ -16,6 +19,8 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
      */
     public ZookeeperModeHomePageJFrame() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);        
+
     }
 
     /**
@@ -40,100 +45,96 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         jLabelZookeeperModeHomePageDatum = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel1.setText("Letze Anmeldung: ");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 13, 156, -1));
 
         jButton1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jButton1.setText("Abmelden");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 11, 103, -1));
 
         jLabel2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel2.setText("Hallo ");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 45, -1, -1));
 
         jButtonMeineNächsteFütterungZookeeper.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jButtonMeineNächsteFütterungZookeeper.setText("Meine Nächste Fütterung ");
+        jButtonMeineNächsteFütterungZookeeper.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonMeineNächsteFütterungZookeeperMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jButtonMeineNächsteFütterungZookeeper, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 126, 377, 81));
 
         jButtonAlleFütterungenFürHeuteZookeeper.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jButtonAlleFütterungenFürHeuteZookeeper.setText("Alle Fütterungen für heute");
+        jButtonAlleFütterungenFürHeuteZookeeper.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonAlleFütterungenFürHeuteZookeeperMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jButtonAlleFütterungenFürHeuteZookeeper, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 213, 377, 77));
 
         jLabelZookeeperHomePageLetzteAnmeldungUhrzeit.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        getContentPane().add(jLabelZookeeperHomePageLetzteAnmeldungUhrzeit, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 11, 14, -1));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel4.setText("Nächste Fütterung in: ");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 92, 171, -1));
 
         jLabelZookeeperHomePageNächsteFütterung.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        getContentPane().add(jLabelZookeeperHomePageNächsteFütterung, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 92, 5, -1));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 92, 5, -1));
 
         jLabelZooKeeperHomePageTierpflegerName.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        getContentPane().add(jLabelZooKeeperHomePageTierpflegerName, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 45, -1, -1));
 
         jLabelZookeeperModeHomePageDatum.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonAlleFütterungenFürHeuteZookeeper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonMeineNächsteFütterungZookeeper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelZookeeperHomePageNächsteFütterung, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(22, 22, 22)
-                                .addComponent(jLabel6))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelZookeeperModeHomePageDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelZookeeperHomePageLetzteAnmeldungUhrzeit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(145, 145, 145)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelZooKeeperHomePageTierpflegerName)
-                .addContainerGap(204, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelZookeeperHomePageLetzteAnmeldungUhrzeit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelZookeeperModeHomePageDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabelZooKeeperHomePageTierpflegerName))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabelZookeeperHomePageNächsteFütterung)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonMeineNächsteFütterungZookeeper, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonAlleFütterungenFürHeuteZookeeper, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
+        getContentPane().add(jLabelZookeeperModeHomePageDatum, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 17, 47, 16));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        
+
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButtonMeineNächsteFütterungZookeeperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMeineNächsteFütterungZookeeperMouseClicked
+        // TODO add your handling code here:
+        new NächsteFütterungJFrame().setVisible(true);
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_jButtonMeineNächsteFütterungZookeeperMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+    }//GEN-LAST:event_formWindowClosed
+
+    private void jButtonAlleFütterungenFürHeuteZookeeperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAlleFütterungenFürHeuteZookeeperMouseClicked
+        // TODO add your handling code here:
+        new AlleFütterungenJFrame().setVisible(true);
+      //  this.setVisible(false);
+        
+    }//GEN-LAST:event_jButtonAlleFütterungenFürHeuteZookeeperMouseClicked
 
     /**
      * @param args the command line arguments
