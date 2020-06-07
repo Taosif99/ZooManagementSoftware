@@ -7,6 +7,7 @@ package com.progex.zoomanagementsoftware.zookeeper;
 
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import com.progex.zoomanagementsoftware.main.MainMenuJFrame;
+import java.awt.Toolkit;
 import java.util.Date;
 import javax.swing.JFrame;
 
@@ -21,13 +22,54 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
      */
     public NextFeedingTimeJFrame( ) {
         initComponents();
-
-        // Set date
-        Methods methods = new Methods();
-        methods.showTimeAndDate(jLabelTime);
-        this.setLocationRelativeTo(null);
+        myInitComponents();
+   
     }
 
+  
+    
+        public void myInitComponents(){
+        
+        
+        //setUndecorated(true);
+        setAlwaysOnTop(true);
+        setResizable(false);
+        setVisible(true);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int x =(int)tk.getScreenSize().getWidth();
+        int y =(int)tk.getScreenSize().getHeight();
+        setSize(x,y);
+        //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
+        if(x == 1920 && y == 1080){
+            
+         //TODO KHALID
+            
+        }
+        if(x == 1280 && y == 720){
+            //TODO KHALID
+       
+
+        }
+        
+        
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        
+        Methods methods = new Methods();    
+        methods.showTimeAndDate(jLabelTime);
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,6 +97,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         gehege1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         setResizable(false);
 
         jButtonGoBack.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
@@ -244,6 +287,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed

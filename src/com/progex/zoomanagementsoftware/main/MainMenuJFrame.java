@@ -5,6 +5,9 @@
  */
 package com.progex.zoomanagementsoftware.main;
 
+
+import com.progex.zoomanagementsoftware.guest.ChooseAnimalAndTimeJFrame;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
@@ -18,10 +21,29 @@ public class MainMenuJFrame extends javax.swing.JFrame {
      */
     public MainMenuJFrame() {
         initComponents();
-        this.setLocationRelativeTo(null);
-      
+        myInitComponents();
+        
     }
 
+    
+    
+    
+    private void myInitComponents(){
+        
+        //Done in netbeans window
+        //this.setUndecorated(true);
+        //this.setAlwaysOnTop(true);
+        //this.setResizable(false);
+       // this.setVisible(true);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int x =(int)tk.getScreenSize().getWidth();
+        int y =(int)tk.getScreenSize().getHeight();
+        setSize(x,y);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,12 +55,14 @@ public class MainMenuJFrame extends javax.swing.JFrame {
 
         jLabelWelcome = new javax.swing.JLabel();
         jLabelWelcomeStatement = new javax.swing.JLabel();
-        jButtonLogin = new javax.swing.JButton();
         jButtonGuestFeedingTime = new javax.swing.JButton();
         jButtonShowMap = new javax.swing.JButton();
+        jButtonLogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Zoo / compund management");
+        setAlwaysOnTop(true);
+        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(600, 720));
         setResizable(false);
 
@@ -52,15 +76,13 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         jLabelWelcomeStatement.setText("Finde heraus wann welches Tier gefüttert wird !");
         jLabelWelcomeStatement.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jButtonLogin.setText("Login");
-        jButtonLogin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonLoginMouseClicked(evt);
-            }
-        });
-
         jButtonGuestFeedingTime.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonGuestFeedingTime.setText("Fütterungszeit");
+        jButtonGuestFeedingTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuestFeedingTimeActionPerformed(evt);
+            }
+        });
 
         jButtonShowMap.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonShowMap.setText("Karte anzeigen");
@@ -73,26 +95,28 @@ public class MainMenuJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButtonLogin.setText("Login");
+        jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLoginActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonGuestFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonShowMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonShowMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelWelcomeStatement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelWelcomeStatement, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,7 +126,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabelWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelWelcomeStatement, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                .addComponent(jLabelWelcomeStatement, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonGuestFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -111,6 +135,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     /**
      * Method to show the Map of the Zoo
@@ -121,8 +146,6 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         
         //Set Main Menue to not visible
         this.setVisible(false);
-        
-        
         JFrame thisFrame = this; 
         /* Create and display the form with the Zoo Map */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -133,21 +156,37 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonShowMapActionPerformed
 
-    private void jButtonLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLoginMouseClicked
-        // TODO add your handling code here:
-        new LoginJFrame(this).setVisible(true);
+    private void jButtonGuestFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuestFeedingTimeActionPerformed
         
-    }//GEN-LAST:event_jButtonLoginMouseClicked
+        //Set Main Menue to not visible
+        this.setVisible(false);
+        
+        
+        JFrame thisFrame = this; 
+        /* Create and display the form with the Zoo Map */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ChooseAnimalAndTimeJFrame(thisFrame).setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_jButtonGuestFeedingTimeActionPerformed
+
+    private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
+
+      
+        JFrame thisFrame = this;
+        
+              /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new LoginJFrame(thisFrame).setVisible(true);
+            }
+        });
+        
+    }//GEN-LAST:event_jButtonLoginActionPerformed
 
     
-    /**
-     * Own method for initaializing components
-     */
-    public void myInitComponents() {
-       
-    
-        
-    }
+
 
     
     

@@ -1,5 +1,7 @@
-
+ 
 package com.progex.zoomanagementsoftware.main;
+
+ import com.progex.zoomanagementsoftware.datatypes.*;
 
 /**
  *
@@ -13,6 +15,18 @@ public class MainCLI { //Main command line interface
     public static void main(String[] args) {
         
         System.out.println("Here everything begins !");
+        
+        /*Testing a sql statement on the console*/
+        
+         String url ="jdbc:mysql://localhost/";
+         String username = "root";
+         String password = "0000";
+         String dbName = "zoo";
+        
+        ConnectionHandler connectionHandler = new ConnectionHandler(url,dbName,username,password);
+        connectionHandler.test();
+    
+    
     }
     
 }
