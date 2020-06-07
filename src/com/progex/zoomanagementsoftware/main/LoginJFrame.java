@@ -5,6 +5,7 @@
  */
 package com.progex.zoomanagementsoftware.main;
 
+import com.progex.zoomanagementsoftware.admin.HomepageJFrame;
 import com.progex.zoomanagementsoftware.zookeeper.ZookeeperModeHomePageJFrame;
 import javax.swing.JFrame;
 
@@ -33,114 +34,149 @@ public class LoginJFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jRadioButton1 = new javax.swing.JRadioButton();
-        jLabelUsernameZookeeperLogin = new javax.swing.JLabel();
-        jLabelPasswortLoginZookeeper = new javax.swing.JLabel();
-        jTextFieldZookeeperLogin = new javax.swing.JTextField();
-        jPasswordFieldZookeeperLogin = new javax.swing.JPasswordField();
-        jButtonAnmeldenZookeeperLogin = new javax.swing.JButton();
-        jLabelLoginZookeeper = new javax.swing.JLabel();
+        jLabelUsernameUserLogin = new javax.swing.JLabel();
+        jLabelPasswortUserLogin = new javax.swing.JLabel();
+        jTextFieldUserLogin = new javax.swing.JTextField();
+        jPasswordFieldUserLogin = new javax.swing.JPasswordField();
+        jButtonLoginUser = new javax.swing.JButton();
+        jLabelLoginUser = new javax.swing.JLabel();
 
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
-        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jLabelUsernameZookeeperLogin.setText("Benutzername");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(11, 62, 0, 0);
-        getContentPane().add(jLabelUsernameZookeeperLogin, gridBagConstraints);
+        jLabelUsernameUserLogin.setText("Benutzername");
 
-        jLabelPasswortLoginZookeeper.setText("Passwort");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(14, 62, 0, 0);
-        getContentPane().add(jLabelPasswortLoginZookeeper, gridBagConstraints);
+        jLabelPasswortUserLogin.setText("Passwort");
 
-        jTextFieldZookeeperLogin.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldUserLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldZookeeperLoginActionPerformed(evt);
+                jTextFieldUserLoginActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 111;
-        gridBagConstraints.ipady = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(11, 18, 0, 0);
-        getContentPane().add(jTextFieldZookeeperLogin, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 111;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(11, 18, 0, 0);
-        getContentPane().add(jPasswordFieldZookeeperLogin, gridBagConstraints);
 
-        jButtonAnmeldenZookeeperLogin.setText("Anmelden");
-        jButtonAnmeldenZookeeperLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonLoginUser.setText("login");
+        jButtonLoginUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonAnmeldenZookeeperLoginMouseClicked(evt);
+                jButtonLoginUserMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(16, 59, 26, 55);
-        getContentPane().add(jButtonAnmeldenZookeeperLogin, gridBagConstraints);
+        jButtonLoginUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLoginUserActionPerformed(evt);
+            }
+        });
 
-        jLabelLoginZookeeper.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        jLabelLoginZookeeper.setText("Login");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 16;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(11, 62, 0, 0);
-        getContentPane().add(jLabelLoginZookeeper, gridBagConstraints);
+        jLabelLoginUser.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        jLabelLoginUser.setText("Login");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonLoginUser, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabelUsernameUserLogin)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTextFieldUserLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabelLoginUser, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabelPasswortUserLogin)
+                            .addGap(44, 44, 44)
+                            .addComponent(jPasswordFieldUserLogin))))
+                .addGap(44, 44, 44))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jLabelLoginUser)
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelUsernameUserLogin)
+                    .addComponent(jTextFieldUserLogin))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelPasswortUserLogin)
+                    .addComponent(jPasswordFieldUserLogin))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(jButtonLoginUser)
+                .addGap(26, 26, 26))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldZookeeperLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldZookeeperLoginActionPerformed
+    private void jTextFieldUserLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUserLoginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldZookeeperLoginActionPerformed
+    }//GEN-LAST:event_jTextFieldUserLoginActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_formWindowClosing
 
-    private void jButtonAnmeldenZookeeperLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAnmeldenZookeeperLoginMouseClicked
+    private void jButtonLoginUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLoginUserMouseClicked
         // TODO add your handling code here:
 
         // when login success open homepage for Zookeeper
         //if(username and password match)
-        new ZookeeperModeHomePageJFrame().setVisible(true);
-        this.dispose();
-        mainMenuJFrame.setVisible(false);
+       
 
-    }//GEN-LAST:event_jButtonAnmeldenZookeeperLoginMouseClicked
+
+        // new ZookeeperModeHomePageJFrame().setVisible(true);
+       // this.dispose();
+       // mainMenuJFrame.setVisible(false);
+
+       String username = jTextFieldUserLogin.getText();
+       if (username.equals("admin")){
+       
+       //Open admin window here
+           
+           /* Create and display Admin Homepage form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new HomepageJFrame().setVisible(true);
+            }
+        });
+       
+       } else {
+       
+           //Open zookeeper window here
+          
+         /* Create and display zookeeper form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ZookeeperModeHomePageJFrame().setVisible(true);
+            }
+        });
+       
+       
+       }
+       
+       
+       
+       
+    }//GEN-LAST:event_jButtonLoginUserMouseClicked
+
+    private void jButtonLoginUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonLoginUserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,12 +218,12 @@ public class LoginJFrame extends javax.swing.JFrame {
     private javax.swing.JFrame mainMenuJFrame;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonAnmeldenZookeeperLogin;
-    private javax.swing.JLabel jLabelLoginZookeeper;
-    private javax.swing.JLabel jLabelPasswortLoginZookeeper;
-    private javax.swing.JLabel jLabelUsernameZookeeperLogin;
-    private javax.swing.JPasswordField jPasswordFieldZookeeperLogin;
+    private javax.swing.JButton jButtonLoginUser;
+    private javax.swing.JLabel jLabelLoginUser;
+    private javax.swing.JLabel jLabelPasswortUserLogin;
+    private javax.swing.JLabel jLabelUsernameUserLogin;
+    private javax.swing.JPasswordField jPasswordFieldUserLogin;
     private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JTextField jTextFieldZookeeperLogin;
+    private javax.swing.JTextField jTextFieldUserLogin;
     // End of variables declaration//GEN-END:variables
 }
