@@ -18,6 +18,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
      */
     public MainMenuJFrame() {
         initComponents();
+        this.setLocationRelativeTo(null);
+      
     }
 
     /**
@@ -51,6 +53,11 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         jLabelWelcomeStatement.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jButtonLogin.setText("Login");
+        jButtonLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonLoginMouseClicked(evt);
+            }
+        });
 
         jButtonGuestFeedingTime.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonGuestFeedingTime.setText("Fütterungszeit");
@@ -125,6 +132,12 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
         
     }//GEN-LAST:event_jButtonShowMapActionPerformed
+
+    private void jButtonLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLoginMouseClicked
+        // TODO add your handling code here:
+        new LoginJFrame(this).setVisible(true);
+        
+    }//GEN-LAST:event_jButtonLoginMouseClicked
 
     
     /**
