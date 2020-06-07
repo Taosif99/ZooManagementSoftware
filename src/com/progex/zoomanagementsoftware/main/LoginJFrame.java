@@ -8,6 +8,12 @@ package com.progex.zoomanagementsoftware.main;
 import com.progex.zoomanagementsoftware.admin.AdminHomepageJFrame;
 import com.progex.zoomanagementsoftware.zookeeper.ZookeeperModeHomePageJFrame;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import javax.swing.JLabel;
+
 
 /**
  *
@@ -18,14 +24,19 @@ public class LoginJFrame extends javax.swing.JFrame {
     /**
      * Creates new form ZooKeeperModeLogin
      */
+    
     public LoginJFrame(JFrame goBack) {
+
         initComponents();
+
         this.mainMenuJFrame = goBack;
         this.setLocationRelativeTo(null);
-        // make previouse jframe invisible
-        
+     
     }
 
+    
+
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,11 +47,11 @@ public class LoginJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jRadioButton1 = new javax.swing.JRadioButton();
-        jLabelUsernameUserLogin = new javax.swing.JLabel();
-        jLabelPasswortUserLogin = new javax.swing.JLabel();
-        jTextFieldUserLogin = new javax.swing.JTextField();
-        jPasswordFieldUserLogin = new javax.swing.JPasswordField();
-        jLabelLoginUser = new javax.swing.JLabel();
+        username = new javax.swing.JLabel();
+        passwort = new javax.swing.JLabel();
+        jTextFieldUsername = new javax.swing.JTextField();
+        jPasswordFieldPassword = new javax.swing.JPasswordField();
+        login = new javax.swing.JLabel();
         jButtonLogin = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
@@ -56,18 +67,18 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabelUsernameUserLogin.setText("Benutzername");
+        username.setText("Benutzername");
 
-        jLabelPasswortUserLogin.setText("Passwort");
+        passwort.setText("Passwort");
 
-        jTextFieldUserLogin.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldUserLoginActionPerformed(evt);
+                jTextFieldUsernameActionPerformed(evt);
             }
         });
 
-        jLabelLoginUser.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        jLabelLoginUser.setText("Login");
+        login.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        login.setText("Login");
 
         jButtonLogin.setText("Login");
         jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -89,16 +100,16 @@ public class LoginJFrame extends javax.swing.JFrame {
                         .addGap(73, 73, 73)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelUsernameUserLogin)
+                                .addComponent(username)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextFieldUserLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
+                                .addComponent(jTextFieldUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelLoginUser, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelPasswortUserLogin)
+                                .addComponent(passwort)
                                 .addGap(44, 44, 44)
-                                .addComponent(jPasswordFieldUserLogin)))))
+                                .addComponent(jPasswordFieldPassword)))))
                 .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
@@ -107,16 +118,16 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
-                        .addComponent(jLabelLoginUser)
+                        .addComponent(login)
                         .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelUsernameUserLogin)
-                            .addComponent(jTextFieldUserLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(username)
+                            .addComponent(jTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jPasswordFieldUserLogin))
+                        .addComponent(jPasswordFieldPassword))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelPasswortUserLogin)))
+                        .addComponent(passwort)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
@@ -125,9 +136,9 @@ public class LoginJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldUserLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUserLoginActionPerformed
+    private void jTextFieldUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldUserLoginActionPerformed
+    }//GEN-LAST:event_jTextFieldUsernameActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
@@ -136,20 +147,8 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
         // TODO add your handling code here:
-        
-        
-               // TODO add your handling code here:
 
-        // when login success open homepage for Zookeeper
-        //if(username and password match)
-       
-
-
-        // new ZookeeperModeHomePageJFrame().setVisible(true);
-       // this.dispose();
-       // mainMenuJFrame.setVisible(false);
-
-       String username = jTextFieldUserLogin.getText();
+       String username = jTextFieldUsername.getText();
        if (username.equals("admin")){
        
        //Open admin window here
@@ -160,9 +159,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 new AdminHomepageJFrame().setVisible(true);
             }
         });
-       
-        
-        this.dispose();
+        this.dispose();       
         
        } else {
        
@@ -171,7 +168,7 @@ public class LoginJFrame extends javax.swing.JFrame {
          /* Create and display zookeeper form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ZookeeperModeHomePageJFrame().setVisible(true);
+                new ZookeeperModeHomePageJFrame(mainMenuJFrame).setVisible(true);
             }
         });
        
@@ -224,12 +221,12 @@ public class LoginJFrame extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonLogin;
-    private javax.swing.JLabel jLabelLoginUser;
-    private javax.swing.JLabel jLabelPasswortUserLogin;
-    private javax.swing.JLabel jLabelUsernameUserLogin;
-    private javax.swing.JPasswordField jPasswordFieldUserLogin;
+    private javax.swing.JPasswordField jPasswordFieldPassword;
     private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JTextField jTextFieldUserLogin;
+    private javax.swing.JTextField jTextFieldUsername;
+    private javax.swing.JLabel login;
+    private javax.swing.JLabel passwort;
+    private javax.swing.JLabel username;
     // End of variables declaration//GEN-END:variables
 
 

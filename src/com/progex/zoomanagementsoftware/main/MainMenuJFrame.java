@@ -19,6 +19,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainMenuJFrame
      */
+    
+    
     public MainMenuJFrame() {
         initComponents();
         myInitComponents();
@@ -175,13 +177,17 @@ public class MainMenuJFrame extends javax.swing.JFrame {
 
       
         JFrame thisFrame = this;
-        
+            
               /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new LoginJFrame(thisFrame).setVisible(true);
             }
-        });
+        });   
+        
+        
+        
+
         
     }//GEN-LAST:event_jButtonLoginActionPerformed
 

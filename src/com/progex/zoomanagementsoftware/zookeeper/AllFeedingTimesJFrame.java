@@ -7,6 +7,7 @@ package com.progex.zoomanagementsoftware.zookeeper;
 
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import com.progex.zoomanagementsoftware.main.MainMenuJFrame;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
@@ -18,11 +19,45 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     /**
      * Creates new form NächsteFütterungJFrame
      */
-    public AllFeedingTimesJFrame() {
+    public AllFeedingTimesJFrame(JFrame goBack, JFrame goBack2, JFrame goBack3) {
         initComponents();
-        this.setLocationRelativeTo(null);
+        myInitComponents();
+        mainMenuJFrame = goBack;
+        zookeeperModeHomePageFrame = goBack2;
+        nextFeedingTimeFrame = goBack3;
         Methods methods = new Methods();
         methods.showTimeAndDate(jLabelTime);
+    }
+        private void myInitComponents(){
+        
+        //Done in netbeans window
+        //this.setUndecorated(true);
+        //this.setAlwaysOnTop(true);
+        //this.setResizable(false);
+       // this.setVisible(true);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int x =(int)tk.getScreenSize().getWidth();
+        int y =(int)tk.getScreenSize().getHeight();
+        setSize(x,y);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
+        if(x == 1920 && y == 1080){
+            
+            
+            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 32));
+
+            
+        }
+        if(x == 1280 && y == 720){
+            
+            
+            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 28));
+
+            
+        }        
+        
+        
     }
 
     /**
@@ -45,6 +80,8 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
         jRadioButtonAmountOfFoodInGramm = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Alle Fütterungen");
+        setUndecorated(true);
         setResizable(false);
 
         jButtonLogout.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
@@ -65,6 +102,11 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
         jButtonNextFeedingTime.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonNextFeedingTimeMouseClicked(evt);
+            }
+        });
+        jButtonNextFeedingTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNextFeedingTimeActionPerformed(evt);
             }
         });
 
@@ -180,20 +222,16 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
 
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        zookeeperModeHomePageFrame.setVisible(true);
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jButtonGoBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGoBackMouseClicked
         // TODO add your handling code here:
-        this.dispose(); // close current JFrame
-        new ZookeeperModeHomePageJFrame().setVisible(true);
     }//GEN-LAST:event_jButtonGoBackMouseClicked
 
     private void jButtonNextFeedingTimeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeMouseClicked
         // TODO add your handling code here:
-  
-        new NextFeedingTimeJFrame().setVisible(true);
-        this.dispose();
-        
     }//GEN-LAST:event_jButtonNextFeedingTimeMouseClicked
 
     private void jRadioButtonAmountOfFoodInKiloGrammActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAmountOfFoodInKiloGrammActionPerformed
@@ -202,14 +240,39 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
 
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        mainMenuJFrame.setVisible(true);
+       
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 
     private void jButtonLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLogoutMouseClicked
         // TODO add your handling code here:
-        this.dispose(); //close current JFrame
-        new MainMenuJFrame().setVisible(true);
-        
     }//GEN-LAST:event_jButtonLogoutMouseClicked
+
+    private void jButtonNextFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeActionPerformed
+        // TODO add your handling code here:
+        
+        if(nextFeedingTimeFrame != null){
+            nextFeedingTimeFrame.setVisible(true);
+            this.setVisible(false);
+        }
+        else{
+            
+            JFrame thisFrame = this;
+            
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new NextFeedingTimeJFrame(mainMenuJFrame,zookeeperModeHomePageFrame,thisFrame).setVisible(true);
+                }
+            });                
+            
+        }
+      
+        
+        
+        
+        
+    }//GEN-LAST:event_jButtonNextFeedingTimeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,7 +311,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AllFeedingTimesJFrame().setVisible(true);
+                new AllFeedingTimesJFrame(null,null,null).setVisible(true);
             }
         });
     }
@@ -264,4 +327,9 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPaneTable;
     private javax.swing.JTable jTableAlleFütterungen;
     // End of variables declaration//GEN-END:variables
+
+   private javax.swing.JFrame mainMenuJFrame;
+   private javax.swing.JFrame zookeeperModeHomePageFrame;
+   private javax.swing.JFrame nextFeedingTimeFrame;
+
 }

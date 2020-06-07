@@ -49,18 +49,18 @@
                       <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jLabelUsernameUserLogin" min="-2" max="-2" attributes="0"/>
+                              <Component id="username" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Component id="jTextFieldUserLogin" pref="118" max="32767" attributes="0"/>
+                              <Component id="jTextFieldUsername" pref="118" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="jLabelLoginUser" min="-2" pref="68" max="-2" attributes="0"/>
+                              <Component id="login" min="-2" pref="68" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="jLabelPasswortUserLogin" min="-2" max="-2" attributes="0"/>
+                              <Component id="passwort" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                              <Component id="jPasswordFieldUserLogin" max="32767" attributes="0"/>
+                              <Component id="jPasswordFieldPassword" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -75,18 +75,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                      <Component id="jLabelLoginUser" min="-2" max="-2" attributes="0"/>
+                      <Component id="login" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabelUsernameUserLogin" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldUserLogin" min="-2" max="-2" attributes="0"/>
+                          <Component id="username" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldUsername" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jPasswordFieldUserLogin" max="32767" attributes="0"/>
+                      <Component id="jPasswordFieldPassword" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jLabelPasswortUserLogin" min="-2" max="-2" attributes="0"/>
+                      <Component id="passwort" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
@@ -97,24 +97,24 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabelUsernameUserLogin">
+    <Component class="javax.swing.JLabel" name="username">
       <Properties>
         <Property name="text" type="java.lang.String" value="Benutzername"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelPasswortUserLogin">
+    <Component class="javax.swing.JLabel" name="passwort">
       <Properties>
         <Property name="text" type="java.lang.String" value="Passwort"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldUserLogin">
+    <Component class="javax.swing.JTextField" name="jTextFieldUsername">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldUserLoginActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldUsernameActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JPasswordField" name="jPasswordFieldUserLogin">
+    <Component class="javax.swing.JPasswordField" name="jPasswordFieldPassword">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelLoginUser">
+    <Component class="javax.swing.JLabel" name="login">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="24" style="0"/>
