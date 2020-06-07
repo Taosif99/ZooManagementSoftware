@@ -25,6 +25,7 @@ hs_err_pid*
 
 # NetBeans specific
 nbproject/private/
+nbproject/private/private.properties
 nbproject/project.properties
 build/
 nbbuild/
