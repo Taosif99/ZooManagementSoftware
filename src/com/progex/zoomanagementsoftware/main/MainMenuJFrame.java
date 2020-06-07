@@ -5,6 +5,8 @@
  */
 package com.progex.zoomanagementsoftware.main;
 
+
+import com.progex.zoomanagementsoftware.guest.ChooseAnimalAndTimeJFrame;
 import javax.swing.JFrame;
 
 /**
@@ -18,8 +20,6 @@ public class MainMenuJFrame extends javax.swing.JFrame {
      */
     public MainMenuJFrame() {
         initComponents();
-        this.setLocationRelativeTo(null);
-      
     }
 
     /**
@@ -53,14 +53,14 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         jLabelWelcomeStatement.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jButtonLogin.setText("Login");
-        jButtonLogin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonLoginMouseClicked(evt);
-            }
-        });
 
         jButtonGuestFeedingTime.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonGuestFeedingTime.setText("Fütterungszeit");
+        jButtonGuestFeedingTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuestFeedingTimeActionPerformed(evt);
+            }
+        });
 
         jButtonShowMap.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonShowMap.setText("Karte anzeigen");
@@ -121,8 +121,6 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         
         //Set Main Menue to not visible
         this.setVisible(false);
-        
-        
         JFrame thisFrame = this; 
         /* Create and display the form with the Zoo Map */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -133,11 +131,20 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonShowMapActionPerformed
 
-    private void jButtonLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLoginMouseClicked
-        // TODO add your handling code here:
-        new LoginJFrame(this).setVisible(true);
+    private void jButtonGuestFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuestFeedingTimeActionPerformed
         
-    }//GEN-LAST:event_jButtonLoginMouseClicked
+        //Set Main Menue to not visible
+        this.setVisible(false);
+        
+        
+        JFrame thisFrame = this; 
+        /* Create and display the form with the Zoo Map */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ChooseAnimalAndTimeJFrame(thisFrame).setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_jButtonGuestFeedingTimeActionPerformed
 
     
     /**

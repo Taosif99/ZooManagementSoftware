@@ -22,7 +22,7 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         initComponents();
         this.goBackFrame = goBackFrame;    
         methods = new Methods();
-        methods.showTimeAndDate(jLabelShowTime);
+        methods.showTimeAndDate(jLabelShowDateTime);
     }
   
    
@@ -35,15 +35,15 @@ public class ZooMapJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelShowTime = new javax.swing.JLabel();
+        jLabelShowDateTime = new javax.swing.JLabel();
         jLabelLegend = new javax.swing.JLabel();
         jButtonBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabelShowTime.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        jLabelShowTime.setText("TIME  and Date");
-        jLabelShowTime.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jLabelShowDateTime.setText("TIME  and Date");
+        jLabelShowDateTime.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         jLabelLegend.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabelLegend.setText("Legende:");
@@ -65,7 +65,7 @@ public class ZooMapJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
-                        .addComponent(jLabelShowTime)
+                        .addComponent(jLabelShowDateTime)
                         .addGap(40, 40, 40))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelLegend)
@@ -76,7 +76,7 @@ public class ZooMapJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelShowTime)
+                    .addComponent(jLabelShowDateTime)
                     .addComponent(jButtonBack))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
                 .addComponent(jLabelLegend)
@@ -136,7 +136,7 @@ public class ZooMapJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBack;
     private javax.swing.JLabel jLabelLegend;
-    private javax.swing.JLabel jLabelShowTime;
+    private javax.swing.JLabel jLabelShowDateTime;
     // End of variables declaration//GEN-END:variables
 
     //Own delcared private variable
