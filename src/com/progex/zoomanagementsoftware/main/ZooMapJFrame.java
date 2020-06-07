@@ -5,6 +5,7 @@
  */
 package com.progex.zoomanagementsoftware.main;;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 
@@ -20,11 +21,31 @@ public class ZooMapJFrame extends javax.swing.JFrame {
      */
     public ZooMapJFrame(JFrame goBackFrame) {
         initComponents();
+        myInitComponents();
         this.goBackFrame = goBackFrame;    
         methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
     }
   
+    
+    private void myInitComponents(){
+    
+    
+        //Done in netbeans window
+        //this.setUndecorated(true);
+        //this.setAlwaysOnTop(true);
+        //this.setResizable(false);
+       // this.setVisible(true);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int x =(int)tk.getScreenSize().getWidth();
+        int y =(int)tk.getScreenSize().getHeight();
+        setSize(x,y);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    
+    
+    }
+    
+    
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,6 +61,11 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         jButtonBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Zoo Karte");
+        setAlwaysOnTop(true);
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(600, 720));
+        setResizable(false);
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabelShowDateTime.setText("TIME  and Date");
@@ -64,7 +90,7 @@ public class ZooMapJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 346, Short.MAX_VALUE)
                         .addComponent(jLabelShowDateTime)
                         .addGap(40, 40, 40))
                     .addGroup(layout.createSequentialGroup()
@@ -78,9 +104,9 @@ public class ZooMapJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelShowDateTime)
                     .addComponent(jButtonBack))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
                 .addComponent(jLabelLegend)
-                .addGap(32, 32, 32))
+                .addGap(74, 74, 74))
         );
 
         pack();

@@ -35,7 +35,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
 
         jProgressBar1 = new javax.swing.JProgressBar();
         letzteAnmeldung = new javax.swing.JLabel();
-        jButtonLogout = new javax.swing.JButton();
         jLabelLastLoginTime = new javax.swing.JLabel();
         nächsteFütterungIn = new javax.swing.JLabel();
         jLabelNextFeedingTimeIn = new javax.swing.JLabel();
@@ -45,6 +44,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         zookeeperName = new javax.swing.JLabel();
         jButtonNextFeedingTime = new javax.swing.JButton();
         jButtonAllFeedingTime1 = new javax.swing.JButton();
+        jButtonLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -56,14 +56,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
 
         letzteAnmeldung.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         letzteAnmeldung.setText("Letze Anmeldung: ");
-
-        jButtonLogout.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        jButtonLogout.setText("Logout");
-        jButtonLogout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonLogoutMouseClicked(evt);
-            }
-        });
 
         jLabelLastLoginTime.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabelLastLoginTime.setText("X");
@@ -125,6 +117,13 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButtonLogout.setText("Logout");
+        jButtonLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -141,8 +140,8 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
                                 .addComponent(jLabelLastLoginTime, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabelZookeeperModeHomePageDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
-                                .addComponent(jButtonLogout))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                                .addComponent(jButtonLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -188,16 +187,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLogoutMouseClicked
-        // TODO add your handling code here:
-
-        this.dispose();        
-        new MainMenuJFrame().setVisible(true);
-
-        
-
-    }//GEN-LAST:event_jButtonLogoutMouseClicked
-
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
       //  setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -226,6 +215,15 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     private void jButtonAllFeedingTime1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAllFeedingTime1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAllFeedingTime1ActionPerformed
+
+    private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jButtonLogoutActionPerformed
 
     /**
      * @param args the command line arguments

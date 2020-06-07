@@ -5,7 +5,7 @@
  */
 package com.progex.zoomanagementsoftware.main;
 
-import com.progex.zoomanagementsoftware.admin.HomepageJFrame;
+import com.progex.zoomanagementsoftware.admin.AdminHomepageJFrame;
 import com.progex.zoomanagementsoftware.zookeeper.ZookeeperModeHomePageJFrame;
 import javax.swing.JFrame;
 
@@ -40,14 +40,16 @@ public class LoginJFrame extends javax.swing.JFrame {
         jLabelPasswortUserLogin = new javax.swing.JLabel();
         jTextFieldUserLogin = new javax.swing.JTextField();
         jPasswordFieldUserLogin = new javax.swing.JPasswordField();
-        jButtonLoginUser = new javax.swing.JButton();
         jLabelLoginUser = new javax.swing.JLabel();
+        jButtonLogin = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
+        setAlwaysOnTop(true);
         setResizable(false);
+        setType(java.awt.Window.Type.UTILITY);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -64,59 +66,60 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButtonLoginUser.setText("login");
-        jButtonLoginUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonLoginUserMouseClicked(evt);
-            }
-        });
-        jButtonLoginUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLoginUserActionPerformed(evt);
-            }
-        });
-
         jLabelLoginUser.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabelLoginUser.setText("Login");
+
+        jButtonLogin.setText("Login");
+        jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLoginActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonLoginUser, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabelUsernameUserLogin)
-                            .addGap(18, 18, 18)
-                            .addComponent(jTextFieldUserLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabelLoginUser, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabelPasswortUserLogin)
-                            .addGap(44, 44, 44)
-                            .addComponent(jPasswordFieldUserLogin))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(207, 207, 207)
+                        .addComponent(jButtonLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelUsernameUserLogin)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldUserLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelLoginUser, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelPasswortUserLogin)
+                                .addGap(44, 44, 44)
+                                .addComponent(jPasswordFieldUserLogin)))))
                 .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jLabelLoginUser)
-                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelUsernameUserLogin)
-                    .addComponent(jTextFieldUserLogin))
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelPasswortUserLogin)
-                    .addComponent(jPasswordFieldUserLogin))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addComponent(jButtonLoginUser)
-                .addGap(26, 26, 26))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabelLoginUser)
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelUsernameUserLogin)
+                            .addComponent(jTextFieldUserLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPasswordFieldUserLogin))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelPasswortUserLogin)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -131,8 +134,11 @@ public class LoginJFrame extends javax.swing.JFrame {
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_formWindowClosing
 
-    private void jButtonLoginUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLoginUserMouseClicked
+    private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
         // TODO add your handling code here:
+        
+        
+               // TODO add your handling code here:
 
         // when login success open homepage for Zookeeper
         //if(username and password match)
@@ -151,10 +157,13 @@ public class LoginJFrame extends javax.swing.JFrame {
            /* Create and display Admin Homepage form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomepageJFrame().setVisible(true);
+                new AdminHomepageJFrame().setVisible(true);
             }
         });
        
+        
+        this.dispose();
+        
        } else {
        
            //Open zookeeper window here
@@ -167,16 +176,12 @@ public class LoginJFrame extends javax.swing.JFrame {
         });
        
        
+        //Make main menue invisible
+         mainMenuJFrame.setVisible(false);
+         this.dispose();
        }
-       
-       
-       
-       
-    }//GEN-LAST:event_jButtonLoginUserMouseClicked
-
-    private void jButtonLoginUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLoginUserActionPerformed
+        
+    }//GEN-LAST:event_jButtonLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,10 +220,10 @@ public class LoginJFrame extends javax.swing.JFrame {
     }
 
     
-    private javax.swing.JFrame mainMenuJFrame;
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonLoginUser;
+    private javax.swing.JButton jButtonLogin;
     private javax.swing.JLabel jLabelLoginUser;
     private javax.swing.JLabel jLabelPasswortUserLogin;
     private javax.swing.JLabel jLabelUsernameUserLogin;
@@ -226,4 +231,9 @@ public class LoginJFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JTextField jTextFieldUserLogin;
     // End of variables declaration//GEN-END:variables
+
+
+   private javax.swing.JFrame mainMenuJFrame;
+
+
 }

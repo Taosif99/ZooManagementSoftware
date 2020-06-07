@@ -25,7 +25,7 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         this.goBackFrame = goBackFrame; 
     }
 
-     public void myInitComponents(){
+     private void myInitComponents(){
         setUndecorated(true);
         setAlwaysOnTop(true);
         setResizable(false);
