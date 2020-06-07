@@ -134,12 +134,18 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonShowMapActionPerformed
 
     private void jButtonGuestFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuestFeedingTimeActionPerformed
-        // TODO add your handling code here:
-        this.toBack();
+        
+        //Set Main Menue to not visible
         this.setVisible(false);
         
-        new ChooseAnimalAndTimeJFrame().toFront();
-        new ChooseAnimalAndTimeJFrame().setState(java.awt.Frame.NORMAL);
+        
+        JFrame thisFrame = this; 
+        /* Create and display the form with the Zoo Map */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ChooseAnimalAndTimeJFrame(thisFrame).setVisible(true);
+            }
+        });
     }//GEN-LAST:event_jButtonGuestFeedingTimeActionPerformed
 
     

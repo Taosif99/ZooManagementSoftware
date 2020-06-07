@@ -11,9 +11,9 @@ import javax.swing.JOptionPane;
 
 /**
  * 
- * @author oLLii
- * TODOO grösse in tabel ändern
- * verweise schliessen oder invisible
+ * @author Oli
+ * TODOO grösse in tabel ändern //abwarten mit datensätzen
+ * 
  * 
  */
 public class ChooseTimeJFrame extends javax.swing.JFrame {
@@ -21,11 +21,12 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
     /**
      * Creates new form ZeitjFrame
      */
-    public ChooseTimeJFrame() {
+    public ChooseTimeJFrame(JFrame goBackFrame) {
        
         
         initComponents();
         myInitComponents();
+        this.goBackFrame = goBackFrame; 
     }
     
     public void myInitComponents(){
@@ -131,9 +132,9 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelShowDateTime)
-                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelShowDateTime))
                 .addGap(97, 97, 97)
                 .addComponent(jLabelTime)
                 .addGap(93, 93, 93)
@@ -144,12 +145,11 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
         // TODO add your handling code here:
+        goBackFrame.setVisible(true);
+        //Close frame
+        this.dispose();
         
-         this.toBack();
-        this.setVisible(false);
-        
-        new ChooseAnimalAndTimeJFrame().toFront();
-        new ChooseAnimalAndTimeJFrame().setState(java.awt.Frame.NORMAL);
+         
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     /**
@@ -185,7 +185,7 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChooseTimeJFrame().setVisible(true);
+                new ChooseTimeJFrame(null).setVisible(true);
             }
         });
     }
@@ -197,4 +197,5 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPaneAnimalTable;
     private javax.swing.JTable jTableTimeData;
     // End of variables declaration//GEN-END:variables
+    private javax.swing.JFrame goBackFrame;
 }

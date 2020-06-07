@@ -11,18 +11,19 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author oLLii
+ * @author Oli
  */
 public class ChooseListlJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form AuswahlJFrame
      */
-    public ChooseListlJFrame() {
+    public ChooseListlJFrame(JFrame goBackFrame) {
         
        
         initComponents();
         myInitComponents();
+        this.goBackFrame = goBackFrame; 
     }
     
     public void myInitComponents(){
@@ -84,6 +85,11 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButtonBack.setText("Zurück");
+        jButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBackActionPerformed(evt);
+            }
+        });
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelShowDateTime.setText("TIME");
@@ -133,7 +139,7 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -153,6 +159,14 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
                 .addGap(688, 688, 688))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
+
+        // TODO add your handling code here:
+        goBackFrame.setVisible(true);
+        //Close frame
+        this.dispose();
+    }//GEN-LAST:event_jButtonBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,7 +201,7 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChooseListlJFrame().setVisible(true);
+                new ChooseListlJFrame(null).setVisible(true);
             }
         });
     }
@@ -202,4 +216,6 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelShowDateTime;
     private javax.swing.JLabel jLabelTime;
     // End of variables declaration//GEN-END:variables
+    private javax.swing.JFrame goBackFrame;
 }
+

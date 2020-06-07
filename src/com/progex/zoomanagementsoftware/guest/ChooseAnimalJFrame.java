@@ -11,17 +11,18 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author oLLii
+ * @author Oli
  */
 public class ChooseAnimalJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form TiernamejFrame
      */
-    public ChooseAnimalJFrame() {
+    public ChooseAnimalJFrame(JFrame goBackFrame) {
         
         initComponents();
         myInitComponents();
+        this.goBackFrame = goBackFrame; 
     }
 
      public void myInitComponents(){
@@ -130,10 +131,11 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelShowDateTime)
                     .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                .addGap(12, 12, 12)
                 .addComponent(jLabelAnimal)
                 .addGap(78, 78, 78)
                 .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -142,13 +144,13 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
+
         // TODO add your handling code here:
+        goBackFrame.setVisible(true);
+        //Close frame
+        this.dispose();
         
-        this.toBack();
-        this.setVisible(false);
         
-        new ChooseAnimalAndTimeJFrame().toFront();
-        new ChooseAnimalJFrame().setState(java.awt.Frame.NORMAL);
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     /**
@@ -184,7 +186,7 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChooseAnimalJFrame().setVisible(true);
+                new ChooseAnimalJFrame(null).setVisible(true);
             }
         });
     }
@@ -196,4 +198,5 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPaneAnimalTable;
     private javax.swing.JTable jTableAninmalData;
     // End of variables declaration//GEN-END:variables
+    private javax.swing.JFrame goBackFrame;
 }

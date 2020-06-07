@@ -13,25 +13,22 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author oLLii
+ * @author Oli
  */
 public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form AuswahlTierZeitJFrame
      */
-    public ChooseAnimalAndTimeJFrame() {
-        
-        
-        
-        
+    public ChooseAnimalAndTimeJFrame(JFrame goBackFrame) {
         
         initComponents();
         myInitComponents();
+        this.goBackFrame = goBackFrame; 
         
     }
 
-    public ChooseAnimalAndTimeJFrame(JFrame thisFrame) {
+    public ChooseAnimalAndTimeJFrame() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -146,13 +143,13 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1683, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelShowDateTime)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 941, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelChoose, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -178,11 +175,14 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelShowDateTime)
-                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(97, 97, 97)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelShowDateTime))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(81, 81, 81)
                 .addComponent(jLabelFindOut)
                 .addGap(140, 140, 140)
                 .addComponent(jLabelChoose)
@@ -205,17 +205,32 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         
         
         
-        this.toBack();
-        this.setVisible(false);
+       
         //Fall1
-        new ChooseAnimalJFrame().toFront();
-        new ChooseAnimalJFrame().setState(java.awt.Frame.NORMAL);
+        
         
         //Fall2
         //new ChooseTimeJFrame().toFront();
         //new ChooseTimeJFrame().setState(java.awt.Frame.NORMAL);
         
         //Beides
+        
+        this.setVisible(false);
+        
+        
+        JFrame thisFrame = this; 
+        /* Create and display the form with the Zoo Map */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                
+                //Fallunterscheidung
+                //new ChooseAnimalJFrame(thisFrame).setVisible(true);
+                //oder
+                new ChooseTimeJFrame(thisFrame).setVisible(true);
+                //oder
+                //new ChooseListJFrame(thisFrame).setVisible(true);
+            }
+        });
         
         
 
@@ -240,11 +255,9 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
                 // TODO add your handling code here:
                 
-        this.toBack();
-        this.setVisible(false);
-        
-        new MainMenuJFrame().toFront();
-        new MainMenuJFrame().setState(java.awt.Frame.NORMAL);
+        goBackFrame.setVisible(true);
+        //Close frame
+        this.dispose();
                 
             
                 
@@ -297,4 +310,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelShowDateTime;
     private javax.swing.JLabel jLabelTime;
     // End of variables declaration//GEN-END:variables
+
+    private javax.swing.JFrame goBackFrame;
+
 }
