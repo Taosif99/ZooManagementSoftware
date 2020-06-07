@@ -20,6 +20,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     public ZookeeperModeHomePageJFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
+        //  comment
 
     }
 
