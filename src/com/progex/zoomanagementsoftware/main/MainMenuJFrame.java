@@ -5,6 +5,8 @@
  */
 package com.progex.zoomanagementsoftware.main;
 
+
+import com.progex.zoomanagementsoftware.guest.ChooseAnimalAndTimeJFrame;
 import javax.swing.JFrame;
 
 /**
@@ -31,9 +33,9 @@ public class MainMenuJFrame extends javax.swing.JFrame {
 
         jLabelWelcome = new javax.swing.JLabel();
         jLabelWelcomeStatement = new javax.swing.JLabel();
-        jButtonLogin = new javax.swing.JButton();
         jButtonGuestFeedingTime = new javax.swing.JButton();
         jButtonShowMap = new javax.swing.JButton();
+        jButtonLogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Zoo / compund management");
@@ -50,10 +52,13 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         jLabelWelcomeStatement.setText("Finde heraus wann welches Tier gefüttert wird !");
         jLabelWelcomeStatement.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jButtonLogin.setText("Login");
-
         jButtonGuestFeedingTime.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonGuestFeedingTime.setText("Fütterungszeit");
+        jButtonGuestFeedingTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuestFeedingTimeActionPerformed(evt);
+            }
+        });
 
         jButtonShowMap.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButtonShowMap.setText("Karte anzeigen");
@@ -66,26 +71,32 @@ public class MainMenuJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButtonLogin.setText("Login");
+        jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLoginActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonGuestFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonShowMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonShowMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelWelcomeStatement, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelWelcomeStatement, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,6 +115,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     /**
      * Method to show the Map of the Zoo
@@ -114,8 +126,6 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         
         //Set Main Menue to not visible
         this.setVisible(false);
-        
-        
         JFrame thisFrame = this; 
         /* Create and display the form with the Zoo Map */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -125,6 +135,35 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
         
     }//GEN-LAST:event_jButtonShowMapActionPerformed
+
+    private void jButtonGuestFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuestFeedingTimeActionPerformed
+        
+        //Set Main Menue to not visible
+        this.setVisible(false);
+        
+        
+        JFrame thisFrame = this; 
+        /* Create and display the form with the Zoo Map */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ChooseAnimalAndTimeJFrame(thisFrame).setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_jButtonGuestFeedingTimeActionPerformed
+
+    private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
+
+            
+        
+              /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new LoginJFrame(null).setVisible(true);
+            }
+        });
+        
+        
+    }//GEN-LAST:event_jButtonLoginActionPerformed
 
     
     /**
