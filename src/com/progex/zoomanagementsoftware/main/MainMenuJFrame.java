@@ -25,6 +25,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         initComponents();
         myInitComponents();
         
+        
     }
 
     
@@ -42,6 +43,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         int y =(int)tk.getScreenSize().getHeight();
         setSize(x,y);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        currentLoginJFrame = null;
     }
     
     
@@ -177,13 +180,30 @@ public class MainMenuJFrame extends javax.swing.JFrame {
 
       
         JFrame thisFrame = this;
-            
-              /* Create and display the form */
+        
+        
+        if(currentLoginJFrame==null){
+        /* Create and display the form */
+    
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginJFrame(thisFrame).setVisible(true);
+                currentLoginJFrame = new LoginJFrame(thisFrame);
+                currentLoginJFrame.setVisible(true);
+                
             }
-        });   
+        });               
+        }
+        else{
+            currentLoginJFrame.dispose();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                currentLoginJFrame = new LoginJFrame(thisFrame);
+                currentLoginJFrame.setVisible(true);
+                
+            }
+        });             
+        }
+
         
         
         
@@ -238,4 +258,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelWelcome;
     private javax.swing.JLabel jLabelWelcomeStatement;
     // End of variables declaration//GEN-END:variables
+    private javax.swing.JFrame currentLoginJFrame;
+
+
+
 }

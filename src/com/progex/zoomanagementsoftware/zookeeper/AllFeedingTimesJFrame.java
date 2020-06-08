@@ -78,6 +78,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
         jButtonGoBack = new javax.swing.JButton();
         jRadioButtonAmountOfFoodInKiloGramm = new javax.swing.JRadioButton();
         jRadioButtonAmountOfFoodInGramm = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Alle Fütterungen");
@@ -97,7 +98,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButtonNextFeedingTime.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        jButtonNextFeedingTime.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButtonNextFeedingTime.setText("Nächste Fütterung anzeigen");
         jButtonNextFeedingTime.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -170,6 +171,10 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
         buttonGroupConvertAmountOfFood.add(jRadioButtonAmountOfFoodInGramm);
         jRadioButtonAmountOfFoodInGramm.setText("Futtermenge in Gramm");
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Meine Fütterungszeiten");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -177,22 +182,27 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
+                    .addComponent(jScrollPaneTable)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonGoBack)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabelTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonLogout))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButtonAmountOfFoodInKiloGramm, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButtonAmountOfFoodInGramm, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                        .addComponent(jRadioButtonAmountOfFoodInKiloGramm, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButtonAmountOfFoodInGramm, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonGoBack)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonLogout))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 56, Short.MAX_VALUE)
+                        .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 56, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,13 +213,15 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
                     .addComponent(jLabelTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonGoBack))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonAmountOfFoodInKiloGramm)
                     .addComponent(jRadioButtonAmountOfFoodInGramm))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonNextFeedingTime)
                 .addGap(25, 25, 25))
         );
 
@@ -265,7 +277,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
                     new NextFeedingTimeJFrame(mainMenuJFrame,zookeeperModeHomePageFrame,thisFrame).setVisible(true);
                 }
             });                
-            
+            this.setVisible(false);
         }
       
         
@@ -321,6 +333,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonGoBack;
     private javax.swing.JButton jButtonLogout;
     private javax.swing.JButton jButtonNextFeedingTime;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelTime;
     private javax.swing.JRadioButton jRadioButtonAmountOfFoodInGramm;
     private javax.swing.JRadioButton jRadioButtonAmountOfFoodInKiloGramm;

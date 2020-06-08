@@ -46,12 +46,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         
         //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
         if(x == 1920 && y == 1080){
-            jLabelFood.setFont(new java.awt.Font("Calibri", 0, 32));
-            jLabelAmountOfFood.setFont(new java.awt.Font("Calibri", 0, 32));
-            jLabelAnimalName.setFont(new java.awt.Font("Calibri", 0, 32));
-            jLabelStorageRoomNumber.setFont(new java.awt.Font("Calibri", 0, 32));
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 32));
-            jLabelCompoundName.setFont(new java.awt.Font("Calibri", 0, 32));
             
             abstellraumnummer.setFont(new java.awt.Font("Calibri", 0, 32));
             futter.setFont(new java.awt.Font("Calibri", 0, 32));
@@ -64,12 +59,6 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
             
             
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 28));
-            jLabelFood.setFont(new java.awt.Font("Calibri", 0, 28));
-            jLabelAmountOfFood.setFont(new java.awt.Font("Calibri", 0, 28));
-            jLabelAnimalName.setFont(new java.awt.Font("Calibri", 0, 28));
-            jLabelStorageRoomNumber.setFont(new java.awt.Font("Calibri", 0, 28));
-            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 28));
-            jLabelCompoundName.setFont(new java.awt.Font("Calibri", 0, 28));
             
             abstellraumnummer.setFont(new java.awt.Font("Calibri", 0, 28));
             futter.setFont(new java.awt.Font("Calibri", 0, 28));
@@ -118,11 +107,6 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         tierName = new javax.swing.JLabel();
         gehege = new javax.swing.JLabel();
         nextFeedingTimeTakesPlaceIn = new javax.swing.JLabel();
-        jLabelFood = new javax.swing.JLabel();
-        jLabelStorageRoomNumber = new javax.swing.JLabel();
-        jLabelAmountOfFood = new javax.swing.JLabel();
-        jLabelAnimalName = new javax.swing.JLabel();
-        jLabelCompoundName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nächste Fütterung");
@@ -159,8 +143,10 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         jLabelTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTime.setText("X");
 
-        jButtonNextFeedingTime.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        jButtonNextFeedingTime.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButtonNextFeedingTime.setText("Alle Fütterungen anzeigen");
+        jButtonNextFeedingTime.setMinimumSize(new java.awt.Dimension(311, 39));
+        jButtonNextFeedingTime.setPreferredSize(new java.awt.Dimension(311, 39));
         jButtonNextFeedingTime.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonNextFeedingTimeMouseClicked(evt);
@@ -172,83 +158,43 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
             }
         });
 
-        futter.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        futter.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        futter.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        futter.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         futter.setText("Futter:");
 
-        abstellraumnummer.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        abstellraumnummer.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        abstellraumnummer.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        abstellraumnummer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         abstellraumnummer.setText("Abstellraumnummer:");
 
-        futtermenge.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        futtermenge.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        futtermenge.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        futtermenge.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         futtermenge.setText("Futtermenge:");
 
-        tierName.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        tierName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        tierName.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        tierName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tierName.setText("Tiername:");
 
-        gehege.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        gehege.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        gehege.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        gehege.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         gehege.setText("Gehege:");
 
         nextFeedingTimeTakesPlaceIn.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         nextFeedingTimeTakesPlaceIn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung findet statt in: ");
 
-        jLabelFood.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelFood.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelFood.setText("X");
-
-        jLabelStorageRoomNumber.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelStorageRoomNumber.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelStorageRoomNumber.setText("X");
-
-        jLabelAmountOfFood.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelAmountOfFood.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelAmountOfFood.setText("X");
-
-        jLabelAnimalName.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelAnimalName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelAnimalName.setText("X");
-
-        jLabelCompoundName.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelCompoundName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelCompoundName.setText("X");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(nextFeedingTimeTakesPlaceIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(168, 168, 168)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(futter)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabelFood))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(gehege)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabelCompoundName))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tierName)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabelAnimalName))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(futtermenge)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabelAmountOfFood))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(abstellraumnummer, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelStorageRoomNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(89, 89, 89)))))
+                    .addComponent(tierName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nextFeedingTimeTakesPlaceIn, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+                    .addComponent(gehege, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(abstellraumnummer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(futtermenge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(futter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -257,47 +203,33 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(nextFeedingTimeTakesPlaceIn)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(futter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelFood, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(futter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(abstellraumnummer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelStorageRoomNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(abstellraumnummer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(futtermenge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelAmountOfFood, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(futtermenge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tierName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelAnimalName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(tierName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(gehege, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelCompoundName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(gehege, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonGoBack)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabelTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonLogout))
-                            .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jButtonGoBack)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelTime, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonLogout))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -310,9 +242,9 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
                     .addComponent(jLabelTime))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(54, 54, 54)
-                .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
         );
 
         pack();
@@ -422,11 +354,6 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonGoBack;
     private javax.swing.JButton jButtonLogout;
     private javax.swing.JButton jButtonNextFeedingTime;
-    private javax.swing.JLabel jLabelAmountOfFood;
-    private javax.swing.JLabel jLabelAnimalName;
-    private javax.swing.JLabel jLabelCompoundName;
-    private javax.swing.JLabel jLabelFood;
-    private javax.swing.JLabel jLabelStorageRoomNumber;
     private javax.swing.JLabel jLabelTime;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel nextFeedingTimeTakesPlaceIn;
