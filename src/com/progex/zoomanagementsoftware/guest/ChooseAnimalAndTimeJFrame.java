@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package com.progex.zoomanagementsoftware.guest;
+
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import com.progex.zoomanagementsoftware.main.MainMenuJFrame;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
 
 /**
  *
@@ -21,31 +21,30 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
      * Creates new form AuswahlTierZeitJFrame
      */
     public ChooseAnimalAndTimeJFrame(JFrame goBackFrame) {
-        
+
         initComponents();
         myInitComponents();
-        this.goBackFrame = goBackFrame; 
-        
+        this.goBackFrame = goBackFrame;
+
     }
 
     public ChooseAnimalAndTimeJFrame() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public void myInitComponents(){
-        
-        
+
+    public void myInitComponents() {
+
         setUndecorated(true);
         setAlwaysOnTop(true);
         setResizable(false);
         setVisible(true);
         Toolkit tk = Toolkit.getDefaultToolkit();
-        int x =(int)tk.getScreenSize().getWidth();
-        int y =(int)tk.getScreenSize().getHeight();
-        setSize(x,y);
+        int x = (int) tk.getScreenSize().getWidth();
+        int y = (int) tk.getScreenSize().getHeight();
+        setSize(x, y);
         //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
-        if(x == 1920 && y == 1080){
-            
+        if (x == 1920 && y == 1080) {
+
             jComboBoxName.setFont(new java.awt.Font("Calibri", 0, 32));
             jComboTime.setFont(new java.awt.Font("Calibri", 0, 32));
             jLabelChoose.setFont(new java.awt.Font("Calibri", 1, 32));
@@ -53,10 +52,10 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
             jLabelName.setFont(new java.awt.Font("Calibri", 0, 32));
             jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 28));
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 32));
-            
+
         }
-        if(x == 1280 && y == 720){
-            
+        if (x == 1280 && y == 720) {
+
             jComboBoxName.setFont(new java.awt.Font("Calibri", 0, 28));
             jComboTime.setFont(new java.awt.Font("Calibri", 0, 28));
             jLabelChoose.setFont(new java.awt.Font("Calibri", 1, 28));
@@ -66,16 +65,14 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 28));
 
         }
-        
-        
+
         //Combobox test
-        jComboBoxName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { null,"Affe","Tiger" }));
-        jComboTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { null,"15:00-15:15","15:15-15:30" }));
-        
-        Methods methods = new Methods();    
+        jComboBoxName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{null, "Affe", "Tiger"}));
+        jComboTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{null, "15:00-15:15", "15:15-15:30"}));
+
+        Methods methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
-        
-        
+
     }
 
     /**
@@ -200,56 +197,43 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
-        
-        
-        
-        
-       
+
         //Fall1
-        
-        
         //Fall2
         //new ChooseTimeJFrame().toFront();
         //new ChooseTimeJFrame().setState(java.awt.Frame.NORMAL);
-        
         //Beides
-        
         this.setVisible(false);
-        
-        
-        JFrame thisFrame = this; 
+
+        JFrame thisFrame = this;
         /* Create and display the form with the Zoo Map */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
+
                 //Fallunterscheidung
-                if(jComboBoxName.getModel() != null && jComboTime.getModel() == null ){
+                if (jComboBoxName.getSelectedItem()!= null && jComboTime.getSelectedItem() == null) {
+
                     new ChooseAnimalJFrame(thisFrame).setVisible(true);
                 }
-                if(jComboBoxName.getModel() == null && jComboTime.getModel() != null ){
-                    new ChooseTimeJFrame(thisFrame).setVisible(true);    
-                }    
-                if(jComboBoxName.getModel() != null && jComboTime.getModel() != null ){ 
-                    
-                }  
-                new ChooseListlJFrame(thisFrame).setVisible(true);
+
+                if (jComboBoxName.getSelectedItem() == null && jComboTime.getSelectedItem() != null) {
+                    new ChooseTimeJFrame(thisFrame).setVisible(true);
                 }
+                if (jComboBoxName.getSelectedItem() != null && jComboTime.getSelectedItem() != null) {
+
+                    new ChooseListlJFrame(thisFrame).setVisible(true);
+                }
+            }
         });
-        
-        
-
-
-
-
 
         //wenn keine Eingabe
-        JOptionPane.showMessageDialog(null, "Sie haben keine Fütterungszeit und kein Tier ausgewählt\n\nBitte treffen sie mindestens eine Auswahl","Fehlermeldung", JOptionPane.CANCEL_OPTION);
+        //JOptionPane.showMessageDialog(null, "Sie haben keine Fütterungszeit und kein Tier ausgewählt\n\nBitte treffen sie mindestens eine Auswahl","Fehlermeldung", JOptionPane.CANCEL_OPTION);
         //wenn Tier keine Fütterungen mehr hat
-        JOptionPane.showMessageDialog(null, "Keine Fütterungen für 'Tier' heute!\n\nVielleicht haben sie an einem anderen Tag mehr Glück :)","Schade", JOptionPane.CANCEL_OPTION);
+        //JOptionPane.showMessageDialog(null, "Keine Fütterungen für 'Tier' heute!\n\nVielleicht haben sie an einem anderen Tag mehr Glück :)","Schade", JOptionPane.CANCEL_OPTION);
         //wenn Uhrzeit keine Fütterungen hat 
-        JOptionPane.showMessageDialog(null, "Es finden keine Fütterungen um diese Uhrzeit heute statt \n\nVielleicht haben sie an einem anderen Tag mehr Glück :)","Schade", JOptionPane.CANCEL_OPTION); 
+        // JOptionPane.showMessageDialog(null, "Es finden keine Fütterungen um diese Uhrzeit heute statt \n\nVielleicht haben sie an einem anderen Tag mehr Glück :)","Schade", JOptionPane.CANCEL_OPTION); 
         //wenn Tier und Uhrzeit false
-        JOptionPane.showMessageDialog(null, "Es finden keine Fütterungen für 'Tier' um  'Uhrzeit' heute statt!\n\nSuchen Sie nur nach dem Tier, um Verfügbare Uhrzeiten angezeigt zu bekommen","Schade", JOptionPane.CANCEL_OPTION);
+        // JOptionPane.showMessageDialog(null, "Es finden keine Fütterungen für 'Tier' um  'Uhrzeit' heute statt!\n\nSuchen Sie nur nach dem Tier, um Verfügbare Uhrzeiten angezeigt zu bekommen","Schade", JOptionPane.CANCEL_OPTION);
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonBackMouseClicked
@@ -257,20 +241,19 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonBackMouseClicked
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-                // TODO add your handling code here:
-                
+        // TODO add your handling code here:
+
         goBackFrame.setVisible(true);
         //Close frame
         this.dispose();
-                
-            
-                
+
+
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jComboBoxNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxNameActionPerformed
         // TODO add your handling code here:
-        
-     
+
+
     }//GEN-LAST:event_jComboBoxNameActionPerformed
 
     /**
