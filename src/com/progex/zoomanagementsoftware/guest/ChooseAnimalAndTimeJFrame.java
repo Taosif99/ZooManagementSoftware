@@ -221,7 +221,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                 }
                 if (jComboBoxName.getSelectedItem() != null && jComboTime.getSelectedItem() != null) {
 
-                    new ChooseListlJFrame(thisFrame).setVisible(true);
+                    new ChooseBoth(thisFrame).setVisible(true);
                 }
             }
         });

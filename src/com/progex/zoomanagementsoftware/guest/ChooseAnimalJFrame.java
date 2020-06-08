@@ -5,9 +5,11 @@
  */
 package com.progex.zoomanagementsoftware.guest;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import java.awt.Font;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -50,7 +52,12 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
             jTableAninmalData.setFont(new java.awt.Font("Calibri", 1, 26));
             jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 22));
         } 
+        //Table change Font
+        JTableHeader tableHeader = jTableAninmalData.getTableHeader();
+        Font headerFont = new Font("Calibri", 0, 22);
+        tableHeader.setFont(headerFont);
         
+        //Date Method
         Methods methods = new Methods();    
         methods.showTimeAndDate(jLabelShowDateTime);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
