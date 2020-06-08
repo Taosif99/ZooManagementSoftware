@@ -7,6 +7,7 @@ package com.progex.zoomanagementsoftware.main;
 
 
 import com.progex.zoomanagementsoftware.guest.ChooseAnimalAndTimeJFrame;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
@@ -18,10 +19,33 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainMenuJFrame
      */
+    
+    
     public MainMenuJFrame() {
         initComponents();
+        myInitComponents();
+        
     }
 
+    
+    
+    
+    private void myInitComponents(){
+        
+        //Done in netbeans window
+        //this.setUndecorated(true);
+        //this.setAlwaysOnTop(true);
+        //this.setResizable(false);
+       // this.setVisible(true);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int x =(int)tk.getScreenSize().getWidth();
+        int y =(int)tk.getScreenSize().getHeight();
+        setSize(x,y);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,6 +63,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Zoo / compund management");
+        setAlwaysOnTop(true);
+        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(600, 720));
         setResizable(false);
 
@@ -87,15 +113,11 @@ public class MainMenuJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonGuestFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonShowMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelWelcomeStatement, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabelWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelWelcomeStatement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -106,7 +128,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabelWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelWelcomeStatement, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                .addComponent(jLabelWelcomeStatement, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonGuestFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -153,27 +175,24 @@ public class MainMenuJFrame extends javax.swing.JFrame {
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
 
+      
+        JFrame thisFrame = this;
             
-        
               /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginJFrame(null).setVisible(true);
+                new LoginJFrame(thisFrame).setVisible(true);
             }
-        });
+        });   
         
+        
+        
+
         
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
     
-    /**
-     * Own method for initaializing components
-     */
-    public void myInitComponents() {
-       
-    
-        
-    }
+
 
     
     

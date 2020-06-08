@@ -5,7 +5,9 @@
  */
 package com.progex.zoomanagementsoftware.zookeeper;
 
+import com.progex.zoomanagementsoftware.admin.ManageUserJFrame;
 import com.progex.zoomanagementsoftware.main.MainMenuJFrame;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
@@ -17,11 +19,27 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     /**
      * Creates new form ZookeeperModeHomePage
      */
-    public ZookeeperModeHomePageJFrame() {
+    public ZookeeperModeHomePageJFrame(JFrame goBack) {
         initComponents();
+        myInitComponents();
         this.setLocationRelativeTo(null);
+        mainMenuJFrame = goBack;
         //  comment
 
+    }
+    
+        private void myInitComponents(){
+        
+        //Done in netbeans window
+        //this.setUndecorated(true);
+        //this.setAlwaysOnTop(true);
+        //this.setResizable(false);
+       // this.setVisible(true);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int x =(int)tk.getScreenSize().getWidth();
+        int y =(int)tk.getScreenSize().getHeight();
+        setSize(x,y);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -35,18 +53,19 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
 
         jProgressBar1 = new javax.swing.JProgressBar();
         letzteAnmeldung = new javax.swing.JLabel();
-        jButtonLogout = new javax.swing.JButton();
         jLabelLastLoginTime = new javax.swing.JLabel();
         nächsteFütterungIn = new javax.swing.JLabel();
         jLabelNextFeedingTimeIn = new javax.swing.JLabel();
-        jLabelZooKeeperHomePageTierpflegerName = new javax.swing.JLabel();
-        jLabelZookeeperModeHomePageDatum = new javax.swing.JLabel();
+        jLabeDate = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         zookeeperName = new javax.swing.JLabel();
         jButtonNextFeedingTime = new javax.swing.JButton();
         jButtonAllFeedingTime1 = new javax.swing.JButton();
+        jButtonLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Tierpfleger HomePage");
+        setUndecorated(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -57,14 +76,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         letzteAnmeldung.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         letzteAnmeldung.setText("Letze Anmeldung: ");
 
-        jButtonLogout.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        jButtonLogout.setText("Logout");
-        jButtonLogout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonLogoutMouseClicked(evt);
-            }
-        });
-
         jLabelLastLoginTime.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabelLastLoginTime.setText("X");
 
@@ -74,9 +85,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         jLabelNextFeedingTimeIn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabelNextFeedingTimeIn.setText("X");
 
-        jLabelZooKeeperHomePageTierpflegerName.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-
-        jLabelZookeeperModeHomePageDatum.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jLabeDate.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         zookeeperName.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         zookeeperName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -125,6 +134,13 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButtonLogout.setText("Logout");
+        jButtonLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -140,9 +156,9 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabelLastLoginTime, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelZookeeperModeHomePageDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
-                                .addComponent(jButtonLogout))))
+                                .addComponent(jLabeDate, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                                .addComponent(jButtonLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -168,7 +184,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
                             .addComponent(jLabelLastLoginTime)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addComponent(jLabelZookeeperModeHomePageDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabeDate, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButtonLogout)))
@@ -188,44 +204,56 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLogoutMouseClicked
-        // TODO add your handling code here:
-
-        this.dispose();        
-        new MainMenuJFrame().setVisible(true);
-
-        
-
-    }//GEN-LAST:event_jButtonLogoutMouseClicked
-
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
       //  setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     }//GEN-LAST:event_formWindowClosed
 
+    
+    
+    // Nächste Fütterung anzeigen Button Click Event
     private void jButtonNextFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        JFrame thisFrame = this;
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new NextFeedingTimeJFrame(mainMenuJFrame, thisFrame ,null).setVisible(true);
+            }
+        });        
+        
+        
     }//GEN-LAST:event_jButtonNextFeedingTimeActionPerformed
 
     private void jButtonNextFeedingTimeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeMouseClicked
         // TODO add your handling code here:
-        new NextFeedingTimeJFrame().setVisible(true); 
-        this.dispose();
-        
     }//GEN-LAST:event_jButtonNextFeedingTimeMouseClicked
 
     private void jButtonAllFeedingTime1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAllFeedingTime1MouseClicked
-        // TODO add your handling code here:
-        new AllFeedingTimesJFrame().setVisible(true);
-        this.dispose();
-        //this.setVisible(false);
-   
+        // TODO add your handling code here:   
     }//GEN-LAST:event_jButtonAllFeedingTime1MouseClicked
 
     private void jButtonAllFeedingTime1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAllFeedingTime1ActionPerformed
         // TODO add your handling code here:
+        
+        JFrame thisFrame = this;
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AllFeedingTimesJFrame(mainMenuJFrame,thisFrame,null).setVisible(true);
+            }
+        });            
     }//GEN-LAST:event_jButtonAllFeedingTime1ActionPerformed
+
+    private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
+        
+        
+        this.dispose();
+        mainMenuJFrame.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jButtonLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -258,7 +286,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ZookeeperModeHomePageJFrame().setVisible(true);
+                new ZookeeperModeHomePageJFrame(null).setVisible(true);
             }
         });
     }
@@ -267,14 +295,17 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAllFeedingTime1;
     private javax.swing.JButton jButtonLogout;
     private javax.swing.JButton jButtonNextFeedingTime;
+    private javax.swing.JLabel jLabeDate;
     private javax.swing.JLabel jLabelLastLoginTime;
     private javax.swing.JLabel jLabelNextFeedingTimeIn;
-    private javax.swing.JLabel jLabelZooKeeperHomePageTierpflegerName;
-    private javax.swing.JLabel jLabelZookeeperModeHomePageDatum;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JLabel letzteAnmeldung;
     private javax.swing.JLabel nächsteFütterungIn;
     private javax.swing.JLabel zookeeperName;
     // End of variables declaration//GEN-END:variables
+
+   private javax.swing.JFrame mainMenuJFrame;
+
+
 }
