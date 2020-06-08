@@ -68,8 +68,9 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         }
         
         
-        
-        
+        //Combobox test
+        jComboBoxName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { null,"Affe","Tiger" }));
+        jComboTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { null,"15:00-15:15","15:15-15:30" }));
         
         Methods methods = new Methods();    
         methods.showTimeAndDate(jLabelShowDateTime);
@@ -110,7 +111,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabelFindOut.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelFindOut.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
         jLabelFindOut.setText("Finde heraus wann welches Tier gefüttert wird");
 
         jLabelChoose.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
@@ -123,6 +124,11 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         jLabelTime.setText("Fütterungszeit:");
 
         jComboBoxName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxNameActionPerformed(evt);
+            }
+        });
 
         jComboTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -149,44 +155,37 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                         .addComponent(jLabelShowDateTime)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 941, Short.MAX_VALUE)
+                        .addGap(0, 475, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelChoose, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabelFindOut)
+                                .addGap(502, 502, 502))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabelChoose, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                                    .addComponent(jButtonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabelTime)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jComboTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabelName)
-                                        .addGap(80, 80, 80)
-                                        .addComponent(jComboBoxName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(100, 100, 100))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(135, 135, 135)
-                                .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(677, 677, 677))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelFindOut)
-                .addGap(502, 502, 502))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabelTime)
+                                            .addComponent(jLabelName))
+                                        .addGap(54, 54, 54)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jComboBoxName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jComboTime, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(764, 764, 764))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelShowDateTime))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(81, 81, 81)
+                    .addComponent(jLabelShowDateTime)
+                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(97, 97, 97)
                 .addComponent(jLabelFindOut)
-                .addGap(140, 140, 140)
+                .addGap(106, 106, 106)
                 .addComponent(jLabelChoose)
-                .addGap(45, 45, 45)
+                .addGap(79, 79, 79)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelName)
                     .addComponent(jComboBoxName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -194,9 +193,9 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTime)
                     .addComponent(jComboTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60)
-                .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(516, Short.MAX_VALUE))
+                .addGap(68, 68, 68)
+                .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(458, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -224,12 +223,17 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
             public void run() {
                 
                 //Fallunterscheidung
-                //new ChooseAnimalJFrame(thisFrame).setVisible(true);
-                //oder
-                new ChooseTimeJFrame(thisFrame).setVisible(true);
-                //oder
-                //new ChooseListJFrame(thisFrame).setVisible(true);
-            }
+                if(jComboBoxName.getModel() != null && jComboTime.getModel() == null ){
+                    new ChooseAnimalJFrame(thisFrame).setVisible(true);
+                }
+                if(jComboBoxName.getModel() == null && jComboTime.getModel() != null ){
+                    new ChooseTimeJFrame(thisFrame).setVisible(true);    
+                }    
+                if(jComboBoxName.getModel() != null && jComboTime.getModel() != null ){ 
+                    
+                }  
+                new ChooseListlJFrame(thisFrame).setVisible(true);
+                }
         });
         
         
@@ -262,6 +266,12 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
             
                 
     }//GEN-LAST:event_jButtonBackActionPerformed
+
+    private void jComboBoxNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxNameActionPerformed
+        // TODO add your handling code here:
+        
+     
+    }//GEN-LAST:event_jComboBoxNameActionPerformed
 
     /**
      * @param args the command line arguments
