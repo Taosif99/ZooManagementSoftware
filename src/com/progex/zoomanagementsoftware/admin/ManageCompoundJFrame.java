@@ -74,7 +74,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gehege verwalten");
-        setPreferredSize(new java.awt.Dimension(1280, 600));
         setResizable(false);
 
         jLabelCompoundName.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -200,11 +199,11 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Tiername", "Geschlecht", "Geburtsdatum", "Spezies", "Gehege"
+                "ID", "Gehegename", "Fläche in m²", "Baujahr", "MaximaleKapazität"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -214,6 +213,9 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         jTableCompoundData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTableCompoundData.getTableHeader().setReorderingAllowed(false);
         jScrollPaneCompoundTable.setViewportView(jTableCompoundData);
+        if (jTableCompoundData.getColumnModel().getColumnCount() > 0) {
+            jTableCompoundData.getColumnModel().getColumn(4).setPreferredWidth(150);
+        }
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelShowDateTime.setText("TIME");
