@@ -87,6 +87,7 @@ public class ZooManager {
                     double area = resultSet.getDouble("Area");
                     int year = resultSet.getInt("ConstructionYear");
                     int maxCapacity = resultSet.getInt("MaxCapacity");
+                   
                     
                     Compound newCompound = new Compound(ID, area, new Date(year,0,0),maxCapacity,0, name);
                     compounds.add(newCompound);

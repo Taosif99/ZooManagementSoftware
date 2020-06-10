@@ -72,8 +72,13 @@ public class ConnectionHandler {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Successfully connected !");
             //Bei mir klappt nur das, probiert mal beide versionen
-            connection = DriverManager.getConnection(url + dbName + "?characterEncoding=latin1", username, password); //Connector 5...
+           // connection = DriverManager.getConnection(url + dbName + "?characterEncoding=latin1", username, password); //Connector 5...
             //connection = DriverManager.getConnection(url+dbName, username, password); //Connector 8...
+             connection = DriverManager.getConnection(url + dbName + "?characterEncoding=utf-8", username, password);
+        
+        
+        
+        
         } catch (Exception e) {
 
             System.out.println(e.getMessage());
