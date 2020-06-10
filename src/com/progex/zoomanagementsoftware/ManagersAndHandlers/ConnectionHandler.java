@@ -139,7 +139,7 @@ public class ConnectionHandler {
      * @param query
      * @return The result set, null if something goes wrong
      */
-    public ResultSet performQuerry(String query){
+    public ResultSet performQuery(String query){
     
         Statement statement;
         ResultSet resultSet = null;

@@ -68,7 +68,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
            //Hier wird es Hinzugefuegt
            model.addRow(row);
        
-           
+           System.out.println("Gehegename:" + compound.getName());
        }
     
     

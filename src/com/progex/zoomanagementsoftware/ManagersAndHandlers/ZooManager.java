@@ -72,7 +72,7 @@ public class ZooManager {
      
         LinkedList<Compound> compounds = new LinkedList<Compound>();
         String query = "SELECT ID,Name,Area,ConstructionYear,MaxCapacity FROM compound";
-        ResultSet resultSet = connectionHandler.performQuerry(query);
+        ResultSet resultSet = connectionHandler.performQuery(query);
     
       
         if (resultSet != null){
@@ -82,7 +82,6 @@ public class ZooManager {
             try {
                 while (resultSet.next()) {
                 
-                    
                     int ID = resultSet.getInt("ID");
                     String name = resultSet.getString("Name");
                     double area = resultSet.getDouble("Area");
