@@ -41,6 +41,7 @@ public class Methods {
            
            //Each Minute get current Time 60000 
            new Timer(60000, new ActionListener() {
+               
             @Override
             public void actionPerformed(ActionEvent e) {
                 Date date = new Date();        

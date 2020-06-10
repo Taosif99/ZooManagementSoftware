@@ -5,9 +5,11 @@
  */
 package com.progex.zoomanagementsoftware.guest;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import java.awt.Font;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.JTableHeader;
 
 /**
  * 
@@ -48,6 +50,14 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
             jLabelTime.setFont(new java.awt.Font("Calibri", 1, 48));
             jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 22));
         }
+        
+        
+        JTableHeader tableHeader = jTableTimeData.getTableHeader();
+        Font headerFont = new Font("Calibri", 0, 22);
+        tableHeader.setFont(headerFont);
+        
+        
+        
         
         Methods methods = new Methods();    
         methods.showTimeAndDate(jLabelShowDateTime);
@@ -121,12 +131,13 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabelTime)
-                        .addGap(814, 814, 814))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1092, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(411, 411, 411))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1092, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(411, 411, 411))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabelTime)
+                                .addGap(793, 793, 793))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,9 +146,9 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelShowDateTime))
-                .addGap(97, 97, 97)
+                .addGap(95, 95, 95)
                 .addComponent(jLabelTime)
-                .addGap(93, 93, 93)
+                .addGap(95, 95, 95)
                 .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(122, Short.MAX_VALUE))
         );
@@ -198,4 +209,5 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
     private javax.swing.JTable jTableTimeData;
     // End of variables declaration//GEN-END:variables
     private javax.swing.JFrame goBackFrame;
+    
 }
