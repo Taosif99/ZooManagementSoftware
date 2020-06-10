@@ -5,6 +5,7 @@
  */
 package com.progex.zoomanagementsoftware.admin;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import javax.swing.JFrame;
 
@@ -17,10 +18,11 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainPageJFrame
      */
-    public AdminHomepageJFrame() {
+    public AdminHomepageJFrame(ZooManager zooManager) {
     
        initComponents();
        myInitComponents();
+       this.zooManager = zooManager;
     }
     
     
@@ -285,7 +287,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         /* Create and display the JFrame ManageCompound*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageCompoundJFrame(thisFrame).setVisible(true);
+                new ManageCompoundJFrame(thisFrame,zooManager).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButtonManageCompoundActionPerformed
@@ -347,10 +349,19 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
+        
+         String url ="jdbc:mysql://localhost/";
+         String username = "root";
+         String password = "0000";
+         String dbName = "zoo";
+        
+         ZooManager zooManager = new ZooManager(url,dbName,username,password);
+         
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminHomepageJFrame().setVisible(true);
+                new AdminHomepageJFrame(zooManager).setVisible(true);
             }
         });
     }
@@ -373,4 +384,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     private javax.swing.JTable jTableLastLoginAdminsData;
     private javax.swing.JTextField jTextFieldAmountAdmins;
     // End of variables declaration//GEN-END:variables
+
+    private ZooManager zooManager;
+
 }

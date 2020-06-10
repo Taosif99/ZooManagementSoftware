@@ -1,5 +1,7 @@
-package com.progex.zoomanagementsoftware.datatypes;
+package com.progex.zoomanagementsoftware.ManagersAndHandlers;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ConnectionHandler;
+import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
 import java.sql.Date;
 
 /**

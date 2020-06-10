@@ -1,4 +1,4 @@
-package com.progex.zoomanagementsoftware.datatypes;
+package com.progex.zoomanagementsoftware.ManagersAndHandlers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -132,4 +132,31 @@ public class ConnectionHandler {
 
         return connection;
     }
+    
+    
+    /**
+     * Method to get the result set of a database querry
+     * @param query
+     * @return The result set, null if something goes wrong
+     */
+    public ResultSet performQuerry(String query){
+    
+        Statement statement;
+        ResultSet resultSet = null;
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+
+
+        } catch (SQLException e) {
+
+            System.err.println("SQL ERROR");
+            System.out.println(e.getMessage());
+        }
+    
+            return resultSet;
+    }
+    
+    
 }

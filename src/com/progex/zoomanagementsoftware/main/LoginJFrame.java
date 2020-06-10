@@ -5,6 +5,7 @@
  */
 package com.progex.zoomanagementsoftware.main;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.admin.AdminHomepageJFrame;
 import com.progex.zoomanagementsoftware.zookeeper.ZookeeperModeHomePageJFrame;
 import javax.swing.JFrame;
@@ -25,13 +26,14 @@ public class LoginJFrame extends javax.swing.JFrame {
      * Creates new form ZooKeeperModeLogin
      */
     
-    public LoginJFrame(JFrame goBack) {
+    public LoginJFrame(JFrame goBack,ZooManager zooManager) {
 
         initComponents();
 
         this.mainMenuJFrame = goBack;
+        this.zooManager = zooManager;
         this.setLocationRelativeTo(null);
-     
+        
     }
 
     
@@ -151,7 +153,7 @@ public class LoginJFrame extends javax.swing.JFrame {
            /* Create and display Admin Homepage form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminHomepageJFrame().setVisible(true);
+                new AdminHomepageJFrame(zooManager).setVisible(true);
             }
         });
         this.dispose();       
@@ -203,10 +205,13 @@ public class LoginJFrame extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
+        
+        /*TODO CREATE NEW MANAGER FOR TESTING in main...*/
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginJFrame(null).setVisible(true);
+                new LoginJFrame(null,null).setVisible(true);
             }
         });
     }
@@ -226,6 +231,6 @@ public class LoginJFrame extends javax.swing.JFrame {
 
 
    private javax.swing.JFrame mainMenuJFrame;
-
+   private ZooManager zooManager;
 
 }
