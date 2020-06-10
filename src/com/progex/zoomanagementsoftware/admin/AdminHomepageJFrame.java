@@ -280,7 +280,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private void jButtonManageCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageCompoundActionPerformed
         
-        this.setVisible(false);
+        //this.setVisible(false);
         
         
         JFrame thisFrame = this; 

@@ -25,12 +25,30 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     public ManageCompoundJFrame(JFrame goBackFrame,ZooManager zooManager) {
         initComponents();
         this.goBackFrame = goBackFrame;
-        myInitComponents();
         this.zooManager = zooManager;
+        myInitComponents();
+       
+        
+       
+       
         
         
-        
-        
+    }
+    
+    
+    
+    public void myInitComponents(){
+        updateButtonsAndLabels();
+        Methods methods = new Methods();    
+        methods.showTimeAndDate(jLabelShowDateTime);
+        viewAllCompounds();
+    
+    }
+    
+    
+    private void viewAllCompounds(){
+    
+            
         /*For example loading all existing Compounds*/
         LinkedList<Compound> compounds = zooManager.getCompounds();
         
@@ -52,19 +70,11 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
        
            
        }
-       
-       
-        
-        
+    
+    
+    
     }
     
-    
-    
-    public void myInitComponents(){
-        updateButtonsAndLabels();
-        Methods methods = new Methods();    
-        methods.showTimeAndDate(jLabelShowDateTime);
-    }
     
     
     /**

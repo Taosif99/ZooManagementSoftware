@@ -156,6 +156,9 @@ public class LoginJFrame extends javax.swing.JFrame {
                 new AdminHomepageJFrame(zooManager).setVisible(true);
             }
         });
+        
+        
+        mainMenuJFrame.setVisible(false);
         this.dispose();       
         
        } else {
