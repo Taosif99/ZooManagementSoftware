@@ -36,7 +36,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     public void myInitComponents() {
         updateButtonsAndLabels();
-        Methods methods = new Methods();
+        methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
         viewAllCompounds();
 
@@ -71,49 +71,9 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     }
 
-    /*Method to verify that the user input fields (withoud ID) are not empty*/
-    private boolean verifyTextFields() {
-
-        //Store references in an Array
-        JTextField textFields[] = null;
-
-        //JTextField textFields[] = {jTextFieldArea,jTextFieldCompoundName,jTextFieldConstructionYear,jTextFieldMaxCapacity};
-        if (mode.equals("add")) {
-
-            textFields = new JTextField[4];
-            textFields[0] = jTextFieldArea;
-            textFields[1] = jTextFieldCompoundName;
-            textFields[2] = jTextFieldConstructionYear;
-            textFields[3] = jTextFieldMaxCapacity;
-        } else if (mode.equals("update")) {
-
-            textFields = new JTextField[5];
-            textFields[0] = jTextFieldArea;
-            textFields[1] = jTextFieldCompoundName;
-            textFields[2] = jTextFieldConstructionYear;
-            textFields[3] = jTextFieldMaxCapacity;
-            textFields[4] = jTextFieldID;
-
-        } else {
-
-            //Beim Löschen reicht nur die ID aus
-            textFields = new JTextField[1];
-            textFields[0] = jTextFieldID;
-
-        }
-
-        //Remove trailing and leading Textfields and check if Field is empty
-        for (JTextField textField : textFields) {
-            textField.setText(textField.getText().trim());
-            if (textField.getText().isEmpty()) {
-
-                JOptionPane.showMessageDialog(null, "Bitte alle notwendigen Werte eintragen !", "Textfeld ohne Inhalt", JOptionPane.CANCEL_OPTION);
-                return false;
-            }
-        }
-        return true;
-    }
-
+ 
+        
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -434,7 +394,13 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         //TODO CATCH NUMBER FORMAT EXCEPTION
         try {
 
-            boolean textFieldsVerified = verifyTextFields();
+            //boolean textFieldsVerified = verifyTextFields();
+            
+            JTextField textFields[] = {jTextFieldArea,jTextFieldCompoundName,
+                                       jTextFieldConstructionYear,jTextFieldMaxCapacity};
+            
+            boolean textFieldsVerified = methods.verifyTextFields(textFields);
+            
             String compundName = jTextFieldCompoundName.getText();
             int constructionYear = Integer.parseInt(jTextFieldConstructionYear.getText());
             int maxCapacity = Integer.parseInt(jTextFieldMaxCapacity.getText());
@@ -498,7 +464,17 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
         try {
 
-            boolean textFieldsVerified = verifyTextFields();
+            //boolean textFieldsVerified = verifyTextFields();
+            
+            JTextField textFields[] = { 
+             jTextFieldArea,
+             jTextFieldCompoundName,
+             jTextFieldConstructionYear,
+             jTextFieldMaxCapacity,
+             jTextFieldID};
+            
+             boolean textFieldsVerified = methods.verifyTextFields(textFields);
+            
             String compoundName = jTextFieldCompoundName.getText();
             int constructionYear = Integer.parseInt(jTextFieldConstructionYear.getText());
             int maxCapacity = Integer.parseInt(jTextFieldMaxCapacity.getText());
@@ -532,8 +508,14 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     private void jButtonDeleteCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteCompoundActionPerformed
 
-        boolean textFieldsVerified = verifyTextFields();
+        //boolean textFieldsVerified = verifyTextFields();
 
+        
+        
+          //Beim Löschen reicht nur die ID aus
+            JTextField textFields[] = { jTextFieldID};
+            boolean textFieldsVerified = methods.verifyTextFields(textFields);
+        
         try {
             int ID = Integer.parseInt(jTextFieldID.getText());
 
@@ -739,5 +721,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     private javax.swing.JFrame goBackFrame;
     private ZooManager zooManager;
     private String mode;
+    private Methods methods;
 
 }

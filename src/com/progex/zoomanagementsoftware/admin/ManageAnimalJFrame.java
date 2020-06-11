@@ -474,7 +474,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
     private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
         
-        String mode = updateButtonsAndLabels();
+        
         //System.out.println(mode); //Debug
         
         //Get the mode
@@ -516,6 +516,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 jButtonSearch.setEnabled(false);
                 jButtonAssignFeedingTimes.setEnabled(true);
                 jButtonAssignZookeeper.setEnabled(true);
+                mode = "add";
                 return "add";
             } else if (jRadioButtonUpdate.isSelected()){
                 System.out.println("    Update mode");
@@ -528,6 +529,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 jButtonSearch.setEnabled(true);
                 jButtonAssignFeedingTimes.setEnabled(true);
                 jButtonAssignZookeeper.setEnabled(true);   
+                mode = "update";
                 return "update";
             } else if (jRadioButtonDelete.isSelected()){
                 System.out.println("    Delete mode");
@@ -540,6 +542,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 jButtonSearch.setEnabled(true);
                 jButtonAssignFeedingTimes.setEnabled(false);
                 jButtonAssignZookeeper.setEnabled(false);
+                mode = "delete";
                 return "delete";
             }
                  
@@ -619,4 +622,5 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     
     private javax.swing.JFrame goBackFrame;
+    private String mode;
 }

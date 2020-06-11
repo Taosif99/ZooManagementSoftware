@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.swing.Timer;
 import javax.swing.JLabel;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -55,10 +57,25 @@ public class Methods {
         }).start();
     }
         
-        public void fullscreen()  {
-            
-            
-            
-            
-        }  
+       
+        
+           /*Method to verify that the user inputs are not empty*/
+    public boolean verifyTextFields(JTextField[] textFields) {
+
+          
+
+        //Remove trailing and leading Textfields and check if Field is empty
+        for (JTextField textField : textFields) {
+            textField.setText(textField.getText().trim());
+            if (textField.getText().isEmpty()) {
+
+                JOptionPane.showMessageDialog(null, "Bitte alle notwendigen Werte eintragen !", "Textfeld ohne Inhalt", JOptionPane.CANCEL_OPTION);
+                return false;
+            }
+        }
+        return true;
+    } 
+        
+        
+        
 }
