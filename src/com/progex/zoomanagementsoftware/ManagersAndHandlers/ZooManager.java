@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
-import java.time.LocalDate;
 
 
 /**
@@ -58,9 +57,7 @@ public class ZooManager {
     }
 
     
-    /*Methods concerning Compound*/
-    
-    
+    /*Start compound methods*/
     
     
     /**
@@ -203,5 +200,6 @@ public class ZooManager {
     return null;
     }
     
+    /*End Compund Methods*/
     
 }
