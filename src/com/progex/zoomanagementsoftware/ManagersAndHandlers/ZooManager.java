@@ -122,7 +122,7 @@ public class ZooManager {
      * @param area
      * @param constructionYear
      * @param maxCapacity
-     * @return 
+     * @return true if successfull, else false
      */
     public boolean addCompound(String name,double area, int constructionYear,int maxCapacity){
     
@@ -140,7 +140,15 @@ public class ZooManager {
      return retVal;
     }
     
-    
+    /**
+     * Method to update the values of a compund
+     * @param ID
+     * @param name
+     * @param area
+     * @param constructionYear
+     * @param maxCapacity
+     * @return true if successful, else false
+     */
     public boolean updateCompound(int ID,String name,double area, int constructionYear,int maxCapacity){
     
         
@@ -164,7 +172,11 @@ public class ZooManager {
         return retVal;
     }
     
-    
+    /**
+     * Method to delete a compound from the database
+     * @param ID
+     * @return true if successful,else false
+     */
     public boolean deleteCompound(int ID){
     
       String query = "DELETE FROM Compound WHERE ID = " + ID;
@@ -173,6 +185,22 @@ public class ZooManager {
       boolean retVal = connectionHandler.manipulateDB(query);
     
       return retVal;
+    }
+    
+    
+    
+    /**
+     * TODO
+     * @return 
+     */
+    public LinkedList<Compound> searchCompounds(){
+    
+     LinkedList<Compound> compounds = new LinkedList<Compound>();
+    
+    
+    
+    
+    return null;
     }
     
     
