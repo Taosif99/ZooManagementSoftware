@@ -6,31 +6,35 @@
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
+import com.progex.zoomanagementsoftware.datatypes.Admin;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import com.progex.zoomanagementsoftware.datatypes.User;
+import java.util.LinkedList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * 
+ *
  */
 public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form MainPageJFrame
      */
-    public AdminHomepageJFrame(ZooManager zooManager) {
-    
-       initComponents();
-       myInitComponents();
-       this.zooManager = zooManager;
+    public AdminHomepageJFrame(ZooManager zooManager, UserManager userManager) {
+
+        initComponents();
+        myInitComponents();
+        this.zooManager = zooManager;
+        this.userManager = userManager;
     }
-    
-    
-    
-    
-    public void myInitComponents(){
-        
-        Methods methods = new Methods();    
+
+    public void myInitComponents() {
+
+        Methods methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
     }
 
@@ -125,6 +129,11 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         jLabelAmountAdmins.setText("Anzahl auszugebende Admins");
 
         jButtonShowAdmins.setText("Ausgeben");
+        jButtonShowAdmins.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonShowAdminsActionPerformed(evt);
+            }
+        });
 
         jButtonLogout.setText("Logout");
 
@@ -238,11 +247,11 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonManageUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageUserActionPerformed
-        
-         //Set Main Menue to not visible
+
+        //Set Main Menue to not visible
         this.setVisible(false);
-        
-        JFrame thisFrame = this; 
+
+        JFrame thisFrame = this;
         /* Create and display the JFrame MangeUser*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -252,11 +261,11 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonManageUserActionPerformed
 
     private void jButtonManageAnimalsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageAnimalsActionPerformed
-        
+
         //Set Main Menue to not visible
         this.setVisible(false);
-        
-        JFrame thisFrame = this; 
+
+        JFrame thisFrame = this;
         /* Create and display the JFrame ManageAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -266,51 +275,47 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonManageAnimalsActionPerformed
 
     private void jButtonManageFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageFoodActionPerformed
-         
+
         this.setVisible(false);
-        
-        JFrame thisFrame = this; 
+
+        JFrame thisFrame = this;
         /* Create and display the JFrame ManageFood*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageFoodJFrame(thisFrame).setVisible(true);
+                new ManageFoodJFrame(thisFrame, zooManager).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButtonManageFoodActionPerformed
 
     private void jButtonManageCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageCompoundActionPerformed
-        
+
         //this.setVisible(false);
-        
-        
-        JFrame thisFrame = this; 
+        JFrame thisFrame = this;
         /* Create and display the JFrame ManageCompound*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageCompoundJFrame(thisFrame,zooManager).setVisible(true);
+                new ManageCompoundJFrame(thisFrame, zooManager).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButtonManageCompoundActionPerformed
 
     private void jButtonManageTakesCareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageTakesCareActionPerformed
-        
+
         this.setVisible(false);
-        JFrame thisFrame = this; 
+        JFrame thisFrame = this;
         /* Create and display the JFrame MangeZookeeperToAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ManageZookeeperToAnimalJFrame(thisFrame).setVisible(true);
             }
-        });  
+        });
     }//GEN-LAST:event_jButtonManageTakesCareActionPerformed
 
     private void jButtonManageEatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageEatsActionPerformed
-       
-        
+
         this.setVisible(false);
-        
-        
-        JFrame thisFrame = this; 
+
+        JFrame thisFrame = this;
         /* Create and display the JFrame FoodToAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -318,6 +323,61 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_jButtonManageEatsActionPerformed
+
+    
+    private void fillTable(){
+        
+        LinkedList <Admin> admins = userManager.getAdmins(Integer.parseInt(jTextFieldAmountAdmins.getText()));
+        
+        DefaultTableModel model = (DefaultTableModel) jTableLastLoginAdminsData.getModel();
+        Object[] row = new Object[5];
+        
+        for(Admin admin : admins){
+            row[0] = admin.getId();
+            row[1] = admin.getLastLogDate();
+            row[2] = admin.getSalutation();
+            row[3] = admin.getFirstname();
+            row[4] = admin.getLastname();
+   
+            model.addRow(row);
+        }
+    }
+    
+    private void viewAdmins(){
+        
+        /*Clean the table*/
+        DefaultTableModel tableModel = (DefaultTableModel) jTableLastLoginAdminsData.getModel();
+        while (tableModel.getRowCount() > 0) {
+            tableModel.removeRow(0);
+        }
+    }
+    
+    
+    private boolean checkInput() {
+        try {
+            int temp = Integer.parseInt(jTextFieldAmountAdmins.getText());
+            
+            if(temp >= 1)
+                return true;
+
+        } catch (NumberFormatException numberFormatException) {
+
+            System.err.println("NumberFormatException");
+            System.out.println(numberFormatException.getMessage());   
+        }
+        return false;
+    }
+
+    private void jButtonShowAdminsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowAdminsActionPerformed
+
+        boolean validInput = checkInput();
+        
+        if(validInput)
+        {
+            viewAdmins();
+        } else
+            JOptionPane.showMessageDialog(null, "Anzahl der auszugebenden Admins ungültig!", "Zahlenfeld falsch ausgefüllt.", JOptionPane.CANCEL_OPTION);
+    }//GEN-LAST:event_jButtonShowAdminsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -349,19 +409,19 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
+        String url = "jdbc:mysql://localhost/";
+        String username = "root";
+        String password = "0000";
+        String dbName = "zoo";
+
+        ZooManager zooManager = new ZooManager(url, dbName, username, password);
         
-         String url ="jdbc:mysql://localhost/";
-         String username = "root";
-         String password = "0000";
-         String dbName = "zoo";
-        
-         ZooManager zooManager = new ZooManager(url,dbName,username,password);
-         
+        UserManager userManager = new UserManager(url, dbName, username, password);
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminHomepageJFrame(zooManager).setVisible(true);
+                new AdminHomepageJFrame(zooManager, userManager).setVisible(true);
             }
         });
     }
@@ -386,5 +446,6 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private ZooManager zooManager;
+    private UserManager userManager;
 
 }

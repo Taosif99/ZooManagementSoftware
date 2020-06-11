@@ -5,9 +5,12 @@
  */
 package com.progex.zoomanagementsoftware.admin;
 
-import com.progex.zoomanagementsoftware.datatypes.Methods;
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
+import com.progex.zoomanagementsoftware.datatypes.*;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -17,19 +20,22 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ManageFoodJFrame
-     * @param goBackFrame The frame which will appear when the go back button is used
+     *
+     * @param goBackFrame The frame which will appear when the go back button is
+     * used
      */
-    public ManageFoodJFrame(JFrame goBackFrame) {
-        
+    public ManageFoodJFrame(JFrame goBackFrame, ZooManager zooManager) {
+
         initComponents();
         this.goBackFrame = goBackFrame;
+        this.zooManager = zooManager;
         myInitComponents();
-        
+
     }
-    
-    public void myInitComponents(){
+
+    public void myInitComponents() {
         updateButtonsAndLabels();
-        Methods methods = new Methods();    
+        Methods methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
     }
 
@@ -54,7 +60,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         jRadioButtonUpdate = new javax.swing.JRadioButton();
         jRadioButtonDelete = new javax.swing.JRadioButton();
         jButtonHelp = new javax.swing.JButton();
-        jLabelStockRoomNumber = new javax.swing.JLabel();
+        jLabelStorageRoomNumber = new javax.swing.JLabel();
         jLabelStock = new javax.swing.JLabel();
         jTextFieldStock = new javax.swing.JTextField();
         jButtonAddFood = new javax.swing.JButton();
@@ -71,7 +77,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         jRadioButtonGramm = new javax.swing.JRadioButton();
         jRadioButtonKgTable = new javax.swing.JRadioButton();
         jRadioButtonGrammTable = new javax.swing.JRadioButton();
-        jTextStockRoomNumber = new javax.swing.JTextField();
+        jTextFieldStorageRoomNumber = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Futter verwalten");
@@ -157,8 +163,8 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jLabelStockRoomNumber.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabelStockRoomNumber.setText("Lagerraum");
+        jLabelStorageRoomNumber.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelStorageRoomNumber.setText("Lagerraum");
 
         jLabelStock.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelStock.setText("Menge");
@@ -261,7 +267,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabelStockRoomNumber)
+                                            .addComponent(jLabelStorageRoomNumber)
                                             .addComponent(jLabelStock))
                                         .addGap(22, 22, 22)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,7 +277,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                                                 .addComponent(jRadioButtonKg)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jRadioButtonGramm))
-                                            .addComponent(jTextStockRoomNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(jTextFieldStorageRoomNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jButtonAddFood, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jButtonUpdateFood, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -309,9 +315,9 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonGoBack)
                     .addComponent(jLabelShowDateTime))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelID)
@@ -319,8 +325,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                             .addComponent(jRadioButtonGrammTable))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPaneFoodTable, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanelOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -328,8 +333,8 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                             .addComponent(jLabellFoodName))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelStockRoomNumber)
-                            .addComponent(jTextStockRoomNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelStorageRoomNumber)
+                            .addComponent(jTextFieldStorageRoomNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelStock)
@@ -354,7 +359,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
-        
+
         goBackFrame.setVisible(true);
         //Close frame
         this.dispose();
@@ -375,28 +380,75 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonDeleteActionPerformed
 
+ /*Method to verify that the user input fields (withoud ID) are not empty*/
+    private boolean verifyTextFields() {
+
+        JTextField textFields[] = null;
+
+        if (mode.equals("add")) {
+
+            textFields = new JTextField[3];
+            textFields[0] = jTextFieldStorageRoomNumber;
+            textFields[1] = jTextFieldStock;
+            textFields[2] = jTextFieldFoodName;
+
+        } else if (mode.equals("update")) {
+
+            textFields = new JTextField[4];
+            textFields[0] = jTextFieldStorageRoomNumber;
+            textFields[1] = jTextFieldStock;
+            textFields[2] = jTextFieldFoodName;
+            textFields[3] = jTextFieldID;
+
+        } else {
+
+            textFields = new JTextField[1];
+            textFields[0] = jTextFieldID;
+
+        }
+
+        //Remove trailing and leading Textfields and check if Field is empty
+        for (JTextField textField : textFields) {
+            textField.setText(textField.getText().trim());
+            if (textField.getText().isEmpty()) {
+
+                JOptionPane.showMessageDialog(null, "Bitte alle notwendigen Werte eintragen!", "Textfeld ohne Inhalt.", JOptionPane.CANCEL_OPTION);
+                return false;
+            }
+        }
+        return true;
+    }   
+    
     private void jButtonUpdateFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateFoodActionPerformed
+
+        boolean textFieldsVerified = verifyTextFields();
+        try {
+            
+        } catch (NumberFormatException n){
+            n.printStackTrace();
+             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt.", JOptionPane.CANCEL_OPTION);
+        }
         
-         //Falls Fehler beim Updaten
-         JOptionPane.showMessageDialog(null, "Futter konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-        
-         //Falls Updaten erfolgreich, pfeil wäre besser
-         JOptionPane.showMessageDialog(null, "Futter wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+        //Falls Fehler beim Updaten
+        JOptionPane.showMessageDialog(null, "Futter konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+
+        //Falls Updaten erfolgreich, pfeil wäre besser
+        JOptionPane.showMessageDialog(null, "Futter wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButtonUpdateFoodActionPerformed
 
     private void jButtonDeleteFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteFoodActionPerformed
-        
+
         int decision = JOptionPane.showConfirmDialog(null, "Sind Sie sicher?", "Löschbestätigung",
-        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         //OK = 0, cancel =2
         System.out.println(decision);
-        
+
         //Falls Fehler beim Löschen
         JOptionPane.showMessageDialog(null, "Futter konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-        
+
         //Falls Löschen erfolgreich, pfeil wäre besser
         JOptionPane.showMessageDialog(null, "Futter wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-        
+
 
     }//GEN-LAST:event_jButtonDeleteFoodActionPerformed
 
@@ -414,89 +466,126 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         //System.out.println(mode); //Debug
 
         //Get the mode
-        switch(mode){
+        switch (mode) {
 
             case "add":
-            JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
-            break;
+                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+                break;
 
             case "update":
-            JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Futters ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
-            break;
-            
+                JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Futters ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
+                break;
+
             case "delete":
-            JOptionPane.showMessageDialog(null, "Bitte die ID des zu löschenden Futters ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
-            break;
+                JOptionPane.showMessageDialog(null, "Bitte die ID des zu löschenden Futters ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
+                break;
         }
     }//GEN-LAST:event_jButtonHelpActionPerformed
 
+
     private void jButtonAddFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddFoodActionPerformed
-        
-          //Falls Fehler beim Einfügen
-         JOptionPane.showMessageDialog(null, "Futter konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-        
-         //Falls Einfügen erfolgreich, Pfeil wäre besser
-         JOptionPane.showMessageDialog(null, "Futter konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+
+        boolean textFieldsVerified = verifyTextFields();
+        try {
+
+            if (textFieldsVerified == true) {
+                int storageRoomNumber = Integer.parseInt(jTextFieldStorageRoomNumber.getText());
+                double stock;
+                if (jRadioButtonGramm.isSelected()) {
+                    stock = Double.parseDouble(jTextFieldStock.getText()) / 1000;
+                } else {
+                    stock = Double.parseDouble(jTextFieldStock.getText());
+                }
+                String foodName = jTextFieldFoodName.getText();
+                System.out.println(storageRoomNumber + " " + stock + " " + foodName);
+                
+                boolean foodExists = zooManager.checkFoodExists(foodName);
+                System.out.println(foodExists + "< foodExists");
+                
+                if (foodExists == false) {
+                    
+                    boolean foodAdded = zooManager.addFood(storageRoomNumber, stock, foodName);
+                    System.out.println(foodAdded + "< foodAdded");
+                    
+                    if (zooManager.addFood(storageRoomNumber, stock, foodName)) {
+                        JOptionPane.showMessageDialog(null, "Futter konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+                        //Alle Textfelder ohne Inhalt
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Futter konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                    }
+
+                } else if (foodExists == true) {
+                    JOptionPane.showMessageDialog(null, "Futter konnte nicht eingefügt werden! Es existiert bereits in der Datenbank.", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                }
+            }
+        } catch (NumberFormatException e){
+            e.printStackTrace();
+             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt.", JOptionPane.CANCEL_OPTION);
+        } catch (SQLException s) {
+            System.out.println("MangeFood");
+            s.printStackTrace();
+            s.getMessage();
+        }
     }//GEN-LAST:event_jButtonAddFoodActionPerformed
 
-     /**
-     * Method to disable/enable buttons and labels depending on
-     * operation selection.
+    /**
+     * Method to disable/enable buttons and labels depending on operation
+     * selection.
      */
-    private String updateButtonsAndLabels(){
-        
-            System.out.println("Manage Food");
-   
-            if (jRadioButtonAdd.isSelected()){
-                
-                System.out.println("    Add mode");
-                
-                jButtonAddFood.setEnabled(true);
-                jButtonUpdateFood.setEnabled(false);
-                jButtonDeleteFood.setEnabled(false);
-                jTextFieldID.setEnabled(false);
-                jLabelID.setEnabled(false);
-                jLabelSearch.setEnabled(false);
-                jButtonSearch.setEnabled(false);
-                jRadioButtonKgTable.setEnabled(false);
-                jRadioButtonGrammTable.setEnabled(false);
-                
-                return "add";
-               
-            } else if (jRadioButtonUpdate.isSelected()){
-                
-                System.out.println("    Update mode");
+    private String updateButtonsAndLabels() {
 
-                jButtonAddFood.setEnabled(false);
-                jButtonUpdateFood.setEnabled(true);
-                jButtonDeleteFood.setEnabled(false);
-                jTextFieldID.setEnabled(true);
-                jLabelID.setEnabled(true);
-                jLabelSearch.setEnabled(true);
-                jButtonSearch.setEnabled(true);
-                jRadioButtonKgTable.setEnabled(true);
-                jRadioButtonGrammTable.setEnabled(true);
-                
-                return "update";
-           
-            } else if (jRadioButtonDelete.isSelected()){
-                
-                System.out.println("    Delete mode");
-                
-                jButtonAddFood.setEnabled(false);
-                jButtonUpdateFood.setEnabled(false);
-                jButtonDeleteFood.setEnabled(true);
-                jTextFieldID.setEnabled(true);
-                jLabelID.setEnabled(true);
-                jLabelSearch.setEnabled(true);
-                jButtonSearch.setEnabled(true);
-                jRadioButtonKgTable.setEnabled(true);
-                jRadioButtonGrammTable.setEnabled(true);
-                
-                return "delete";
-            }
-            
-            return null;
+        System.out.println("Manage Food");
+
+        if (jRadioButtonAdd.isSelected()) {
+
+            System.out.println("    Add mode");
+
+            jButtonAddFood.setEnabled(true);
+            jButtonUpdateFood.setEnabled(false);
+            jButtonDeleteFood.setEnabled(false);
+            jTextFieldID.setEnabled(false);
+            jLabelID.setEnabled(false);
+            jLabelSearch.setEnabled(false);
+            jButtonSearch.setEnabled(false);
+            jRadioButtonKgTable.setEnabled(false);
+            jRadioButtonGrammTable.setEnabled(false);
+            mode = "add";
+            return "add";
+
+        } else if (jRadioButtonUpdate.isSelected()) {
+
+            System.out.println("    Update mode");
+
+            jButtonAddFood.setEnabled(false);
+            jButtonUpdateFood.setEnabled(true);
+            jButtonDeleteFood.setEnabled(false);
+            jTextFieldID.setEnabled(true);
+            jLabelID.setEnabled(true);
+            jLabelSearch.setEnabled(true);
+            jButtonSearch.setEnabled(true);
+            jRadioButtonKgTable.setEnabled(true);
+            jRadioButtonGrammTable.setEnabled(true);
+            mode = "update";
+            return "update";
+
+        } else if (jRadioButtonDelete.isSelected()) {
+
+            System.out.println("    Delete mode");
+
+            jButtonAddFood.setEnabled(false);
+            jButtonUpdateFood.setEnabled(false);
+            jButtonDeleteFood.setEnabled(true);
+            jTextFieldID.setEnabled(true);
+            jLabelID.setEnabled(true);
+            jLabelSearch.setEnabled(true);
+            jButtonSearch.setEnabled(true);
+            jRadioButtonKgTable.setEnabled(true);
+            jRadioButtonGrammTable.setEnabled(true);
+            mode = "delete";
+            return "delete";
+        }
+
+        return null;
     }
 
     /**
@@ -524,12 +613,19 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ManageFoodJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+        //</editor-fold>   
+
+        String url = "jdbc:mysql://localhost/";
+        String username = "root";
+        String password = "0000";
+        String dbName = "zoo";
+
+        ZooManager zooManager = new ZooManager(url, dbName, username, password);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageFoodJFrame(null).setVisible(true);
+                new ManageFoodJFrame(null, zooManager).setVisible(true);
             }
         });
     }
@@ -549,7 +645,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelSearch;
     private javax.swing.JLabel jLabelShowDateTime;
     private javax.swing.JLabel jLabelStock;
-    private javax.swing.JLabel jLabelStockRoomNumber;
+    private javax.swing.JLabel jLabelStorageRoomNumber;
     private javax.swing.JLabel jLabellFoodName;
     private javax.swing.JPanel jPanelOperation;
     private javax.swing.JRadioButton jRadioButtonAdd;
@@ -564,8 +660,10 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldFoodName;
     private javax.swing.JTextField jTextFieldID;
     private javax.swing.JTextField jTextFieldStock;
-    private javax.swing.JTextField jTextStockRoomNumber;
+    private javax.swing.JTextField jTextFieldStorageRoomNumber;
     // End of variables declaration//GEN-END:variables
-    
+
     private javax.swing.JFrame goBackFrame;
+    private ZooManager zooManager;
+    private String mode;
 }
