@@ -1,4 +1,4 @@
-package com.progex.zoomanagementsoftware.datatypes;
+package com.progex.zoomanagementsoftware.ManagersAndHandlers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -72,8 +72,14 @@ public class ConnectionHandler {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Successfully connected !");
             //Bei mir klappt nur das, probiert mal beide versionen
-            connection = DriverManager.getConnection(url + dbName + "?characterEncoding=latin1", username, password); //Connector 5...
+            // connection = DriverManager.getConnection(url + dbName + "?characterEncoding=latin1", username, password); //Connector 5...
             //connection = DriverManager.getConnection(url+dbName, username, password); //Connector 8...
+            //For utf 8 
+            connection = DriverManager.getConnection(url + dbName + "?characterEncoding=utf-8", username, password);
+        
+        
+        
+        
         } catch (Exception e) {
 
             System.out.println(e.getMessage());
@@ -132,4 +138,31 @@ public class ConnectionHandler {
 
         return connection;
     }
+    
+    
+    /**
+     * Method to get the result set of a database querry
+     * @param query
+     * @return The result set, null if something goes wrong
+     */
+    public ResultSet performQuery(String query){
+    
+        Statement statement;
+        ResultSet resultSet = null;
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+
+
+        } catch (SQLException e) {
+
+            System.err.println("SQL ERROR");
+            System.out.println(e.getMessage());
+        }
+    
+            return resultSet;
+    }
+    
+    
 }

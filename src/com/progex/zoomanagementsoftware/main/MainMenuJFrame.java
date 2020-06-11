@@ -6,6 +6,7 @@
 package com.progex.zoomanagementsoftware.main;
 
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
 import com.progex.zoomanagementsoftware.guest.ChooseAnimalAndTimeJFrame;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
@@ -25,7 +26,17 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         initComponents();
         myInitComponents();
         
+        /*Init the our wrapper class, which will be used in the Program, which
+        will be passed to the corresponding frames*/
         
+         String url ="jdbc:mysql://localhost/";
+         String username = "root";
+         String password = "0000";
+         String dbName = "zoo";
+        
+         zooManager = new ZooManager(url,dbName,username,password);
+         
+         
     }
 
     
@@ -187,7 +198,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                currentLoginJFrame = new LoginJFrame(thisFrame);
+                currentLoginJFrame = new LoginJFrame(thisFrame,zooManager);
                 currentLoginJFrame.setVisible(true);
                 
             }
@@ -197,7 +208,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
             currentLoginJFrame.dispose();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                currentLoginJFrame = new LoginJFrame(thisFrame);
+                currentLoginJFrame = new LoginJFrame(thisFrame,zooManager);
                 currentLoginJFrame.setVisible(true);
                 
             }
@@ -259,7 +270,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelWelcomeStatement;
     // End of variables declaration//GEN-END:variables
     private javax.swing.JFrame currentLoginJFrame;
-
+    private ZooManager zooManager;
 
 
 }

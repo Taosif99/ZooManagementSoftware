@@ -211,11 +211,11 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "FutterID", "TierID", "Start Fütterungszeit", "Ende Fütterungszeit", "Menge"
+                "FutterName", "FutterID", "TierID", "Start Fütterungszeit", "Ende Fütterungszeit", "Menge"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -225,6 +225,11 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         jTableFoodToAnimalData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTableFoodToAnimalData.getTableHeader().setReorderingAllowed(false);
         jScrollPaneFoodToAnimalTable.setViewportView(jTableFoodToAnimalData);
+        if (jTableFoodToAnimalData.getColumnModel().getColumnCount() > 0) {
+            jTableFoodToAnimalData.getColumnModel().getColumn(0).setPreferredWidth(150);
+            jTableFoodToAnimalData.getColumnModel().getColumn(3).setPreferredWidth(150);
+            jTableFoodToAnimalData.getColumnModel().getColumn(4).setPreferredWidth(150);
+        }
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelShowDateTime.setText("TIME");

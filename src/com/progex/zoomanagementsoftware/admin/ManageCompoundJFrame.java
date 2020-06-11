@@ -5,9 +5,12 @@
  */
 package com.progex.zoomanagementsoftware.admin;
 
-import com.progex.zoomanagementsoftware.datatypes.Methods;
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
+import com.progex.zoomanagementsoftware.datatypes.*;
+import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,11 +22,17 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
      * Creates new form ManageUserJFrameOld
      * @param goBackFrame The frame which will appear when the go back button is used
      */
-    public ManageCompoundJFrame(JFrame goBackFrame) {
+    public ManageCompoundJFrame(JFrame goBackFrame,ZooManager zooManager) {
         initComponents();
         this.goBackFrame = goBackFrame;
+        this.zooManager = zooManager;
         myInitComponents();
-    
+       
+        
+       
+       
+        
+        
     }
     
     
@@ -32,7 +41,40 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         updateButtonsAndLabels();
         Methods methods = new Methods();    
         methods.showTimeAndDate(jLabelShowDateTime);
+        viewAllCompounds();
+    
     }
+    
+    
+    private void viewAllCompounds(){
+    
+            
+        /*For example loading all existing Compounds*/
+        LinkedList<Compound> compounds = zooManager.getCompounds();
+        
+        /*Loading all compounds to Table, better in own method*/
+          
+       DefaultTableModel model = (DefaultTableModel)jTableCompoundData.getModel();
+       Object[] row = new Object[5]; //5 Spalten
+      
+       
+       for (Compound compound : compounds){
+           //Hier bekommt man die Spalten der Zeile
+           row[0] = compound.getId();
+           row[1] = compound.getName();
+           row[2] = compound.getArea();
+           row[3] = compound.getConstructionYear();
+           row[4] = compound.getMaxCapacity();
+           //Hier wird es Hinzugefuegt
+           model.addRow(row);
+       
+           System.out.println("Gehegename:" + compound.getName());
+       }
+    
+    
+    
+    }
+    
     
     
     /**
@@ -74,7 +116,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gehege verwalten");
-        setPreferredSize(new java.awt.Dimension(1280, 600));
         setResizable(false);
 
         jLabelCompoundName.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -200,11 +241,11 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Tiername", "Geschlecht", "Geburtsdatum", "Spezies", "Gehege"
+                "ID", "Gehegename", "Fläche in m²", "Baujahr", "MaximaleKapazität"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -214,6 +255,9 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         jTableCompoundData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTableCompoundData.getTableHeader().setReorderingAllowed(false);
         jScrollPaneCompoundTable.setViewportView(jTableCompoundData);
+        if (jTableCompoundData.getColumnModel().getColumnCount() > 0) {
+            jTableCompoundData.getColumnModel().getColumn(4).setPreferredWidth(150);
+        }
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelShowDateTime.setText("TIME");
@@ -507,10 +551,20 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        
+         String url ="jdbc:mysql://localhost/";
+         String username = "root";
+         String password = "0000";
+         String dbName = "zoo";
+        
+         ZooManager zooManager = new ZooManager(url,dbName,username,password);
+         
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageCompoundJFrame(null).setVisible(true);
+                new ManageCompoundJFrame(null,zooManager).setVisible(true);
             }
         });
     }
@@ -546,4 +600,5 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private javax.swing.JFrame goBackFrame;
+    private ZooManager zooManager;
 }

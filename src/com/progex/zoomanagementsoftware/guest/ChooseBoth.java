@@ -13,12 +13,12 @@ import javax.swing.JOptionPane;
  *
  * @author Oli
  */
-public class ChooseListlJFrame extends javax.swing.JFrame {
+public class ChooseBoth extends javax.swing.JFrame {
 
     /**
      * Creates new form AuswahlJFrame
      */
-    public ChooseListlJFrame(JFrame goBackFrame) {
+    public ChooseBoth(JFrame goBackFrame) {
         
        
         initComponents();
@@ -81,6 +81,7 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
         jLabelCompound = new javax.swing.JLabel();
         jLabelFeedStatic = new javax.swing.JLabel();
         jLabelFeed = new javax.swing.JLabel();
+        labelKarte = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,6 +113,10 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
         jLabelFeed.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabelFeed.setText("xxx Futter");
 
+        labelKarte.setAlignment(java.awt.Label.CENTER);
+        labelKarte.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        labelKarte.setText("Karte");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,7 +138,11 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
                     .addComponent(jLabelTime)
                     .addComponent(jLabelCompound)
                     .addComponent(jLabelFeed))
-                .addGap(765, 765, 765))
+                .addGap(767, 767, 767))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(819, 819, 819)
+                .addComponent(labelKarte, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,7 +153,7 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabelShowDateTime))
-                .addGap(244, 244, 244)
+                .addGap(117, 117, 117)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelAnimal)
                     .addComponent(jLabelTime))
@@ -156,8 +165,13 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFeedStatic)
                     .addComponent(jLabelFeed))
-                .addGap(688, 688, 688))
+                .addGap(69, 69, 69)
+                .addComponent(labelKarte, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
+
+        labelKarte.getAccessibleContext().setAccessibleName("");
+        labelKarte.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
@@ -185,14 +199,18 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChooseListlJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseBoth.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChooseListlJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseBoth.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChooseListlJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseBoth.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChooseListlJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChooseBoth.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -201,7 +219,7 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChooseListlJFrame(null).setVisible(true);
+                new ChooseBoth(null).setVisible(true);
             }
         });
     }
@@ -215,6 +233,7 @@ public class ChooseListlJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelFeedStatic;
     private javax.swing.JLabel jLabelShowDateTime;
     private javax.swing.JLabel jLabelTime;
+    private java.awt.Label labelKarte;
     // End of variables declaration//GEN-END:variables
     private javax.swing.JFrame goBackFrame;
 }

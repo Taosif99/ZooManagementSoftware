@@ -1,4 +1,10 @@
-package com.progex.zoomanagementsoftware.datatypes;
+package com.progex.zoomanagementsoftware.ManagersAndHandlers;
+
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ConnectionHandler;
+import com.progex.zoomanagementsoftware.datatypes.Admin;
+import com.progex.zoomanagementsoftware.datatypes.User;
+import com.progex.zoomanagementsoftware.datatypes.Zookeeper;
+import com.progex.zoomanagementsoftware.datatypes.ZookeeperInfo;
 
 /**
  * @(#) UserManager.java
@@ -9,8 +15,9 @@ public class UserManager {
 
     private ConnectionHandler connectionHandler;
 
-    public UserManager(User loggedInUser, ConnectionHandler connectionHandler) {
-        this.loggedInUser = loggedInUser;
+    /*Removed loggedInUser TODO DIAGRAM*/
+    public UserManager(ConnectionHandler connectionHandler) {
+        this.loggedInUser = null;
         this.connectionHandler = connectionHandler;
     }
 
