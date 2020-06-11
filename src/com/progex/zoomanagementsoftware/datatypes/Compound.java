@@ -11,7 +11,7 @@ public class Compound {
 
     private double area;
 
-    private Date constructionYear;
+    private int constructionYear;
 
     private int maxCapacity;
 
@@ -19,7 +19,7 @@ public class Compound {
 
     private String name;
 
-    public Compound(int id, double area, Date constructionYear, int maxCapacity, int currentCapacity, String name) {
+    public Compound(int id, double area, int constructionYear, int maxCapacity, int currentCapacity, String name) {
         this.id = id;
         this.area = area;
         this.constructionYear = constructionYear;
@@ -40,11 +40,11 @@ public class Compound {
         this.area = area;
     }
 
-    public Date getConstructionYear() {
+    public int getConstructionYear() {
         return constructionYear;
     }
 
-    public void setConstructionYear(Date constructionYear) {
+    public void setConstructionYear(int constructionYear) {
         this.constructionYear = constructionYear;
     }
 

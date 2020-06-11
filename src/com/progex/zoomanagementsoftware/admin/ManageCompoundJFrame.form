@@ -49,8 +49,8 @@
                                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jTextFieldConstructionYear" min="-2" pref="141" max="-2" attributes="0"/>
-                                          <Component id="jTextFieldDateOfBirth" min="-2" pref="141" max="-2" attributes="0"/>
-                                          <Component id="jTextArea" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldMaxCapacity" min="-2" pref="141" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldArea" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
                                           <Component id="jTextFieldCompoundName" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -66,28 +66,38 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
+              <EmptySpace min="122" pref="122" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButtonSearch" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
-                      <Component id="jLabelSearch" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPaneCompoundTable" alignment="1" min="-2" pref="556" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="318" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jButtonSearch" alignment="1" min="-2" pref="141" max="-2" attributes="0"/>
+                                  <Component id="jLabelSearch" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="jLabelShowDateTime" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabelID" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jTextFieldID" min="-2" pref="61" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jLabelShowDateTime" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabelID" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextFieldID" min="-2" pref="61" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jScrollPaneCompoundTable" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jPanelOperation" min="-2" max="-2" attributes="0"/>
@@ -104,12 +114,12 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabelDateOfBirth" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldDateOfBirth" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldMaxCapacity" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabelArea" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextArea" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldArea" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelAreaUnit" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
@@ -137,14 +147,14 @@
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="jScrollPaneCompoundTable" min="-2" pref="345" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPaneCompoundTable" pref="345" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelSearch" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonSearch" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="73" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -186,9 +196,9 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldConstructionYear">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextArea">
+    <Component class="javax.swing.JTextField" name="jTextFieldArea">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldDateOfBirth">
+    <Component class="javax.swing.JTextField" name="jTextFieldMaxCapacity">
     </Component>
     <Component class="javax.swing.JButton" name="jButtonAddCompound">
       <Properties>
@@ -356,12 +366,13 @@
         <Component class="javax.swing.JTable" name="jTableCompoundData">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="0">
+              <Table columnCount="6" rowCount="0">
                 <Column editable="false" title="ID" type="java.lang.Object"/>
                 <Column editable="false" title="Gehegename" type="java.lang.Object"/>
                 <Column editable="false" title="Fl&#xe4;che in m&#xb2;" type="java.lang.Object"/>
                 <Column editable="false" title="Baujahr" type="java.lang.Object"/>
                 <Column editable="false" title="MaximaleKapazit&#xe4;t" type="java.lang.Object"/>
+                <Column editable="false" title="AktuelleKapazit&#xe4;t" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -371,7 +382,12 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="180" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="130" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -381,7 +397,7 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="170" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -400,6 +416,9 @@
               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableCompoundDataMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

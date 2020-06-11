@@ -159,9 +159,33 @@ public class ConnectionHandler {
 
             System.err.println("SQL ERROR");
             System.out.println(e.getMessage());
+ 
         }
     
             return resultSet;
+    }
+    
+    
+    /**
+     * Method to fulfill insert,update and delete operations
+     * @param query
+     * @return true if manipulation successful, else false 
+     */
+    public boolean manipulateDB(String query){
+    
+       //Connection connec = getConnection();
+       Statement statement;
+       try{
+           statement = connection.createStatement();
+           if((statement.executeUpdate(query)) == 1)
+           {
+                    return true;
+           }
+       }catch(Exception ex){
+           ex.printStackTrace();
+       }
+    
+       return false;
     }
     
     

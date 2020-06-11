@@ -10,7 +10,9 @@ import com.progex.zoomanagementsoftware.datatypes.*;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -20,63 +22,98 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ManageUserJFrameOld
-     * @param goBackFrame The frame which will appear when the go back button is used
+     *
+     * @param goBackFrame The frame which will appear when the go back button is
+     * used
      */
-    public ManageCompoundJFrame(JFrame goBackFrame,ZooManager zooManager) {
+    public ManageCompoundJFrame(JFrame goBackFrame, ZooManager zooManager) {
         initComponents();
         this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
         myInitComponents();
-       
-        
-       
-       
-        
-        
+
     }
-    
-    
-    
-    public void myInitComponents(){
+
+    public void myInitComponents() {
         updateButtonsAndLabels();
-        Methods methods = new Methods();    
+        Methods methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
         viewAllCompounds();
-    
+
     }
-    
-    
-    private void viewAllCompounds(){
-    
-            
+
+    private void viewAllCompounds() {
+
+        /*Clean the table*/
+        DefaultTableModel tableModel = (DefaultTableModel) jTableCompoundData.getModel();
+        while (tableModel.getRowCount() > 0) {
+            tableModel.removeRow(0);
+        }
+
         /*For example loading all existing Compounds*/
         LinkedList<Compound> compounds = zooManager.getCompounds();
-        
+
         /*Loading all compounds to Table, better in own method*/
-          
-       DefaultTableModel model = (DefaultTableModel)jTableCompoundData.getModel();
-       Object[] row = new Object[5]; //5 Spalten
-      
-       
-       for (Compound compound : compounds){
-           //Hier bekommt man die Spalten der Zeile
-           row[0] = compound.getId();
-           row[1] = compound.getName();
-           row[2] = compound.getArea();
-           row[3] = compound.getConstructionYear();
-           row[4] = compound.getMaxCapacity();
-           //Hier wird es Hinzugefuegt
-           model.addRow(row);
-       
-           System.out.println("Gehegename:" + compound.getName());
-       }
-    
-    
-    
+        DefaultTableModel model = (DefaultTableModel) jTableCompoundData.getModel();
+        Object[] row = new Object[6]; // Spalten
+
+        for (Compound compound : compounds) {
+            //Hier bekommt man die Spalten der Zeile
+            row[0] = compound.getId();
+            row[1] = compound.getName();
+            row[2] = compound.getArea();
+            row[3] = compound.getConstructionYear();
+            row[4] = compound.getMaxCapacity();
+            row[5] = compound.getCurrentCapacity();
+            //Hier wird es Hinzugefuegt
+            model.addRow(row);
+        }
+
     }
-    
-    
-    
+
+    /*Method to verify that the user input fields (withoud ID) are not empty*/
+    private boolean verifyTextFields() {
+
+        //Store references in an Array
+        JTextField textFields[] = null;
+
+        //JTextField textFields[] = {jTextFieldArea,jTextFieldCompoundName,jTextFieldConstructionYear,jTextFieldMaxCapacity};
+        if (mode.equals("add")) {
+
+            textFields = new JTextField[4];
+            textFields[0] = jTextFieldArea;
+            textFields[1] = jTextFieldCompoundName;
+            textFields[2] = jTextFieldConstructionYear;
+            textFields[3] = jTextFieldMaxCapacity;
+        } else if (mode.equals("update")) {
+
+            textFields = new JTextField[5];
+            textFields[0] = jTextFieldArea;
+            textFields[1] = jTextFieldCompoundName;
+            textFields[2] = jTextFieldConstructionYear;
+            textFields[3] = jTextFieldMaxCapacity;
+            textFields[4] = jTextFieldID;
+
+        } else {
+
+            //Beim Löschen reicht nur die ID aus
+            textFields = new JTextField[1];
+            textFields[0] = jTextFieldID;
+
+        }
+
+        //Remove trailing and leading Textfields and check if Field is empty
+        for (JTextField textField : textFields) {
+            textField.setText(textField.getText().trim());
+            if (textField.getText().isEmpty()) {
+
+                JOptionPane.showMessageDialog(null, "Bitte alle notwendigen Werte eintragen !", "Textfeld ohne Inhalt", JOptionPane.CANCEL_OPTION);
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -93,8 +130,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         jLabelArea = new javax.swing.JLabel();
         jTextFieldCompoundName = new javax.swing.JTextField();
         jTextFieldConstructionYear = new javax.swing.JTextField();
-        jTextArea = new javax.swing.JTextField();
-        jTextFieldDateOfBirth = new javax.swing.JTextField();
+        jTextFieldArea = new javax.swing.JTextField();
+        jTextFieldMaxCapacity = new javax.swing.JTextField();
         jButtonAddCompound = new javax.swing.JButton();
         jButtonUpdateCompound = new javax.swing.JButton();
         jButtonDeleteCompound = new javax.swing.JButton();
@@ -241,11 +278,11 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Gehegename", "Fläche in m²", "Baujahr", "MaximaleKapazität"
+                "ID", "Gehegename", "Fläche in m²", "Baujahr", "MaximaleKapazität", "AktuelleKapazität"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -254,9 +291,17 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         });
         jTableCompoundData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTableCompoundData.getTableHeader().setReorderingAllowed(false);
+        jTableCompoundData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableCompoundDataMouseClicked(evt);
+            }
+        });
         jScrollPaneCompoundTable.setViewportView(jTableCompoundData);
         if (jTableCompoundData.getColumnModel().getColumnCount() > 0) {
-            jTableCompoundData.getColumnModel().getColumn(4).setPreferredWidth(150);
+            jTableCompoundData.getColumnModel().getColumn(1).setPreferredWidth(180);
+            jTableCompoundData.getColumnModel().getColumn(2).setPreferredWidth(130);
+            jTableCompoundData.getColumnModel().getColumn(4).setPreferredWidth(170);
+            jTableCompoundData.getColumnModel().getColumn(5).setPreferredWidth(150);
         }
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -300,8 +345,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                                         .addGap(29, 29, 29)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jTextFieldConstructionYear, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextFieldDateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextFieldMaxCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextFieldArea, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jTextFieldCompoundName, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(jButtonDeleteCompound, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButtonAddCompound, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -312,16 +357,22 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                             .addComponent(jPanelOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(122, 122, 122)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButtonSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabelSearch, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPaneCompoundTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabelShowDateTime)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelID)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(91, 91, 91))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(318, 318, 318)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButtonSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelSearch, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(jLabelShowDateTime)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelID)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(91, 91, 91))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPaneCompoundTable)
+                        .addGap(70, 70, 70))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,11 +392,11 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelDateOfBirth)
-                            .addComponent(jTextFieldDateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldMaxCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelArea)
-                            .addComponent(jTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelAreaUnit))
                         .addGap(59, 59, 59)
                         .addComponent(jButtonAddCompound, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -366,12 +417,12 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                                     .addComponent(jLabelID, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPaneCompoundTable, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPaneCompoundTable, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addGap(73, 73, 73))
         );
 
         pack();
@@ -379,156 +430,244 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAddCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddCompoundActionPerformed
-        // TODO 
-        
-        
-         //Falls Fehler beim Einfügen
-         JOptionPane.showMessageDialog(null, "Gehege konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-        
-         //Falls Einfügen erfolgreich, pfeil wäre besser
-         JOptionPane.showMessageDialog(null, "Gehege konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-         
+
+        //TODO CATCH NUMBER FORMAT EXCEPTION
+        try {
+
+            boolean textFieldsVerified = verifyTextFields();
+            String compundName = jTextFieldCompoundName.getText();
+            int constructionYear = Integer.parseInt(jTextFieldConstructionYear.getText());
+            int maxCapacity = Integer.parseInt(jTextFieldMaxCapacity.getText());
+            Double area = Double.parseDouble(jTextFieldArea.getText());
+
+            /*TODO clean fields eventually*/
+            if (textFieldsVerified) {
+
+                if (zooManager.addCompound(compundName, area, constructionYear, maxCapacity)) {
+                    //Falls Einfügen erfolgreich, pfeil wäre besser
+                    JOptionPane.showMessageDialog(null, "Gehege konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+                    viewAllCompounds();
+                } else //Falls Fehler beim Einfügen in die Datenbank", JOptionPane.CANCEL_OPTION      
+                {
+                    JOptionPane.showMessageDialog(null, "Gehege konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                }
+
+            }
+
+        } catch (NumberFormatException numberFormatException) {
+
+            System.err.println("NumberFormatException");
+            System.out.println(numberFormatException.getMessage());
+            JOptionPane.showMessageDialog(null, "Gehege konnte nicht eingefügt werden !", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+
+        }
+
+
     }//GEN-LAST:event_jButtonAddCompoundActionPerformed
 
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
-        
+
         goBackFrame.setVisible(true);
         //Close frame
         this.dispose();
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
-        
-     
+
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
 
     private void jRadioButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonUpdateActionPerformed
-        
-     
+
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonUpdateActionPerformed
 
-    
+
     private void jRadioButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDeleteActionPerformed
-        
-    
+
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonDeleteActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
         // TODO add your handling code here:
+        
+        //TODO
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonUpdateCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateCompoundActionPerformed
-        // TODO
-         //Falls Fehler beim Updaten
-         JOptionPane.showMessageDialog(null, "Gehege konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-        
-         //Falls Updaten erfolgreich, pfeil wäre besser
-         JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+
+        try {
+
+            boolean textFieldsVerified = verifyTextFields();
+            String compoundName = jTextFieldCompoundName.getText();
+            int constructionYear = Integer.parseInt(jTextFieldConstructionYear.getText());
+            int maxCapacity = Integer.parseInt(jTextFieldMaxCapacity.getText());
+            Double area = Double.parseDouble(jTextFieldArea.getText());
+            int ID = Integer.parseInt(jTextFieldID.getText());
+
+            if (textFieldsVerified) {
+
+                if (zooManager.updateCompound(ID, compoundName, area, constructionYear, maxCapacity)) {
+
+                    //Falls Updaten erfolgreich, pfeil wäre besser
+                    JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+                    viewAllCompounds();
+                } else {
+
+                    // TODO
+                    //Falls Fehler beim Updaten
+                    JOptionPane.showMessageDialog(null, "Gehege konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+
+                }
+            }
+
+        } catch (NumberFormatException numberFormatException) {
+
+            System.err.println("NumberFormatException");
+            System.out.println(numberFormatException.getMessage());
+            JOptionPane.showMessageDialog(null, "Gehege konnte nicht geupdated werden !", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+
+        }
     }//GEN-LAST:event_jButtonUpdateCompoundActionPerformed
 
     private void jButtonDeleteCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteCompoundActionPerformed
-          
-            
-           //Nachfragen ob er sich sicher ist, hier if Abfrage mache
-       
-          //TODO Cancel auf deutsch
-         int decision = JOptionPane.showConfirmDialog(null,
-                "Sind Sie sicher", "Löschbestätigung",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-          //OK = 0, cancel =2
-     System.out.println(decision);
+
+        boolean textFieldsVerified = verifyTextFields();
+
+        try {
+            int ID = Integer.parseInt(jTextFieldID.getText());
+
+            if (textFieldsVerified) {
+
+                //Nachfragen ob er sich sicher ist, hier if Abfrage mache
+                //TODO Cancel auf deutsch
+                int decision = JOptionPane.showConfirmDialog(null,
+                        "Sind Sie sicher", "Löschbestätigung",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                //OK = 0, cancel =2
+                //System.out.println(decision);
+                if (decision == 0) {
+                    if (zooManager.deleteCompound(ID)) {
+                        //Falls Löschen erfolgreich, pfeil wäre besser
+                        JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+                        viewAllCompounds();
+                    } else {
+                        //Falls Fehler beim Löschen
+                        JOptionPane.showMessageDialog(null, "Gehege konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+
+                    }
+
+                }
+
+            }
+
+        } catch (NumberFormatException numberFormatException) {
+
+            System.err.println("NumberFormatException");
+            System.out.println(numberFormatException.getMessage());
+            JOptionPane.showMessageDialog(null, "Gehege konnte nicht gelöscht werden !", "IDfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+
+        }
 
 
-          //Falls Fehler beim Löschen
-         JOptionPane.showMessageDialog(null, "Gehege konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-        
-         //Falls Löschen erfolgreich, pfeil wäre besser
-         JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                                                       
     }//GEN-LAST:event_jButtonDeleteCompoundActionPerformed
 
     private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
-        
-        String mode = updateButtonsAndLabels();
+
+        //String mode = updateButtonsAndLabels();
         //System.out.println(mode); //Debug
-        
         //Get the mode
-         switch(mode){
-        
-             case "add":
-                 JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
-                 break;
-             
-             case "update":
-                 JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Geheges ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
-                 break;
-             case "delete":
-                 JOptionPane.showMessageDialog(null, "Bitte die ID des zu löschenden Geheges ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
-                 break;  
-         }
+        switch (mode) {
+
+            case "add":
+                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+                break;
+
+            case "update":
+                JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Geheges ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case "delete":
+                JOptionPane.showMessageDialog(null, "Bitte die ID des zu löschenden Geheges ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
     }//GEN-LAST:event_jButtonHelpActionPerformed
 
-    
     /**
-     * Method to disable/enable buttons/labels depending on
-     *  operation selection.
+     * This Method makes it possible to update the fields, depending which row
+     * is clicked
+     *
+     * @param evt
+     */
+    private void jTableCompoundDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCompoundDataMouseClicked
+
+        if (!mode.equals("add")) {
+            int rowIndex = jTableCompoundData.getSelectedRow();
+            TableModel model = jTableCompoundData.getModel();
+
+            jTextFieldID.setText(model.getValueAt(rowIndex, 0).toString());
+            jTextFieldCompoundName.setText(model.getValueAt(rowIndex, 1).toString());
+            jTextFieldConstructionYear.setText(model.getValueAt(rowIndex, 3).toString());
+            jTextFieldMaxCapacity.setText(model.getValueAt(rowIndex, 4).toString());
+            jTextFieldArea.setText(model.getValueAt(rowIndex, 2).toString());
+
+        }
+    }//GEN-LAST:event_jTableCompoundDataMouseClicked
+
+    /**
+     * Method to disable/enable buttons/labels depending on operation selection.
+     *
      * @return The mode as String, null if unknown mode
      */
-    private String updateButtonsAndLabels(){
-        
-        
-       
-            System.out.println("Compound Mode");
-           
-             
-            if (jRadioButtonAdd.isSelected()){
-                System.out.println("    Add mode");
-                jButtonAddCompound.setEnabled(true);
-                jButtonUpdateCompound.setEnabled(false);
-                jButtonDeleteCompound.setEnabled(false);
-                jTextFieldID.setEnabled(false);
-                jLabelID.setEnabled(false);
-                jLabelSearch.setEnabled(false);
-                jButtonSearch.setEnabled(false);
-          
-                
-                return "add";
-               
-            } else if (jRadioButtonUpdate.isSelected()){
-                System.out.println("    Update mode");
-                jButtonAddCompound.setEnabled(false);
-                jButtonUpdateCompound.setEnabled(true);
-                jButtonDeleteCompound.setEnabled(false);
-                jTextFieldID.setEnabled(true);
-                jLabelID.setEnabled(true);
-                jLabelSearch.setEnabled(true);
-                jButtonSearch.setEnabled(true);
-                return "update";
-                
-                
-            } else if (jRadioButtonDelete.isSelected()){
-                System.out.println("    Delete mode");
-                jButtonAddCompound.setEnabled(false);
-                jButtonUpdateCompound.setEnabled(false);
-                jButtonDeleteCompound.setEnabled(true);
-                jTextFieldID.setEnabled(true);
-                jLabelID.setEnabled(true);
-                jLabelSearch.setEnabled(true);
-                jButtonSearch.setEnabled(true);
-                return "delete";
-            }
-            
-            return null;
+    private String updateButtonsAndLabels() {
+
+        System.out.println("Compound Mode");
+
+        if (jRadioButtonAdd.isSelected()) {
+            System.out.println("    Add mode");
+            jButtonAddCompound.setEnabled(true);
+            jButtonUpdateCompound.setEnabled(false);
+            jButtonDeleteCompound.setEnabled(false);
+            jTextFieldID.setEnabled(false);
+            jLabelID.setEnabled(false);
+            jLabelSearch.setEnabled(false);
+            jButtonSearch.setEnabled(false);
+
+            mode = "add";
+            return "add";
+
+        } else if (jRadioButtonUpdate.isSelected()) {
+            System.out.println("    Update mode");
+            jButtonAddCompound.setEnabled(false);
+            jButtonUpdateCompound.setEnabled(true);
+            jButtonDeleteCompound.setEnabled(false);
+            jTextFieldID.setEnabled(true);
+            jLabelID.setEnabled(true);
+            jLabelSearch.setEnabled(true);
+            jButtonSearch.setEnabled(true);
+            mode = "update";
+            return "update";
+
+        } else if (jRadioButtonDelete.isSelected()) {
+            System.out.println("    Delete mode");
+            jButtonAddCompound.setEnabled(false);
+            jButtonUpdateCompound.setEnabled(false);
+            jButtonDeleteCompound.setEnabled(true);
+            jTextFieldID.setEnabled(true);
+            jLabelID.setEnabled(true);
+            jLabelSearch.setEnabled(true);
+            jButtonSearch.setEnabled(true);
+            mode = "delete";
+            return "delete";
+        }
+
+        return null;
     }
-    
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-       
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -551,20 +690,18 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
-        
-         String url ="jdbc:mysql://localhost/";
-         String username = "root";
-         String password = "0000";
-         String dbName = "zoo";
-        
-         ZooManager zooManager = new ZooManager(url,dbName,username,password);
-         
-        
+
+        String url = "jdbc:mysql://localhost/";
+        String username = "root";
+        String password = "0000";
+        String dbName = "zoo";
+
+        ZooManager zooManager = new ZooManager(url, dbName, username, password);
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageCompoundJFrame(null,zooManager).setVisible(true);
+                new ManageCompoundJFrame(null, zooManager).setVisible(true);
             }
         });
     }
@@ -592,13 +729,15 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButtonUpdate;
     private javax.swing.JScrollPane jScrollPaneCompoundTable;
     private javax.swing.JTable jTableCompoundData;
-    private javax.swing.JTextField jTextArea;
+    private javax.swing.JTextField jTextFieldArea;
     private javax.swing.JTextField jTextFieldCompoundName;
     private javax.swing.JTextField jTextFieldConstructionYear;
-    private javax.swing.JTextField jTextFieldDateOfBirth;
     private javax.swing.JTextField jTextFieldID;
+    private javax.swing.JTextField jTextFieldMaxCapacity;
     // End of variables declaration//GEN-END:variables
 
     private javax.swing.JFrame goBackFrame;
     private ZooManager zooManager;
+    private String mode;
+
 }
