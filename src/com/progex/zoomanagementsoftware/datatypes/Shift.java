@@ -1,6 +1,6 @@
 package com.progex.zoomanagementsoftware.datatypes;
 
-enum Shift {
+public enum Shift {
   morning,
   afternoon,
   night,

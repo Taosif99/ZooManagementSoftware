@@ -391,10 +391,9 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     private void jButtonAddCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddCompoundActionPerformed
 
-        //TODO CATCH NUMBER FORMAT EXCEPTION
+        jTextFieldID.setText("");
         try {
 
-            //boolean textFieldsVerified = verifyTextFields();
             
             JTextField textFields[] = {jTextFieldArea,jTextFieldCompoundName,
                                        jTextFieldConstructionYear,jTextFieldMaxCapacity};
@@ -508,10 +507,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     private void jButtonDeleteCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteCompoundActionPerformed
 
-        //boolean textFieldsVerified = verifyTextFields();
 
-        
-        
           //Beim Löschen reicht nur die ID aus
             JTextField textFields[] = { jTextFieldID};
             boolean textFieldsVerified = methods.verifyTextFields(textFields);

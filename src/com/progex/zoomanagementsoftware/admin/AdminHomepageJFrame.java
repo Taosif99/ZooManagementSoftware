@@ -260,7 +260,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         /* Create and display the JFrame ManageAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageAnimalJFrame(thisFrame).setVisible(true);
+                new ManageAnimalJFrame(thisFrame,zooManager).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButtonManageAnimalsActionPerformed

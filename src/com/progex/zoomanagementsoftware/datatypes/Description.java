@@ -1,6 +1,6 @@
 package com.progex.zoomanagementsoftware.datatypes;
 
-enum Description {
+public enum Description {
   fish,
   bird,
   mammal,
