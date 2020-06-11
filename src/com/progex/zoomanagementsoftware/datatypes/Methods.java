@@ -172,4 +172,16 @@ public class Methods {
         }
     }
 
+   
+    /**
+     * Method to remove the seconds From da String 
+     * with the format: YYYY-MM-DD HH:MI:SS
+     * @param dateString
+     * @return 
+     */
+   public String removeSeconds(String dateString){
+   
+        return dateString.substring(0,16);
+   }
+    
 }

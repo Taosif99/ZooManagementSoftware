@@ -5,12 +5,16 @@
  */
 package com.progex.zoomanagementsoftware.admin;
 
-import com.progex.zoomanagementsoftware.datatypes.Methods;
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
+import com.progex.zoomanagementsoftware.datatypes.*;
+import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
- *
+ * TODO parse Start and End Feeding Time !!!
  * @author Ouchen
  */
 public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
@@ -18,20 +22,54 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     /**
      * Creates new form ManageUserJFrameOld
      */
-    public ManageFoodToAnimalJFrame(JFrame goBackFrame) {
+    public ManageFoodToAnimalJFrame(JFrame goBackFrame,ZooManager zooManager) {
         
         initComponents();
         this.goBackFrame = goBackFrame;
+        this.zooManager = zooManager;
         myInitComponents();
     }
     
      public void myInitComponents(){
         updateButtonsAndLabels();
-        Methods methods = new Methods();    
+        methods = new Methods();    
         methods.showTimeAndDate(jLabelShowDateTime);
-        //this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        viewAllAnimals();
     }
     
+     
+     
+     
+         private void viewAllAnimals() {
+
+        LinkedList<Animal> animals = zooManager.getAnimals();
+
+        /*Clean the table*/
+        DefaultTableModel tableModel = (DefaultTableModel) jTableAnimalData.getModel();
+        while (tableModel.getRowCount() > 0) {
+            tableModel.removeRow(0);
+        }
+
+        /*Loading all animals to Table, better in own method*/
+        DefaultTableModel model = (DefaultTableModel) jTableAnimalData.getModel();
+        Object[] row = new Object[6]; // Spalten
+
+        for (Animal animal : animals) {
+            //Hier bekommt man die Spalten der Zeile
+            row[0] = animal.getId();
+            row[1] = animal.getName();
+            row[2] = animal.getBirthday();
+            row[3] = animal.getSex(); //TODO PARSE TO AGE
+            //DIE LINE IST NOCH HÄSSLICH
+            row[4] = methods.descriptionToString(animal.getSpecies().getDescription());
+            row[5] = animal.getCompound().getName();
+            //Hier wird es Hinzugefuegt
+            model.addRow(row);
+        }
+
+    }
+     
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -224,11 +262,18 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         });
         jTableFoodToAnimalData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTableFoodToAnimalData.getTableHeader().setReorderingAllowed(false);
+        jTableFoodToAnimalData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableFoodToAnimalDataMouseClicked(evt);
+            }
+        });
         jScrollPaneFoodToAnimalTable.setViewportView(jTableFoodToAnimalData);
         if (jTableFoodToAnimalData.getColumnModel().getColumnCount() > 0) {
-            jTableFoodToAnimalData.getColumnModel().getColumn(0).setPreferredWidth(150);
-            jTableFoodToAnimalData.getColumnModel().getColumn(3).setPreferredWidth(150);
-            jTableFoodToAnimalData.getColumnModel().getColumn(4).setPreferredWidth(150);
+            jTableFoodToAnimalData.getColumnModel().getColumn(0).setPreferredWidth(140);
+            jTableFoodToAnimalData.getColumnModel().getColumn(1).setPreferredWidth(150);
+            jTableFoodToAnimalData.getColumnModel().getColumn(3).setPreferredWidth(300);
+            jTableFoodToAnimalData.getColumnModel().getColumn(4).setPreferredWidth(300);
+            jTableFoodToAnimalData.getColumnModel().getColumn(5).setPreferredWidth(120);
         }
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -271,6 +316,11 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTableAnimalData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableAnimalDataMouseClicked(evt);
             }
         });
         jScrollPaneAnimalTable.setViewportView(jTableAnimalData);
@@ -350,76 +400,86 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jPanelOperation, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabelAnimalName)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jPanelOperation, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addGap(176, 176, 176)
-                                            .addComponent(jTextFieldFoodName, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButtonSearchAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabelAnimalName)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addGap(176, 176, 176)
+                                                    .addComponent(jTextFieldFoodName, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jButtonSearchAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabelFood)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldFood, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabelEndFeedingTime)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldEndFeedingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabelStartFeedingTime)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldStartFeedingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabelAmountFood)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldAmountFood, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanelAmountUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jButtonDelete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButtonAdd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
+                        .addContainerGap()
+                        .addComponent(jButtonGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(575, 575, 575)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelShowDateTime)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelFood)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldFood, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelEndFeedingTime)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldEndFeedingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabelFoodID)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldFoodID, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelAnimalID)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldAnimalID, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelDateTimeID)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldDateTimeID))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabelStartFeedingTime)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldStartFeedingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelAmountFood)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldAmountFood, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelAmountUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButtonDelete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonAdd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelShowDateTime)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabelFoodID)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextFieldFoodID, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabelAnimalID)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextFieldAnimalID, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabelDateTimeID)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextFieldDateTimeID))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanelAmountUnitTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(70, 70, 70)
-                                .addComponent(jLabelSearch))
-                            .addComponent(jScrollPaneFoodToAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(40, 40, 40))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButtonGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jPanelAmountUnitTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(70, 70, 70)
+                                        .addComponent(jLabelSearch))
+                                    .addComponent(jButtonSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(40, 40, 40))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPaneFoodToAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,14 +533,14 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     .addComponent(jLabelDateTimeID)
                     .addComponent(jTextFieldDateTimeID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
-                .addComponent(jScrollPaneFoodToAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPaneFoodToAnimalTable, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelSearch)
                     .addComponent(jPanelAmountUnitTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGap(47, 47, 47))
         );
 
         getAccessibleContext().setAccessibleName("FutterTier verwalten");
@@ -560,7 +620,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
         
-        String mode = updateButtonsAndLabels();
+       
         //System.out.println(mode); //Debug
         
         //Get the mode
@@ -582,6 +642,71 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     private void jRadioButtonGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonGActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonGActionPerformed
+
+    private void jTableAnimalDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAnimalDataMouseClicked
+        
+        
+            int animalRowIndex = jTableAnimalData.getSelectedRow();
+            TableModel animalModel = jTableAnimalData.getModel();
+            
+            //Update the animalId when selected
+            String selectedAnimalID = animalModel.getValueAt(animalRowIndex,0).toString();
+        
+            //DEBUG
+            System.out.println("Selected ID: " + selectedAnimalID);
+            
+            //After getting selected ID, we print all feedingTimes in the database
+            LinkedList<FoodToAnimalR> records = zooManager.getFoodToAnimalRecords(Integer.parseInt(selectedAnimalID));
+            
+            
+            /*Displaying results to second table*/
+        
+            /*Clean the table*/
+        DefaultTableModel tableRelationModel = (DefaultTableModel) jTableFoodToAnimalData.getModel();
+        while (tableRelationModel.getRowCount() > 0) {
+            tableRelationModel.removeRow(0);
+        }
+        
+        Object[] row = new Object[6]; // Spalten
+
+        for (FoodToAnimalR record : records) {
+            row[0] = record.getFoodName();
+            row[1] = record.getFoodID();
+            row[2] = record.getAnimalID();
+            row[3] = methods.removeSeconds(record.getStartFeedingTime());
+            row[4] = methods.removeSeconds(record.getEndFeedingTime());
+            row[5] = record.getAmount();
+            tableRelationModel.addRow(row);
+        }
+            
+    }//GEN-LAST:event_jTableAnimalDataMouseClicked
+
+    private void jTableFoodToAnimalDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFoodToAnimalDataMouseClicked
+        
+        /*Updating the textfields correspondingly*/
+        if(!mode.equals("add")){
+        
+         int rowIndex = jTableFoodToAnimalData.getSelectedRow();
+         TableModel model = jTableFoodToAnimalData.getModel();
+        
+         jTextFieldFood.setText(model.getValueAt(rowIndex, 0).toString());
+         jTextFieldFoodID.setText(model.getValueAt(rowIndex, 1).toString());
+         jTextFieldAnimalID.setText(model.getValueAt(rowIndex, 2).toString());
+         
+         String startFeedingTime = model.getValueAt(rowIndex, 3).toString();
+         String endFeedingTime = model.getValueAt(rowIndex, 4).toString();
+         
+         jTextFieldStartFeedingTime.setText(startFeedingTime);
+         jTextFieldDateTimeID.setText(startFeedingTime);
+         jTextFieldEndFeedingTime.setText(endFeedingTime);
+         
+         jTextFieldAmountFood.setText(model.getValueAt(rowIndex, 5).toString());
+       
+         
+        }
+        
+        
+    }//GEN-LAST:event_jTableFoodToAnimalDataMouseClicked
 
     
     /**
@@ -606,6 +731,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 jLabelDateTimeID.setEnabled(false); 
                 jLabelSearch.setEnabled(false);
                 jButtonSearch.setEnabled(false);
+                mode = "add";
                 return "add";
           
             } else if (jRadioButtonUpdate.isSelected()){
@@ -621,6 +747,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 jButtonSearch.setEnabled(true);
                 jLabelAnimalID.setEnabled(true); 
                 jLabelDateTimeID.setEnabled(true); 
+                mode = "update";
                 return "update";
             } else if (jRadioButtonDelete.isSelected()){
                 System.out.println("    Delete mode");
@@ -633,8 +760,9 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 jLabelFoodID.setEnabled(true);
                 jLabelSearch.setEnabled(true);
                 jButtonSearch.setEnabled(true);
-                 jLabelAnimalID.setEnabled(true); 
+                jLabelAnimalID.setEnabled(true); 
                 jLabelDateTimeID.setEnabled(true); 
+                mode = "delete";
                 return "delete";
                 
             }
@@ -668,10 +796,20 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        String url = "jdbc:mysql://localhost/";
+        String username = "root";
+        String password = "0000";
+        String dbName = "zoo";
+
+        ZooManager zooManager = new ZooManager(url, dbName, username, password);
+
+        
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageFoodToAnimalJFrame(null).setVisible(true);
+                new ManageFoodToAnimalJFrame(null,zooManager).setVisible(true);
             }
         });
     }
@@ -724,4 +862,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private javax.swing.JFrame goBackFrame;
+    private String mode;
+    private ZooManager zooManager;
+    private Methods methods;
 }

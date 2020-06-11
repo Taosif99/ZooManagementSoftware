@@ -32,13 +32,7 @@ public class ZooManager {
      */
     public ZooManager(String url, String dbName, String username, String password) {
 
-        /*
-         String url ="jdbc:mysql://localhost/";
-         String username = "root";
-         String password = "0000";
-         String dbName = "zoo";
-         
-         */
+
         connectionHandler = new ConnectionHandler(url, dbName, username, password);
 
         userManager = new UserManager(connectionHandler);
@@ -125,7 +119,7 @@ public class ZooManager {
     }
 
     /**
-     * Method to update the values of a compund
+     * Method to update the values of a compound.
      *
      * @param ID
      * @param name
@@ -153,7 +147,7 @@ public class ZooManager {
     }
 
     /**
-     * Method to delete a compound from the database
+     * Method to delete a compound from the database.
      *
      * @param ID
      * @return true if successful,else false
@@ -182,7 +176,7 @@ public class ZooManager {
     /*End Compund Methods*/
  /*Methods concerning Managing Animal start here*/
     /**
-     * Method to get the required values of the admin view
+     * Method to get the required values of the admin view.
      * @return 
      */
     public LinkedList<Animal> getAnimals() {
@@ -358,4 +352,60 @@ public class ZooManager {
     }
     
     
+    /*Methods concerning animal end here*/
+    
+    
+    /*Methods concerning Food to Animal relation start here*/
+    
+    
+    /**
+     * Method which has been implemented to get all requiered information
+     * for the food to animal admin view.
+     * @param animalID
+     * @return The corresponding records saved in a LinkedList
+     */
+    
+    
+    public LinkedList<FoodToAnimalR>getFoodToAnimalRecords(int animalID){
+
+     LinkedList<FoodToAnimalR> records = new LinkedList<FoodToAnimalR>();   
+        
+
+     String query = "SELECT Food.Name as FoodName, Food.ID as \n" +
+                    "FoodID,Eats.StartFeedingTime,Eats.EndFeedingTime,Eats.Amount\n" +
+                    "FROM Eats\n" +
+                    "INNER JOIN Food ON  Food.ID = Eats.FoodID\n" +
+                    "WHERE AnimalID = " + animalID;
+     
+     System.out.println(query);
+     ResultSet resultSet = connectionHandler.performQuery(query);
+
+        if (resultSet != null) {
+
+            try {
+                while (resultSet.next()) {
+     
+                    String foodName = resultSet.getString("foodName");
+                    int foodID = resultSet.getInt("FoodID");
+                    //Sint animalID = resultSet.getInt("AnimalID");
+                    String startFeedingTime = resultSet.getString("StartFeedingTime");
+                    String endFeedingTime = resultSet.getString("EndFeedingTime");
+                    double amount = resultSet.getDouble("Amount");
+                    
+                  FoodToAnimalR record = new FoodToAnimalR(foodName, foodID,animalID,startFeedingTime,endFeedingTime ,amount);  
+                  records.add(record);
+                }
+                
+                }catch (SQLException e) {
+                System.err.println("SQL exception");
+                System.out.println(e.getMessage());
+
+            }
+            
+        }
+   
+     
+         return records;
+    }
+    /*Methods concerning Food to Animal relation end here*/
 }

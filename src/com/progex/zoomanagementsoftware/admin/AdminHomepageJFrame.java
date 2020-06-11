@@ -314,7 +314,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         /* Create and display the JFrame FoodToAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageFoodToAnimalJFrame(thisFrame).setVisible(true);
+                new ManageFoodToAnimalJFrame(thisFrame,zooManager).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButtonManageEatsActionPerformed
