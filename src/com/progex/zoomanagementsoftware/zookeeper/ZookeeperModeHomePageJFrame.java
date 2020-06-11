@@ -5,9 +5,15 @@
  */
 package com.progex.zoomanagementsoftware.zookeeper;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.admin.ManageUserJFrame;
+import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
 import com.progex.zoomanagementsoftware.main.MainMenuJFrame;
 import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -19,13 +25,29 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     /**
      * Creates new form ZookeeperModeHomePage
      */
-    public ZookeeperModeHomePageJFrame(JFrame goBack) {
+    public ZookeeperModeHomePageJFrame(JFrame goBack, ZooManager zooManager) throws SQLException, ParseException {
         initComponents();
         myInitComponents();
+        this.zooManager = zooManager;
         this.setLocationRelativeTo(null);
         mainMenuJFrame = goBack;
+        setNameLabel();
+        setLastLogDate();
+        FeedingInfo x = zooManager.getNextFeedingInfo();
         //  comment
 
+    }
+    
+    private void setNameLabel() throws SQLException{
+       
+        zookeeperName.setText("Hallo "+zooManager.getNameOfUser()+"!");
+        
+    }
+    
+    private void setLastLogDate() throws SQLException{
+        
+        jLabelLastLoginTime.setText(zooManager.getLastLoginDateFromUser());
+        
     }
     
         private void myInitComponents(){
@@ -41,6 +63,10 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         setSize(x,y);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
+        
+        
+        
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -201,7 +227,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NextFeedingTimeJFrame(mainMenuJFrame, thisFrame ,null).setVisible(true);
+                new NextFeedingTimeJFrame(mainMenuJFrame, thisFrame ,null,zooManager).setVisible(true);
             }
         });        
         
@@ -237,6 +263,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 
+    
     /**
      * @param args the command line arguments
      */
@@ -264,11 +291,23 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+         String url ="jdbc:mysql://localhost/";
+         String username = "root";
+         String password = "AbuKungFu707-";
+         String dbName = "zoo";
+        
+         ZooManager zooManager = new ZooManager(url,dbName,username,password);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ZookeeperModeHomePageJFrame(null).setVisible(true);
+                try {
+                    new ZookeeperModeHomePageJFrame(null, null).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ZookeeperModeHomePageJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(ZookeeperModeHomePageJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -287,6 +326,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
    private javax.swing.JFrame mainMenuJFrame;
+   private ZooManager zooManager;
 
 
 }

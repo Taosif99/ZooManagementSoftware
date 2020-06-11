@@ -274,7 +274,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
             
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new NextFeedingTimeJFrame(mainMenuJFrame,zookeeperModeHomePageFrame,thisFrame).setVisible(true);
+                    new NextFeedingTimeJFrame(mainMenuJFrame,zookeeperModeHomePageFrame,thisFrame,null).setVisible(true);
                 }
             });                
             this.setVisible(false);

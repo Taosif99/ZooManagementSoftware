@@ -7,12 +7,18 @@ package com.progex.zoomanagementsoftware.main;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.admin.AdminHomepageJFrame;
+import com.progex.zoomanagementsoftware.hashing.MD5Hash;
 import com.progex.zoomanagementsoftware.zookeeper.ZookeeperModeHomePageJFrame;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 
 
@@ -55,6 +61,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         jPasswordFieldPassword = new javax.swing.JPasswordField();
         login = new javax.swing.JLabel();
         jButtonLogin = new javax.swing.JButton();
+        jLabelLoginError = new javax.swing.JLabel();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -94,22 +101,27 @@ public class LoginJFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(207, 207, 207)
-                        .addComponent(jButtonLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(73, 73, 73)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(username)
                             .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passwort))
+                            .addComponent(passwort)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelLoginError, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPasswordFieldPassword)
                                 .addGap(1, 1, 1))
-                            .addComponent(jTextFieldUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))))
+                            .addComponent(jTextFieldUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jButtonLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
@@ -125,9 +137,15 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jPasswordFieldPassword)
                     .addComponent(passwort))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(25, 25, 25))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                        .addGap(17, 17, 17))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelLoginError, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         pack();
@@ -142,42 +160,107 @@ public class LoginJFrame extends javax.swing.JFrame {
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_formWindowClosing
 
+    
+    // login Button performed
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
-        // TODO add your handling code here:
-
-       String username = jTextFieldUsername.getText();
-       if (username.equals("admin")){
-       
-       //Open admin window here
-           
-           /* Create and display Admin Homepage form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AdminHomepageJFrame(zooManager).setVisible(true);
+        try {
+            // TODO add your handling code here:
+            
+            
+            // TODO: Implement MD5, using test purpose without MD5 AT THE MOMENT!!
+            
+            
+            MD5Hash hasher = new MD5Hash();
+//            String username = "sophieschmidt7";
+//            String hashedPw = "3E45AF4CA27EA2B03FC6183AF40EA112";
+            //   3E45AF4CA27EA2B03FC6183AF40EA112
+            
+               String username = jTextFieldUsername.getText();
+               String hashedPw = hasher.hashString(new String(jPasswordFieldPassword.getPassword()));
+               System.out.println("TYPED IN "+username+" "+hashedPw);
+            // meyeranna2 Bioalo12
+            //   System.out.println("Hashed PW: "+hashedPw);
+            //   System.out.println("Username: "+username);
+            
+            if(zooManager.isUserAccepted(username, hashedPw).equals("ZOOKEEPER")){
+                
+                System.out.println("ACCEPTED");
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        try {
+                            new ZookeeperModeHomePageJFrame(mainMenuJFrame,zooManager).setVisible(true);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                });
+                
+                
+                //Make main menue invisible
+                mainMenuJFrame.setVisible(false);
+                this.dispose();
             }
-        });
-        
-        
-        mainMenuJFrame.setVisible(false);
-        this.dispose();       
-        
-       } else {
-       
-           //Open zookeeper window here
-          
-         /* Create and display zookeeper form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ZookeeperModeHomePageJFrame(mainMenuJFrame).setVisible(true);
+            if(zooManager.isUserAccepted(username, hashedPw).equals("ADMIN")){
+                
+                //                //Open admin window here
+                
+                /* Create and display Admin Homepage form */
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new AdminHomepageJFrame(zooManager).setVisible(true);
+                    }
+                });
+                             
+                mainMenuJFrame.setVisible(false);
+                this.dispose();
             }
-        });
-       
-       
-        //Make main menue invisible
-         mainMenuJFrame.setVisible(false);
-         this.dispose();
-       }
-        
+            if(zooManager.isUserAccepted(username, hashedPw).equals("ERROR")){
+                
+                jLabelLoginError.setText("Anmeldedaten nicht korrekt!");
+                jLabelLoginError.setForeground(Color.RED);
+                System.out.println("FEHLER");
+            }
+            
+            
+//            //   String username = jTextFieldUsername.getText();
+//            if (username.equals("admin")){
+//                
+//                //Open admin window here
+//                
+//                /* Create and display Admin Homepage form */
+//                java.awt.EventQueue.invokeLater(new Runnable() {
+//                    public void run() {
+//                        new AdminHomepageJFrame(zooManager).setVisible(true);
+//                    }
+//                });
+//                
+//                
+//                mainMenuJFrame.setVisible(false);
+//                this.dispose();
+//                
+//            }
+//       else {
+//       
+//           //Open zookeeper window here
+//          
+//         /* Create and display zookeeper form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new ZookeeperModeHomePageJFrame(mainMenuJFrame,zooManager).setVisible(true);
+//            }
+//        });
+//
+//       
+//        //Make main menue invisible
+//         mainMenuJFrame.setVisible(false);
+//         this.dispose();
+//       }
+//        
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
     /**
@@ -224,6 +307,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonLogin;
+    private javax.swing.JLabel jLabelLoginError;
     private javax.swing.JPasswordField jPasswordFieldPassword;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JTextField jTextFieldUsername;

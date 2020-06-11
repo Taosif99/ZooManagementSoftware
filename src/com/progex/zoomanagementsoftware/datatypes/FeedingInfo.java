@@ -7,30 +7,40 @@ import java.sql.Date;
 public class FeedingInfo
 {
 	private String animalName;
-	
-	private String animalBirthday;
-	
-	private String animalSex;
-	
+		
 	private String compundName;
+        
+        private String abstellraum;
+        
+        private double amountOfFood;
 	
 	private Date startFeedingTime; //WAHRSCHEINLICH IST HIER SQL TIMESTAMP ANGEBRACHT
 	
 	private String foodName;
-	
-	private Date endFeedingTime;
-
-    public FeedingInfo(String animalName, String animalBirthDay, String animalSex, String compundName, Date startFeedingTime, String foodName, Date endFeedingTime) {
         
+        private Date endFeedingTime;
+	
+    public FeedingInfo(String animalName, String compundName, Date startFeedingTime, String foodName, Date endFeedingTime, String abstellraum, double amountOfFood) {
+        
+        this.abstellraum = abstellraum;
         this.animalName = animalName;
-        this.animalBirthday = animalBirthDay;
-        this.animalSex = animalSex;
         this.compundName = compundName;
         this.startFeedingTime = startFeedingTime;
         this.foodName = foodName;
         this.endFeedingTime = endFeedingTime;
+        this.amountOfFood = amountOfFood;
     }
 
+    public double getAmountOfFood() {
+        return amountOfFood;
+    }
+
+    public void setAmountOfFood(double amountOfFood) {
+        this.amountOfFood = amountOfFood;
+    }
+
+    
+    
     public String getAnimalName() {
         return animalName;
     }
@@ -39,21 +49,15 @@ public class FeedingInfo
         this.animalName = animalName;
     }
 
-    public String getAnimalBithDay() {
-        return animalBirthday;
+    public String getAbstellraum() {
+        return abstellraum;
     }
 
-    public void setAnimalBithDay(String animalBithDay) {
-        this.animalBirthday = animalBithDay;
+    public void setAbstellraum(String abstellraum) {
+        this.abstellraum = abstellraum;
     }
-
-    public String getAnimalSex() {
-        return animalSex;
-    }
-
-    public void setAnimalSex(String animalSex) {
-        this.animalSex = animalSex;
-    }
+    
+    
 
     public String getCompundName() {
         return compundName;

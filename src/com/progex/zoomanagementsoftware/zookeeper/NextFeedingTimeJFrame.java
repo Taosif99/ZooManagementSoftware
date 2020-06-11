@@ -5,10 +5,16 @@
  */
 package com.progex.zoomanagementsoftware.zookeeper;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
+import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import com.progex.zoomanagementsoftware.main.MainMenuJFrame;
 import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -20,15 +26,34 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
     /**
      * Creates new form NächsteFütterungJFrame
      */
-    public NextFeedingTimeJFrame(JFrame goBack, JFrame goBack2, JFrame goBack3 ) {
+    public NextFeedingTimeJFrame(JFrame goBack, JFrame goBack2, JFrame goBack3,ZooManager zooManager ) throws SQLException, ParseException {
         initComponents();
         myInitComponents();
         mainMenuJFrame = goBack;
         zookeeperModeHomePageFrame = goBack2;
         allFeedingTimeFrame = goBack3;
+        setFeedingInfo();
         
     }
 
+    public void setFeedingInfo() throws SQLException, ParseException{
+        
+        FeedingInfo x = zooManager.getNextFeedingInfo();
+        if(x!=null){
+            futter.setText("Futter: "+x.getFoodName());
+            abstellraumnummer.setText("Abstellraumnummer: "+x.getAbstellraum());
+            tierName.setText("Tiername :"+x.getAnimalName());
+            futtermenge.setText("Futtermenge: "+x.getAmountOfFood());
+            gehege.setText("Gehege: "+x.getCompundName());
+            nextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung in: "+x.getStartFeedingTime());
+            
+        }
+        else{
+            nextFeedingTimeTakesPlaceIn.setText("Keine Fütterung für heute mehr");
+        }
+        
+        
+    }
   
     
         public void myInitComponents(){
@@ -339,7 +364,13 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NextFeedingTimeJFrame(null,null,null).setVisible(true);
+                try {
+                    new NextFeedingTimeJFrame(null,null,null,null).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(NextFeedingTimeJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(NextFeedingTimeJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -363,6 +394,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
    private javax.swing.JFrame mainMenuJFrame;
    private javax.swing.JFrame zookeeperModeHomePageFrame;
    private javax.swing.JFrame allFeedingTimeFrame;
+   private ZooManager zooManager;
 
 
 

@@ -31,7 +31,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         
          String url ="jdbc:mysql://localhost/";
          String username = "root";
-         String password = "0000";
+         String password = "AbuKungFu707-";
          String dbName = "zoo";
         
          zooManager = new ZooManager(url,dbName,username,password);
