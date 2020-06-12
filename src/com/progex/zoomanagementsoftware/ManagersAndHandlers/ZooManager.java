@@ -165,13 +165,12 @@ public class ZooManager {
                     if(temp == null)
                         return false;    
                 }
-                return true;
+              
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return false;
+        return true;
     }
 
     public boolean addFood(int storageRoomNumber, double stock, String name) {
