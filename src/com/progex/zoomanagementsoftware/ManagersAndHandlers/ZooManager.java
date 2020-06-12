@@ -93,7 +93,7 @@ public class ZooManager {
     public boolean checkFoodExists(String name) throws SQLException {
         
         String query = "SELECT name FROM food WHERE name LIKE \"" + name + "\";";
-        
+        System.out.println(query);
         ResultSet resultSet = connectionHandler.performQuery(query);
       
         if (resultSet != null){
@@ -106,10 +106,31 @@ public class ZooManager {
 
     public boolean addFood(int storageRoomNumber, double stock, String name) {
         
-        //String query = "INSERT INTO Food(StorageRoomNumber,Stock,Name) VALUES(" + storageRoomNumber + "," + stock + ",\"" + name + "\");";
-        String query = "INSERT INTO food(StorageRoomNumber,Stock,Name) VALUES(1,1,\"Test99\")";
+        String query = "INSERT INTO Food(StorageRoomNumber,Stock,Name) VALUES(" + storageRoomNumber + "," + stock + ",\"" + name + "\");";
+        //String query = "INSERT INTO food(StorageRoomNumber,Stock,Name) VALUES(1,1,\"Test99\");";
+        System.out.println(query);
         boolean retVal = connectionHandler.manipulateDB(query);
         return retVal;
     }
+    
+    public boolean updateFood(int storageRoomNumber, double stock, String name, int id){
+        
+        String query = "UPDATE food SET storageRoomNumber = " + storageRoomNumber + ", stock = " + stock + 
+                ", name = \"" + name + "\" WHERE id = " + id;
+        
+        System.out.println(query);
+        
+        boolean retVal = connectionHandler.manipulateDB(query);
+     
+        return retVal;
+    }
+    
+    public boolean deleteFood(int id){
+        
+        String query = "DELETE FROM food WHERE id = " + id + ";";
+        boolean retVal = connectionHandler.manipulateDB(query);
+        return retVal;
+    }
+            
 
 }

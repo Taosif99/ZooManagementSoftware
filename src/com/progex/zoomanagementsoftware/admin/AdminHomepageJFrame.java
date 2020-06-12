@@ -328,8 +328,9 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     private void fillTable(){
         
         LinkedList <Admin> admins = userManager.getAdmins(Integer.parseInt(jTextFieldAmountAdmins.getText()));
-        
+        //System.out.println("Bis fillTable");
         DefaultTableModel model = (DefaultTableModel) jTableLastLoginAdminsData.getModel();
+        
         Object[] row = new Object[5];
         
         for(Admin admin : admins){
@@ -350,6 +351,8 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         while (tableModel.getRowCount() > 0) {
             tableModel.removeRow(0);
         }
+        
+        fillTable();
     }
     
     
