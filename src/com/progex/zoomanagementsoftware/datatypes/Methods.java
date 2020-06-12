@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Timer;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -54,7 +56,7 @@ public class Methods {
     }
 
     /**
-     * Method to verify that the user inputs are not empty
+     * Method to verify that the user inputs are not empty.
      *
      * @param textFields
      * @return
@@ -77,7 +79,7 @@ public class Methods {
      * Method to get the corresponding description enum of an Animal
      *
      * @param descriptionStr
-     * @return
+     * @return The correspondig enum to the description String
      */
     public Description stringToDescription(String descriptionStr) {
 
@@ -114,10 +116,10 @@ public class Methods {
     }
 
     /**
-     * Method to convert a description enum to its corresponding "german" value
+     * Method to convert a description enum to its corresponding "german" value.
      *
      * @param description
-     * @return
+     * @return The description as String
      */
     public String descriptionToString(Description description) {
 
@@ -158,7 +160,7 @@ public class Methods {
     /**
      * Method to check if a given date has the format ""yyyy-MM-dd
      * @param dateString
-     * @return 
+     * @return true if pattern is valid, else false
      */
     public boolean isValidDateString(String dateString) {
 
@@ -177,11 +179,63 @@ public class Methods {
      * Method to remove the seconds From da String 
      * with the format: YYYY-MM-DD HH:MI:SS
      * @param dateString
-     * @return 
+     * @return The formated String with YYYY-MM-DD HH:MI
      */
    public String removeSeconds(String dateString){
    
         return dateString.substring(0,16);
    }
+   
+   
+   /**
+    * TODO: probably merge with function above in a valid pattern function???
+    * @param feedingTime
+    * @return True if format is yyyy-MM-dd HH:mm:ss, else false
+    */
+   public boolean isValidFeedingTime(String feedingTime){
+   
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        
+        if (feedingTime.length()> pattern.length()) return false;
+        try {
+            new SimpleDateFormat(pattern).parse(feedingTime);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+   }
+   
+   
+   
+   /**
+    * Method to check if end feeding time comes after starts feeding time.
+    * @param startFeedingTime
+    * @param endFeedingTime
+    * @return true if end feeding time is greater than start, else false
+    */
+   public boolean isFeedingTimesGreater(String startFeedingTime, String endFeedingTime){
+   
+       String pattern = "yyyy-MM-dd HH:mm:ss";
+        try {
+            Date start = new SimpleDateFormat(pattern).parse(startFeedingTime);
+             Date end = new SimpleDateFormat(pattern).parse(endFeedingTime);
+        
+           return end.after(start);
+        
+        } catch (ParseException ex) {
+            
+            
+            System.err.println("Parsing Exception");
+            System.out.println(ex.getMessage());
+            
+            
+        }
+       
+        return false;
+        
+        
+     }
+   
     
 }

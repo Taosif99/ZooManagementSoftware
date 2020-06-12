@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.util.HashMap;
 
 /**
  *
@@ -407,5 +408,118 @@ public class ZooManager {
      
          return records;
     }
+    
+    /**
+     * Method which adds an FoodToAnimal relation to the database
+     * @param animalID
+     * @param foodName
+     * @param startFeedingTime
+     * @param endFeedingTime
+     * @param amount
+     * @return 
+     */
+     public boolean addFoodToAnimal(String animalID,String foodName, String startFeedingTime, String endFeedingTime, double amount) {
+
+        try {
+            /*Getting the FoodID*/
+            String foodIDQuery = "SELECT ID from Food where Name =" + "\"" + foodName + "\"";
+            ResultSet resultSet = connectionHandler.performQuery(foodIDQuery);
+            if (resultSet == null) {
+                return false; //case if food does not exist
+            }
+            resultSet.next();
+            int foodID = resultSet.getInt("ID");
+
+       
+
+            //Know the animal food relation can be added to the database
+            StringBuilder querySB = new StringBuilder();
+            querySB.append("INSERT INTO Eats(FoodID,AnimalID,StartFeedingTime,EndFeedingTime,Amount) ")
+                    .append("VALUES (").append(foodID).append(",").append(animalID)
+                    .append(",").append("'").append(startFeedingTime).append("'").append(",")
+                    .append("'").append(endFeedingTime).append("'").append(",").append(amount).append(")");
+            String query = querySB.toString();
+            System.out.println(query);
+
+            boolean retVal = connectionHandler.manipulateDB(query);
+
+            /*
+        if (retVal){
+        System.out.println("Einfügen erfolgreich") ;
+        }else System.out.println("Einfügen misslungen");*/
+            return retVal;
+        } catch (SQLException ex) {
+
+            System.err.println("SQL Exception");
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+
+        return false;
+    }
+    
+    
+    public boolean updateFoodToAnimal(String animalID,String foodName, String startFeedingTime, String endFeedingTime, double amount,HashMap<String,String> keys){
+    
+        /*Get compoundID and species ID TODO method to shorten code*/
+        try {
+  
+            
+            /*Getting old keys*/
+            String startFeedingTimeKey = keys.get("StartFeedingTime");
+            String foodIDKey = keys.get("FoodID");
+            
+            /*Getting the FoodID of the new food*/
+            String foodIDQuery = "SELECT ID from Food where Name =" + "\"" + foodName + "\"";
+            ResultSet resultSet = connectionHandler.performQuery(foodIDQuery);
+            if (resultSet == null) {
+                return false; //case if food does not exist
+            }
+            resultSet.next();
+            int foodID = resultSet.getInt("ID");
+            
+            //Know the relation can be updated
+            StringBuilder querySB = new StringBuilder();
+            querySB.append("UPDATE Eats ")
+                    .append("SET FoodID = ").append(foodID).append(",")
+                    .append("AnimalID = ").append(animalID).append(", ")
+                    .append("StartFeedingTime = ").append("'").append(startFeedingTime).append("'").append(", ")
+                    .append("EndFeedingTime = ").append("'").append(endFeedingTime).append("'").append(",")
+                    .append("Amount = ").append(amount)
+                    .append(" WHERE FoodID = ").append(foodIDKey)
+                    .append(" AND ").append("AnimalID = ").append(animalID)
+                    .append(" AND StartFeedingTime = '").append(startFeedingTimeKey).append("'");
+
+            String query = querySB.toString();
+            System.out.println(query);
+
+            boolean retVal = connectionHandler.manipulateDB(query);
+
+            return retVal;
+
+        } catch (SQLException ex) {
+
+            System.err.println("SQL Exception");
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+
+        return false;
+    }
+    
+    
+    
+    public boolean deleteFoodToAnimal(String foodID,String animalID,String startFeedingTime) {
+
+        String query = "DELETE FROM Eats " 
+                     +  "WHERE FoodID = " + foodID
+                     + " AND AnimalID= " +animalID
+                     + " AND StartFeedingTime = '" + startFeedingTime + "'";
+        boolean retVal = connectionHandler.manipulateDB(query);
+        return retVal;
+    }
+    
+    
+    
     /*Methods concerning Food to Animal relation end here*/
 }
