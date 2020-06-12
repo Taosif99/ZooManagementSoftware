@@ -464,11 +464,11 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
         // TODO add your handling code here:
         
-        String name = jTextFieldCompoundName.getText();
-        String constructionYear = jTextFieldConstructionYear.getText();
-        String maxCapacity = jTextFieldMaxCapacity.getText();
-        String area = jTextFieldArea.getText();
-        String ID = jTextFieldID.getText();
+        String name = jTextFieldCompoundName.getText().trim();
+        String constructionYear = jTextFieldConstructionYear.getText().trim();
+        String maxCapacity = jTextFieldMaxCapacity.getText().trim();
+        String area = jTextFieldArea.getText().trim();
+        String ID = jTextFieldID.getText().trim();
         
         
         
