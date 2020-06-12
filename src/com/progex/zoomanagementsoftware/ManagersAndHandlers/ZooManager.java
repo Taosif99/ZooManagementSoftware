@@ -169,12 +169,11 @@ public class ZooManager {
         return retVal;
     }
 
-    /**
-     * TODO
-     *Lieber mit String
-     * @param textFields
-     * @return
-     */
+ /**
+  * Method to search for compounds in the database
+  * @param columnValueMap A mapping of entity attributes and corresponding values
+  * @return 
+  */
     public LinkedList<Compound> searchCompounds(LinkedHashMap<String,String> columnValueMap) {
 
         LinkedList<Compound> compounds = new LinkedList<Compound>();
@@ -397,6 +396,64 @@ public class ZooManager {
         boolean retVal = connectionHandler.manipulateDB(query);
         return retVal;
     }
+    
+    
+    
+     /**
+  * Method to search for animals in the database
+  * @param columnValueMap A mapping of entity attributes and corresponding values
+  * @return 
+  */
+    public LinkedList<Animal> searchAnimals(LinkedHashMap<String,String> columnValueMap) {
+  
+     LinkedList<Animal> animals = new LinkedList<Animal>();
+
+        String begin = "SELECT Animal.ID,Animal.AnimalName,Animal.Sex,Animal.Birthday,Species.Description,Compound.Name as CompoundName\n" +
+                        "FROM Animal\n" +
+                        "INNER JOIN  Compound ON Animal.CompoundID = Compound.ID \n" +
+                        "INNER JOIN Species ON Animal.speciesID = Species.ID WHERE";
+        String query = generateQuery(columnValueMap, begin);
+       
+        if (query != null){
+        ResultSet resultSet = connectionHandler.performQuery(query);
+        if (resultSet != null) {
+
+            try {
+                while (resultSet.next()) {
+
+                    int animalID = resultSet.getInt("ID");
+                    String animalName = resultSet.getString("animalName");
+                    String sex = resultSet.getString("Sex");
+                    Date birthday = resultSet.getDate("Birthday");
+                    String descriptionStr = resultSet.getString("Description");
+                    String compoundName = resultSet.getString("CompoundName");
+
+                    Methods methods = new Methods();
+                    Description description = methods.stringToDescription(descriptionStr);
+
+                    Species species = new Species(-1, null, description);
+                    //Creating corresponding object,-1 used as undefined value
+                    Compound compound = new Compound(-1, -1, -1, -1, -1, compoundName);
+                    Animal animal = new Animal(animalID, animalName, birthday, sex, compound, species, null);
+
+                    animals.add(animal);
+                }
+            } catch (SQLException e) {
+                System.err.println("SQL exception");
+                System.out.println(e.getMessage());
+
+            }
+
+        }
+        
+        }
+
+        return animals;
+    
+    }
+    
+    
+    
     
     
     /*Methods concerning animal end here*/

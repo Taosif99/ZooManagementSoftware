@@ -8,6 +8,7 @@ package com.progex.zoomanagementsoftware.admin;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Animal;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -491,7 +492,46 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonDeleteActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
-        // TODO add your handling code here:
+        
+            String animalName = jTextFieldAnimalName.getText().trim();
+            String compoundName = jTextFieldCompound.getText().trim();
+            String birthday = jTextFieldDateOfBirth.getText().trim();
+            String sex = jTextFieldSex.getText().trim();
+            String species = jComboBoxSpecies.getSelectedItem().toString().trim();
+            String ID = jTextFieldID.getText().trim();
+        
+           LinkedHashMap<String,String> columnNameToValue = new LinkedHashMap<String,String>();
+           columnNameToValue.put("ID", ID);
+           columnNameToValue.put("AnimalName", animalName);
+           columnNameToValue.put("Sex", sex);
+           columnNameToValue.put("Birthday", birthday);
+           columnNameToValue.put("Description",species);
+           columnNameToValue.put("Name", compoundName);
+           
+           LinkedList<Animal> animals = zooManager.searchAnimals(columnNameToValue);
+           
+           
+           /*Displaying all animals*/
+                   cleanTable();
+
+        /*Loading all animals to Table, better in own method*/
+        DefaultTableModel model = (DefaultTableModel) jTableAnimalData.getModel();
+        Object[] row = new Object[6]; // Spalten
+
+        for (Animal animal : animals) {
+            //Hier bekommt man die Spalten der Zeile
+            row[0] = animal.getId();
+            row[1] = animal.getName();
+            row[2] = animal.getSex();
+            row[3] = animal.getBirthday(); 
+            //DIE LINE IST NOCH HÄSSLICH
+            row[4] = methods.descriptionToString(animal.getSpecies().getDescription());
+            row[5] = animal.getCompound().getName();
+            //Hier wird es Hinzugefuegt
+            model.addRow(row);
+        }
+           
+           
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonAssignFeedingTimesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssignFeedingTimesActionPerformed
