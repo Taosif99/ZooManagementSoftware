@@ -58,7 +58,6 @@ public class Methods {
         
         try {
             //Remove trailing and leading Textfields and check if Field is empty
-            System.out.println("Kein Fehler in verify");
             for (JTextField textField : textFields) {
                 textField.setText(textField.getText().trim());
                 if (textField.getText().isEmpty()) {
@@ -70,7 +69,6 @@ public class Methods {
         } catch(NullPointerException e)
         {
             e.getMessage();
-            System.out.println("Fehler in verify");
         }
 
         return true;

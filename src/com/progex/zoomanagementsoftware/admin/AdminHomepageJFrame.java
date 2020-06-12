@@ -9,6 +9,7 @@ import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
 import com.progex.zoomanagementsoftware.datatypes.Admin;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import com.progex.zoomanagementsoftware.datatypes.Salutation;
 import com.progex.zoomanagementsoftware.datatypes.User;
 import java.util.LinkedList;
 import javax.swing.JFrame;
@@ -24,17 +25,18 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainPageJFrame
      */
-    public AdminHomepageJFrame(ZooManager zooManager, UserManager userManager) {
+    public AdminHomepageJFrame(ZooManager zooManager) {
 
+        this.zooManager = zooManager;
+        this.userManager = zooManager.getUserManager();
         initComponents();
         myInitComponents();
-        this.zooManager = zooManager;
-        this.userManager = userManager;
+        
     }
 
     public void myInitComponents() {
 
-        Methods methods = new Methods();
+        methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
     }
 
@@ -325,18 +327,23 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonManageEatsActionPerformed
 
     
-    private void fillTable(){
+    private void fillTable(DefaultTableModel model){
         
         LinkedList <Admin> admins = userManager.getAdmins(Integer.parseInt(jTextFieldAmountAdmins.getText()));
-        //System.out.println("Bis fillTable");
-        DefaultTableModel model = (DefaultTableModel) jTableLastLoginAdminsData.getModel();
+        
+        model = (DefaultTableModel) jTableLastLoginAdminsData.getModel();
         
         Object[] row = new Object[5];
         
         for(Admin admin : admins){
             row[0] = admin.getId();
             row[1] = admin.getLastLogDate();
-            row[2] = admin.getSalutation();
+            if(admin.getSalutation().equals(Salutation.mr))
+                row[2] = "Herr";
+            else if(admin.getSalutation().equals(Salutation.mrs))
+                row[2] = "Frau";
+            else
+                row[2] = "Divers";
             row[3] = admin.getFirstname();
             row[4] = admin.getLastname();
    
@@ -352,7 +359,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
             tableModel.removeRow(0);
         }
         
-        fillTable();
+        fillTable(tableModel);
     }
     
     
@@ -419,12 +426,12 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
         ZooManager zooManager = new ZooManager(url, dbName, username, password);
         
-        UserManager userManager = new UserManager(url, dbName, username, password);
+        //UserManager userManager = new UserManager(url, dbName, username, password);
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminHomepageJFrame(zooManager, userManager).setVisible(true);
+                new AdminHomepageJFrame(zooManager).setVisible(true);
             }
         });
     }
@@ -450,5 +457,6 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private ZooManager zooManager;
     private UserManager userManager;
+    private Methods methods;
 
 }

@@ -75,38 +75,39 @@ public class UserManager {
     public LinkedList<Admin> getAdmins(int limit) {
 
         LinkedList<Admin> admins = new LinkedList<Admin>();
-        String query = "SELECT * FROM user WHERE Type LIKE 'Admin' ORDER BY lastLogDate DESC LIMIT " + limit + ";";
-        System.out.println(query);
-        ResultSet resultSet = connectionHandler.performQuery(query);
+        String adminQuery = "SELECT * FROM user WHERE Type = 'Admin' ORDER BY lastLogDate DESC LIMIT " + limit;
+        System.out.println(adminQuery);
+        ResultSet resultSetAdmin = connectionHandler.performQuery(adminQuery);
         Salutation salutation;
-
-        if (resultSet != null) {
+        
+        if (resultSetAdmin != null) {
             try {
-                while (resultSet.next()) {
-                    int id = resultSet.getInt("ID");
-                    String username = resultSet.getString("Username");
-                    String firstname = resultSet.getString("UserName");
-                    String lastname = resultSet.getString("LastName");
-                    String phoneNumber = resultSet.getString("PhoneNumber");
-                    java.sql.Date birthday = resultSet.getDate("Birthday");
-                    String email = resultSet.getString("Email");
-                    String tempSalutation = resultSet.getString("Salutation");
-                    String hashedPassword = resultSet.getString("HashedPassword");
-                    int addressId = resultSet.getInt("AddressId");
-                    Date lastLogDate = resultSet.getDate("LastLogDate");
+                while (resultSetAdmin.next()) {
+                    int id = resultSetAdmin.getInt("ID");
+                    String username = resultSetAdmin.getString("Username");
+                    String firstname = resultSetAdmin.getString("FirstName");
+                    String lastname = resultSetAdmin.getString("LastName");
+                    String phoneNumber = resultSetAdmin.getString("PhoneNumber");
+                    java.sql.Date birthday = resultSetAdmin.getDate("Birthday");
+                    String email = resultSetAdmin.getString("Email");
+                    String tempSalutation = resultSetAdmin.getString("Salutation");
+                    String hashedPassword = resultSetAdmin.getString("HashedPassword");
+                    int addressId = resultSetAdmin.getInt("AddressId");
+                    Date lastLogDate = resultSetAdmin.getDate("LastLogDate");
 
-                    query = "SELECT * FROM address WHERE id = " + addressId + ";";
-                    resultSet = connectionHandler.performQuery(query);
-
-                    String zip = resultSet.getString("Zip");
-                    String street = resultSet.getString("Street");
-                    String country = resultSet.getString("Country");
-                    String city = resultSet.getString("City");
+                    String addressQuery = "SELECT * FROM address WHERE id = " + addressId;
+                    ResultSet resultSetAddress = connectionHandler.performQuery(addressQuery);
+                    resultSetAddress.next();
+                    String zip = resultSetAddress.getString("Zip");
+                    String street = resultSetAddress.getString("Street");
+                    String country = resultSetAddress.getString("Country");
+                    String city = resultSetAddress.getString("City");
                     Address address = new Address(addressId, zip, street, country, city);
 
-                    if (tempSalutation == "Herr") {
+                    System.out.println(tempSalutation);
+                    if (tempSalutation.equals("Herr")) {
                         salutation = Salutation.mr;
-                    } else if (tempSalutation == "Frau") {
+                    } else if (tempSalutation.equals("Frau")) {
                         salutation = Salutation.mrs;
                     } else {
                         salutation = Salutation.diverse;
@@ -115,12 +116,13 @@ public class UserManager {
                     Admin tempAdmin = new Admin(username, firstname, lastname, email, phoneNumber, id, salutation, birthday, hashedPassword, address, (java.sql.Date) lastLogDate);
                     admins.add(tempAdmin);
                 }
-                return admins;
+                
             } catch (SQLException e) {
                 System.err.println("SQL exception");
                 System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
-        return null;
+        return admins;
     }
 }
