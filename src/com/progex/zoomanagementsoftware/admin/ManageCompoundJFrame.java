@@ -7,6 +7,7 @@ package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
 import com.progex.zoomanagementsoftware.datatypes.*;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -42,13 +43,20 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     }
 
-    private void viewAllCompounds() {
-
-        /*Clean the table*/
+    
+    private void cleanTable(){
+    
+    
         DefaultTableModel tableModel = (DefaultTableModel) jTableCompoundData.getModel();
         while (tableModel.getRowCount() > 0) {
             tableModel.removeRow(0);
         }
+    
+    }
+    
+    private void viewAllCompounds() {
+
+        cleanTable();
 
         /*For example loading all existing Compounds*/
         LinkedList<Compound> compounds = zooManager.getCompounds();
@@ -456,7 +464,42 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
         // TODO add your handling code here:
         
-        //TODO
+        String name = jTextFieldCompoundName.getText();
+        String constructionYear = jTextFieldConstructionYear.getText();
+        String maxCapacity = jTextFieldMaxCapacity.getText();
+        String area = jTextFieldArea.getText();
+        String ID = jTextFieldID.getText();
+        
+        
+        
+        LinkedHashMap<String,String> columnNameToValue = new LinkedHashMap<String,String>();
+        columnNameToValue.put("ID", ID);
+        columnNameToValue.put("Name",name);
+        columnNameToValue.put("Area",area);
+        columnNameToValue.put("ConstructionYear",constructionYear);
+        columnNameToValue.put("MaxCapacity",maxCapacity);
+        
+        LinkedList <Compound> compounds = zooManager.searchCompounds(columnNameToValue);
+        cleanTable();
+        /*Loading all compounds to Table,to decrease repetition*/
+        DefaultTableModel model = (DefaultTableModel) jTableCompoundData.getModel();
+        Object[] row = new Object[6]; // Spalten
+
+        for (Compound compound : compounds) {
+            //Hier bekommt man die Spalten der Zeile
+            row[0] = compound.getId();
+            row[1] = compound.getName();
+            row[2] = compound.getArea();
+            row[3] = compound.getConstructionYear();
+            row[4] = compound.getMaxCapacity();
+            row[5] = compound.getCurrentCapacity();
+            //Hier wird es Hinzugefuegt
+            model.addRow(row);
+        }
+        
+        
+        
+        
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonUpdateCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateCompoundActionPerformed

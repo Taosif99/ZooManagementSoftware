@@ -42,15 +42,22 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         viewAllAnimals();
     }
 
-    private void viewAllAnimals() {
-
-        LinkedList<Animal> animals = zooManager.getAnimals();
-
-        /*Clean the table*/
+    
+    private void cleanTable(){
+    
+          /*Clean the table*/
         DefaultTableModel tableModel = (DefaultTableModel) jTableAnimalData.getModel();
         while (tableModel.getRowCount() > 0) {
             tableModel.removeRow(0);
         }
+    }
+    
+    
+    private void viewAllAnimals() {
+
+        LinkedList<Animal> animals = zooManager.getAnimals();
+
+        cleanTable();
 
         /*Loading all animals to Table, better in own method*/
         DefaultTableModel model = (DefaultTableModel) jTableAnimalData.getModel();

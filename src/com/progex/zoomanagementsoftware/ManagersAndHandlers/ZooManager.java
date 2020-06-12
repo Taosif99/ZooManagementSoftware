@@ -11,6 +11,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import javax.swing.JTextField;
 
 /**
  *
@@ -78,7 +84,7 @@ public class ZooManager {
                     ResultSet currentCapacityResult = connectionHandler.performQuery(queryToGetCurrentCapacity);
                     currentCapacityResult.next();
                     int currentCapacity = currentCapacityResult.getInt("CurrentCapacity");
-                    //System.out.println("Gehegename:" + name + "ConstrYear" + year);
+                  
 
                     Compound newCompound = new Compound(ID, area, year, maxCapacity, currentCapacity, name);
 
@@ -164,14 +170,53 @@ public class ZooManager {
 
     /**
      * TODO
-     *
+     *Lieber mit String
+     * @param textFields
      * @return
      */
-    public LinkedList<Compound> searchCompounds() {
+    public LinkedList<Compound> searchCompounds(LinkedHashMap<String,String> columnValueMap) {
 
         LinkedList<Compound> compounds = new LinkedList<Compound>();
+        String query = generateQuery(columnValueMap, "SELECT ID,Name,Area,ConstructionYear,MaxCapacity FROM compound WHERE ");
+        
+        
+        ResultSet resultSet = connectionHandler.performQuery(query);
 
-        return null;
+        if (resultSet != null) {
+
+            try {
+                while (resultSet.next()) {
+
+                    int ID = resultSet.getInt("ID");
+                    String name = resultSet.getString("Name");
+                    double area = resultSet.getDouble("Area");
+                    int year = resultSet.getInt("ConstructionYear");
+                    int maxCapacity = resultSet.getInt("MaxCapacity");
+
+                    //Know get the current cappacity of an compound
+                    String compoundID = Integer.toString(ID);
+                    String queryToGetCurrentCapacity = "SELECT COUNT(CompoundID) as CurrentCapacity FROM Animal WHERE CompoundID = " + compoundID;
+
+                    ResultSet currentCapacityResult = connectionHandler.performQuery(queryToGetCurrentCapacity);
+                    currentCapacityResult.next();
+                    int currentCapacity = currentCapacityResult.getInt("CurrentCapacity");
+                    //System.out.println("Gehegename:" + name + "ConstrYear" + year);
+
+                    Compound newCompound = new Compound(ID, area, year, maxCapacity, currentCapacity, name);
+
+                    compounds.add(newCompound);
+                }
+            } catch (SQLException e) {
+                System.err.println("SQL exception");
+                System.out.println(e.getMessage());
+
+            }
+
+        }
+
+        return compounds;
+        
+    
     }
 
     /*End Compund Methods*/
@@ -522,4 +567,64 @@ public class ZooManager {
     
     
     /*Methods concerning Food to Animal relation end here*/
+    
+    
+    
+    /*Own reused methods*/
+    
+    
+    
+       /**
+        * https://www.geeksforgeeks.org/mysql-regular-expressions-regexp/ zum Nachgucken
+        * Method which constructs a search query using the parameters and regular expressions.
+        * @param columnValueMap
+        * @param queryBegin
+        * @return The query as String
+        */
+       private String generateQuery(LinkedHashMap<String,String> columnValueMap,String queryBegin) {
+
+       
+        LinkedHashMap<String,String> nonEmptyColumnValueMap = new LinkedHashMap<String,String>();
+        
+        //Remove empty or null textFields
+        for(Entry<String,String> entry: columnValueMap.entrySet()){
+        
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if (!value.isEmpty()){
+                
+                //textFieldMap.remove(key);
+                nonEmptyColumnValueMap.put(key, value);
+            }
+        }
+        
+         StringBuilder querySb = new StringBuilder();
+         querySb.append(queryBegin).append(" ");
+         
+            Set<Map.Entry<String, String>> entries = nonEmptyColumnValueMap.entrySet();
+            
+            //get the iterator for entries
+            Iterator<Map.Entry<String, String>> iterator = entries.iterator();
+            
+            //Adding first entry
+            Entry <String,String> firstEntry = iterator.next();
+            String columnName = firstEntry.getKey();
+            String value = firstEntry.getValue();
+            querySb.append(columnName).append(" REGEXP '").append(value).append("'");  
+            
+            //Removing first entry
+            nonEmptyColumnValueMap.remove(columnName);
+        
+           for (Entry<String,String> entry :nonEmptyColumnValueMap.entrySet()){
+           
+                columnName = entry.getKey();
+                value = entry.getValue();
+                querySb.append(" AND ").append(columnName).append(" REGEXP '").append(value).append("'"); 
+           }
+           
+         
+           System.out.println(querySb.toString());
+        return querySb.toString();
+       }
+    
 }
