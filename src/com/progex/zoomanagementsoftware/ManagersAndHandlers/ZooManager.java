@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import javax.swing.JTextField;
 
@@ -179,7 +180,7 @@ public class ZooManager {
         LinkedList<Compound> compounds = new LinkedList<Compound>();
         String query = generateQuery(columnValueMap, "SELECT ID,Name,Area,ConstructionYear,MaxCapacity FROM compound WHERE ");
         
-        
+        if (query != null){
         ResultSet resultSet = connectionHandler.performQuery(query);
 
         if (resultSet != null) {
@@ -213,7 +214,7 @@ public class ZooManager {
             }
 
         }
-
+      }
         return compounds;
         
     
@@ -579,12 +580,14 @@ public class ZooManager {
         * Method which constructs a search query using the parameters and regular expressions.
         * @param columnValueMap
         * @param queryBegin
-        * @return The query as String
+        * @return The query as String, null if no String can be built
         */
        private String generateQuery(LinkedHashMap<String,String> columnValueMap,String queryBegin) {
 
        
         LinkedHashMap<String,String> nonEmptyColumnValueMap = new LinkedHashMap<String,String>();
+        
+        try{
         
         //Remove empty or null textFields
         for(Entry<String,String> entry: columnValueMap.entrySet()){
@@ -600,6 +603,7 @@ public class ZooManager {
         
          StringBuilder querySb = new StringBuilder();
          querySb.append(queryBegin).append(" ");
+        
          
             Set<Map.Entry<String, String>> entries = nonEmptyColumnValueMap.entrySet();
             
@@ -608,6 +612,7 @@ public class ZooManager {
             
             //Adding first entry
             Entry <String,String> firstEntry = iterator.next();
+            
             String columnName = firstEntry.getKey();
             String value = firstEntry.getValue();
             querySb.append(columnName).append(" REGEXP '").append(value).append("'");  
@@ -624,7 +629,16 @@ public class ZooManager {
            
          
            System.out.println(querySb.toString());
-        return querySb.toString();
-       }
-    
+        
+           return querySb.toString();
+       
+        }
+       catch (NoSuchElementException noSuchElementException){
+                
+            System.err.println("LinkHashMap value empty or null");
+            System.out.println(noSuchElementException.getMessage());
+            return null;
+        }
+      
+    }
 }
