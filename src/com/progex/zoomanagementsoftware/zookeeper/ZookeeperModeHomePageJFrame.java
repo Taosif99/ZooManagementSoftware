@@ -227,7 +227,13 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NextFeedingTimeJFrame(mainMenuJFrame, thisFrame ,null,zooManager).setVisible(true);
+                try {
+                    new NextFeedingTimeJFrame(mainMenuJFrame, thisFrame ,null,zooManager).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ZookeeperModeHomePageJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(ZookeeperModeHomePageJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });        
         
@@ -248,7 +254,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         JFrame thisFrame = this;
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AllFeedingTimesJFrame(mainMenuJFrame,thisFrame,null).setVisible(true);
+                new AllFeedingTimesJFrame(mainMenuJFrame,thisFrame,null,zooManager).setVisible(true);
             }
         });
         this.setVisible(false);

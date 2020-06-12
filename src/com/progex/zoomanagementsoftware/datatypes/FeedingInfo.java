@@ -14,13 +14,13 @@ public class FeedingInfo
         
         private double amountOfFood;
 	
-	private Date startFeedingTime; //WAHRSCHEINLICH IST HIER SQL TIMESTAMP ANGEBRACHT
+	private java.sql.Timestamp startFeedingTime; //WAHRSCHEINLICH IST HIER SQL TIMESTAMP ANGEBRACHT
 	
 	private String foodName;
         
         private Date endFeedingTime;
 	
-    public FeedingInfo(String animalName, String compundName, Date startFeedingTime, String foodName, Date endFeedingTime, String abstellraum, double amountOfFood) {
+    public FeedingInfo(String animalName, String compundName, java.sql.Timestamp startFeedingTime, String foodName, Date endFeedingTime, String abstellraum, double amountOfFood) {
         
         this.abstellraum = abstellraum;
         this.animalName = animalName;
@@ -67,11 +67,11 @@ public class FeedingInfo
         this.compundName = compundName;
     }
 
-    public Date getStartFeedingTime() {
+    public java.sql.Timestamp getStartFeedingTime() {
         return startFeedingTime;
     }
 
-    public void setStartFeedingTime(Date startFeedingTime) {
+    public void setStartFeedingTime(java.sql.Timestamp startFeedingTime) {
         this.startFeedingTime = startFeedingTime;
     }
 

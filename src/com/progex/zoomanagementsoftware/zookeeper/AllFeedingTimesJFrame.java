@@ -5,10 +5,16 @@
  */
 package com.progex.zoomanagementsoftware.zookeeper;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import com.progex.zoomanagementsoftware.main.MainMenuJFrame;
 import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -19,14 +25,16 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     /**
      * Creates new form NächsteFütterungJFrame
      */
-    public AllFeedingTimesJFrame(JFrame goBack, JFrame goBack2, JFrame goBack3) {
+    public AllFeedingTimesJFrame(JFrame goBack, JFrame goBack2, JFrame goBack3, ZooManager zooManager) {
         initComponents();
         myInitComponents();
         mainMenuJFrame = goBack;
         zookeeperModeHomePageFrame = goBack2;
         nextFeedingTimeFrame = goBack3;
+        this.zooManager = zooManager;
         Methods methods = new Methods();
         methods.showTimeAndDate(jLabelTime);
+        populateTable();
     }
         private void myInitComponents(){
         
@@ -59,6 +67,13 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
         
         
     }
+        
+        private void populateTable(){
+            
+            jTableAlleFütterungen.setModel(DbUtils.resultSetToTableModel(zooManager.getAllFeedingTime()));
+
+            
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -274,7 +289,13 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
             
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new NextFeedingTimeJFrame(mainMenuJFrame,zookeeperModeHomePageFrame,thisFrame,null).setVisible(true);
+                    try {
+                        new NextFeedingTimeJFrame(mainMenuJFrame,zookeeperModeHomePageFrame,thisFrame,null).setVisible(true);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AllFeedingTimesJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(AllFeedingTimesJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             });                
             this.setVisible(false);
@@ -323,7 +344,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AllFeedingTimesJFrame(null,null,null).setVisible(true);
+                new AllFeedingTimesJFrame(null,null,null,null).setVisible(true);
             }
         });
     }
@@ -344,5 +365,6 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
    private javax.swing.JFrame mainMenuJFrame;
    private javax.swing.JFrame zookeeperModeHomePageFrame;
    private javax.swing.JFrame nextFeedingTimeFrame;
+   private ZooManager zooManager;
 
 }

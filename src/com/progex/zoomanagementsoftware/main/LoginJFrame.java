@@ -223,41 +223,6 @@ public class LoginJFrame extends javax.swing.JFrame {
                 System.out.println("FEHLER");
             }
             
-            
-//            //   String username = jTextFieldUsername.getText();
-//            if (username.equals("admin")){
-//                
-//                //Open admin window here
-//                
-//                /* Create and display Admin Homepage form */
-//                java.awt.EventQueue.invokeLater(new Runnable() {
-//                    public void run() {
-//                        new AdminHomepageJFrame(zooManager).setVisible(true);
-//                    }
-//                });
-//                
-//                
-//                mainMenuJFrame.setVisible(false);
-//                this.dispose();
-//                
-//            }
-//       else {
-//       
-//           //Open zookeeper window here
-//          
-//         /* Create and display zookeeper form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new ZookeeperModeHomePageJFrame(mainMenuJFrame,zooManager).setVisible(true);
-//            }
-//        });
-//
-//       
-//        //Make main menue invisible
-//         mainMenuJFrame.setVisible(false);
-//         this.dispose();
-//       }
-//        
         } catch (SQLException ex) {
             Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
