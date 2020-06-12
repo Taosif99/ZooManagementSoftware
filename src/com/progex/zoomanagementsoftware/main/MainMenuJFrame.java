@@ -182,7 +182,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         /* Create and display the form with the Zoo Map */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChooseAnimalAndTimeJFrame(thisFrame).setVisible(true);
+                new ChooseAnimalAndTimeJFrame(thisFrame,zooManager).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButtonGuestFeedingTimeActionPerformed

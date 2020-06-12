@@ -7,6 +7,8 @@ import java.sql.Date;
 public class FeedingInfo
 {
 	private String animalName;
+        
+        private int ID;
 	
 	private String animalBirthday;
 	
@@ -29,6 +31,16 @@ public class FeedingInfo
         this.startFeedingTime = startFeedingTime;
         this.foodName = foodName;
         this.endFeedingTime = endFeedingTime;
+    }
+    
+    public FeedingInfo(int ID){
+        
+        this.ID = ID;
+        
+    }
+    
+    public int getID() {
+        return ID;
     }
 
     public String getAnimalName() {

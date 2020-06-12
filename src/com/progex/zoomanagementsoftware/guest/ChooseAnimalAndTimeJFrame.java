@@ -5,6 +5,7 @@
  */
 package com.progex.zoomanagementsoftware.guest;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import com.progex.zoomanagementsoftware.main.MainMenuJFrame;
 import java.awt.Toolkit;
@@ -20,11 +21,12 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     /**
      * Creates new form AuswahlTierZeitJFrame
      */
-    public ChooseAnimalAndTimeJFrame(JFrame goBackFrame) {
+    public ChooseAnimalAndTimeJFrame(JFrame goBackFrame,ZooManager zooManager) {
 
         initComponents();
         myInitComponents();
         this.goBackFrame = goBackFrame;
+        this.zooManager = zooManager;
 
     }
 
@@ -216,7 +218,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                 //Fallunterscheidung
                 if (jComboBoxName.getSelectedItem()!= null && jComboTime.getSelectedItem() == null) {
 
-                    new ChooseAnimalJFrame(thisFrame).setVisible(true);
+                    new ChooseAnimalJFrame(thisFrame,zooManager).setVisible(true);
                 }
 
                 if (jComboBoxName.getSelectedItem() == null && jComboTime.getSelectedItem() != null) {
@@ -286,11 +288,18 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        
+        String url ="jdbc:mysql://localhost/";
+         String username = "root";
+         String password = "0000";
+         String dbName = "zoo";
+        
+         ZooManager zooManager = new ZooManager(url,dbName,username,password);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChooseAnimalAndTimeJFrame(null).setVisible(true);
+                new ChooseAnimalAndTimeJFrame(null,zooManager).setVisible(true);
             }
         });
     }
@@ -308,5 +317,6 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private javax.swing.JFrame goBackFrame;
+    private ZooManager zooManager;
 
 }

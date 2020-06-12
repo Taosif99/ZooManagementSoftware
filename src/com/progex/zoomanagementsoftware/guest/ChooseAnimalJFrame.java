@@ -4,11 +4,15 @@
  * and open the template in the editor.
  */
 package com.progex.zoomanagementsoftware.guest;
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
+import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 /**
@@ -20,11 +24,12 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
     /**
      * Creates new form TiernamejFrame
      */
-    public ChooseAnimalJFrame(JFrame goBackFrame) {
+    public ChooseAnimalJFrame(JFrame goBackFrame,ZooManager zooManager) {
         
         initComponents();
         myInitComponents();
         this.goBackFrame = goBackFrame; 
+        this.zooManager = zooManager;
     }
 
      private void myInitComponents(){
@@ -61,7 +66,29 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         Methods methods = new Methods();    
         methods.showTimeAndDate(jLabelShowDateTime);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        
+        viewAnimals();
     }
+     
+    public void viewAnimals(){
+        
+        LinkedList<FeedingInfo> feedingInfos = zooManager.getGuestModeManager().getAnimalFeedingInfo();
+        
+        DefaultTableModel model = (DefaultTableModel)jTableAninmalData.getModel();
+        
+        Object[] row = new Object[1]; 
+        
+        for (FeedingInfo feedingInfo : feedingInfos){
+           //Hier bekommt man die Spalten der Zeile
+           row[0] = feedingInfo.getID();
+           model.addRow(row);
+           
+           System.out.println("ID:" + feedingInfo.getID());
+        }   
+    
+    
+    
+    } 
      
     /**
      * This method is called from within the constructor to initialize the form.
@@ -141,11 +168,11 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonBack, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(5, 5, 5)
-                        .addComponent(jLabelShowDateTime)))
+                        .addComponent(jLabelShowDateTime))
+                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelAnimal)
                 .addGap(72, 72, 72)
@@ -193,11 +220,17 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        String url ="jdbc:mysql://localhost/";
+         String username = "root";
+         String password = "0000";
+         String dbName = "zoo";
+        
+         ZooManager zooManager = new ZooManager(url,dbName,username,password);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChooseAnimalJFrame(null).setVisible(true);
+                new ChooseAnimalJFrame(null,zooManager).setVisible(true);
             }
         });
     }
@@ -210,4 +243,5 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JTable jTableAninmalData;
     // End of variables declaration//GEN-END:variables
     private javax.swing.JFrame goBackFrame;
+    private ZooManager zooManager;
 }
