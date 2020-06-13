@@ -21,7 +21,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 
-
 /**
  *
  * @author khali
@@ -31,20 +30,19 @@ public class LoginJFrame extends javax.swing.JFrame {
     /**
      * Creates new form ZooKeeperModeLogin
      */
-    
-    public LoginJFrame(JFrame goBack,ZooManager zooManager) {
+    public LoginJFrame(JFrame goBack, ZooManager zooManager) {
 
         initComponents();
 
+        // Set previous JFrame to make it visible/invisible
         this.mainMenuJFrame = goBack;
+        // Set zooManager to call Methods and stuff
         this.zooManager = zooManager;
+        // Set LoginJFrame in middle of screen when opened
         this.setLocationRelativeTo(null);
-        
+
     }
 
-    
-
-     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -157,38 +155,32 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_formWindowClosing
 
-    
     // login Button performed
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
         try {
-            // TODO add your handling code here:
-            
-            
-            // TODO: Implement MD5, using test purpose without MD5 AT THE MOMENT!!
-            
-            
+
+            // Get username from input field
+            String username = jTextFieldUsername.getText();
+
+            // Get password from input field and hash it
             MD5Hash hasher = new MD5Hash();
-//            String username = "sophieschmidt7";
-//            String hashedPw = "3E45AF4CA27EA2B03FC6183AF40EA112";
-            //   3E45AF4CA27EA2B03FC6183AF40EA112
-            
-               String username = jTextFieldUsername.getText();
-               String hashedPw = hasher.hashString(new String(jPasswordFieldPassword.getPassword()));
-               System.out.println("TYPED IN "+username+" "+hashedPw);
-            // meyeranna2 Bioalo12
-            //   System.out.println("Hashed PW: "+hashedPw);
-            //   System.out.println("Username: "+username);
-            
-            if(zooManager.isUserAccepted(username, hashedPw).equals("ZOOKEEPER")){
-                
-                System.out.println("ACCEPTED");
+            String hashedPw = hasher.hashString(new String(jPasswordFieldPassword.getPassword()));
+
+            // Check if username and password match data in database and if user is zookeepr 
+            if (zooManager.isUserAccepted(username, hashedPw).equals("ZOOKEEPER")) {
+
+                System.out.println("OldLastLogDate: " + zooManager.getLastLoginDateFromUser());
+                zooManager.updateLastLogDateFromUser();
+                System.out.println("updatesLastLogDate: " + zooManager.getLastLoginDateFromUser());
+
+                // Open ZookeeperHomePage when Login successful and pass zooManager reference
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
                         try {
-                            new ZookeeperModeHomePageJFrame(mainMenuJFrame,zooManager).setVisible(true);
+                            new ZookeeperModeHomePageJFrame(mainMenuJFrame, zooManager).setVisible(true);
                         } catch (SQLException ex) {
                             Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (ParseException ex) {
@@ -196,33 +188,33 @@ public class LoginJFrame extends javax.swing.JFrame {
                         }
                     }
                 });
-                
-                
+
                 //Make main menue invisible
                 mainMenuJFrame.setVisible(false);
                 this.dispose();
             }
-            if(zooManager.isUserAccepted(username, hashedPw).equals("ADMIN")){
-                
+
+            // Check if username and password match data in database and if user is admin 
+            if (zooManager.isUserAccepted(username, hashedPw).equals("ADMIN")) {
+
                 //                //Open admin window here
-                
                 /* Create and display Admin Homepage form */
+                // Open AdminHomePage when Login successful and pass zooManager reference
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
                         new AdminHomepageJFrame(zooManager).setVisible(true);
                     }
                 });
-                             
+
                 mainMenuJFrame.setVisible(false);
                 this.dispose();
             }
-            if(zooManager.isUserAccepted(username, hashedPw).equals("ERROR")){
-                
+            // If Login was not successful
+            if (zooManager.isUserAccepted(username, hashedPw).equals("ERROR")) {
                 jLabelLoginError.setText("Anmeldedaten nicht korrekt!");
                 jLabelLoginError.setForeground(Color.RED);
-                System.out.println("FEHLER");
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -256,20 +248,16 @@ public class LoginJFrame extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        
         /*TODO CREATE NEW MANAGER FOR TESTING in main...*/
-        
-        /* Create and display the form */
+ /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginJFrame(null,null).setVisible(true);
+                new LoginJFrame(null, null).setVisible(true);
             }
         });
     }
 
-    
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonLogin;
     private javax.swing.JLabel jLabelLoginError;
@@ -281,8 +269,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel username;
     // End of variables declaration//GEN-END:variables
 
-
-   private javax.swing.JFrame mainMenuJFrame;
-   private ZooManager zooManager;
+    private javax.swing.JFrame mainMenuJFrame;
+    private ZooManager zooManager;
 
 }

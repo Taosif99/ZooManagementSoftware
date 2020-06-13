@@ -50,12 +50,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jButtonNextFeedingTime" alignment="0" max="32767" attributes="0"/>
                           <Component id="jButtonAllFeedingTime1" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="nächsteFütterungIn" min="-2" pref="223" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabelNextFeedingTimeIn" min="-2" pref="17" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="nächsteFütterungIn" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   </Group>
@@ -87,10 +82,7 @@
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Component id="zookeeperName" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="nächsteFütterungIn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelNextFeedingTimeIn" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="nächsteFütterungIn" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Component id="jButtonNextFeedingTime" pref="128" max="32767" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
@@ -123,14 +115,6 @@
           <Font name="Calibri" size="24" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="N&#xe4;chste F&#xfc;tterung in: "/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabelNextFeedingTimeIn">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="18" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="X"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabeDate">

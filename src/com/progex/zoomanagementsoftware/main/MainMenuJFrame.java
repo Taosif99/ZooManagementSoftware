@@ -5,7 +5,6 @@
  */
 package com.progex.zoomanagementsoftware.main;
 
-
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
 import com.progex.zoomanagementsoftware.guest.ChooseAnimalAndTimeJFrame;
 import java.awt.Toolkit;
@@ -13,53 +12,44 @@ import javax.swing.JFrame;
 
 /**
  *
- * 
+ *
  */
 public class MainMenuJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form MainMenuJFrame
      */
-    
-    
     public MainMenuJFrame() {
         initComponents();
         myInitComponents();
-        
+
         /*Init the our wrapper class, which will be used in the Program, which
         will be passed to the corresponding frames*/
-        
-         String url ="jdbc:mysql://localhost/";
-         String username = "root";
-         String password = "AbuKungFu707-";
-         String dbName = "zoo";
-        
-         zooManager = new ZooManager(url,dbName,username,password);
-         
-         
+        String url = "jdbc:mysql://localhost/";
+        String username = "root";
+        String password = "0000";
+        String dbName = "zoo";
+
+        zooManager = new ZooManager(url, dbName, username, password);
+
     }
 
-    
-    
-    
-    private void myInitComponents(){
-        
+    private void myInitComponents() {
+
         //Done in netbeans window
         //this.setUndecorated(true);
         //this.setAlwaysOnTop(true);
         //this.setResizable(false);
-       // this.setVisible(true);
+        // this.setVisible(true);
         Toolkit tk = Toolkit.getDefaultToolkit();
-        int x =(int)tk.getScreenSize().getWidth();
-        int y =(int)tk.getScreenSize().getHeight();
-        setSize(x,y);
+        int x = (int) tk.getScreenSize().getWidth();
+        int y = (int) tk.getScreenSize().getHeight();
+        setSize(x, y);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
+
         currentLoginJFrame = null;
     }
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -155,30 +145,29 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     /**
      * Method to show the Map of the Zoo
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButtonShowMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowMapActionPerformed
-        
-        
+
         //Set Main Menue to not visible
         this.setVisible(false);
-        JFrame thisFrame = this; 
+        JFrame thisFrame = this;
         /* Create and display the form with the Zoo Map */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ZooMapJFrame(thisFrame).setVisible(true);
             }
         });
-        
+
     }//GEN-LAST:event_jButtonShowMapActionPerformed
 
     private void jButtonGuestFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuestFeedingTimeActionPerformed
-        
+
         //Set Main Menue to not visible
         this.setVisible(false);
-        
-        
-        JFrame thisFrame = this; 
+
+        JFrame thisFrame = this;
         /* Create and display the form with the Zoo Map */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -187,46 +176,34 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jButtonGuestFeedingTimeActionPerformed
 
+    // This Methods opens the loginframe
+
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
 
-      
         JFrame thisFrame = this;
-        
-        
-        if(currentLoginJFrame==null){
-        /* Create and display the form */
-    
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                currentLoginJFrame = new LoginJFrame(thisFrame,zooManager);
-                currentLoginJFrame.setVisible(true);
-                
-            }
-        });               
-        }
-        else{
+        if (currentLoginJFrame == null) {
+            /* Create and display the form */
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    currentLoginJFrame = new LoginJFrame(thisFrame, zooManager);
+                    currentLoginJFrame.setVisible(true);
+
+                }
+            });
+        } else {
             currentLoginJFrame.dispose();
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                currentLoginJFrame = new LoginJFrame(thisFrame,zooManager);
-                currentLoginJFrame.setVisible(true);
-                
-            }
-        });             
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    currentLoginJFrame = new LoginJFrame(thisFrame, zooManager);
+                    currentLoginJFrame.setVisible(true);
+
+                }
+            });
         }
 
-        
-        
-        
 
-        
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
-    
-
-
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -271,6 +248,5 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private javax.swing.JFrame currentLoginJFrame;
     private ZooManager zooManager;
-
 
 }

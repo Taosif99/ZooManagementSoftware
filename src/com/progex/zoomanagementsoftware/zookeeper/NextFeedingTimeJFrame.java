@@ -30,43 +30,54 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
      */
     public NextFeedingTimeJFrame(JFrame goBack, JFrame goBack2, JFrame goBack3, ZooManager zooManager) throws SQLException, ParseException {
         initComponents();
+        
+        // init resolution
         myInitComponents();
+        
+        // init references and paramteters
         mainMenuJFrame = goBack;
         zookeeperModeHomePageFrame = goBack2;
         allFeedingTimeFrame = goBack3;
         this.zooManager = zooManager;
+        
+        // display feedingInfo
         setFeedingInfo();
 
     }
-    
-    
 
-
+    
+    // Method is used to display feedingInfo. Method gets all information from zooManager
     public void setFeedingInfo() throws SQLException, ParseException {
 
-
         FeedingInfo x = zooManager.getNextFeedingInfo();
+
+        // If nextfeedingInfo has valid minute time then display it
         
-        //TODO: Nächste Fütterung in... 
+        if(x.getNextFeedingInMinutes() >= 0){
+            nextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung in "+x.getNextFeedingInMinutes()+" Minuten");
+            futter.setText("Futter: "+x.getFoodName());
+            abstellraumnummer.setText("Abstellraumnummer: "+x.getAbstellraum());
+            futtermenge.setText("Menge: "+x.getAmountOfFood()+" Kilogramm");
+            gehege.setText("Gehege: "+x.getCompundName());
+            tierName.setText("Tier: "+x.getAnimalName());
         
-        if (x != null) {
-            
-            if(x.getStartFeedingTime()==null){
-            nextFeedingTimeTakesPlaceIn.setText("Keine Fütterung für heute mehr");                
-            }
-            else{
-            futter.setText("Futter: " + x.getFoodName());
-            abstellraumnummer.setText("Abstellraumnummer: " + x.getAbstellraum());
-            tierName.setText("Tier :" + x.getAnimalName());
-            futtermenge.setText("Futtermenge: " + x.getAmountOfFood());
-            gehege.setText("Gehege: " + x.getCompundName());
-            nextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung in: " + x.getStartFeedingTime());
-            }
+        
         }
-        //tj4qgd
+        // else dont display it, instead display that there are no feedings anymore
+        else{
+            nextFeedingTimeTakesPlaceIn.setText("Keine Fütterung für heute mehr");
+            futter.setText("");
+            abstellraumnummer.setText("");
+            futtermenge.setText("");
+            gehege.setText("");
+            tierName.setText("");       
+        
+        }
 
     }
 
+    
+    // resolution settings
     public void myInitComponents() {
 
         //setUndecorated(true);
@@ -103,6 +114,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
+        // display date properly
         Methods methods = new Methods();
         methods.showTimeAndDate(jLabelTime);
 
@@ -274,9 +286,14 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
 
     // Button Logout pressed
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        mainMenuJFrame.setVisible(true);
+        try {
+            // TODO add your handling code here:
+            zooManager.updateLastLogDateFromUser();
+            this.dispose();
+            mainMenuJFrame.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(NextFeedingTimeJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 
@@ -303,7 +320,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
             JFrame thisFrame = this;
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new AllFeedingTimesJFrame(mainMenuJFrame, zookeeperModeHomePageFrame, thisFrame,zooManager).setVisible(true);
+                    new AllFeedingTimesJFrame(mainMenuJFrame, zookeeperModeHomePageFrame, thisFrame, zooManager).setVisible(true);
                 }
             });
             this.setVisible(false);

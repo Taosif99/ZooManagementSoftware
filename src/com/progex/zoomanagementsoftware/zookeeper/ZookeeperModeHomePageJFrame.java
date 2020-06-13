@@ -27,46 +27,65 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
      */
     public ZookeeperModeHomePageJFrame(JFrame goBack, ZooManager zooManager) throws SQLException, ParseException {
         initComponents();
+        
+        // resolution settings init
         myInitComponents();
+        
+        // init references and paramteres
         this.zooManager = zooManager;
         this.setLocationRelativeTo(null);
         mainMenuJFrame = goBack;
+        
+        // set welcome user label
         setNameLabel();
+        // set lastlogdate from user
         setLastLogDate();
-        FeedingInfo x = zooManager.getNextFeedingInfo();
-        //  comment
+        
+        // Display next feeding time
+        setNextFeedingTimeInfo();
 
     }
+
     
-    private void setNameLabel() throws SQLException{
-       
-        zookeeperName.setText("Hallo "+zooManager.getNameOfUser()+"!");
-        
+    // this methods gets from the zoomangager the nextfeedingtime and is displayed accordingly
+    private void setNextFeedingTimeInfo() throws SQLException, ParseException {
+
+        if (zooManager.getNextFeedingInfo().getNextFeedingInMinutes() >= 0) {
+            nächsteFütterungIn.setText("Nächste Fütterung in :" + zooManager.getNextFeedingInfo().getNextFeedingInMinutes() + " Minuten");
+        } else {
+            nächsteFütterungIn.setText("Keine Fütterung für heute mehr");
+
+        }
     }
     
-    private void setLastLogDate() throws SQLException{
-        
+    
+    
+    // name of zookeeper is displayed accordingly
+    private void setNameLabel() throws SQLException {
+
+        zookeeperName.setText("Hallo " + zooManager.getNameOfUser() + "!");
+
+    }
+
+    // lastlogdate of zookeeper is displayed accordingly    
+    private void setLastLogDate() throws SQLException {
+
         jLabelLastLoginTime.setText(zooManager.getLastLoginDateFromUser());
-        
+
+        System.out.println("--------- HOMEPAGE GET LASTLOGDATE---------" + zooManager.getLastLoginDateFromUser());
+
     }
+
     
-        private void myInitComponents(){
-        
-        //Done in netbeans window
-        //this.setUndecorated(true);
-        //this.setAlwaysOnTop(true);
-        //this.setResizable(false);
-       // this.setVisible(true);
+    // resolution settings
+    private void myInitComponents() {
+
         Toolkit tk = Toolkit.getDefaultToolkit();
-        int x =(int)tk.getScreenSize().getWidth();
-        int y =(int)tk.getScreenSize().getHeight();
-        setSize(x,y);
+        int x = (int) tk.getScreenSize().getWidth();
+        int y = (int) tk.getScreenSize().getHeight();
+        setSize(x, y);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
-        
-        
-        
-        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -81,7 +100,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         letzteAnmeldung = new javax.swing.JLabel();
         jLabelLastLoginTime = new javax.swing.JLabel();
         nächsteFütterungIn = new javax.swing.JLabel();
-        jLabelNextFeedingTimeIn = new javax.swing.JLabel();
         jLabeDate = new javax.swing.JLabel();
         jButtonAllFeedingTime1 = new javax.swing.JButton();
         jButtonLogout = new javax.swing.JButton();
@@ -106,9 +124,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
 
         nächsteFütterungIn.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         nächsteFütterungIn.setText("Nächste Fütterung in: ");
-
-        jLabelNextFeedingTimeIn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelNextFeedingTimeIn.setText("X");
 
         jLabeDate.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
@@ -172,11 +187,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonAllFeedingTime1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(nächsteFütterungIn, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelNextFeedingTimeIn, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(nächsteFütterungIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(6, 6, 6)))
                 .addContainerGap())
         );
@@ -198,9 +209,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(zookeeperName)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nächsteFütterungIn)
-                    .addComponent(jLabelNextFeedingTimeIn))
+                .addComponent(nächsteFütterungIn)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -212,32 +221,27 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
-      //  setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
     }//GEN-LAST:event_formWindowClosed
 
-    
-    
     // Nächste Fütterung anzeigen Button Click Event
     private void jButtonNextFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeActionPerformed
         // TODO add your handling code here:
         this.dispose();
         JFrame thisFrame = this;
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new NextFeedingTimeJFrame(mainMenuJFrame, thisFrame ,null,zooManager).setVisible(true);
+                    new NextFeedingTimeJFrame(mainMenuJFrame, thisFrame, null, zooManager).setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(ZookeeperModeHomePageJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ParseException ex) {
                     Logger.getLogger(ZookeeperModeHomePageJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        });        
-        
-        
+        });
+
+
     }//GEN-LAST:event_jButtonNextFeedingTimeActionPerformed
 
     private void jButtonNextFeedingTimeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeMouseClicked
@@ -248,28 +252,35 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:   
     }//GEN-LAST:event_jButtonAllFeedingTime1MouseClicked
 
+    
+    // "Alle Fütterungen Anzeigen" Button is pressed
     private void jButtonAllFeedingTime1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAllFeedingTime1ActionPerformed
         // TODO add your handling code here:
-        
+
         JFrame thisFrame = this;
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AllFeedingTimesJFrame(mainMenuJFrame,thisFrame,null,zooManager).setVisible(true);
+                new AllFeedingTimesJFrame(mainMenuJFrame, thisFrame, null, zooManager).setVisible(true);
             }
         });
         this.setVisible(false);
     }//GEN-LAST:event_jButtonAllFeedingTime1ActionPerformed
 
+    
+    // "LOGOUT" Button is pressed
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
-        
-        
-        this.dispose();
-        mainMenuJFrame.setVisible(true);
-        
-        
+
+        try {
+            zooManager.updateLastLogDateFromUser();
+            this.dispose();
+            mainMenuJFrame.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(ZookeeperModeHomePageJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 
-    
     /**
      * @param args the command line arguments
      */
@@ -297,12 +308,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-         String url ="jdbc:mysql://localhost/";
-         String username = "root";
-         String password = "AbuKungFu707-";
-         String dbName = "zoo";
-        
-         ZooManager zooManager = new ZooManager(url,dbName,username,password);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -324,15 +329,13 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNextFeedingTime;
     private javax.swing.JLabel jLabeDate;
     private javax.swing.JLabel jLabelLastLoginTime;
-    private javax.swing.JLabel jLabelNextFeedingTimeIn;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JLabel letzteAnmeldung;
     private javax.swing.JLabel nächsteFütterungIn;
     private javax.swing.JLabel zookeeperName;
     // End of variables declaration//GEN-END:variables
 
-   private javax.swing.JFrame mainMenuJFrame;
-   private ZooManager zooManager;
-
+    private javax.swing.JFrame mainMenuJFrame;
+    private ZooManager zooManager;
 
 }
