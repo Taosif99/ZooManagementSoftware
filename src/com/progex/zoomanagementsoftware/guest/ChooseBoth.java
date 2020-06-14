@@ -83,7 +83,7 @@ public class ChooseBoth extends javax.swing.JFrame {
         viewAnimalTime();
         
     }
-    
+    /*Load all relevant Data in Label: compound and food*/
     public void viewAnimalTime(){
         
         String tmp = time.concat(":00");
@@ -276,11 +276,17 @@ public class ChooseBoth extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        String url ="jdbc:mysql://localhost/";
+        String username = "root";
+        String password = "0000";
+        String dbName = "zoo";
+        
+        ZooManager zooManager = new ZooManager(url,dbName,username,password);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChooseBoth(null).setVisible(true);
+                new ChooseBoth(null,zooManager,null,null).setVisible(true);
             }
         });
     }

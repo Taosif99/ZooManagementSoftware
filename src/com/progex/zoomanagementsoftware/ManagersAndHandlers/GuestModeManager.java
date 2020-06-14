@@ -21,7 +21,7 @@ public class GuestModeManager {
         this.connectionHandler = connectionHandler;
         
     }
-
+    /*If User choose a animal, this is the function for the table(compound,start/end feedingtime, food*/
     public LinkedList<FeedingInfo> getAnimalFeedingInfo(String animal) throws ParseException {
         
         LinkedList<FeedingInfo> feedingInfos = new LinkedList<FeedingInfo>();
@@ -35,23 +35,42 @@ public class GuestModeManager {
             try{
                 while(resultFeeding.next()){
                     
-                    String com = resultFeeding.getString("Gehege");
-                    System.out.println(com);
                     
+                    //Date von Datenbank in String umwandeln
+                    //Date erstellen mit Spalte startfeedingtime von Datenbank
                     java.util.Date datestart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(resultFeeding.getString("StartFeedingTime"));
+                    //in Timestamp umwandeln
                     java.sql.Timestamp timestampstart = new java.sql.Timestamp(datestart.getTime());
+                   
+                    //als String um Datum zu vergleichen
                     String times = timestampstart.toString();
-                    String timeStart = times.substring(11, 16);
+                    String tmp = times.substring(0, 10);
+                    //Datum von heute in compStamp bzw tmpTwo speichern
+                    System.out.println(tmp);
+                    java.sql.Timestamp compStamp = new java.sql.Timestamp(System.currentTimeMillis());
+                    String tmpTwo = compStamp.toString().substring(0, 10);
                     
-                    java.util.Date dateend = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(resultFeeding.getString("EndFeedingTime"));
-                    java.sql.Timestamp timestampend = new java.sql.Timestamp(dateend.getTime());
-                    String timee = timestampend.toString();
-                    String timeEnd = timee.substring(11, 16);
+                    //wenn Datum gleich heute dann erst adden
+                    if(tmpTwo.equals(tmp)){
                     
-                    String food = resultFeeding.getString("Essen");
-                    System.out.println(food);
-                    FeedingInfo newFeedingInfo = new FeedingInfo(com,timeStart,timeEnd,food);
-                    feedingInfos.add(newFeedingInfo);
+                    
+                        String timeStart = times.substring(11, 16);
+                    
+                    
+                        String com = resultFeeding.getString("Gehege");
+                        System.out.println(com);
+                    
+                    
+                        java.util.Date dateend = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(resultFeeding.getString("EndFeedingTime"));
+                        java.sql.Timestamp timestampend = new java.sql.Timestamp(dateend.getTime());
+                        String timee = timestampend.toString();
+                        String timeEnd = timee.substring(11, 16);
+                    
+                        String food = resultFeeding.getString("Essen");
+                        System.out.println(food);
+                        FeedingInfo newFeedingInfo = new FeedingInfo(com,timeStart,timeEnd,food);
+                        feedingInfos.add(newFeedingInfo);
+                    }    
                 }
                 
                 
@@ -65,7 +84,7 @@ public class GuestModeManager {
         
        
     }
-    
+    /*get all available animals*/
     public LinkedList<String> getAnimals() {
         
         LinkedList<String> animals = new LinkedList<String>();
@@ -88,13 +107,15 @@ public class GuestModeManager {
         return animals;
         
     }
-    
+    /*get all available feedingtimes*/
     public LinkedList<String> getTimes() throws ParseException{
         LinkedList<String> times = new LinkedList<String>();
         String query = "Select distinct startFeedingTime from eats order by startFeedingTime ASC";
         ResultSet resultTimes = connectionHandler.performQuery(query);
         
         //java.util.Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2011-05-18 16:29:31");
+        
+        
 
         
         if(resultTimes != null){
@@ -103,13 +124,22 @@ public class GuestModeManager {
                 while(resultTimes.next()){
                     
                     java.util.Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(resultTimes.getString("startFeedingTime"));
-                    java.sql.Timestamp timestamp = new java.sql.Timestamp(date.getTime());
-                    String time = timestamp.toString();
-                    String timeOnly = time.substring(11, 16);
+                    //in Timestamp umwandeln
+                    java.sql.Timestamp timestampstart = new java.sql.Timestamp(date.getTime());
+                   
+                    //als String um Datum zu vergleichen
+                    String time = timestampstart.toString();
+                    String tmp = time.substring(0, 10);
+                    //Datum von heute in compStamp bzw tmpTwo speichern
+                    System.out.println(tmp);
+                    java.sql.Timestamp compStamp = new java.sql.Timestamp(System.currentTimeMillis());
+                    String tmpTwo = compStamp.toString().substring(0, 10);
                     
-                    times.add(timeOnly);
+                    if(tmpTwo.equals(tmp)){
+                        String timeStart = time.substring(11, 16);
+                        times.add(timeStart);
                     
-                 
+                    }
                     
                 }
             }catch(SQLException e) {
@@ -122,7 +152,7 @@ public class GuestModeManager {
         
     }
         
-//casten geht net
+/*If User choose a time, this is the function for the table(animalName,compund and food*/
     public LinkedList<FeedingInfo> getTimeFeedingInfo(String feedingTime) {
         
        
@@ -156,7 +186,9 @@ public class GuestModeManager {
         }
         
         return feedingInfos;
-    }    
+    } 
+    
+    /*If User choose a animal and time, this is the function for the labels food and compound*/
     public LinkedList<FeedingInfo> getAnimalTimeFeedingInfo(String feedingTime, String animalName) {
         
         

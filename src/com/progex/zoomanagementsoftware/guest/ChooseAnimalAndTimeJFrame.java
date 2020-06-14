@@ -50,7 +50,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     public ChooseAnimalAndTimeJFrame() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    /* Individual initialization*/
     public void myInitComponents() {
 
         setUndecorated(true);
@@ -85,21 +85,17 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
         }
 
-        
-        
-        
-        
-        
-
         Methods methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
+        
+        
 
     }
     
+    /*Fullfil Combobox with animals*/
     public void SetComboxAnimals(){
         
     LinkedList<String> animals = guestModeManager.getAnimals();
-    
     
     String [] anames = new String[animals.size()+1];
     anames [0] = null;
@@ -113,7 +109,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
      jComboBoxName.setModel(dm);
      
      }
-    
+    /*Fullfil Combobox with available feeding times*/
      public void SetComboxTime() throws ParseException{
          
      LinkedList<String> times = guestModeManager.getTimes();
@@ -128,10 +124,8 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         }
     DefaultComboBoxModel dm = new DefaultComboBoxModel(atimes);
     jComboTime.setModel(dm);
-    
-     
          
-     }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -178,7 +172,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         jLabelName.setText("Tiername:");
 
         jLabelTime.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        jLabelTime.setText("Fütterungszeit:");
+        jLabelTime.setText("Verfügbare Fütterungszeiten:");
 
         jComboBoxName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxName.addActionListener(new java.awt.event.ActionListener() {
@@ -225,17 +219,19 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                 .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(486, 486, 486))
             .addGroup(layout.createSequentialGroup()
-                .addGap(700, 700, 700)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelTime)
-                            .addComponent(jLabelName))
-                        .addGap(54, 54, 54)
+                        .addGap(700, 700, 700)
+                        .addComponent(jLabelChoose))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(660, 660, 660)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBoxName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboTime, 0, 122, Short.MAX_VALUE)))
-                    .addComponent(jLabelChoose))
+                            .addComponent(jLabelTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboTime, 0, 133, Short.MAX_VALUE)
+                            .addComponent(jComboBoxName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -249,7 +245,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                 .addComponent(jLabelFindOut)
                 .addGap(96, 96, 96)
                 .addComponent(jLabelChoose)
-                .addGap(92, 92, 92)
+                .addGap(93, 93, 93)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelName)
                     .addComponent(jComboBoxName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -257,33 +253,31 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTime)
                     .addComponent(jComboTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(124, 124, 124)
+                .addGap(123, 123, 123)
                 .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /*Define button search with four different cases*/
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
 
-        //Fall1
-        //Fall2
-        //new ChooseTimeJFrame().toFront();
-        //new ChooseTimeJFrame().setState(java.awt.Frame.NORMAL);
-        //Beides
+        
         this.setVisible(false);
 
         JFrame thisFrame = this;
-        /* Create and display the form with the Zoo Map */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                //Fallunterscheidung
+                
                 //animal
                 if (jComboBoxName.getSelectedItem()!= null && jComboTime.getSelectedItem() == null) {
+                    
 
                     new ChooseAnimalJFrame(thisFrame,zooManager, (String) jComboBoxName.getSelectedItem()).setVisible(true);
                 }
-                //Zeit    
+                //time   
                 if (jComboBoxName.getSelectedItem() == null && jComboTime.getSelectedItem() != null) {
                     //String in Date
                     
@@ -293,7 +287,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                 if (jComboBoxName.getSelectedItem() != null && jComboTime.getSelectedItem() != null) {
 
                     new ChooseBoth(thisFrame,zooManager,(String) jComboBoxName.getSelectedItem(),(String) jComboTime.getSelectedItem()).setVisible(true);
-                }
+                }//null
                  if (jComboBoxName.getSelectedItem() == null && jComboTime.getSelectedItem() == null) {
                      
                      JOptionPane.showMessageDialog(null, "Sie haben keine Fütterungszeit und kein Tier ausgewählt\n\nBitte treffen sie mindestens eine Auswahl","Fehlermeldung", JOptionPane.CANCEL_OPTION);
@@ -302,7 +296,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                 
             }
         });
-
+        //TODO
         //wenn keine Eingabe
         //JOptionPane.showMessageDialog(null, "Sie haben keine Fütterungszeit und kein Tier ausgewählt\n\nBitte treffen sie mindestens eine Auswahl","Fehlermeldung", JOptionPane.CANCEL_OPTION);
         //wenn Tier keine Fütterungen mehr hat
@@ -329,7 +323,6 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
     private void jComboBoxNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxNameActionPerformed
         // TODO add your handling code here:
-        
         
 
 
@@ -368,11 +361,11 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         //</editor-fold>
         
         String url ="jdbc:mysql://localhost/";
-         String username = "root";
-         String password = "0000";
-         String dbName = "zoo";
+        String username = "root";
+        String password = "0000";
+        String dbName = "zoo";
         
-         ZooManager zooManager = new ZooManager(url,dbName,username,password);
+        ZooManager zooManager = new ZooManager(url,dbName,username,password);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

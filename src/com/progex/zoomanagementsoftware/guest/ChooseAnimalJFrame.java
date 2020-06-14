@@ -31,7 +31,7 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
     public ChooseAnimalJFrame(JFrame goBackFrame,ZooManager zooManager, String animal) {
         
         initComponents();
-        this.animal =animal;
+        this.animal = animal;
         this.goBackFrame = goBackFrame; 
         this.zooManager = zooManager;
         this.guestModeManager = zooManager.getGuestModeManager();
@@ -87,34 +87,36 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         jLabelAnimal.setText(animal);
     }
      
+    /* Load all relevant Data in the model*/ 
     public void viewAnimals() throws ParseException{
         
         
-        
-        
         LinkedList<FeedingInfo> feedingInfos = guestModeManager.getAnimalFeedingInfo(animal);
-        
-        //fehlermeldung
-        DefaultTableModel model = (DefaultTableModel)jTableAninmalData.getModel();
-        
-        Object[] row = new Object[5]; 
-        
-        
-        for (FeedingInfo feedingInfo : feedingInfos){
-           //Hier bekommt man die Spalten der Zeile
-           row[0] = feedingInfo.getCompundName();
-            System.out.println(row[0]);
-           row[1] = feedingInfo.getStartFeedingTime();
-           System.out.println(row[1]);
-           row[2] = feedingInfo.getEndFeedingTime();
-           System.out.println(row[2]);
-           row[3] = feedingInfo.getFoodName();
-           System.out.println(row[3]);
-           model.addRow(row);
-         
+        if(feedingInfos.isEmpty()){ //BEARBEITEN
+            JOptionPane.showMessageDialog(null, "Keine Fütterungen für 'Tier' heute!\n\nVielleicht haben sie an einem anderen Tag mehr Glück :)");
         }
+        else{
+        //fehlermeldung
+            DefaultTableModel model = (DefaultTableModel)jTableAninmalData.getModel();
         
-    
+            Object[] row = new Object[5]; 
+        
+        
+            for (FeedingInfo feedingInfo : feedingInfos){
+           //Hier bekommt man die Spalten der Zeile
+                row[0] = feedingInfo.getCompundName();
+                 System.out.println(row[0]);
+                row[1] = feedingInfo.getStartFeedingTime();
+                System.out.println(row[1]);
+                row[2] = feedingInfo.getEndFeedingTime();
+                System.out.println(row[2]);
+                row[3] = feedingInfo.getFoodName();
+                System.out.println(row[3]);
+                model.addRow(row);
+
+            }
+        
+        }     
     
     
     } 
@@ -260,7 +262,7 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChooseAnimalJFrame(null,zooManager).setVisible(true);
+                new ChooseAnimalJFrame(null,zooManager,null).setVisible(true);
             }
         });
     }

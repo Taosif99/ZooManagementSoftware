@@ -79,10 +79,10 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
         methods.showTimeAndDate(jLabelShowDateTime);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
     }
-    
+    /*Fulfill all relevant Data in Table */
     public void viewTimes(){
     
-        //Time String in Date
+        //Time String in Date String 
         String tmp = time.concat(":00");
         SimpleDateFormat dateformat =new SimpleDateFormat("dd.MM.yyyy");
         String str = dateformat.format(new Date());
@@ -91,14 +91,7 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
         String year = str.substring(6, 10);
         String last = (year+"-"+month+"-"+day +" ").concat(tmp);
                    
-        /*try {
-            date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(last);
-            System.out.println(date);
-            //new ChooseTimeJFrame(thisFrame,zooManager,).setVisible(true);
-            } catch (ParseException ex) {
-            Logger.getLogger(ChooseAnimalAndTimeJFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        */
+
         LinkedList<FeedingInfo> feedingInfos = guestModeManager.getTimeFeedingInfo(last);
         
         DefaultTableModel model = (DefaultTableModel)jTableTimeData.getModel();
@@ -247,11 +240,17 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        String url ="jdbc:mysql://localhost/";
+        String username = "root";
+        String password = "0000";
+        String dbName = "zoo";
+        
+        ZooManager zooManager = new ZooManager(url,dbName,username,password);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChooseTimeJFrame(null,zooManager).setVisible(true);
+                new ChooseTimeJFrame(null,zooManager,null).setVisible(true);
             }
         });
     }
