@@ -43,17 +43,15 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     }
 
-    
-    private void cleanTable(){
-    
-    
+    private void cleanTable() {
+
         DefaultTableModel tableModel = (DefaultTableModel) jTableCompoundData.getModel();
         while (tableModel.getRowCount() > 0) {
             tableModel.removeRow(0);
         }
-    
+
     }
-    
+
     private void viewAllCompounds() {
 
         cleanTable();
@@ -79,9 +77,19 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     }
 
- 
-        
-    
+    /**
+     * Method which has been implemented to restrcit negative values
+     *
+     * @param constructionYear
+     * @param maxCapacity
+     * @param area
+     * @return
+     */
+    private boolean checkGreaterZero(int constructionYear, int maxCapacity, double area) {
+
+        return (constructionYear < 0 || maxCapacity < 0 || area < 0);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -402,12 +410,11 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         jTextFieldID.setText("");
         try {
 
-            
-            JTextField textFields[] = {jTextFieldArea,jTextFieldCompoundName,
-                                       jTextFieldConstructionYear,jTextFieldMaxCapacity};
-            
+            JTextField textFields[] = {jTextFieldArea, jTextFieldCompoundName,
+                jTextFieldConstructionYear, jTextFieldMaxCapacity};
+
             boolean textFieldsVerified = methods.verifyTextFields(textFields);
-            
+
             String compundName = jTextFieldCompoundName.getText();
             int constructionYear = Integer.parseInt(jTextFieldConstructionYear.getText());
             int maxCapacity = Integer.parseInt(jTextFieldMaxCapacity.getText());
@@ -415,6 +422,10 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
             /*TODO clean fields eventually*/
             if (textFieldsVerified) {
+
+                if (checkGreaterZero(constructionYear, maxCapacity, area)) {
+                    throw new IllegalArgumentException("Negative values not allowed");
+                }
 
                 if (zooManager.addCompound(compundName, area, constructionYear, maxCapacity)) {
                     //Falls Einfügen erfolgreich, pfeil wäre besser
@@ -433,8 +444,13 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
             System.out.println(numberFormatException.getMessage());
             JOptionPane.showMessageDialog(null, "Gehege konnte nicht eingefügt werden !", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
 
-        }
+        } catch (IllegalArgumentException illegalArgumentEcxeption) {
 
+            System.err.println("IllegalArgumentException");
+            System.out.println(illegalArgumentEcxeption.getMessage());
+            JOptionPane.showMessageDialog(null, "Gehege konnte nicht eingefügt werden !", "Werte kleiner 0 nicht erlaubt", JOptionPane.CANCEL_OPTION);
+
+        }
 
     }//GEN-LAST:event_jButtonAddCompoundActionPerformed
 
@@ -463,23 +479,21 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
         // TODO add your handling code here:
-        
+
         String name = jTextFieldCompoundName.getText().trim();
         String constructionYear = jTextFieldConstructionYear.getText().trim();
         String maxCapacity = jTextFieldMaxCapacity.getText().trim();
         String area = jTextFieldArea.getText().trim();
         String ID = jTextFieldID.getText().trim();
-        
-        
-        
-        LinkedHashMap<String,String> columnNameToValue = new LinkedHashMap<String,String>();
+
+        LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
         columnNameToValue.put("ID", ID);
-        columnNameToValue.put("Name",name);
-        columnNameToValue.put("Area",area);
-        columnNameToValue.put("ConstructionYear",constructionYear);
-        columnNameToValue.put("MaxCapacity",maxCapacity);
-        
-        LinkedList <Compound> compounds = zooManager.searchCompounds(columnNameToValue);
+        columnNameToValue.put("Name", name);
+        columnNameToValue.put("Area", area);
+        columnNameToValue.put("ConstructionYear", constructionYear);
+        columnNameToValue.put("MaxCapacity", maxCapacity);
+
+        LinkedList<Compound> compounds = zooManager.searchCompounds(columnNameToValue);
         cleanTable();
         /*Loading all compounds to Table,to decrease repetition*/
         DefaultTableModel model = (DefaultTableModel) jTableCompoundData.getModel();
@@ -496,10 +510,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
             //Hier wird es Hinzugefuegt
             model.addRow(row);
         }
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonUpdateCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateCompoundActionPerformed
@@ -507,16 +519,15 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         try {
 
             //boolean textFieldsVerified = verifyTextFields();
-            
-            JTextField textFields[] = { 
-             jTextFieldArea,
-             jTextFieldCompoundName,
-             jTextFieldConstructionYear,
-             jTextFieldMaxCapacity,
-             jTextFieldID};
-            
-             boolean textFieldsVerified = methods.verifyTextFields(textFields);
-            
+            JTextField textFields[] = {
+                jTextFieldArea,
+                jTextFieldCompoundName,
+                jTextFieldConstructionYear,
+                jTextFieldMaxCapacity,
+                jTextFieldID};
+
+            boolean textFieldsVerified = methods.verifyTextFields(textFields);
+
             String compoundName = jTextFieldCompoundName.getText();
             int constructionYear = Integer.parseInt(jTextFieldConstructionYear.getText());
             int maxCapacity = Integer.parseInt(jTextFieldMaxCapacity.getText());
@@ -525,6 +536,9 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
             if (textFieldsVerified) {
 
+                if (checkGreaterZero(constructionYear, maxCapacity, area)) {
+                    throw new IllegalArgumentException("Negative values not allowed");
+                }
                 if (zooManager.updateCompound(ID, compoundName, area, constructionYear, maxCapacity)) {
 
                     //Falls Updaten erfolgreich, pfeil wäre besser
@@ -545,16 +559,21 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
             System.out.println(numberFormatException.getMessage());
             JOptionPane.showMessageDialog(null, "Gehege konnte nicht geupdated werden !", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
 
+        } catch (IllegalArgumentException illegalArgumentEcxeption) {
+
+            System.err.println("IllegalArgumentException");
+            System.out.println(illegalArgumentEcxeption.getMessage());
+            JOptionPane.showMessageDialog(null, "Gehege konnte nicht geupdated werden !", "Werte kleiner 0 nicht erlaubt", JOptionPane.CANCEL_OPTION);
+
         }
     }//GEN-LAST:event_jButtonUpdateCompoundActionPerformed
 
     private void jButtonDeleteCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteCompoundActionPerformed
 
+        //Beim Löschen reicht nur die ID aus
+        JTextField textFields[] = {jTextFieldID};
+        boolean textFieldsVerified = methods.verifyTextFields(textFields);
 
-          //Beim Löschen reicht nur die ID aus
-            JTextField textFields[] = { jTextFieldID};
-            boolean textFieldsVerified = methods.verifyTextFields(textFields);
-        
         try {
             int ID = Integer.parseInt(jTextFieldID.getText());
 

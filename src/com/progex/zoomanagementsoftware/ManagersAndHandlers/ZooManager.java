@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import javax.swing.JTextField;
+
 
 /**
  *
@@ -39,7 +39,6 @@ public class ZooManager {
      * @param dbName
      */
     public ZooManager(String url, String dbName, String username, String password) {
-
 
         connectionHandler = new ConnectionHandler(url, dbName, username, password);
 
@@ -85,10 +84,8 @@ public class ZooManager {
                     ResultSet currentCapacityResult = connectionHandler.performQuery(queryToGetCurrentCapacity);
                     currentCapacityResult.next();
                     int currentCapacity = currentCapacityResult.getInt("CurrentCapacity");
-                  
 
                     Compound newCompound = new Compound(ID, area, year, maxCapacity, currentCapacity, name);
-
                     compounds.add(newCompound);
                 }
             } catch (SQLException e) {
@@ -169,61 +166,63 @@ public class ZooManager {
         return retVal;
     }
 
- /**
-  * Method to search for compounds in the database
-  * @param columnValueMap A mapping of entity attributes and corresponding values
-  * @return 
-  */
-    public LinkedList<Compound> searchCompounds(LinkedHashMap<String,String> columnValueMap) {
+    /**
+     * Method to search for compounds in the database
+     *
+     * @param columnValueMap A mapping of entity attributes and corresponding
+     * values
+     * @return
+     */
+    public LinkedList<Compound> searchCompounds(LinkedHashMap<String, String> columnValueMap) {
 
         LinkedList<Compound> compounds = new LinkedList<Compound>();
-        String query = generateQuery(columnValueMap, "SELECT ID,Name,Area,ConstructionYear,MaxCapacity FROM compound WHERE ");
-        
-        if (query != null){
-        ResultSet resultSet = connectionHandler.performQuery(query);
+        String query = generateSearchQuery(columnValueMap, "SELECT ID,Name,Area,ConstructionYear,MaxCapacity FROM compound WHERE ");
 
-        if (resultSet != null) {
+        if (query != null) {
+            ResultSet resultSet = connectionHandler.performQuery(query);
 
-            try {
-                while (resultSet.next()) {
+            if (resultSet != null) {
 
-                    int ID = resultSet.getInt("ID");
-                    String name = resultSet.getString("Name");
-                    double area = resultSet.getDouble("Area");
-                    int year = resultSet.getInt("ConstructionYear");
-                    int maxCapacity = resultSet.getInt("MaxCapacity");
+                try {
+                    while (resultSet.next()) {
 
-                    //Know get the current cappacity of an compound
-                    String compoundID = Integer.toString(ID);
-                    String queryToGetCurrentCapacity = "SELECT COUNT(CompoundID) as CurrentCapacity FROM Animal WHERE CompoundID = " + compoundID;
+                        int ID = resultSet.getInt("ID");
+                        String name = resultSet.getString("Name");
+                        double area = resultSet.getDouble("Area");
+                        int year = resultSet.getInt("ConstructionYear");
+                        int maxCapacity = resultSet.getInt("MaxCapacity");
 
-                    ResultSet currentCapacityResult = connectionHandler.performQuery(queryToGetCurrentCapacity);
-                    currentCapacityResult.next();
-                    int currentCapacity = currentCapacityResult.getInt("CurrentCapacity");
-                    //System.out.println("Gehegename:" + name + "ConstrYear" + year);
+                        //Know get the current cappacity of an compound
+                        String compoundID = Integer.toString(ID);
+                        String queryToGetCurrentCapacity = "SELECT COUNT(CompoundID) as CurrentCapacity FROM Animal WHERE CompoundID = " + compoundID;
 
-                    Compound newCompound = new Compound(ID, area, year, maxCapacity, currentCapacity, name);
+                        ResultSet currentCapacityResult = connectionHandler.performQuery(queryToGetCurrentCapacity);
+                        currentCapacityResult.next();
+                        int currentCapacity = currentCapacityResult.getInt("CurrentCapacity");
+                        //System.out.println("Gehegename:" + name + "ConstrYear" + year);
 
-                    compounds.add(newCompound);
+                        Compound newCompound = new Compound(ID, area, year, maxCapacity, currentCapacity, name);
+
+                        compounds.add(newCompound);
+                    }
+                } catch (SQLException e) {
+                    System.err.println("SQL exception");
+                    System.out.println(e.getMessage());
+
                 }
-            } catch (SQLException e) {
-                System.err.println("SQL exception");
-                System.out.println(e.getMessage());
 
             }
-
         }
-      }
         return compounds;
-        
-    
+
     }
 
     /*End Compund Methods*/
  /*Methods concerning Managing Animal start here*/
     /**
      * Method to get the required values of the admin view.
-     * @return 
+     *
+     * @return
      */
     public LinkedList<Animal> getAnimals() {
 
@@ -387,8 +386,9 @@ public class ZooManager {
 
     /**
      * Method which has been implemented to delete an Animal from the database.
+     *
      * @param ID
-     * @return 
+     * @return
      */
     public boolean deleteAnimal(int ID) {
 
@@ -396,48 +396,98 @@ public class ZooManager {
         boolean retVal = connectionHandler.manipulateDB(query);
         return retVal;
     }
-    
-    
-    
-     /**
-  * Method to search for animals in the database
-  * @param columnValueMap A mapping of entity attributes and corresponding values
-  * @return 
-  */
-    public LinkedList<Animal> searchAnimals(LinkedHashMap<String,String> columnValueMap) {
-  
-     LinkedList<Animal> animals = new LinkedList<Animal>();
 
-        String begin = "SELECT Animal.ID,Animal.AnimalName,Animal.Sex,Animal.Birthday,Species.Description,Compound.Name as CompoundName\n" +
-                        "FROM Animal\n" +
-                        "INNER JOIN  Compound ON Animal.CompoundID = Compound.ID \n" +
-                        "INNER JOIN Species ON Animal.speciesID = Species.ID WHERE";
-        String query = generateQuery(columnValueMap, begin);
-       
-        if (query != null){
+    /**
+     * Method to search for animals in the database
+     *
+     * @param columnValueMap A mapping of entity attributes and corresponding
+     * values
+     * @return
+     */
+    public LinkedList<Animal> searchAnimals(LinkedHashMap<String, String> columnValueMap) {
+
+        LinkedList<Animal> animals = new LinkedList<Animal>();
+
+        String begin = "SELECT Animal.ID,Animal.AnimalName,Animal.Sex,Animal.Birthday,Species.Description,Compound.Name as CompoundName\n"
+                + "FROM Animal\n"
+                + "INNER JOIN  Compound ON Animal.CompoundID = Compound.ID \n"
+                + "INNER JOIN Species ON Animal.speciesID = Species.ID WHERE";
+        String query = generateSearchQuery(columnValueMap, begin);
+
+        if (query != null) {
+            ResultSet resultSet = connectionHandler.performQuery(query);
+            if (resultSet != null) {
+
+                try {
+                    while (resultSet.next()) {
+
+                        int animalID = resultSet.getInt("ID");
+                        String animalName = resultSet.getString("animalName");
+                        String sex = resultSet.getString("Sex");
+                        Date birthday = resultSet.getDate("Birthday");
+                        String descriptionStr = resultSet.getString("Description");
+                        String compoundName = resultSet.getString("CompoundName");
+
+                        Methods methods = new Methods();
+                        Description description = methods.stringToDescription(descriptionStr);
+
+                        Species species = new Species(-1, null, description);
+                        //Creating corresponding object,-1 used as undefined value
+                        Compound compound = new Compound(-1, -1, -1, -1, -1, compoundName);
+                        Animal animal = new Animal(animalID, animalName, birthday, sex, compound, species, null);
+                        animals.add(animal);
+                    }
+                } catch (SQLException e) {
+                    System.err.println("SQL exception");
+                    System.out.println(e.getMessage());
+
+                }
+
+            }
+
+        }
+
+        return animals;
+
+    }
+
+    /*Methods concerning animal end here*/
+ /*Methods concerning Food to Animal relation start here*/
+    /**
+     * Method which has been implemented to get all requiered information for
+     * the food to animal admin view.
+     *
+     * @param animalID
+     * @return The corresponding records saved in a LinkedList
+     */
+    public LinkedList<FoodToAnimalR> getFoodToAnimalRecords(int animalID) {
+
+        LinkedList<FoodToAnimalR> records = new LinkedList<FoodToAnimalR>();
+
+        String query = "SELECT Food.Name as FoodName, Food.ID as \n"
+                + "FoodID,Eats.StartFeedingTime,Eats.EndFeedingTime,Eats.Amount\n"
+                + "FROM Eats\n"
+                + "INNER JOIN Food ON  Food.ID = Eats.FoodID\n"
+                + "WHERE AnimalID = " + animalID;
+
+        System.out.println(query);
         ResultSet resultSet = connectionHandler.performQuery(query);
+
         if (resultSet != null) {
 
             try {
                 while (resultSet.next()) {
 
-                    int animalID = resultSet.getInt("ID");
-                    String animalName = resultSet.getString("animalName");
-                    String sex = resultSet.getString("Sex");
-                    Date birthday = resultSet.getDate("Birthday");
-                    String descriptionStr = resultSet.getString("Description");
-                    String compoundName = resultSet.getString("CompoundName");
+                    String foodName = resultSet.getString("foodName");
+                    int foodID = resultSet.getInt("FoodID");
+                    String startFeedingTime = resultSet.getString("StartFeedingTime");
+                    String endFeedingTime = resultSet.getString("EndFeedingTime");
+                    double amount = resultSet.getDouble("Amount");
 
-                    Methods methods = new Methods();
-                    Description description = methods.stringToDescription(descriptionStr);
-
-                    Species species = new Species(-1, null, description);
-                    //Creating corresponding object,-1 used as undefined value
-                    Compound compound = new Compound(-1, -1, -1, -1, -1, compoundName);
-                    Animal animal = new Animal(animalID, animalName, birthday, sex, compound, species, null);
-
-                    animals.add(animal);
+                    FoodToAnimalR record = new FoodToAnimalR(foodName, foodID, animalID, startFeedingTime, endFeedingTime, amount);
+                    records.add(record);
                 }
+
             } catch (SQLException e) {
                 System.err.println("SQL exception");
                 System.out.println(e.getMessage());
@@ -445,83 +495,21 @@ public class ZooManager {
             }
 
         }
-        
-        }
 
-        return animals;
-    
+        return records;
     }
-    
-    
-    
-    
-    
-    /*Methods concerning animal end here*/
-    
-    
-    /*Methods concerning Food to Animal relation start here*/
-    
-    
-    /**
-     * Method which has been implemented to get all requiered information
-     * for the food to animal admin view.
-     * @param animalID
-     * @return The corresponding records saved in a LinkedList
-     */
-    
-    
-    public LinkedList<FoodToAnimalR>getFoodToAnimalRecords(int animalID){
 
-     LinkedList<FoodToAnimalR> records = new LinkedList<FoodToAnimalR>();   
-        
-
-     String query = "SELECT Food.Name as FoodName, Food.ID as \n" +
-                    "FoodID,Eats.StartFeedingTime,Eats.EndFeedingTime,Eats.Amount\n" +
-                    "FROM Eats\n" +
-                    "INNER JOIN Food ON  Food.ID = Eats.FoodID\n" +
-                    "WHERE AnimalID = " + animalID;
-     
-     System.out.println(query);
-     ResultSet resultSet = connectionHandler.performQuery(query);
-
-        if (resultSet != null) {
-
-            try {
-                while (resultSet.next()) {
-     
-                    String foodName = resultSet.getString("foodName");
-                    int foodID = resultSet.getInt("FoodID");
-                    //Sint animalID = resultSet.getInt("AnimalID");
-                    String startFeedingTime = resultSet.getString("StartFeedingTime");
-                    String endFeedingTime = resultSet.getString("EndFeedingTime");
-                    double amount = resultSet.getDouble("Amount");
-                    
-                  FoodToAnimalR record = new FoodToAnimalR(foodName, foodID,animalID,startFeedingTime,endFeedingTime ,amount);  
-                  records.add(record);
-                }
-                
-                }catch (SQLException e) {
-                System.err.println("SQL exception");
-                System.out.println(e.getMessage());
-
-            }
-            
-        }
-   
-     
-         return records;
-    }
-    
     /**
      * Method which adds an FoodToAnimal relation to the database
+     *
      * @param animalID
      * @param foodName
      * @param startFeedingTime
      * @param endFeedingTime
      * @param amount
-     * @return 
+     * @return
      */
-     public boolean addFoodToAnimal(String animalID,String foodName, String startFeedingTime, String endFeedingTime, double amount) {
+    public boolean addFoodToAnimal(String animalID, String foodName, String startFeedingTime, String endFeedingTime, double amount) {
 
         try {
             /*Getting the FoodID*/
@@ -532,8 +520,6 @@ public class ZooManager {
             }
             resultSet.next();
             int foodID = resultSet.getInt("ID");
-
-       
 
             //Know the animal food relation can be added to the database
             StringBuilder querySB = new StringBuilder();
@@ -560,18 +546,16 @@ public class ZooManager {
 
         return false;
     }
-    
-    
-    public boolean updateFoodToAnimal(String animalID,String foodName, String startFeedingTime, String endFeedingTime, double amount,HashMap<String,String> keys){
-    
+
+    public boolean updateFoodToAnimal(String animalID, String foodName, String startFeedingTime, String endFeedingTime, double amount, HashMap<String, String> keys) {
+
         /*Get compoundID and species ID TODO method to shorten code*/
         try {
-  
-            
+
             /*Getting old keys*/
             String startFeedingTimeKey = keys.get("StartFeedingTime");
             String foodIDKey = keys.get("FoodID");
-            
+
             /*Getting the FoodID of the new food*/
             String foodIDQuery = "SELECT ID from Food where Name =" + "\"" + foodName + "\"";
             ResultSet resultSet = connectionHandler.performQuery(foodIDQuery);
@@ -580,7 +564,7 @@ public class ZooManager {
             }
             resultSet.next();
             int foodID = resultSet.getInt("ID");
-            
+
             //Know the relation can be updated
             StringBuilder querySB = new StringBuilder();
             querySB.append("UPDATE Eats ")
@@ -609,93 +593,125 @@ public class ZooManager {
 
         return false;
     }
-    
-    
-    
-    public boolean deleteFoodToAnimal(String foodID,String animalID,String startFeedingTime) {
 
-        String query = "DELETE FROM Eats " 
-                     +  "WHERE FoodID = " + foodID
-                     + " AND AnimalID= " +animalID
-                     + " AND StartFeedingTime = '" + startFeedingTime + "'";
+    public boolean deleteFoodToAnimal(String foodID, String animalID, String startFeedingTime) {
+
+        String query = "DELETE FROM Eats "
+                + "WHERE FoodID = " + foodID
+                + " AND AnimalID= " + animalID
+                + " AND StartFeedingTime = '" + startFeedingTime + "'";
         boolean retVal = connectionHandler.manipulateDB(query);
         return retVal;
     }
-    
-    
-    
-    /*Methods concerning Food to Animal relation end here*/
-    
-    
-    
-    /*Own reused methods*/
-    
-    
-    
-       /**
-        * https://www.geeksforgeeks.org/mysql-regular-expressions-regexp/ zum Nachgucken
-        * Method which constructs a search query using the parameters and regular expressions.
-        * @param columnValueMap
-        * @param queryBegin
-        * @return The query as String, null if no String can be built
-        */
-       private String generateQuery(LinkedHashMap<String,String> columnValueMap,String queryBegin) {
 
-       
-        LinkedHashMap<String,String> nonEmptyColumnValueMap = new LinkedHashMap<String,String>();
-        
-        try{
-        
-        //Remove empty or null textFields
-        for(Entry<String,String> entry: columnValueMap.entrySet()){
-        
-            String key = entry.getKey();
-            String value = entry.getValue();
-            if (!value.isEmpty()){
-                
-                //textFieldMap.remove(key);
-                nonEmptyColumnValueMap.put(key, value);
+    public LinkedList<FoodToAnimalR> searchFoodToAnimal(LinkedHashMap<String, String> columnValueMap) {
+
+        LinkedList<FoodToAnimalR> records = new LinkedList<FoodToAnimalR>();
+        String begin = "SELECT Food.Name as FoodName, Food.ID as \n"
+                + "FoodID, Eats.AnimalID as AnimalID,Eats.StartFeedingTime,Eats.EndFeedingTime,Eats.Amount\n"
+                + "FROM Eats\n"
+                + "INNER JOIN Food ON  Food.ID = Eats.FoodID\n"
+                + "WHERE ";
+
+        int animalID = Integer.parseInt(columnValueMap.get("AnimalID"));
+
+        String query = generateSearchQuery(columnValueMap, begin);
+
+        if (query != null) {
+            System.err.println("I am here");
+            ResultSet resultSet = connectionHandler.performQuery(query);
+
+            if (resultSet != null) {
+
+                try {
+                    while (resultSet.next()) {
+
+                        String foodName = resultSet.getString("foodName");
+                        int foodID = resultSet.getInt("FoodID");
+                        String startFeedingTime = resultSet.getString("StartFeedingTime");
+                        String endFeedingTime = resultSet.getString("EndFeedingTime");
+                        double amount = resultSet.getDouble("Amount");
+
+                        FoodToAnimalR record = new FoodToAnimalR(foodName, foodID, animalID, startFeedingTime, endFeedingTime, amount);
+                        records.add(record);
+                    }
+
+                } catch (SQLException e) {
+                    System.err.println("SQL exception");
+                    System.out.println(e.getMessage());
+
+                }
+
             }
+
         }
-        
-         StringBuilder querySb = new StringBuilder();
-         querySb.append(queryBegin).append(" ");
-        
-         
+
+        return records;
+    }
+
+    /*Methods concerning Food to Animal relation end here*/
+ /*Own reused methods*/
+    /**
+     * https://www.geeksforgeeks.org/mysql-regular-expressions-regexp/ zum
+     * Nachgucken Method which constructs a search query using the parameters
+     * and regular expressions.
+     *
+     * @param columnValueMap
+     * @param queryBegin
+     * @return The query as String, null if no String can be built
+     */
+    private String generateSearchQuery(LinkedHashMap<String, String> columnValueMap, String queryBegin) {
+
+        LinkedHashMap<String, String> nonEmptyColumnValueMap = new LinkedHashMap<String, String>();
+
+        try {
+
+            //Remove empty or null textFields
+            for (Entry<String, String> entry : columnValueMap.entrySet()) {
+
+                String key = entry.getKey();
+                String value = entry.getValue();
+                if (!value.isEmpty()) {
+                    //textFieldMap.remove(key);
+                    nonEmptyColumnValueMap.put(key, value);
+                }
+            }
+
+            StringBuilder querySb = new StringBuilder();
+            querySb.append(queryBegin).append(" ");
+
             Set<Map.Entry<String, String>> entries = nonEmptyColumnValueMap.entrySet();
-            
+
             //get the iterator for entries
             Iterator<Map.Entry<String, String>> iterator = entries.iterator();
-            
+
             //Adding first entry
-            Entry <String,String> firstEntry = iterator.next();
-            
+            Entry<String, String> firstEntry = iterator.next();
+
             String columnName = firstEntry.getKey();
             String value = firstEntry.getValue();
-            querySb.append(columnName).append(" REGEXP '").append(value).append("'");  
-            
+            querySb.append(columnName).append(" REGEXP '").append(value).append("'");
+
             //Removing first entry
             nonEmptyColumnValueMap.remove(columnName);
-        
-           for (Entry<String,String> entry :nonEmptyColumnValueMap.entrySet()){
-           
+
+            for (Entry<String, String> entry : nonEmptyColumnValueMap.entrySet()) {
+
                 columnName = entry.getKey();
                 value = entry.getValue();
-                querySb.append(" AND ").append(columnName).append(" REGEXP '").append(value).append("'"); 
-           }
-           
-         
-           System.out.println(querySb.toString());
-        
-           return querySb.toString();
-       
-        }
-       catch (NoSuchElementException noSuchElementException){
-                
+                querySb.append(" AND ").append(columnName).append(" REGEXP '").append(value).append("'");
+            }
+
+            System.out.println(querySb.toString());
+
+            return querySb.toString();
+
+        } catch (NoSuchElementException noSuchElementException) {
+
             System.err.println("LinkHashMap value empty or null");
             System.out.println(noSuchElementException.getMessage());
             return null;
         }
-      
+
     }
 }

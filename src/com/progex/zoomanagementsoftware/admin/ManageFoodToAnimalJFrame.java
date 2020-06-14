@@ -8,6 +8,7 @@ package com.progex.zoomanagementsoftware.admin;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.*;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -16,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
- * 
+ *
  * TODO CATCH THAT EXPLICIT THAT WHY ENTRY CANNOT BE ADDED
  *
  * @author Ouchen
@@ -45,7 +46,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
         LinkedList<Animal> animals = zooManager.getAnimals();
 
-        /*Clean the table TODO OWN METHOD to decrease repetition*/
+        /*Clean the table*/
         DefaultTableModel tableModel = (DefaultTableModel) jTableAnimalData.getModel();
         while (tableModel.getRowCount() > 0) {
             tableModel.removeRow(0);
@@ -128,7 +129,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         jLabelAnimalName = new javax.swing.JLabel();
         jLabelStartFeedingTime = new javax.swing.JLabel();
         jLabelEndFeedingTime = new javax.swing.JLabel();
-        jTextFieldFoodName = new javax.swing.JTextField();
+        jTextFieldAnimalName = new javax.swing.JTextField();
         jTextFieldStartFeedingTime = new javax.swing.JTextField();
         jTextFieldEndFeedingTime = new javax.swing.JTextField();
         jButtonAdd = new javax.swing.JButton();
@@ -344,6 +345,11 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         jLabelAmountFood.setText("Menge");
 
         jButtonSearchAnimal.setText("Suche Tiere");
+        jButtonSearchAnimal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchAnimalActionPerformed(evt);
+            }
+        });
 
         jScrollPaneAnimalTable.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -473,7 +479,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                                                 .addComponent(jLabelAnimalName)
                                                 .addGroup(layout.createSequentialGroup()
                                                     .addGap(176, 176, 176)
-                                                    .addComponent(jTextFieldFoodName, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                    .addComponent(jTextFieldAnimalName, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(jButtonSearchAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -550,7 +556,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelAnimalName)
-                    .addComponent(jTextFieldFoodName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldAnimalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonSearchAnimal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -630,8 +636,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     boolean feedingOrderTimesOk = methods.isFeedingTimesGreater(startFeedingTime, endFeedingTime);
                     //System.out.println("feeding times ok: " +feedingOrderTimesOk) ;
 
-                    if (!feedingOrderTimesOk) {
-                        throw new IllegalArgumentException("End feeding time cannot start before start feeding time");
+                    if (amount <= 0) {
+                        throw new IllegalArgumentException("Amount must be greater zero");
                     }
 
                     //Check if gramm is selected
@@ -640,6 +646,10 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     }
 
                     if (methods.isValidFeedingTime(startFeedingTime) && methods.isValidFeedingTime(endFeedingTime)) {
+
+                        if (!feedingOrderTimesOk) {
+                            throw new IllegalArgumentException("End feeding time cannot start before start feeding time");
+                        }
 
                         //System.out.println("start" + methods.isValidFeedingTime(startFeedingTime));
                         //System.out.println("end" + methods.isValidFeedingTime(endFeedingTime));
@@ -666,13 +676,21 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
                 System.err.println("NumberFormatException");
                 System.out.println(numberFormatException.getMessage());
-                JOptionPane.showMessageDialog(null, "Im Menge Textfeld darf nur eine Zahl stehen ! !", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+                JOptionPane.showMessageDialog(null, "Im Menge Textfeld darf nur eine Zahl stehen !", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
 
             } catch (IllegalArgumentException illegalArgumentException) {
 
-                System.err.println("Illegal feeding times arguments");
-                System.out.println(illegalArgumentException.getMessage());
-                JOptionPane.showMessageDialog(null, "Beginn der Fütterung kann nicht später als das Ende sein !", "Fütterungszeiten unlogisch", JOptionPane.CANCEL_OPTION);
+                String message = illegalArgumentException.getMessage();
+
+                if (message.equals("End feeding time cannot start before start feeding time")) {
+                    System.err.println("Illegal feeding times arguments");
+                    System.out.println(message);
+                    JOptionPane.showMessageDialog(null, "Beginn der Fütterung kann nicht später als das Ende sein !", "Fütterungszeiten unlogisch", JOptionPane.CANCEL_OPTION);
+                } else if (message.equals("Amount must be greater zero")) {
+                    System.err.println("Illegal amount argument");
+                    System.out.println(message);
+                    JOptionPane.showMessageDialog(null, "Futtermnege kann nicht kleiner oder gleich 0 sein !", "Futtermenge unlogisch", JOptionPane.CANCEL_OPTION);
+                }
 
             }
 
@@ -706,7 +724,78 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonDeleteActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
-        // TODO add your handling code here:
+
+        if (selectedAnimalID != null) {
+
+            String food = jTextFieldFood.getText().trim();
+            String startFeedingTime = jTextFieldStartFeedingTime.getText().trim();
+            String endFeedingTime = jTextFieldEndFeedingTime.getText().trim();
+            String amountStr = "";
+            double amount = -1;
+            try {
+                amount = Double.parseDouble(jTextFieldAmountFood.getText().trim());
+
+                if (jRadioButtonG.isSelected()) {
+                    amount *= 1000;
+                }
+            } catch (NumberFormatException numberFormatException) {
+                //Bei der Suche akzeptiert
+                System.err.println("NumberFormatException");
+                System.out.println(numberFormatException.getMessage());
+
+            }
+
+            if (amount >= 0) {
+                amountStr = String.valueOf(amount);
+            }
+
+            LinkedHashMap<String, String> columnValueMap = new LinkedHashMap<String, String>();
+
+            columnValueMap.put("Food.Name", food);
+            columnValueMap.put("AnimalID", selectedAnimalID);
+            columnValueMap.put("StartFeedingTime", startFeedingTime);
+            columnValueMap.put("EndFeedingTime", endFeedingTime);
+            columnValueMap.put("Amount", amountStr);
+
+            LinkedList<FoodToAnimalR> records = zooManager.searchFoodToAnimal(columnValueMap);
+
+            /*Tabelle updaten*/
+            int animalRowIndex = jTableAnimalData.getSelectedRow();
+            TableModel animalModel = jTableAnimalData.getModel();
+
+            //Update the animalId when selected
+            selectedAnimalID = animalModel.getValueAt(animalRowIndex, 0).toString();
+
+            /*Displaying results to second table*/
+ /*Clean the table*/
+            DefaultTableModel tableRelationModel = (DefaultTableModel) jTableFoodToAnimalData.getModel();
+            while (tableRelationModel.getRowCount() > 0) {
+                tableRelationModel.removeRow(0);
+            }
+
+            Object[] row = new Object[6]; // Spalten
+
+            for (FoodToAnimalR record : records) {
+                row[0] = record.getFoodName();
+                row[1] = record.getFoodID();
+                row[2] = record.getAnimalID();
+                row[3] = methods.removeSeconds(record.getStartFeedingTime());
+                row[4] = methods.removeSeconds(record.getEndFeedingTime());
+
+                if (jRadioButtonGTable.isSelected()) {
+                    row[5] = record.getAmount() * 1000;
+                } else {
+                    row[5] = record.getAmount();
+                }
+
+                tableRelationModel.addRow(row);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Bitte ein Tier anklicken für die Suche", "Suchen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+        }
+
+
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
@@ -739,15 +828,21 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     double amount = Double.parseDouble(jTextFieldAmountFood.getText());
 
                     boolean feedingOrderTimesOk = methods.isFeedingTimesGreater(startFeedingTime, endFeedingTime);
-                    if (!feedingOrderTimesOk) {
-                        throw new IllegalArgumentException("End feeding time cannot start before start feeding time");
+
+                    if (amount <= 0) {
+                        throw new IllegalArgumentException("Amount must be greater zero");
                     }
+
                     //Check if gramm is selected
                     if (jRadioButtonG.isSelected()) {
                         amount /= 1000;
                     }
 
                     if (methods.isValidFeedingTime(startFeedingTime) && methods.isValidFeedingTime(endFeedingTime)) {
+
+                        if (!feedingOrderTimesOk) {
+                            throw new IllegalArgumentException("End feeding time cannot start before start feeding time");
+                        }
 
                         //Here the zooManager may add the FoodToAnimalRecord
                         if (zooManager.updateFoodToAnimal(selectedAnimalID, foodName, startFeedingTime, endFeedingTime, amount, keys)) {
@@ -777,13 +872,20 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
                 System.err.println("NumberFormatException");
                 System.out.println(numberFormatException.getMessage());
-                JOptionPane.showMessageDialog(null, "Im Menge Textfeld darf nur eine Zahl stehen ! !", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+                JOptionPane.showMessageDialog(null, "Im Menge Textfeld darf nur eine Zahl stehen !", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
 
             } catch (IllegalArgumentException illegalArgumentException) {
 
-                System.err.println("Illegal feeding times arguments");
-                System.out.println(illegalArgumentException.getMessage());
-                JOptionPane.showMessageDialog(null, "Beginn der Fütterung kann nicht später als das Ende sein !", "Fütterungszeiten unlogisch", JOptionPane.CANCEL_OPTION);
+                String message = illegalArgumentException.getMessage();
+                if (message.equals("End feeding time cannot start before start feeding time")) {
+                    System.err.println("Illegal feeding times arguments");
+                    System.out.println(message);
+                    JOptionPane.showMessageDialog(null, "Beginn der Fütterung kann nicht später als das Ende sein !", "Fütterungszeiten unlogisch", JOptionPane.CANCEL_OPTION);
+                } else if (message.equals("Amount must be greater zero")) {
+                    System.err.println("Illegal amount argument");
+                    System.out.println(message);
+                    JOptionPane.showMessageDialog(null, "Futtermnege kann nicht kleiner oder gleich 0 sein !", "Futtermenge unlogisch", JOptionPane.CANCEL_OPTION);
+                }
 
             }
 
@@ -882,6 +984,46 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     private void jRadioButtonKgTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonKgTableActionPerformed
         updateRelationTable();
     }//GEN-LAST:event_jRadioButtonKgTableActionPerformed
+
+    private void jButtonSearchAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchAnimalActionPerformed
+
+        JTextField[] textFieldArr = {jTextFieldAnimalName};
+        boolean textFieldsVerfied = methods.verifyTextFields(textFieldArr);
+
+        if (textFieldsVerfied) {
+            LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
+            String animalName = jTextFieldAnimalName.getText();
+            columnNameToValue.put("AnimalName", animalName);
+
+            LinkedList<Animal> animals = zooManager.searchAnimals(columnNameToValue);
+
+            /*Clean the table*/
+            DefaultTableModel tableModel = (DefaultTableModel) jTableAnimalData.getModel();
+            while (tableModel.getRowCount() > 0) {
+                tableModel.removeRow(0);
+            }
+
+            /*Loading all animals to Table, better in own method*/
+            DefaultTableModel model = (DefaultTableModel) jTableAnimalData.getModel();
+            Object[] row = new Object[6]; // Spalten
+
+            for (Animal animal : animals) {
+                //Hier bekommt man die Spalten der Zeile
+                row[0] = animal.getId();
+                row[1] = animal.getName();
+                row[2] = animal.getBirthday();
+                row[3] = animal.getSex(); //TODO PARSE TO AGE
+                //DIE LINE IST NOCH HÄSSLICH
+                row[4] = methods.descriptionToString(animal.getSpecies().getDescription());
+                row[5] = animal.getCompound().getName();
+                //Hier wird es Hinzugefuegt
+                model.addRow(row);
+            }
+
+        } else viewAllAnimals();
+
+
+    }//GEN-LAST:event_jButtonSearchAnimalActionPerformed
 
     /**
      * Method to disable/enable buttons/labels depending on operation selection.
@@ -1025,11 +1167,11 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JTable jTableFoodToAnimalData;
     private javax.swing.JTextField jTextFieldAmountFood;
     private javax.swing.JTextField jTextFieldAnimalID;
+    private javax.swing.JTextField jTextFieldAnimalName;
     private javax.swing.JTextField jTextFieldDateTimeID;
     private javax.swing.JTextField jTextFieldEndFeedingTime;
     private javax.swing.JTextField jTextFieldFood;
     private javax.swing.JTextField jTextFieldFoodID;
-    private javax.swing.JTextField jTextFieldFoodName;
     private javax.swing.JTextField jTextFieldStartFeedingTime;
     // End of variables declaration//GEN-END:variables
 

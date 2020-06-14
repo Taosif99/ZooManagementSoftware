@@ -54,7 +54,7 @@
                                               <Component id="jLabelAnimalName" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <EmptySpace min="-2" pref="176" max="-2" attributes="0"/>
-                                                  <Component id="jTextFieldFoodName" min="-2" pref="141" max="-2" attributes="0"/>
+                                                  <Component id="jTextFieldAnimalName" min="-2" pref="141" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -159,7 +159,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelAnimalName" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldFoodName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldAnimalName" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonSearchAnimal" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -249,7 +249,7 @@
         <Property name="text" type="java.lang.String" value="Ende F&#xfc;tterungszeit"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldFoodName">
+    <Component class="javax.swing.JTextField" name="jTextFieldAnimalName">
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldStartFeedingTime">
     </Component>
@@ -537,6 +537,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Suche Tiere"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSearchAnimalActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPaneAnimalTable">
       <Properties>
