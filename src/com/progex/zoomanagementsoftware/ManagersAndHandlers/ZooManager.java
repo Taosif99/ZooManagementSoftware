@@ -11,6 +11,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.sql.Statement;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.NoSuchElementException;
+import java.util.Set;
 
 /**
  *
@@ -83,64 +89,18 @@ public class ZooManager {
         return compounds;
     }
 
-    //Methods concerning Food
-    public LinkedList<Food> getFoods(int id, int storageRoomNumber, double stock, String name) {
-
+    public LinkedList<Food> createFoods(ResultSet resultSet) {
         LinkedList<Food> foods = new LinkedList<Food>();
-        Food tempFood;
-        String query = "SELECT id, storageRoomNumber, stock, name FROM food WHERE ";
-        boolean and = false;
-
-        if (id != 0) {
-            query = query + "id = " + id;
-            and = true;
-        }
-
-        if (and == true && storageRoomNumber != -1) {
-
-            query = query + " AND storageRoomNumber = " + storageRoomNumber;
-            and = true;
-        } else if (and != true && storageRoomNumber != -1) {
-
-            query = query + "storageRoomNumber = " + storageRoomNumber;
-            and = true;
-        }
-
-        if (and == true && stock != -1.0) {
-            query = query + " AND stock = " + stock;
-            and = true;
-        } else if (and != true && stock != -1) {
-            query = query + "stock = " + stock;
-            and = true;
-        }
-
-        if (and == true && name != null) {
-            query = query + " AND name = '" + name + "'";
-            and = true;
-        } else if (and != true && name != null) {
-            query = query + "name = '" + name + "'";
-            and = true;
-        }
-
-        if (and == false) {
-            query = "SELECT id, storageRoomNumber, stock, name FROM food";
-        }
-
-        System.out.println(query);
-
-        ResultSet resultSet = connectionHandler.performQuery(query);
-
         if (resultSet != null) {
 
             try {
                 while (resultSet.next()) {
-
                     int tempID = resultSet.getInt("ID");
                     int tempStorageRoomNumber = resultSet.getInt("StorageRoomNumber");
                     double tempStock = resultSet.getDouble("Stock");
                     String tempName = resultSet.getString("Name");
 
-                    tempFood = new Food(tempID, tempName, tempStock, tempStorageRoomNumber);
+                    Food tempFood = new Food(tempID, tempName, tempStock, tempStorageRoomNumber);
                     foods.add(tempFood);
                 }
 
@@ -152,23 +112,66 @@ public class ZooManager {
         return foods;
     }
 
-    public boolean checkFoodExists(String name) {
+    //Methods concerning Food
+    public LinkedList<Food> searchFoods(LinkedHashMap<String, String> columnValueMap) {
 
-        try {
-            String query = "SELECT name FROM food WHERE name = '" + name + "'";
-            System.out.println(query);
+        String query = generateSearchQuery(columnValueMap, "SELECT id, storageRoomNumber, stock, name FROM food WHERE ");
+        LinkedList<Food> foods = null;
+        if (query != null) {
             ResultSet resultSet = connectionHandler.performQuery(query);
-            if (resultSet != null) {
-                while (resultSet.next()) {
-                    String temp = resultSet.getString("Name");
-                    System.out.println(temp);
-                    if(temp != null)
-                        return true;    
+            foods = createFoods(resultSet);
+        } else {
+            return this.getFoods();
+        }
+        return foods;
+    }
+
+    public LinkedList<Food> getFoods() {
+
+        String query = "SELECT id, storageRoomNumber, stock, name FROM food";
+        ResultSet resultSet = connectionHandler.performQuery(query);
+        LinkedList<Food> foods = createFoods(resultSet);
+        return foods;
+    }
+
+    public boolean checkFoodExists(String name, int id) {
+
+        System.out.println("In chekcFood " + name + " " + id);
+        try {
+            ResultSet resultSet;
+            String query;
+            if (name == null) {
+                query = "SELECT id FROM food WHERE id = " + id;
+                System.out.println(query);
+                resultSet = connectionHandler.performQuery(query);
+                if (resultSet != null) {
+                    while (resultSet.next()) {
+                        String tempId = resultSet.getString("ID");
+                        System.out.println(tempId + " in if");
+                        if (tempId != null) {
+                            return true;
+                        }
+                    }
+                }
+            } else if (!name.isEmpty()) {
+                query = "SELECT name FROM food WHERE name = '" + name + "'";
+                System.out.println(query);
+                resultSet = connectionHandler.performQuery(query);
+                if (resultSet != null) {
+                    while (resultSet.next()) {
+                        String tempName = resultSet.getString("Name");
+                        System.out.println(tempName + " in else");
+                        if (tempName != null) {
+                            return true;
+                        }
+                    }
                 }
             }
+            //System.out.println(name.isEmpty());
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("false");
         return false;
     }
 
@@ -199,4 +202,106 @@ public class ZooManager {
         return retVal;
     }
 
+    //TakesCare
+    /**
+     * This method is used to get all animal ids with the same animal name.
+     *
+     * @param animalName
+     * @return
+     */
+    public int[] getAnimalIds(String animalName) {
+
+        int[] animalIds = new int[10];  //muss dynamisch sein
+        int counter = 0;
+
+        try {
+            String query = "SELECT id FROM animal WHERE animalName = '" + animalName + "'";
+
+            System.out.println(query);
+            ResultSet resultSet = connectionHandler.performQuery(query);
+            if (resultSet != null) {
+                while (resultSet.next()) {
+
+                    animalIds[counter] = resultSet.getInt("id");
+                    System.out.println(counter + "   " + animalIds[counter]);
+                    counter++;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return animalIds;
+    }
+
+    public boolean addZookeeperToAnimal(int[] animalIds, String zookeeperId) {
+        String query;
+        for (int i = 0; i < animalIds.length; i++) {
+            query = "INSERT INTO TakesCare(UserID,AnimalID) VALUES(" + zookeeperId + "," + animalIds[i] + ")";
+            if (!connectionHandler.manipulateDB(query)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * https://www.geeksforgeeks.org/mysql-regular-expressions-regexp/ zum
+     * Nachgucken Method which constructs a search query using the parameters
+     * and regular expressions.
+     *
+     * @param columnValueMap
+     * @param queryBegin
+     * @return The query as String, null if no String can be built
+     */
+    private String generateSearchQuery(LinkedHashMap<String, String> columnValueMap, String queryBegin) {
+
+        LinkedHashMap<String, String> nonEmptyColumnValueMap = new LinkedHashMap<String, String>();
+
+        try {
+
+            //Remove empty or null textFields
+            for (Entry<String, String> entry : columnValueMap.entrySet()) {
+
+                String key = entry.getKey();
+                String value = entry.getValue();
+                if (!value.isEmpty()) {
+                    //textFieldMap.remove(key);
+                    nonEmptyColumnValueMap.put(key, value);
+                }
+            }
+
+            StringBuilder querySb = new StringBuilder();
+            querySb.append(queryBegin).append(" ");
+            Set<Map.Entry<String, String>> entries = nonEmptyColumnValueMap.entrySet();
+
+            //get the iterator for entries
+            Iterator<Map.Entry<String, String>> iterator = entries.iterator();
+
+            //Adding first entry
+            Entry<String, String> firstEntry = iterator.next();
+
+            String columnName = firstEntry.getKey();
+            String value = firstEntry.getValue();
+            querySb.append(columnName).append(" REGEXP '").append(value).append("'");
+
+            //Removing first entry
+            nonEmptyColumnValueMap.remove(columnName);
+
+            for (Entry<String, String> entry : nonEmptyColumnValueMap.entrySet()) {
+
+                columnName = entry.getKey();
+                value = entry.getValue();
+                querySb.append(" AND ").append(columnName).append(" REGEXP '").append(value).append("'");
+            }
+
+            System.out.println(querySb.toString());
+            return querySb.toString();
+
+        } catch (NoSuchElementException noSuchElementException) {
+
+            System.err.println("LinkHashMap value empty or null");
+            System.out.println(noSuchElementException.getMessage());
+            return null;
+        }
+    }
 }

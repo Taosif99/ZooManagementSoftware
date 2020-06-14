@@ -8,6 +8,7 @@ package com.progex.zoomanagementsoftware.admin;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
 import com.progex.zoomanagementsoftware.datatypes.*;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -395,7 +396,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             JTextField textFields[] = {jTextFieldStorageRoomNumber, jTextFieldStock, jTextFieldFoodName, jTextFieldID};
 
             boolean textFieldsVerified = methods.verifyTextFields(textFields);
-            
+
             if (textFieldsVerified) {
 
                 int storageRoomNumber = Integer.parseInt(jTextFieldStorageRoomNumber.getText());
@@ -409,6 +410,10 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                 int ID = Integer.parseInt(jTextFieldID.getText());
                 //System.out.println(ID + " " + storageRoomNumber + " " + stock + " " + foodName);
 
+                if (!zooManager.checkFoodExists(null, ID)) {
+                    JOptionPane.showMessageDialog(null, "Futter konnte nicht geupdatet werden! ID existiert nicht.", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                }
+
                 if (zooManager.updateFood(storageRoomNumber, stock, foodName, ID)) {
 
                     //Falls Updaten erfolgreich, pfeil wäre besser
@@ -420,15 +425,11 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                         viewFoods(1);
                     }*/
                     clearTextFields("update");
-                } else {
-                    if (zooManager.getFoods(ID, -1, -1, null).isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "Futter konnte nicht geupdatet werden! ID existiert nicht.", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Futter konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-                    }
                 }
+                /*else {
+                    JOptionPane.showMessageDialog(null, "Futter konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                }*/
             }
-
         } catch (NumberFormatException n) {
             n.printStackTrace();
             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
@@ -448,22 +449,22 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             System.out.println(ID);
 
             if (textFieldsVerified) {
+
                 int decision = JOptionPane.showConfirmDialog(null, "Sind Sie sicher?", "Löschbestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 //OK = 0, cancel =2
                 System.out.println(decision);
 
                 if (decision == 0) {
+                    if (zooManager.checkFoodExists(null, ID)) {
+                        JOptionPane.showMessageDialog(null, "Futter konnte nicht gelöscht werden! ID existiert nicht.", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                    }
                     if (zooManager.deleteFood(ID)) {
                         //Falls Löschen erfolgreich, pfeil wäre besser
                         JOptionPane.showMessageDialog(null, "Futter wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                         clearTextFields("delete");
                     } else {
-                        if (zooManager.getFoods(ID, -1, -1, null).isEmpty()) {
-                            JOptionPane.showMessageDialog(null, "Futter konnte nicht gelöscht werden! ID existiert nicht.", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Futter konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-                        }
+                        JOptionPane.showMessageDialog(null, "Futter konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
                 }
             }
@@ -486,7 +487,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             row[0] = food.getId();
             row[1] = food.getStorageRoomNumber();
             row[2] = food.getStock() * i;
-            row[3] = food.getName();;
+            row[3] = food.getName();
 
             model.addRow(row);
         }
@@ -494,13 +495,12 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
     private void viewFoods(int i) {
 
-        clearTable((DefaultTableModel) jTableFoodData.getModel());
-        
+        methods.clearTable((DefaultTableModel) jTableFoodData.getModel());
+
         fillTable((DefaultTableModel) jTableFoodData.getModel(), i);
     }
 
-    private void clearTable(DefaultTableModel table)
-    {     
+    private void clearTable(DefaultTableModel table) {
         while (table.getRowCount() > 0) {
             table.removeRow(0);
         }
@@ -511,44 +511,27 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         try {
             JTextField textFields[] = {jTextFieldID, jTextFieldStorageRoomNumber, jTextFieldStock, jTextFieldFoodName};
 
-            int id;
-            if (!jTextFieldID.getText().isBlank()) {
-                id = Integer.parseInt(jTextFieldID.getText());
-            } else {
-                id = 0;
-            }
-
-            int storageRoomNumber;
-            if (!jTextFieldStorageRoomNumber.getText().isBlank()) {
-                storageRoomNumber = Integer.parseInt(jTextFieldStorageRoomNumber.getText());
-            } else {
-                storageRoomNumber = -1;
-            }
-
-            double stock;
-            if (!jTextFieldStock.getText().isBlank()) {
-                if (jRadioButtonGramm.isSelected()) {
-                    stock = Double.parseDouble(jTextFieldStock.getText()) / 1000;
-                } else {
-                    stock = Double.parseDouble(jTextFieldStock.getText());
-                }
-            } else {
-                stock = -1;
-            }
-
-            String foodName;
-            if (!jTextFieldFoodName.getText().isBlank()) {
-                foodName = jTextFieldFoodName.getText();
-            } else {
-                foodName = null;
-            }
-
+            int exceptionId = Integer.parseInt(jTextFieldID.getText());
+            int exceptionStorageRoomNumber = Integer.parseInt(jTextFieldStorageRoomNumber.getText());
+            int exceptionStock = Integer.parseInt(jTextFieldStock.getText());
+                 
+            
+            String id = jTextFieldID.getText().trim();
+            String storageRoomNumber = jTextFieldStorageRoomNumber.getText().trim();;
+            String stock = jTextFieldStock.getText().trim();
+            String foodName = jTextFieldFoodName.getText().trim();
             System.out.println(id + " " + storageRoomNumber + " " + stock + " " + foodName);
 
-            foods = zooManager.getFoods(id, storageRoomNumber, stock, foodName);
+            LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
+            columnNameToValue.put("ID", id);
+            columnNameToValue.put("StorageRoomNumber", storageRoomNumber);
+            columnNameToValue.put("Stock", stock);
+            columnNameToValue.put("Name", foodName);
+
+            foods = zooManager.searchFoods(columnNameToValue);
 
             if (foods.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse.", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 if (jRadioButtonGrammTable.isSelected()) {
                     viewFoods(1000);
@@ -556,7 +539,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                     viewFoods(1);
                 }
             }
-            
+
         } catch (NumberFormatException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
@@ -624,8 +607,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                 }
                 String foodName = jTextFieldFoodName.getText();
 
-                // System.out.println(storageRoomNumber + " " + stock + " " + foodName);
-                boolean foodExists = zooManager.checkFoodExists(foodName);
+                boolean foodExists = zooManager.checkFoodExists(foodName, -1);
                 System.out.println(foodExists + "< foodExists");
 
                 if (!foodExists) {
@@ -636,13 +618,13 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                     if (foodAdded) {
                         clearTextFields("add");
                         JOptionPane.showMessageDialog(null, "Futter konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                        //Alle Textfelder ohne Inhalt
+
                     } else {
                         JOptionPane.showMessageDialog(null, "Futter konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
 
-                } else{
-                   
+                } else {
+
                     JOptionPane.showMessageDialog(null, "Futter konnte nicht eingefügt werden! Es existiert bereits in der Datenbank.", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                 }
             }
@@ -737,13 +719,17 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageFoodJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageFoodJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageFoodJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageFoodJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageFoodJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageFoodJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageFoodJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageFoodJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>   
 

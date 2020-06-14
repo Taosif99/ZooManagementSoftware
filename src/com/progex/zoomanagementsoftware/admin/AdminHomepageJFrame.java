@@ -308,7 +308,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         /* Create and display the JFrame MangeZookeeperToAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageZookeeperToAnimalJFrame(thisFrame).setVisible(true);
+                new ManageZookeeperToAnimalJFrame(thisFrame, zooManager).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButtonManageTakesCareActionPerformed
@@ -425,8 +425,6 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         String dbName = "zoo";
 
         ZooManager zooManager = new ZooManager(url, dbName, username, password);
-        
-        //UserManager userManager = new UserManager(url, dbName, username, password);
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
