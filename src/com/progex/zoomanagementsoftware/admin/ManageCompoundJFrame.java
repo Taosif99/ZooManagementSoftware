@@ -31,15 +31,16 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         initComponents();
         this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
+        methods = new Methods();
+        methods.showTimeAndDate(jLabelShowDateTime);
         myInitComponents();
 
     }
 
     public void myInitComponents() {
         updateButtonsAndLabels();
-        methods = new Methods();
-        methods.showTimeAndDate(jLabelShowDateTime);
-        viewAllCompounds();
+        LinkedList<Compound> compounds = zooManager.getCompounds();
+        viewCompounds(compounds);
 
     }
 
@@ -52,14 +53,18 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     }
 
-    private void viewAllCompounds() {
+    /**
+     * Method which has been implemented to map a LinkedList of Compound objects
+     * to a JTable.
+     *
+     * @param compounds
+     */
+    private void viewCompounds(LinkedList<Compound> compounds) {
 
         cleanTable();
 
         /*For example loading all existing Compounds*/
-        LinkedList<Compound> compounds = zooManager.getCompounds();
-
-        /*Loading all compounds to Table, better in own method*/
+        //LinkedList<Compound> compounds = zooManager.getCompounds();
         DefaultTableModel model = (DefaultTableModel) jTableCompoundData.getModel();
         Object[] row = new Object[6]; // Spalten
 
@@ -71,14 +76,13 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
             row[3] = compound.getConstructionYear();
             row[4] = compound.getMaxCapacity();
             row[5] = compound.getCurrentCapacity();
-            //Hier wird es Hinzugefuegt
             model.addRow(row);
         }
 
     }
 
     /**
-     * Method which has been implemented to restrcit negative values
+     * Method which has been implemented to restrcit negative values.
      *
      * @param constructionYear
      * @param maxCapacity
@@ -430,7 +434,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                 if (zooManager.addCompound(compundName, area, constructionYear, maxCapacity)) {
                     //Falls Einfügen erfolgreich, pfeil wäre besser
                     JOptionPane.showMessageDialog(null, "Gehege konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                    viewAllCompounds();
+                    LinkedList<Compound> compounds = zooManager.getCompounds();
+                    viewCompounds(compounds);
                 } else //Falls Fehler beim Einfügen in die Datenbank", JOptionPane.CANCEL_OPTION      
                 {
                     JOptionPane.showMessageDialog(null, "Gehege konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -478,7 +483,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonDeleteActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
-        // TODO add your handling code here:
+        
 
         String name = jTextFieldCompoundName.getText().trim();
         String constructionYear = jTextFieldConstructionYear.getText().trim();
@@ -494,24 +499,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         columnNameToValue.put("MaxCapacity", maxCapacity);
 
         LinkedList<Compound> compounds = zooManager.searchCompounds(columnNameToValue);
-        cleanTable();
-        /*Loading all compounds to Table,to decrease repetition*/
-        DefaultTableModel model = (DefaultTableModel) jTableCompoundData.getModel();
-        Object[] row = new Object[6]; // Spalten
-
-        for (Compound compound : compounds) {
-            //Hier bekommt man die Spalten der Zeile
-            row[0] = compound.getId();
-            row[1] = compound.getName();
-            row[2] = compound.getArea();
-            row[3] = compound.getConstructionYear();
-            row[4] = compound.getMaxCapacity();
-            row[5] = compound.getCurrentCapacity();
-            //Hier wird es Hinzugefuegt
-            model.addRow(row);
-        }
-
-
+        viewCompounds(compounds);
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonUpdateCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateCompoundActionPerformed
@@ -543,10 +531,10 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
                     //Falls Updaten erfolgreich, pfeil wäre besser
                     JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                    viewAllCompounds();
+                    LinkedList<Compound> compounds = zooManager.getCompounds();
+                    viewCompounds(compounds);
                 } else {
 
-                    // TODO
                     //Falls Fehler beim Updaten
                     JOptionPane.showMessageDialog(null, "Gehege konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
 
@@ -588,9 +576,10 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                 //System.out.println(decision);
                 if (decision == 0) {
                     if (zooManager.deleteCompound(ID)) {
-                        //Falls Löschen erfolgreich, pfeil wäre besser
+                        //Falls Löschen erfolgreich
                         JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                        viewAllCompounds();
+                        LinkedList<Compound> compounds = zooManager.getCompounds();
+                        viewCompounds(compounds);
                     } else {
                         //Falls Fehler beim Löschen
                         JOptionPane.showMessageDialog(null, "Gehege konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -643,7 +632,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         if (!mode.equals("add")) {
             int rowIndex = jTableCompoundData.getSelectedRow();
             TableModel model = jTableCompoundData.getModel();
-
             jTextFieldID.setText(model.getValueAt(rowIndex, 0).toString());
             jTextFieldCompoundName.setText(model.getValueAt(rowIndex, 1).toString());
             jTextFieldConstructionYear.setText(model.getValueAt(rowIndex, 3).toString());

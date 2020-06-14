@@ -32,35 +32,36 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         initComponents();
         this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
+        methods = new Methods();
+        methods.showTimeAndDate(jLabelShowDateTime);
         myInitComponents();
 
     }
 
     public void myInitComponents() {
         updateButtonsAndLabels();
-        methods = new Methods();
-        methods.showTimeAndDate(jLabelShowDateTime);
-        viewAllAnimals();
+        LinkedList <Animal> allAnimals = zooManager.getAnimals();
+        viewAnimals(allAnimals);
     }
 
     
     private void cleanTable(){
     
-          /*Clean the table*/
         DefaultTableModel tableModel = (DefaultTableModel) jTableAnimalData.getModel();
         while (tableModel.getRowCount() > 0) {
             tableModel.removeRow(0);
         }
     }
     
-    
-    private void viewAllAnimals() {
+    /**
+     * Method which has been implemented to map a LinkedList
+     * of Animal objects to a JTable.
+     * @param animals
+     */
+    private void viewAnimals(LinkedList<Animal> animals) {
 
-        LinkedList<Animal> animals = zooManager.getAnimals();
-
+       
         cleanTable();
-
-        /*Loading all animals to Table, better in own method*/
         DefaultTableModel model = (DefaultTableModel) jTableAnimalData.getModel();
         Object[] row = new Object[6]; // Spalten
 
@@ -455,7 +456,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             if (zooManager.addAnimal(animalName, compoundName, date, sex, species)) {
                 //Falls Einfügen erfolgreichr
                 JOptionPane.showMessageDialog(null, "Tier konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                viewAllAnimals();
+                LinkedList<Animal> animals = zooManager.getAnimals();
+                viewAnimals(animals);
             } else {
                 //Falls Fehler beim Einfügen
                 JOptionPane.showMessageDialog(null, "Tier konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -509,28 +511,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
            columnNameToValue.put("Name", compoundName);
            
            LinkedList<Animal> animals = zooManager.searchAnimals(columnNameToValue);
-           
-           
-           /*Displaying all animals*/
-                   cleanTable();
-
-        /*Loading all animals to Table, better in own method*/
-        DefaultTableModel model = (DefaultTableModel) jTableAnimalData.getModel();
-        Object[] row = new Object[6]; // Spalten
-
-        for (Animal animal : animals) {
-            //Hier bekommt man die Spalten der Zeile
-            row[0] = animal.getId();
-            row[1] = animal.getName();
-            row[2] = animal.getSex();
-            row[3] = animal.getBirthday(); 
-            //DIE LINE IST NOCH HÄSSLICH
-            row[4] = methods.descriptionToString(animal.getSpecies().getDescription());
-            row[5] = animal.getCompound().getName();
-            //Hier wird es Hinzugefuegt
-            model.addRow(row);
-        }
-           
+           viewAnimals(animals);
            
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
@@ -590,7 +571,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 if (zooManager.updateAnimal(ID, animalName, compoundName, date, sex, species)) {
                     //Falls Updaten erfolgreich, pfeil wäre besser
                     JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                    viewAllAnimals();
+                    LinkedList<Animal> animals= zooManager.getAnimals();
+                    viewAnimals(animals);
                 } else {
 
                     //Falls Fehler beim Updaten
@@ -633,7 +615,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                     if (zooManager.deleteAnimal(ID)) {
                         //Falls Löschen erfolgreich, pfeil wäre besser
                         JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                        viewAllAnimals();
+                        LinkedList<Animal> animals = zooManager.getAnimals();
+                        viewAnimals(animals);
                     } else {
                         //Falls Fehler beim Löschen
                         JOptionPane.showMessageDialog(null, "Tier konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);

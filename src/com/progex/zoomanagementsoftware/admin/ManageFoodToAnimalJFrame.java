@@ -23,28 +23,26 @@ import javax.swing.table.TableModel;
  * @author Ouchen
  */
 public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
-
-    /**
-     * Creates new form ManageUserJFrameOld
-     */
+    
+    
+    
     public ManageFoodToAnimalJFrame(JFrame goBackFrame, ZooManager zooManager) {
 
         initComponents();
         this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
+        methods = new Methods();
+        methods.showTimeAndDate(jLabelShowDateTime);
         myInitComponents();
     }
 
     public void myInitComponents() {
         updateButtonsAndLabels();
-        methods = new Methods();
-        methods.showTimeAndDate(jLabelShowDateTime);
-        viewAllAnimals();
+        LinkedList<Animal> animals = zooManager.getAnimals();
+        viewAnimals(animals);
     }
 
-    private void viewAllAnimals() {
-
-        LinkedList<Animal> animals = zooManager.getAnimals();
+    private void viewAnimals(LinkedList<Animal> animals) {
 
         /*Clean the table*/
         DefaultTableModel tableModel = (DefaultTableModel) jTableAnimalData.getModel();
@@ -65,27 +63,15 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             //DIE LINE IST NOCH HÄSSLICH
             row[4] = methods.descriptionToString(animal.getSpecies().getDescription());
             row[5] = animal.getCompound().getName();
-            //Hier wird es Hinzugefuegt
             model.addRow(row);
         }
 
     }
 
     /**
-     * Method to reload the datasets of the relation table
+     * Method to reload the datasets of the relation table.
      */
-    private void updateRelationTable() {
-
-        int animalRowIndex = jTableAnimalData.getSelectedRow();
-        TableModel animalModel = jTableAnimalData.getModel();
-
-        //Update the animalId when selected
-        selectedAnimalID = animalModel.getValueAt(animalRowIndex, 0).toString();
-
-        //DEBUG
-        //System.out.println("Selected ID: " + selectedAnimalID);
-        //After getting selected ID, we print all feedingTimes in the database
-        LinkedList<FoodToAnimalR> records = zooManager.getFoodToAnimalRecords(Integer.parseInt(selectedAnimalID));
+    private void viewRelationTable(LinkedList<FoodToAnimalR> records) {
 
         /*Displaying results to second table*/
  /*Clean the table*/
@@ -95,7 +81,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         }
 
         Object[] row = new Object[6]; // Spalten
-
         for (FoodToAnimalR record : records) {
             row[0] = record.getFoodName();
             row[1] = record.getFoodID();
@@ -657,7 +642,10 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                         if (zooManager.addFoodToAnimal(selectedAnimalID, food, startFeedingTime, endFeedingTime, amount)) {
 
                             JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                            updateRelationTable();
+                            
+                            int animalID = Integer.parseInt(selectedAnimalID);
+                            LinkedList<FoodToAnimalR> records = zooManager.getFoodToAnimalRecords(animalID);
+                            viewRelationTable(records);
 
                         } else {
                             JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -671,7 +659,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
                 }
 
-            } //END Tray
+            } //END Tray //END Tray
             catch (NumberFormatException numberFormatException) {
 
                 System.err.println("NumberFormatException");
@@ -758,38 +746,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             columnValueMap.put("Amount", amountStr);
 
             LinkedList<FoodToAnimalR> records = zooManager.searchFoodToAnimal(columnValueMap);
-
-            /*Tabelle updaten*/
-            int animalRowIndex = jTableAnimalData.getSelectedRow();
-            TableModel animalModel = jTableAnimalData.getModel();
-
-            //Update the animalId when selected
-            selectedAnimalID = animalModel.getValueAt(animalRowIndex, 0).toString();
-
-            /*Displaying results to second table*/
- /*Clean the table*/
-            DefaultTableModel tableRelationModel = (DefaultTableModel) jTableFoodToAnimalData.getModel();
-            while (tableRelationModel.getRowCount() > 0) {
-                tableRelationModel.removeRow(0);
-            }
-
-            Object[] row = new Object[6]; // Spalten
-
-            for (FoodToAnimalR record : records) {
-                row[0] = record.getFoodName();
-                row[1] = record.getFoodID();
-                row[2] = record.getAnimalID();
-                row[3] = methods.removeSeconds(record.getStartFeedingTime());
-                row[4] = methods.removeSeconds(record.getEndFeedingTime());
-
-                if (jRadioButtonGTable.isSelected()) {
-                    row[5] = record.getAmount() * 1000;
-                } else {
-                    row[5] = record.getAmount();
-                }
-
-                tableRelationModel.addRow(row);
-            }
+            viewRelationTable(records);
 
         } else {
             JOptionPane.showMessageDialog(null, "Bitte ein Tier anklicken für die Suche", "Suchen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -805,16 +762,19 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
             HashMap<String, String> keys = new HashMap<String, String>();
 
-            //Old key values which will be used for update
-            int rowIndex = jTableFoodToAnimalData.getSelectedRow();
-            TableModel model = jTableFoodToAnimalData.getModel();
-            String foodIDKey = model.getValueAt(rowIndex, 1).toString();
-            String startFeedingTimeKey = model.getValueAt(rowIndex, 3).toString();
-            keys.put("StartFeedingTime", startFeedingTimeKey);
-            keys.put("FoodID", foodIDKey);
-
+         
             try {
+                    
+                   //Old key values which will be used for update
+                int rowIndex = jTableFoodToAnimalData.getSelectedRow();
+                TableModel model = jTableFoodToAnimalData.getModel();
+                String foodIDKey = model.getValueAt(rowIndex, 1).toString();
+                String startFeedingTimeKey = model.getValueAt(rowIndex, 3).toString();
+                keys.put("StartFeedingTime", startFeedingTimeKey);
+                keys.put("FoodID", foodIDKey);
 
+                
+                
                 JTextField textFields[] = {jTextFieldFood, jTextFieldStartFeedingTime,
                     jTextFieldEndFeedingTime, jTextFieldAmountFood,};
 
@@ -847,7 +807,10 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                         //Here the zooManager may add the FoodToAnimalRecord
                         if (zooManager.updateFoodToAnimal(selectedAnimalID, foodName, startFeedingTime, endFeedingTime, amount, keys)) {
 
-                            updateRelationTable();
+                            int animalID = Integer.parseInt(selectedAnimalID);
+                            LinkedList<FoodToAnimalR> records = zooManager.getFoodToAnimalRecords(animalID);
+                            viewRelationTable(records);
+                            
                             JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
 
                             /*Hier macht es Sinn nach dem updaten die Felder zu leeren*/
@@ -867,7 +830,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
                 }
 
-            } //END Tray
+            } //END Tray //END Tray
             catch (NumberFormatException numberFormatException) {
 
                 System.err.println("NumberFormatException");
@@ -888,6 +851,15 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 }
 
             }
+            
+            catch( ArrayIndexOutOfBoundsException arrOutOfBounds){
+                
+                System.err.println("No food relation selected");
+                System.out.println(arrOutOfBounds.getMessage());
+                 JOptionPane.showMessageDialog(null, "Bitte Datensatz in der rechten Tabelle auswählen !", "Kein Datensatz ausgewählt", JOptionPane.CANCEL_OPTION);
+                
+            }
+            
 
         } else {
             JOptionPane.showMessageDialog(null, "Sie müssen ein Tier in der Tabelle anklicken !", "Kein Tier ausgewählt", JOptionPane.CANCEL_OPTION);
@@ -913,7 +885,10 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         if (decision == 0) {
             if (zooManager.deleteFoodToAnimal(foodIDKey, selectedAnimalID, startFeedingTimeKey)) {
                 JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                updateRelationTable();
+                
+                   int animalID = Integer.parseInt(selectedAnimalID);
+                   LinkedList<FoodToAnimalR> records = zooManager.getFoodToAnimalRecords(animalID);
+                   viewRelationTable(records);
 
                 jTextFieldFood.setText("");
                 jTextFieldStartFeedingTime.setText("");
@@ -951,7 +926,15 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     private void jTableAnimalDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAnimalDataMouseClicked
 
-        updateRelationTable();
+        int animalRowIndex = jTableAnimalData.getSelectedRow();
+        TableModel animalModel = jTableAnimalData.getModel();
+        //Update the animalId when selected
+        selectedAnimalID = animalModel.getValueAt(animalRowIndex, 0).toString();
+
+           int animalID = Integer.parseInt(selectedAnimalID);
+           LinkedList<FoodToAnimalR> records = zooManager.getFoodToAnimalRecords(animalID);
+           viewRelationTable(records);
+        
 
     }//GEN-LAST:event_jTableAnimalDataMouseClicked
 
@@ -978,11 +961,15 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableFoodToAnimalDataMouseClicked
 
     private void jRadioButtonGTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonGTableActionPerformed
-        updateRelationTable();
+           int animalID = Integer.parseInt(selectedAnimalID);
+           LinkedList<FoodToAnimalR> records = zooManager.getFoodToAnimalRecords(animalID);
+           viewRelationTable(records);
     }//GEN-LAST:event_jRadioButtonGTableActionPerformed
 
     private void jRadioButtonKgTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonKgTableActionPerformed
-        updateRelationTable();
+           int animalID = Integer.parseInt(selectedAnimalID);
+           LinkedList<FoodToAnimalR> records = zooManager.getFoodToAnimalRecords(animalID);
+           viewRelationTable(records);
     }//GEN-LAST:event_jRadioButtonKgTableActionPerformed
 
     private void jButtonSearchAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchAnimalActionPerformed
@@ -990,38 +977,11 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         JTextField[] textFieldArr = {jTextFieldAnimalName};
         boolean textFieldsVerfied = methods.verifyTextFields(textFieldArr);
 
-        if (textFieldsVerfied) {
-            LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
-            String animalName = jTextFieldAnimalName.getText();
-            columnNameToValue.put("AnimalName", animalName);
-
-            LinkedList<Animal> animals = zooManager.searchAnimals(columnNameToValue);
-
-            /*Clean the table*/
-            DefaultTableModel tableModel = (DefaultTableModel) jTableAnimalData.getModel();
-            while (tableModel.getRowCount() > 0) {
-                tableModel.removeRow(0);
-            }
-
-            /*Loading all animals to Table, better in own method*/
-            DefaultTableModel model = (DefaultTableModel) jTableAnimalData.getModel();
-            Object[] row = new Object[6]; // Spalten
-
-            for (Animal animal : animals) {
-                //Hier bekommt man die Spalten der Zeile
-                row[0] = animal.getId();
-                row[1] = animal.getName();
-                row[2] = animal.getBirthday();
-                row[3] = animal.getSex(); //TODO PARSE TO AGE
-                //DIE LINE IST NOCH HÄSSLICH
-                row[4] = methods.descriptionToString(animal.getSpecies().getDescription());
-                row[5] = animal.getCompound().getName();
-                //Hier wird es Hinzugefuegt
-                model.addRow(row);
-            }
-
-        } else viewAllAnimals();
-
+        LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
+        String animalName = jTextFieldAnimalName.getText();
+        columnNameToValue.put("AnimalName", animalName);
+        LinkedList<Animal> animals = zooManager.searchAnimals(columnNameToValue);
+        viewAnimals(animals);
 
     }//GEN-LAST:event_jButtonSearchAnimalActionPerformed
 
@@ -1039,12 +999,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             jButtonAdd.setEnabled(true);
             jButtonUpdate.setEnabled(false);
             jButtonDelete.setEnabled(false);
-            //jTextFieldFoodID.setEnabled(false);
-            //jTextFieldAnimalID.setEnabled(false); 
-            //jTextFieldDateTimeID.setEnabled(false); 
-            //jLabelFoodID.setEnabled(false);
-            //jLabelAnimalID.setEnabled(false); 
-            //jLabelDateTimeID.setEnabled(false); 
             jLabelSearch.setEnabled(false);
             jButtonSearch.setEnabled(false);
             mode = "add";
@@ -1055,9 +1009,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             jButtonAdd.setEnabled(false);
             jButtonUpdate.setEnabled(true);
             jButtonDelete.setEnabled(false);
-            //jTextFieldFoodID.setEnabled(true);
-            //jTextFieldAnimalID.setEnabled(true); 
-            //jTextFieldDateTimeID.setEnabled(true); 
             jLabelFoodID.setEnabled(true);
             jLabelSearch.setEnabled(true);
             jButtonSearch.setEnabled(true);
@@ -1070,9 +1021,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             jButtonAdd.setEnabled(false);
             jButtonUpdate.setEnabled(false);
             jButtonDelete.setEnabled(true);
-            //jTextFieldFoodID.setEnabled(true);
-            //jTextFieldAnimalID.setEnabled(true); 
-            //jTextFieldDateTimeID.setEnabled(true); 
             jLabelFoodID.setEnabled(true);
             jLabelSearch.setEnabled(true);
             jButtonSearch.setEnabled(true);
