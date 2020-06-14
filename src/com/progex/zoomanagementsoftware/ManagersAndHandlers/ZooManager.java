@@ -162,15 +162,14 @@ public class ZooManager {
                 while (resultSet.next()) {
                     String temp = resultSet.getString("Name");
                     System.out.println(temp);
-                    if(temp == null)
-                        return false;    
+                    if(temp != null)
+                        return true;    
                 }
-              
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return true;
+        return false;
     }
 
     public boolean addFood(int storageRoomNumber, double stock, String name) {

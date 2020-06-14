@@ -62,7 +62,7 @@ public class Methods {
                 textField.setText(textField.getText().trim());
                 if (textField.getText().isEmpty()) {
 
-                    JOptionPane.showMessageDialog(null, "Bitte alle notwendigen Werte eintragen!", "Textfeld ohne Inhalt.", JOptionPane.CANCEL_OPTION);
+                    JOptionPane.showMessageDialog(null, "Bitte alle notwendigen Werte eintragen!", "Textfeld ohne Inhalt", JOptionPane.CANCEL_OPTION);
                     return false;
                 }
             }
