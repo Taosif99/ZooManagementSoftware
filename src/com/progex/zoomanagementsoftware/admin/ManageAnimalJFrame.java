@@ -436,7 +436,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         JTextField textFields[] = {jTextFieldAnimalName, jTextFieldCompound,
             jTextFieldDateOfBirth, jTextFieldSex};
 
-        //TODO METHOD TO VERIFY IF DATE FORMAT IS CORRECT
+   
         boolean textFieldsVerified = methods.verifyTextFields(textFields);
 
         
@@ -499,7 +499,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             String compoundName = jTextFieldCompound.getText().trim();
             String birthday = jTextFieldDateOfBirth.getText().trim();
             String sex = jTextFieldSex.getText().trim();
-            String species = jComboBoxSpecies.getSelectedItem().toString().trim();
+            String species = jComboBoxSpecies.getSelectedItem().toString();
             String ID = jTextFieldID.getText().trim();
         
            LinkedHashMap<String,String> columnNameToValue = new LinkedHashMap<String,String>();

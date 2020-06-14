@@ -8,7 +8,7 @@ import java.sql.Date;
 public class Zookeeper extends User
 {
     //TODO find adequate data structure
-	private Animal animalList;
+	private Animal animalList; //FALLS NICHT GEBRAUCHT ENTFERNEN !!!
 	
 	private Shift shift;
 

@@ -56,7 +56,7 @@ public class ZooManager {
     /**
      * Method which access the compounds which are stored in the database
      *
-     * @return A LinkedList of of Compound objects
+     * @return A LinkedList of Compound objects
      */
     public LinkedList<Compound> getCompounds() {
 
@@ -278,7 +278,7 @@ public class ZooManager {
      */
     public boolean updateAnimal(int ID, String animalName, String compoundName, String birthday, String sex, String species) {
 
-        /*Get compoundID and species ID TODO method to shorten code*/
+        /*Get compoundID and species ID*/
         try {
             /*Getting the CompoundID*/
             String compoundIDQuery = "SELECT ID from Compound where name =" + "\"" + compoundName + "\"";

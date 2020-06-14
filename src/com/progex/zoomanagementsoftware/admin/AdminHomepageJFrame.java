@@ -5,7 +5,7 @@
  */
 package com.progex.zoomanagementsoftware.admin;
 
-import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import javax.swing.JFrame;
 
@@ -23,6 +23,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
        initComponents();
        myInitComponents();
        this.zooManager = zooManager;
+       this.userManager = zooManager.getUserManager();
     }
     
     
@@ -246,9 +247,10 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         /* Create and display the JFrame MangeUser*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageUserJFrame(thisFrame).setVisible(true);
+                new ManageUserJFrame(thisFrame,zooManager).setVisible(true);
             }
         });
+        
     }//GEN-LAST:event_jButtonManageUserActionPerformed
 
     private void jButtonManageAnimalsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageAnimalsActionPerformed
@@ -345,9 +347,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(AdminHomepageJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+        
 
         
          String url ="jdbc:mysql://localhost/";
@@ -386,5 +386,5 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private ZooManager zooManager;
-
+    private UserManager userManager;
 }

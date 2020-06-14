@@ -155,8 +155,102 @@ public class Methods {
 
     }
 
+    
     /**
-     * Method to check if a given date has the format ""yyyy-MM-dd
+     * Method which has been implemented to convert a salutation String 
+     * to an enum type
+     * @param salutationStr
+     * @return The corresponding salutation
+     */
+    public Salutation stringToSalutation(String salutationStr){
+    
+        switch (salutationStr) {
+            case "Frau":
+                return Salutation.mrs;
+            case "Herr":
+                return Salutation.mr;
+            default:
+                return Salutation.diverse;
+        }
+    
+    }
+    
+    /**
+     * Method which has been implemented to convert a Salutation enum
+     * to a String
+     * @param salutation
+     * @return The corresponding salutation if mapping is possible, else an empty String
+     */
+    public String salutationToString(Salutation salutation){
+       
+        if (null == salutation) return "";
+        else switch (salutation) {
+            case mr:
+                return "Herr";
+            case mrs:
+                return "Frau";
+            case diverse:
+                return "divers";
+            default:
+                return "";
+        }
+    }
+    
+    
+    /**
+     * Method which has been implemented to convert a shift String 
+     * to an enum type -> Vielleicht besser wenn wir es in der Datenbank auf deutsch haben ???
+     * @param shiftStr
+     * @return The corresponding shift,null if it does not exist
+     */
+    public Shift stringToShift(String shiftStr){
+    
+        switch (shiftStr) {
+            case "None":
+                return Shift.none;
+            case "Night":
+                return Shift.night;
+            case "Afternoon":
+                return Shift.afternoon;
+            case "Morning":
+                return Shift.morning;
+        }
+    
+        return null;
+    }
+    
+    
+    
+    
+    
+    /**
+     * Method which has been implemented to convert a Shift enum
+     * to a String
+     * @param shift
+     * @return The corresponding shift as String if mapping is possible, else an empty String
+     */
+    public String shiftToString(Shift shift){
+       
+        
+        if (null == shift) return "";
+        else switch (shift) {
+            case none:
+                return "KEINE";
+            case night:
+                return "Spät";
+            case afternoon:
+                return "Nachmittag";
+            case morning:
+                return "Früh";
+            default:
+                return "";
+        }
+    }
+    
+    
+    
+    /**
+     * Method to check if a given date has the format ""yyyy-MM-dd.
      * @param dateString
      * @return true if pattern is valid, else false
      */
@@ -175,7 +269,7 @@ public class Methods {
    
     /**
      * Method to remove the seconds From da String 
-     * with the format: YYYY-MM-DD HH:MI:SS
+     * with the format: YYYY-MM-DD HH:MI:SS.
      * @param dateString
      * @return The formated String with YYYY-MM-DD HH:MI
      */

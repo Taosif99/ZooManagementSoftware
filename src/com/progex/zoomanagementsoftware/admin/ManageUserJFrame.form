@@ -104,14 +104,19 @@
                                               <Component id="jLabelBirthday" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace pref="19" max="32767" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jComboBoxShift" min="-2" pref="91" max="-2" attributes="0"/>
-                                          <Component id="jTextFieldBirthday" min="-2" pref="141" max="-2" attributes="0"/>
-                                          <Component id="jTextFieldUsername" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
-                                          <Component id="jTextFieldEMail" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
-                                          <Component id="jTextFieldPassword" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
-                                          <Component id="jTextFieldConfirmPassword" min="-2" pref="141" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="jComboBoxShift" min="-2" pref="91" max="-2" attributes="0"/>
+                                                  <Component id="jTextFieldBirthday" pref="141" max="32767" attributes="0"/>
+                                                  <Component id="jTextFieldUsername" alignment="0" pref="141" max="32767" attributes="0"/>
+                                                  <Component id="jTextFieldEMail" alignment="0" pref="141" max="32767" attributes="0"/>
+                                                  <Component id="jPasswordFieldEnteredPW" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Component id="jPasswordFieldConfirm" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                                   </Group>
@@ -232,14 +237,14 @@
                           <Component id="jLabelCity" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldCity" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPasswordFieldEnteredPW" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabelCountry" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldCountry" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelConfirmPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldConfirmPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPasswordFieldConfirm" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -306,6 +311,7 @@
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="13" rowCount="0">
                 <Column editable="false" title="ID" type="java.lang.Object"/>
+                <Column editable="false" title="Shift" type="java.lang.Object"/>
                 <Column editable="false" title="Anrede" type="java.lang.Object"/>
                 <Column editable="false" title="Benutzername" type="java.lang.Object"/>
                 <Column editable="false" title="Vorname" type="java.lang.Object"/>
@@ -317,7 +323,6 @@
                 <Column editable="false" title="Stra&#xdf;e" type="java.lang.Object"/>
                 <Column editable="false" title="Stadt" type="java.lang.Object"/>
                 <Column editable="false" title="Land" type="java.lang.Object"/>
-                <Column editable="false" title="Shift" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="autoResizeMode" type="int" value="0"/>
@@ -685,13 +690,6 @@
         <Property name="text" type="java.lang.String" value="Passwort best&#xe4;tigen"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldConfirmPassword">
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldPassword">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldPasswordActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldEMail">
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldUsername">
@@ -788,6 +786,10 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAnimalsToZookeeperActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="jPasswordFieldEnteredPW">
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="jPasswordFieldConfirm">
     </Component>
   </SubComponents>
 </Form>
