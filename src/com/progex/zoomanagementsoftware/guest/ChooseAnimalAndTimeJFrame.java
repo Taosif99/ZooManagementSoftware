@@ -5,10 +5,20 @@
  */
 package com.progex.zoomanagementsoftware.guest;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.GuestModeManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import com.progex.zoomanagementsoftware.main.MainMenuJFrame;
 import java.awt.Toolkit;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -27,7 +37,14 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         myInitComponents();
         this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
-
+        this.guestModeManager = zooManager.getGuestModeManager();
+        SetComboxAnimals();
+        try {
+            SetComboxTime();
+        } catch (ParseException ex) {
+            Logger.getLogger(ChooseAnimalAndTimeJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     public ChooseAnimalAndTimeJFrame() {
@@ -68,14 +85,53 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
         }
 
-        //Combobox test
-        jComboBoxName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{null, "Affe", "Tiger"}));
-        jComboTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{null, "15:00-15:15", "15:15-15:30"}));
+        
+        
+        
+        
+        
 
         Methods methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
 
     }
+    
+    public void SetComboxAnimals(){
+        
+    LinkedList<String> animals = guestModeManager.getAnimals();
+    
+    
+    String [] anames = new String[animals.size()+1];
+    anames [0] = null;
+
+     for (int i = 0;i < animals.size();i++){
+          
+          anames[i+1] = animals.get(i);
+          
+        }
+     DefaultComboBoxModel dm = new DefaultComboBoxModel(anames);
+     jComboBoxName.setModel(dm);
+     
+     }
+    
+     public void SetComboxTime() throws ParseException{
+         
+     LinkedList<String> times = guestModeManager.getTimes();
+     
+     String [] atimes = new String[times.size()+1];
+     atimes [0] = null;
+     
+     for(int i = 0;i < times.size();i++){
+        
+         atimes[i+1] = times.get(i);
+         
+        }
+    DefaultComboBoxModel dm = new DefaultComboBoxModel(atimes);
+    jComboTime.setModel(dm);
+    
+     
+         
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -132,6 +188,13 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         });
 
         jComboTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboTime.setToolTipText("");
+        jComboTime.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jComboTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboTimeActionPerformed(evt);
+            }
+        });
 
         jButtonSearch.setText("Suchen");
         jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -152,29 +215,28 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                 .addComponent(jLabelFindOut)
                 .addGap(470, 470, 470))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(740, 740, 740)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelTime)
-                                    .addComponent(jLabelName))
-                                .addGap(54, 54, 54)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxName, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboTime, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(700, 700, 700)
-                        .addComponent(jLabelChoose)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1389, 1389, 1389)
                 .addComponent(jLabelShowDateTime, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(486, 486, 486))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(700, 700, 700)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelTime)
+                            .addComponent(jLabelName))
+                        .addGap(54, 54, 54)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBoxName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboTime, 0, 122, Short.MAX_VALUE)))
+                    .addComponent(jLabelChoose))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +249,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                 .addComponent(jLabelFindOut)
                 .addGap(96, 96, 96)
                 .addComponent(jLabelChoose)
-                .addGap(95, 95, 95)
+                .addGap(92, 92, 92)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelName)
                     .addComponent(jComboBoxName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -195,9 +257,9 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTime)
                     .addComponent(jComboTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(68, 68, 68)
+                .addGap(124, 124, 124)
                 .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(433, 433, 433))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -216,13 +278,16 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
             public void run() {
 
                 //Fallunterscheidung
+                //animal
                 if (jComboBoxName.getSelectedItem()!= null && jComboTime.getSelectedItem() == null) {
 
-                    new ChooseAnimalJFrame(thisFrame,zooManager).setVisible(true);
+                    new ChooseAnimalJFrame(thisFrame,zooManager, (String) jComboBoxName.getSelectedItem()).setVisible(true);
                 }
-
+                //Zeit    
                 if (jComboBoxName.getSelectedItem() == null && jComboTime.getSelectedItem() != null) {
-                    new ChooseTimeJFrame(thisFrame).setVisible(true);
+                    //String in Date
+                    
+                    new ChooseTimeJFrame(thisFrame,zooManager,(String) jComboTime.getSelectedItem()).setVisible(true);
                 }
                 if (jComboBoxName.getSelectedItem() != null && jComboTime.getSelectedItem() != null) {
 
@@ -257,9 +322,15 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
     private void jComboBoxNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxNameActionPerformed
         // TODO add your handling code here:
+        
+        
 
 
     }//GEN-LAST:event_jComboBoxNameActionPerformed
+
+    private void jComboTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboTimeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboTimeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -318,5 +389,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
     private javax.swing.JFrame goBackFrame;
     private ZooManager zooManager;
+    private GuestModeManager guestModeManager;
+    private Date date;
 
 }

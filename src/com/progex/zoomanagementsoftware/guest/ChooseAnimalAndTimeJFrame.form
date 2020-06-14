@@ -34,37 +34,34 @@
               <EmptySpace min="-2" pref="470" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="740" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jButtonSearch" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabelTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabelName" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jComboBoxName" min="-2" pref="133" max="-2" attributes="0"/>
-                                  <Component id="jComboTime" min="-2" pref="133" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="700" max="-2" attributes="0"/>
-                      <Component id="jLabelChoose" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButtonBack" min="-2" pref="179" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="1389" max="-2" attributes="0"/>
               <Component id="jLabelShowDateTime" pref="259" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jButtonSearch" min="-2" pref="868" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="486" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="700" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabelTime" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelName" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jComboBoxName" max="32767" attributes="0"/>
+                          <Component id="jComboTime" pref="122" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="jLabelChoose" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -80,7 +77,7 @@
               <Component id="jLabelFindOut" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
               <Component id="jLabelChoose" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelName" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jComboBoxName" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -90,9 +87,9 @@
                   <Component id="jLabelTime" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jComboTime" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
               <Component id="jButtonSearch" min="-2" pref="91" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="433" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -162,7 +159,14 @@
             <StringItem index="3" value="Item 4"/>
           </StringArray>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Default Cursor"/>
+        </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboTimeActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>

@@ -9,6 +9,7 @@ package com.progex.zoomanagementsoftware.main;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
 import com.progex.zoomanagementsoftware.guest.ChooseAnimalAndTimeJFrame;
 import java.awt.Toolkit;
+import java.text.ParseException;
 import javax.swing.JFrame;
 
 /**
@@ -22,7 +23,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
      */
     
     
-    public MainMenuJFrame() {
+    public MainMenuJFrame() throws ParseException {
         initComponents();
         myInitComponents();
         
@@ -35,6 +36,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
          String dbName = "zoo";
         
          zooManager = new ZooManager(url,dbName,username,password);
+         
+         
          
          
     }

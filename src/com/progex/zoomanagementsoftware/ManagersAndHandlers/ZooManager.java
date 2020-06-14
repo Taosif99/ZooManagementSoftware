@@ -55,6 +55,8 @@ public class ZooManager {
     public GuestModeManager getGuestModeManager() {
         return guestModeManager;
     }
+    
+    
 
     
     /*Methods concerning Compound*/

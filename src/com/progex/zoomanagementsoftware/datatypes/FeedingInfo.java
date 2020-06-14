@@ -16,22 +16,33 @@ public class FeedingInfo
 	
 	private String compundName;
 	
-	private Date startFeedingTime; //WAHRSCHEINLICH IST HIER SQL TIMESTAMP ANGEBRACHT
+	private String startFeedingTime; //WAHRSCHEINLICH IST HIER SQL TIMESTAMP ANGEBRACHT
 	
 	private String foodName;
 	
-	private Date endFeedingTime;
+	private String endFeedingTime;
 
-    public FeedingInfo(String animalName, String animalBirthDay, String animalSex, String compundName, Date startFeedingTime, String foodName, Date endFeedingTime) {
+    
+    
+    
+    public FeedingInfo(String compoundName,String startFeedingTime, String endFeedingTime, String foodName) {
+   
         
-        this.animalName = animalName;
-        this.animalBirthday = animalBirthDay;
-        this.animalSex = animalSex;
         this.compundName = compundName;
         this.startFeedingTime = startFeedingTime;
         this.foodName = foodName;
         this.endFeedingTime = endFeedingTime;
     }
+    
+    public FeedingInfo(String animal,String compoundName, String foodName) {
+   
+        this.animalName =animal;
+        this.compundName = compundName;
+        this.foodName = foodName;
+        
+    }
+    
+    
     
     public FeedingInfo(int ID){
         
@@ -75,11 +86,11 @@ public class FeedingInfo
         this.compundName = compundName;
     }
 
-    public Date getStartFeedingTime() {
+    public String getStartFeedingTime() {
         return startFeedingTime;
     }
 
-    public void setStartFeedingTime(Date startFeedingTime) {
+    public void setStartFeedingTime(String startFeedingTime) {
         this.startFeedingTime = startFeedingTime;
     }
 
@@ -91,11 +102,11 @@ public class FeedingInfo
         this.foodName = foodName;
     }
 
-    public Date getEndFeedingTime() {
+    public String getEndFeedingTime() {
         return endFeedingTime;
     }
 
-    public void setEndFeedingTime(Date endFeedingTime) {
+    public void setEndFeedingTime(String endFeedingTime) {
         this.endFeedingTime = endFeedingTime;
     }
 
