@@ -501,7 +501,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             String ID = jTextFieldID.getText().trim();
         
            LinkedHashMap<String,String> columnNameToValue = new LinkedHashMap<String,String>();
-           columnNameToValue.put("ID", ID);
+           columnNameToValue.put("Animal.ID", ID);
            columnNameToValue.put("AnimalName", animalName);
            columnNameToValue.put("Sex", sex);
            columnNameToValue.put("Birthday", birthday);
