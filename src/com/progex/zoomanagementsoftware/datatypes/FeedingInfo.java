@@ -14,7 +14,7 @@ public class FeedingInfo
 	
 	private String animalSex;
 	
-	private String compundName;
+	private String compoundName;
 	
 	private String startFeedingTime; //WAHRSCHEINLICH IST HIER SQL TIMESTAMP ANGEBRACHT
 	
@@ -28,7 +28,7 @@ public class FeedingInfo
     public FeedingInfo(String compoundName,String startFeedingTime, String endFeedingTime, String foodName) {
    
         
-        this.compundName = compundName;
+        this.compoundName = compoundName;
         this.startFeedingTime = startFeedingTime;
         this.foodName = foodName;
         this.endFeedingTime = endFeedingTime;
@@ -37,7 +37,14 @@ public class FeedingInfo
     public FeedingInfo(String animal,String compoundName, String foodName) {
    
         this.animalName =animal;
-        this.compundName = compundName;
+        this.compoundName = compoundName;
+        this.foodName = foodName;
+        
+    }
+    
+    public FeedingInfo(String compoundName, String foodName) {
+   
+        this.compoundName = compoundName;
         this.foodName = foodName;
         
     }
@@ -79,11 +86,11 @@ public class FeedingInfo
     }
 
     public String getCompundName() {
-        return compundName;
+        return compoundName;
     }
 
     public void setCompundName(String compundName) {
-        this.compundName = compundName;
+        this.compoundName = compundName;
     }
 
     public String getStartFeedingTime() {

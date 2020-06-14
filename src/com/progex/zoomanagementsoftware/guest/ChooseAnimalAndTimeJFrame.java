@@ -289,10 +289,17 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                     
                     new ChooseTimeJFrame(thisFrame,zooManager,(String) jComboTime.getSelectedItem()).setVisible(true);
                 }
+                //both
                 if (jComboBoxName.getSelectedItem() != null && jComboTime.getSelectedItem() != null) {
 
-                    new ChooseBoth(thisFrame).setVisible(true);
+                    new ChooseBoth(thisFrame,zooManager,(String) jComboBoxName.getSelectedItem(),(String) jComboTime.getSelectedItem()).setVisible(true);
                 }
+                 if (jComboBoxName.getSelectedItem() == null && jComboTime.getSelectedItem() == null) {
+                     
+                     JOptionPane.showMessageDialog(null, "Sie haben keine Fütterungszeit und kein Tier ausgewählt\n\nBitte treffen sie mindestens eine Auswahl","Fehlermeldung", JOptionPane.CANCEL_OPTION);
+                     
+                 }
+                
             }
         });
 

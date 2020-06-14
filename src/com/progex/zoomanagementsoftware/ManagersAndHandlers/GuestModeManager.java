@@ -157,8 +157,38 @@ public class GuestModeManager {
         
         return feedingInfos;
     }    
-    public FeedingInfo getAnimalFeedingInfo(Date feedingTime, String animalName) {
-        return null;
+    public LinkedList<FeedingInfo> getAnimalTimeFeedingInfo(String feedingTime, String animalName) {
+        
+        
+     
+        LinkedList<FeedingInfo> feedingInfos = new LinkedList<FeedingInfo>();
+        String query = "Select distinct compound.name as gehege,food.name as essen FROM compound,food,eats,animal WHERE eats.AnimalID = animal.ID AND eats.FoodID = food.ID AND animal.CompoundID = compound.ID AND eats.StartFeedingTime = '" + feedingTime + " 'AND AnimalName = '"+animalName+"'";
+        ResultSet resultFeeding = connectionHandler.performQuery(query);  
+       
+            if(resultFeeding != null){
+         try{
+                while(resultFeeding.next()){
+                    
+                    
+                    String com = resultFeeding.getString("gehege");
+                    System.out.println(com);
+                    
+                    
+                    String food = resultFeeding.getString("essen");
+                    System.out.println(food);
+                    FeedingInfo newFeedingInfo = new FeedingInfo(com,food);
+                    System.out.println(newFeedingInfo.getCompundName());
+                    feedingInfos.add(newFeedingInfo);
+                }
+                
+                
+            }catch (SQLException e) {
+                System.err.println("SQL exception");
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        return feedingInfos;
     }
     
     

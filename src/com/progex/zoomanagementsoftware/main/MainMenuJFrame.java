@@ -10,6 +10,8 @@ import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
 import com.progex.zoomanagementsoftware.guest.ChooseAnimalAndTimeJFrame;
 import java.awt.Toolkit;
 import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -260,7 +262,11 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainMenuJFrame().setVisible(true);
+                try {
+                    new MainMenuJFrame().setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(MainMenuJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

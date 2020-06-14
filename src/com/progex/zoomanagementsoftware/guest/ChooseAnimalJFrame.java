@@ -94,6 +94,7 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         
         LinkedList<FeedingInfo> feedingInfos = guestModeManager.getAnimalFeedingInfo(animal);
         
+        //fehlermeldung
         DefaultTableModel model = (DefaultTableModel)jTableAninmalData.getModel();
         
         Object[] row = new Object[5]; 
@@ -111,7 +112,8 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
            System.out.println(row[3]);
            model.addRow(row);
          
-        }   
+        }
+        
     
     
     
