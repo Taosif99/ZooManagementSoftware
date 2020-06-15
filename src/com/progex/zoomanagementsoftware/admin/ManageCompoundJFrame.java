@@ -39,8 +39,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     public void myInitComponents() {
         updateButtonsAndLabels();
-        LinkedList<Compound> compounds = zooManager.getCompounds();
-        viewCompounds(compounds);
+        //LinkedList<Compound> compounds = zooManager.getCompounds();
+        //viewCompounds(compounds);
 
     }
 
@@ -467,7 +467,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
-
+        cleanTable();
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
 

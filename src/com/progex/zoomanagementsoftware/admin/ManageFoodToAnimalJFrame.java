@@ -696,7 +696,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
-
+         
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
 

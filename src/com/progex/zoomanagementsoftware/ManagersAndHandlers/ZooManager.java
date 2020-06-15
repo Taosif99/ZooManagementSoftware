@@ -40,7 +40,7 @@ public class ZooManager {
     public ZooManager(String url, String dbName, String username, String password) {
 
         connectionHandler = new ConnectionHandler(url, dbName, username, password);
-        userManager = new UserManager(connectionHandler);
+        userManager = new UserManager(connectionHandler,this);
         guestModeManager = new GuestModeManager(connectionHandler);
     }
 
@@ -620,7 +620,7 @@ public class ZooManager {
      * @param queryBegin
      * @return The query as String, null if no String can be built
      */
-    private String generateSearchQuery(LinkedHashMap<String, String> columnValueMap, String queryBegin) {
+    public String generateSearchQuery(LinkedHashMap<String, String> columnValueMap, String queryBegin) {
 
         LinkedHashMap<String, String> nonEmptyColumnValueMap = new LinkedHashMap<String, String>();
 
