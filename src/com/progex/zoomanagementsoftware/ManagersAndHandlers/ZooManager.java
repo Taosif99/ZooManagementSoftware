@@ -666,7 +666,7 @@ public class ZooManager {
 
         } catch (NoSuchElementException noSuchElementException) {
 
-            System.err.println("LinkHashMap value empty or null");
+            System.err.println("LinkedHashMap value empty or null");
             System.out.println(noSuchElementException.getMessage());
             return null;
         }
