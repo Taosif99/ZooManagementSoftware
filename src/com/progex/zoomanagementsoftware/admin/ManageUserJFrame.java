@@ -5,7 +5,6 @@
  */
 package com.progex.zoomanagementsoftware.admin;
 
-
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Address;
@@ -47,8 +46,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     private void myInitComponents() {
 
         updateButtonsAndLabels();
-        //LinkedList<User> users = userManager.getUsers();
-        //viewUsers(users);
+       // LinkedList<User> users = userManager.getUsers();
+       // viewUsers(users);
     }
 
     private void viewUsers(LinkedList<User> users) {
@@ -94,34 +93,31 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     }
 
     /**
-     * ICH WÜRDE ES EHER IN DER DATENBANK VERÄNDERN..., dann fallen
-     * UNNÖTIGE Übersetzungen weg !
-     * @return 
+     * ICH WÜRDE ES EHER IN DER DATENBANK VERÄNDERN..., dann fallen UNNÖTIGE
+     * Übersetzungen weg !
+     *
+     * @return
      */
-    private String getGermanShiftString(){
+    private String getGermanShiftString() {
 
-        
-        
-                       if (userType.equals("Zookeeper")) {
-                      String shiftStr = jComboBoxShift.getSelectedItem().toString();
+        if (userType.equals("Zookeeper")) {
+            String shiftStr = jComboBoxShift.getSelectedItem().toString();
 
-                    /*Nachteil, da shift auf englisch in der DB ist*/
-                    switch (shiftStr) {
-                        case "Früh":
-                            return "Morning";
-                            
-                        case "Nachmittag":
-                            return "Afternoon";
-                            
-                        case "Spät":
-                            return  "Night";    
-                    }
-                } 
-                       return "None";
+            /*Nachteil, da shift auf englisch in der DB ist*/
+            switch (shiftStr) {
+                case "Früh":
+                    return "Morning";
+
+                case "Nachmittag":
+                    return "Afternoon";
+
+                case "Spät":
+                    return "Night";
+            }
+        }
+        return "None";
     }
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -225,6 +221,11 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             }
         });
         jScrollPaneUserData.setViewportView(jTableUserData);
+        if (jTableUserData.getColumnModel().getColumnCount() > 0) {
+            jTableUserData.getColumnModel().getColumn(3).setPreferredWidth(180);
+            jTableUserData.getColumnModel().getColumn(8).setPreferredWidth(180);
+            jTableUserData.getColumnModel().getColumn(10).setPreferredWidth(180);
+        }
 
         buttonGroupUserType.add(jRadioButtonZookeeper);
         jRadioButtonZookeeper.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
@@ -632,13 +633,12 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
 
     private void jRadioButtonZookeeperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonZookeeperActionPerformed
-        
+
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonZookeeperActionPerformed
 
     private void jRadioButtonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAdminActionPerformed
 
-        
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAdminActionPerformed
 
@@ -675,7 +675,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             String password = jPasswordFieldEnteredPW.getText();
             String confirmedPassword = jPasswordFieldConfirm.getText();
             String shiftStr = "None";
-            //User Can be added here
 
             //No only white spaces and no empty password
             if (!password.isBlank() && password.equals(confirmedPassword)) {
@@ -691,24 +690,48 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 String username = jTextFieldUsername.getText();
                 String email = jTextFieldEMail.getText();
 
-                //If user is a zookeeper
-                if (userType.equals("Zookeeper")) {
-     
+                try {
 
-                    shiftStr = getGermanShiftString();
-                if (userManager.addUser(userType, salutationStr, firstname, lastname,
-                        street, zip, city, country, phonenumber,
-                        birthday, shiftStr, username, email, password)) {
+                    if (!methods.isValidDateString(birthday)) {
+                        throw new IllegalArgumentException();
+                    }
 
-                    JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+                    //If user is a zookeeper
+                    if (userType.equals("Zookeeper")) {
 
-                    LinkedList<User> users = userManager.getUsers();
-                    viewUsers(users);
+                        shiftStr = getGermanShiftString();
+                    }
+                    
+                    if (!userManager.usernameExists(username)){
+                    
+                    
+                    
+                    if (userManager.addUser(userType, salutationStr, firstname, lastname,
+                            street, zip, city, country, phonenumber,
+                            birthday, shiftStr, username, email, password)) {
 
-                } else {
+                        JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
 
-                    JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                        LinkedList<User> users = userManager.getUsers();
+                        viewUsers(users);
 
+                    } else {
+
+                        JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+
+                    }
+
+                    
+                    } else {
+                    
+                         JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht eingefügt werden!", "Benutzername bereits vergeben", JOptionPane.CANCEL_OPTION);
+                    }
+                    
+                } catch (IllegalArgumentException illegalArgumentException) {
+
+                    System.err.println("Illegal Argument");
+                    System.out.println(illegalArgumentException.getMessage());
+                    JOptionPane.showMessageDialog(null, "Bitte Geburtstsag im format yyyy-MM-dd eintragen !", "Falsches Datumformat", JOptionPane.CANCEL_OPTION);
                 }
 
             } else {
@@ -719,50 +742,49 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
         }
 
-        }
-       
     }//GEN-LAST:event_jButtonAddUserActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
 
-    
-                String firstname = jTextFieldFirstname.getText().trim();
-                String lastname = jTextFieldLastname.getText().trim();
-                String street = jTextFieldStreet.getText().trim();//
-                String zip = jTextFieldZIP.getText().trim();//
-                String city = jTextFieldCity.getText().trim(); //
-                String country = jTextFieldCountry.getText().trim(); 
-                String phonenumber = jTextFieldPhoneNumber.getText().trim();
-                String birthday = jTextFieldBirthday.getText().trim();
-                String username = jTextFieldUsername.getText().trim();
-                String email = jTextFieldEMail.getText().trim();
-                String salutationStr = jComboBoxSalutation.getSelectedItem().toString();
-                String userID = jTextFieldID.getText().trim(); //TODO PARSE ID AS INTEGER
-                
-                String shiftStr = getGermanShiftString();
-                
-                int addressIdInt = userManager.searchAddressId(zip, street, city);
-                String addressId = "";
-                if (addressIdInt != -1 ) addressId = String.valueOf(addressIdInt);
-                
-           LinkedHashMap<String,String> columnNameToValue = new LinkedHashMap<String,String>();
-           columnNameToValue.put("Address.ID",addressId); //TODO FILTER OUT -1
-           columnNameToValue.put("FirstName",firstname);
-           columnNameToValue.put("LastName",lastname);
-           columnNameToValue.put("Coutry",country); //macht country sinn???
-           columnNameToValue.put("PhoneNumber",phonenumber);
-           columnNameToValue.put("Birthday",birthday);
-           columnNameToValue.put("UserName",username);
-           columnNameToValue.put("Email",email);
-           columnNameToValue.put("Salutation",salutationStr);
-           columnNameToValue.put("User.ID",userID);
-           //Überlegen, macht eine address spezifische suche sinn ? 
-            columnNameToValue.put("Zip",zip);
-            columnNameToValue.put("Street",street);
-            columnNameToValue.put("Country",country);
-           LinkedList<User> users = userManager.searchUsers(columnNameToValue);
-           viewUsers(users);
-                
+        String firstname = jTextFieldFirstname.getText().trim();
+        String lastname = jTextFieldLastname.getText().trim();
+        String street = jTextFieldStreet.getText().trim();//
+        String zip = jTextFieldZIP.getText().trim();//
+        String city = jTextFieldCity.getText().trim(); //
+        String country = jTextFieldCountry.getText().trim();
+        String phonenumber = jTextFieldPhoneNumber.getText().trim();
+        String birthday = jTextFieldBirthday.getText().trim();
+        String username = jTextFieldUsername.getText().trim();
+        String email = jTextFieldEMail.getText().trim();
+        String salutationStr = jComboBoxSalutation.getSelectedItem().toString();
+        String userID = jTextFieldID.getText().trim(); //TODO PARSE ID AS INTEGER
+
+        String shiftStr = getGermanShiftString();
+
+        int addressIdInt = userManager.searchAddressId(zip, street, city);
+        String addressId = "";
+        if (addressIdInt != -1) {
+            addressId = String.valueOf(addressIdInt);
+        }
+
+        LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
+        columnNameToValue.put("Address.ID", addressId); //TODO FILTER OUT -1
+        columnNameToValue.put("FirstName", firstname);
+        columnNameToValue.put("LastName", lastname);
+        columnNameToValue.put("Coutry", country); //macht country sinn???
+        columnNameToValue.put("PhoneNumber", phonenumber);
+        columnNameToValue.put("Birthday", birthday);
+        columnNameToValue.put("UserName", username);
+        columnNameToValue.put("Email", email);
+        columnNameToValue.put("Salutation", salutationStr);
+        columnNameToValue.put("User.ID", userID);
+        //Überlegen, macht eine address spezifische suche sinn ? 
+        columnNameToValue.put("Zip", zip);
+        columnNameToValue.put("Street", street);
+        columnNameToValue.put("Country", country);
+        LinkedList<User> users = userManager.searchUsers(columnNameToValue);
+        viewUsers(users);
+
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
@@ -800,12 +822,12 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonHelpActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
-
+        cleanTable();
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
 
     private void jRadioButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonUpdateActionPerformed
-   
+
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonUpdateActionPerformed
 
@@ -815,7 +837,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonDeleteActionPerformed
 
     private void jButtonDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteUserActionPerformed
-
 
         JTextField textFields[] = {jTextFieldID};
         boolean textFieldsVerified = methods.verifyTextFields(textFields);
@@ -853,29 +874,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht gelöscht werden !", "IDfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
         }
 
-
-
-
-
-        /*
-
-        int decision = JOptionPane.showConfirmDialog(null, "Sind Sie sicher?", "Löschbestätigung",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-        System.out.println(decision);
-
-        if (jRadioButtonZookeeper.isSelected() == true) {
-
-            JOptionPane.showMessageDialog(null, "Tierpfleger/-in konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-
-            JOptionPane.showMessageDialog(null, "Tierpfleger/-in wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-        } else if (jRadioButtonAdmin.isSelected() == true) {
-
-            JOptionPane.showMessageDialog(null, "Admin konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-
-            JOptionPane.showMessageDialog(null, "Admin wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-        }*/
-
     }//GEN-LAST:event_jButtonDeleteUserActionPerformed
 
     private void jButtonUpdateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateUserActionPerformed
@@ -887,7 +885,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             jTextFieldCity, jTextFieldCountry,
             jTextFieldPhoneNumber, jTextFieldBirthday,
             jTextFieldUsername, jTextFieldEMail};
-            
+
         boolean textFieldsVerified = methods.verifyTextFields(textFields);
 
         if (textFieldsVerified) {
@@ -899,93 +897,76 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             String password = jPasswordFieldEnteredPW.getText();
             String confirmedPassword = jPasswordFieldConfirm.getText();
             String shiftStr = "None";
-         try{   
-            int id = Integer.parseInt(jTextFieldID.getText());
-            
-            //Use
+            try {
+                int id = Integer.parseInt(jTextFieldID.getText());
 
-            //No only white spaces and no empty password
-            if (!password.isBlank() && password.equals(confirmedPassword)) {
+                //Use
+                //No only white spaces and no empty password
+                if (!password.isBlank() && password.equals(confirmedPassword)) {
 
-                String firstname = jTextFieldFirstname.getText();
-                String lastname = jTextFieldLastname.getText();
-                String street = jTextFieldStreet.getText();
-                String zip = jTextFieldZIP.getText();
-                String city = jTextFieldCity.getText();
-                String country = jTextFieldCountry.getText();
-                String phonenumber = jTextFieldPhoneNumber.getText();
-                String birthday = jTextFieldBirthday.getText();
-                String username = jTextFieldUsername.getText();
-                String email = jTextFieldEMail.getText();
+                    String firstname = jTextFieldFirstname.getText();
+                    String lastname = jTextFieldLastname.getText();
+                    String street = jTextFieldStreet.getText();
+                    String zip = jTextFieldZIP.getText();
+                    String city = jTextFieldCity.getText();
+                    String country = jTextFieldCountry.getText();
+                    String phonenumber = jTextFieldPhoneNumber.getText();
+                    String birthday = jTextFieldBirthday.getText();
+                    String username = jTextFieldUsername.getText();
+                    String email = jTextFieldEMail.getText();
+                    if (!methods.isValidDateString(birthday)) {
+                        throw new IllegalArgumentException();
+                    }
+                    //If user is a zookeeper
+                    if (userType.equals("Zookeeper")) {
+                        shiftStr = getGermanShiftString();
 
-                //If user is a zookeeper
-                if (userType.equals("Zookeeper")) {
-                    shiftStr = jComboBoxShift.getSelectedItem().toString();
-
-                    /*Nachteil, da shift auf englisch in der DB ist*/
-                    switch (shiftStr) {
-                        case "Früh":
-                            shiftStr = "Morning";
-                            break;
-                        case "Nachmittag":
-                            shiftStr = "Afternoon";
-                            break;
-                        case "Spät":
-                            shiftStr = "Night";
-                            break;
                     }
 
-                }
-
-                if (userManager.updateUser(id,userType ,salutationStr, firstname, 
-                                           lastname, street, zip, city, country, 
-                                           phonenumber, birthday, shiftStr, username, email, password)) {
-
-                    JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich geupdated werden!", "Updaten erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-
-                    LinkedList<User> users = userManager.getUsers();
-                    viewUsers(users);
-
+                    if (!userManager.usernameExists(username)){
                     
-                    //TODO CLEAN FIELDS
-                    //AFTER UPDATE?
+                    if (userManager.updateUser(id, userType, salutationStr, firstname,
+                            lastname, street, zip, city, country,
+                            phonenumber, birthday, shiftStr, username, email, password)) {
+
+                        JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich geupdated werden!", "Updaten erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+
+                        LinkedList<User> users = userManager.getUsers();
+                        viewUsers(users);
+
+                        //TODO CLEAN FIELDS
+                        //AFTER UPDATE?
+                    } else {
+
+                        JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+
+                    } } else {
+                    
+                             JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdated werden!", "Nutzername bereits vergeben", JOptionPane.CANCEL_OPTION);
+                    }
+
                 } else {
 
-                    JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                    JOptionPane.showMessageDialog(null, "Bitte überprüfen Sie die passwörter", "Passwörter nicht identisch", JOptionPane.CANCEL_OPTION);
 
                 }
 
-            } else {
-
-                JOptionPane.showMessageDialog(null, "Bitte überprüfen Sie die passwörter", "Passwörter nicht identisch", JOptionPane.CANCEL_OPTION);
-
-            }
-        
-        }
-         //CATCH   
-            catch (NumberFormatException numberFormatException) {
+              
+                     
+            } catch (NumberFormatException numberFormatException) {
 
                 System.err.println("NumberFormatException");
                 System.out.println(numberFormatException.getMessage());
                 JOptionPane.showMessageDialog(null, "Nutzer konnte nicht geupdated werden !", "IDfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
 
+            } catch (IllegalArgumentException illegalArgumentException) {
+
+                System.err.println("Illegal Argument");
+                System.out.println(illegalArgumentException.getMessage());
+                JOptionPane.showMessageDialog(null, "Bitte Geburtstsag im format yyyy-MM-dd eintragen !", "Falsches Datumformat", JOptionPane.CANCEL_OPTION);
             }
-            
-            
+
         }
-        
-        /*
-        if (jRadioButtonZookeeper.isSelected() == true) {
-
-            JOptionPane.showMessageDialog(null, "Tierpfleger/-in konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-
-            JOptionPane.showMessageDialog(null, "Tierpfleger/-in wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-        } else if (jRadioButtonAdmin.isSelected() == true) {
-
-            JOptionPane.showMessageDialog(null, "Admin konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-
-            JOptionPane.showMessageDialog(null, "Admin wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-        }*/
 
     }//GEN-LAST:event_jButtonUpdateUserActionPerformed
 
