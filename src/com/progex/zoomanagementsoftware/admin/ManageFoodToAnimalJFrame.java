@@ -167,6 +167,10 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         jLabelEndFeedingTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelEndFeedingTime.setText("Ende Fütterungszeit");
 
+        jTextFieldStartFeedingTime.setToolTipText("Format: yyyy-MM-dd HH:mm");
+
+        jTextFieldEndFeedingTime.setToolTipText("Format: yyyy-MM-dd HH:mm");
+
         jButtonAdd.setText("Hinzufügen");
         jButtonAdd.setPreferredSize(new java.awt.Dimension(73, 23));
         jButtonAdd.addActionListener(new java.awt.event.ActionListener() {

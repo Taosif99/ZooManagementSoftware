@@ -382,6 +382,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldBirthday.setToolTipText("Format: yyyy-MM-dd");
+
         jButtonAddUser.setText("Hinzufügen");
         jButtonAddUser.setPreferredSize(new java.awt.Dimension(73, 23));
         jButtonAddUser.addActionListener(new java.awt.event.ActionListener() {

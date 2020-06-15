@@ -252,8 +252,14 @@
     <Component class="javax.swing.JTextField" name="jTextFieldAnimalName">
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldStartFeedingTime">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Format: yyyy-MM-dd HH:mm"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldEndFeedingTime">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Format: yyyy-MM-dd HH:mm"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonAdd">
       <Properties>
