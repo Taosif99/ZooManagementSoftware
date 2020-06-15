@@ -225,6 +225,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             jTableUserData.getColumnModel().getColumn(3).setPreferredWidth(180);
             jTableUserData.getColumnModel().getColumn(8).setPreferredWidth(180);
             jTableUserData.getColumnModel().getColumn(10).setPreferredWidth(180);
+            jTableUserData.getColumnModel().getColumn(11).setPreferredWidth(180);
         }
 
         buttonGroupUserType.add(jRadioButtonZookeeper);
