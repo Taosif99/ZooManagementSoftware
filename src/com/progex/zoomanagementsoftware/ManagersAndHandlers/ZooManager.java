@@ -89,6 +89,7 @@ public class ZooManager {
         return compounds;
     }
 
+    //Methods concerning Food
     public LinkedList<Food> createFoods(ResultSet resultSet) {
         LinkedList<Food> foods = new LinkedList<Food>();
         if (resultSet != null) {
@@ -112,7 +113,12 @@ public class ZooManager {
         return foods;
     }
 
-    //Methods concerning Food
+    /**
+     * This method is used to get certain foods.
+     *
+     * @param columnValueMap
+     * @return
+     */
     public LinkedList<Food> searchFoods(LinkedHashMap<String, String> columnValueMap) {
 
         String query = generateSearchQuery(columnValueMap, "SELECT id, storageRoomNumber, stock, name FROM food WHERE ");
@@ -126,6 +132,11 @@ public class ZooManager {
         return foods;
     }
 
+    /**
+     * This method is used to get all foods from the database.
+     *
+     * @return
+     */
     public LinkedList<Food> getFoods() {
 
         String query = "SELECT id, storageRoomNumber, stock, name FROM food";
@@ -136,7 +147,7 @@ public class ZooManager {
 
     public boolean checkFoodExists(String name, int id) {
 
-        System.out.println("In chekcFood " + name + " " + id);
+        //System.out.println("In chekcFood " + name + " " + id);
         try {
             ResultSet resultSet;
             String query;
@@ -144,34 +155,32 @@ public class ZooManager {
                 query = "SELECT id FROM food WHERE id = " + id;
                 System.out.println(query);
                 resultSet = connectionHandler.performQuery(query);
+
                 if (resultSet != null) {
-                    while (resultSet.next()) {
-                        String tempId = resultSet.getString("ID");
-                        System.out.println(tempId + " in if");
-                        if (tempId != null) {
-                            return true;
-                        }
+                    if (resultSet.next()) {
+                        return true;
                     }
                 }
-            } else if (!name.isEmpty()) {
+            } else {
                 query = "SELECT name FROM food WHERE name = '" + name + "'";
                 System.out.println(query);
                 resultSet = connectionHandler.performQuery(query);
                 if (resultSet != null) {
-                    while (resultSet.next()) {
-                        String tempName = resultSet.getString("Name");
-                        System.out.println(tempName + " in else");
-                        if (tempName != null) {
-                            return true;
-                        }
+                    if (resultSet.next()) {
+                        return true;
                     }
                 }
             }
-            //System.out.println(name.isEmpty());
+
         } catch (SQLException e) {
+            System.err.println("SQL Exception");
+            System.out.print(e.getMessage());
             e.printStackTrace();
         }
-        System.out.println("false");
+
+        System.out.println(
+                "false");
+
         return false;
     }
 
@@ -209,39 +218,134 @@ public class ZooManager {
      * @param animalName
      * @return
      */
-    public int[] getAnimalIds(String animalName) {
+    public LinkedList<Integer> getAnimalIds(String animalName) {
 
-        int[] animalIds = new int[10];  //muss dynamisch sein
-        int counter = 0;
+        LinkedList<Integer> animalIds = new LinkedList<Integer>();
 
         try {
+
             String query = "SELECT id FROM animal WHERE animalName = '" + animalName + "'";
 
             System.out.println(query);
             ResultSet resultSet = connectionHandler.performQuery(query);
             if (resultSet != null) {
                 while (resultSet.next()) {
-
-                    animalIds[counter] = resultSet.getInt("id");
-                    System.out.println(counter + "   " + animalIds[counter]);
-                    counter++;
+                    animalIds.add(resultSet.getInt("id"));
+                    //System.out.println(resultSet.getInt("id"));
                 }
             }
         } catch (SQLException e) {
+            System.err.println("SQL Exception");
+            System.out.print(e.getMessage());
             e.printStackTrace();
         }
         return animalIds;
     }
 
-    public boolean addZookeeperToAnimal(int[] animalIds, String zookeeperId) {
+    public boolean addZookeeperToAnimal(LinkedList<Integer> animalIds, String zookeeperId) {
         String query;
-        for (int i = 0; i < animalIds.length; i++) {
-            query = "INSERT INTO TakesCare(UserID,AnimalID) VALUES(" + zookeeperId + "," + animalIds[i] + ")";
+        System.out.println("add zookeeperId  : " + zookeeperId);
+        for (Integer animalId : animalIds) {
+            query = "INSERT INTO takesCare(UserID,AnimalID) VALUES(" + zookeeperId + "," + animalId + ")";
+            System.out.println("In add: " + animalId);
             if (!connectionHandler.manipulateDB(query)) {
                 return false;
             }
         }
+
         return true;
+    }
+
+    public boolean deleteZookeeperToAnimal(LinkedList<Integer> animalIds, int zookeeperId) {
+
+        boolean retVal = false;
+        String query;
+        System.out.println("delete zookeeperId  : " + zookeeperId);
+        for (Integer animalId : animalIds) {
+            query = "DELETE FROM takesCare WHERE userId = " + zookeeperId + " AND animalId = " + animalId;
+            System.out.println("In delete: " + animalId);
+            retVal = connectionHandler.manipulateDB(query);
+        }
+        return retVal;
+    }
+
+    private LinkedList<ZookeeperToAnimalR> createZookeeperToAnimal(ResultSet resultSet) {
+        LinkedList<ZookeeperToAnimalR> records = new LinkedList<ZookeeperToAnimalR>();
+        try {
+            while (resultSet.next()) {
+                int userId = resultSet.getInt("userId");
+                String firstname = resultSet.getString("firstname");
+                String lastname = resultSet.getString("lastname");
+                int animalId = resultSet.getInt("animalId");
+                String animalName = resultSet.getString("animalName");
+                ZookeeperToAnimalR record = new ZookeeperToAnimalR(userId, firstname, lastname, animalId, animalName);
+                records.add(record);
+            }
+        } catch (SQLException e) {
+            System.err.println("SQL Exception");
+            System.out.print(e.getMessage());
+            e.printStackTrace();
+        }
+        return records;
+    }
+
+    public LinkedList<ZookeeperToAnimalR> searchZookeeperToAnimal(LinkedHashMap<String, String> columnValueMap) {
+
+        String begin = "SELECT takescare.UserID, user.firstname, user.lastname, takescare.AnimalID, animal.AnimalName\n"
+                + "FROM takescare\n"
+                + "INNER JOIN user ON takescare.UserID = user.id\n"
+                + "INNER JOIN animal ON takescare.AnimalID = animal.ID WHERE ";
+
+        String query = generateSearchQuery(columnValueMap, begin);
+        System.out.println(query);
+        LinkedList<ZookeeperToAnimalR> records;
+        if (query != null) {
+            ResultSet resultSet = connectionHandler.performQuery(query);
+            records = createZookeeperToAnimal(resultSet);
+        } else {
+            return this.getZookeeperToAnimalR();
+        }
+        return records;
+    }
+
+    public LinkedList<ZookeeperToAnimalR> getZookeeperToAnimalR() {
+
+        String query = "SELECT takescare.UserID, user.firstname, user.lastname, takescare.AnimalID, animal.AnimalName\n"
+                + "FROM takescare\n"
+                + "INNER JOIN user ON takescare.UserID = user.id\n"
+                + "INNER JOIN animal ON takescare.AnimalID = animal.ID";
+
+        ResultSet resultSet = connectionHandler.performQuery(query);
+        LinkedList<ZookeeperToAnimalR> records = createZookeeperToAnimal(resultSet);
+        return records;
+    }
+
+    public boolean checkZookeeperToAnimalExists(String animalName, int zookeeperId) {
+
+        LinkedList<Integer> animalIds = getAnimalIds(animalName);
+        System.out.println("check:   " + zookeeperId);
+        String query;
+
+        try {
+            ResultSet resultSet;
+
+            for (Integer animalId : animalIds) {
+                query = "SELECT * FROM takesCare WHERE userId = " + zookeeperId + " AND animalId = " + animalId;
+                resultSet = connectionHandler.performQuery(query);
+
+                if (resultSet != null) {
+                    if (resultSet.next()) {
+                        return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+
+            System.err.println("SQL Exception");
+            System.out.print(e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
@@ -253,7 +357,7 @@ public class ZooManager {
      * @param queryBegin
      * @return The query as String, null if no String can be built
      */
-    private String generateSearchQuery(LinkedHashMap<String, String> columnValueMap, String queryBegin) {
+    public String generateSearchQuery(LinkedHashMap<String, String> columnValueMap, String queryBegin) {
 
         LinkedHashMap<String, String> nonEmptyColumnValueMap = new LinkedHashMap<String, String>();
 

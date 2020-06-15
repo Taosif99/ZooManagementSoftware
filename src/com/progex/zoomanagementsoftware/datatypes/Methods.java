@@ -86,6 +86,179 @@ public class Methods {
 
         return true;
     }
+    
+    /**
+     * Method to get the corresponding description enum of an Animal
+     *
+     * @param descriptionStr
+     * @return The correspondig enum to the description String
+     */
+    public Description stringToDescription(String descriptionStr) {
+
+        Description description = null;
+        switch (descriptionStr) {
+
+            case "Säugetier":
+                description = Description.mammal;
+                break;
+            case "Fisch":
+                description = Description.fish;
+                break;
+            case "Vogel":
+                description = Description.bird;
+                break;
+            case "Amphibie":
+                description = Description.amphibian;
+                break;
+            case "Reptil":
+                description = Description.reptile;
+                break;
+            case "Insekt":
+                description = Description.insect;
+                break;
+            case "Spinnentier":
+                description = Description.arachnid;
+                break;
+            case "Wirbellos":
+                description = Description.invertebrate;
+                break;
+        }
+
+        return description;
+    }
+
+    /**
+     * Method to convert a description enum to its corresponding "german" value.
+     *
+     * @param description
+     * @return The description as String
+     */
+    public String descriptionToString(Description description) {
+
+        String descriptionStr = null;
+
+        switch (description) {
+
+            case fish:
+                descriptionStr = "Fisch";
+                break;
+            case bird:
+                descriptionStr = "Vogel";
+                break;
+            case mammal:
+                descriptionStr = "Säugetier";
+                break;
+            case amphibian:
+                descriptionStr = "Amphibie";
+                break;
+            case reptile:
+                descriptionStr = "Reptil";
+                break;
+            case insect:
+                descriptionStr = "Insekt";
+                break;
+            case arachnid:
+                descriptionStr = "Spinnentier";
+                break;
+            case invertebrate:
+                descriptionStr = "Wirbellos";
+                break;
+        }
+
+        return descriptionStr;
+
+    }
+
+    
+    /**
+     * Method which has been implemented to convert a salutation String 
+     * to an enum type
+     * @param salutationStr
+     * @return The corresponding salutation
+     */
+    public Salutation stringToSalutation(String salutationStr){
+    
+        switch (salutationStr) {
+            case "Frau":
+                return Salutation.mrs;
+            case "Herr":
+                return Salutation.mr;
+            default:
+                return Salutation.diverse;
+        }
+    
+    }
+    
+    /**
+     * Method which has been implemented to convert a Salutation enum
+     * to a String
+     * @param salutation
+     * @return The corresponding salutation if mapping is possible, else an empty String
+     */
+    public String salutationToString(Salutation salutation){
+       
+        if (null == salutation) return "";
+        else switch (salutation) {
+            case mr:
+                return "Herr";
+            case mrs:
+                return "Frau";
+            case diverse:
+                return "divers";
+            default:
+                return "";
+        }
+    }
+    
+    /**
+     * Method which has been implemented to convert a shift String 
+     * to an enum type -> Vielleicht besser wenn wir es in der Datenbank auf deutsch haben ???
+     * @param shiftStr
+     * @return The corresponding shift,null if it does not exist
+     */
+    public Shift stringToShift(String shiftStr){
+    
+        switch (shiftStr) {
+            case "None":
+                return Shift.none;
+            case "Night":
+                return Shift.night;
+            case "Afternoon":
+                return Shift.afternoon;
+            case "Morning":
+                return Shift.morning;
+        }
+    
+        return null;
+    }
+    
+    
+    
+    
+    
+    /**
+     * Method which has been implemented to convert a Shift enum
+     * to a String
+     * @param shift
+     * @return The corresponding shift as String if mapping is possible, else an empty String
+     */
+    public String shiftToString(Shift shift){
+       
+        
+        if (null == shift) return "";
+        else switch (shift) {
+            case none:
+                return "KEINE";
+            case night:
+                return "Spät";
+            case afternoon:
+                return "Nachmittag";
+            case morning:
+                return "Früh";
+            default:
+                return "";
+        }
+    }
 
     public void fullscreen() {
 
