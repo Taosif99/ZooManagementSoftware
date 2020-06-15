@@ -46,7 +46,7 @@ public class GuestModeManager {
                     String times = timestampstart.toString();
                     String tmp = times.substring(0, 10);
                     //Datum von heute in compStamp bzw tmpTwo speichern
-                    System.out.println(tmp);
+                    
                     java.sql.Timestamp compStamp = new java.sql.Timestamp(System.currentTimeMillis());
                     String tmpTwo = compStamp.toString().substring(0, 10);
                     
@@ -58,7 +58,7 @@ public class GuestModeManager {
                     
                     
                         String com = resultFeeding.getString("Gehege");
-                        System.out.println(com);
+                        
                     
                     
                         java.util.Date dateend = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(resultFeeding.getString("EndFeedingTime"));
@@ -67,7 +67,7 @@ public class GuestModeManager {
                         String timeEnd = timee.substring(11, 16);
                     
                         String food = resultFeeding.getString("Essen");
-                        System.out.println(food);
+                        
                         FeedingInfo newFeedingInfo = new FeedingInfo(com,timeStart,timeEnd,food);
                         feedingInfos.add(newFeedingInfo);
                     }    
@@ -107,16 +107,15 @@ public class GuestModeManager {
         return animals;
         
     }
+    
+    
     /*get all available feedingtimes*/
     public LinkedList<String> getTimes() throws ParseException{
         LinkedList<String> times = new LinkedList<String>();
         String query = "Select distinct startFeedingTime from eats order by startFeedingTime ASC";
         ResultSet resultTimes = connectionHandler.performQuery(query);
         
-        //java.util.Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2011-05-18 16:29:31");
         
-        
-
         
         if(resultTimes != null){
             
@@ -131,7 +130,7 @@ public class GuestModeManager {
                     String time = timestampstart.toString();
                     String tmp = time.substring(0, 10);
                     //Datum von heute in compStamp bzw tmpTwo speichern
-                    System.out.println(tmp);
+                    
                     java.sql.Timestamp compStamp = new java.sql.Timestamp(System.currentTimeMillis());
                     String tmpTwo = compStamp.toString().substring(0, 10);
                     
@@ -157,7 +156,7 @@ public class GuestModeManager {
         
        
        LinkedList<FeedingInfo> feedingInfos = new LinkedList<FeedingInfo>();
-        System.out.println(feedingTime);
+        
        String query = "Select distinct animalName, compound.name as gehege,food.name as essen From animal,compound,food,eats WHERE eats.AnimalID = animal.ID AND eats.FoodID = food.ID AND animal.CompoundID = compound.ID AND eats.StartFeedingTime = '" + feedingTime + "'";//TODO
        ResultSet resultFeeding = connectionHandler.performQuery(query);  
        
@@ -166,14 +165,14 @@ public class GuestModeManager {
                 while(resultFeeding.next()){
                     
                     String animal = resultFeeding.getString("animalName"); 
-                    System.out.println(animal);
+                
                     
                     String com = resultFeeding.getString("gehege");
-                    System.out.println(com);
+                    
                     
                     
                     String food = resultFeeding.getString("essen");
-                    System.out.println(food);
+                    
                     FeedingInfo newFeedingInfo = new FeedingInfo(animal,com,food);
                     feedingInfos.add(newFeedingInfo);
                 }
@@ -187,6 +186,7 @@ public class GuestModeManager {
         
         return feedingInfos;
     } 
+    
     
     /*If User choose a animal and time, this is the function for the labels food and compound*/
     public LinkedList<FeedingInfo> getAnimalTimeFeedingInfo(String feedingTime, String animalName) {
@@ -203,13 +203,13 @@ public class GuestModeManager {
                     
                     
                     String com = resultFeeding.getString("gehege");
-                    System.out.println(com);
+                    
                     
                     
                     String food = resultFeeding.getString("essen");
-                    System.out.println(food);
+                
                     FeedingInfo newFeedingInfo = new FeedingInfo(com,food);
-                    System.out.println(newFeedingInfo.getCompundName());
+                    
                     feedingInfos.add(newFeedingInfo);
                 }
                 

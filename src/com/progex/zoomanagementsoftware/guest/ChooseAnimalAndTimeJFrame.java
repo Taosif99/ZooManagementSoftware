@@ -7,6 +7,7 @@ package com.progex.zoomanagementsoftware.guest;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.GuestModeManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
+import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import com.progex.zoomanagementsoftware.main.MainMenuJFrame;
 import java.awt.Toolkit;
@@ -21,6 +22,7 @@ import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -274,7 +276,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                 //animal
                 if (jComboBoxName.getSelectedItem()!= null && jComboTime.getSelectedItem() == null) {
                     
-
+                    
                     new ChooseAnimalJFrame(thisFrame,zooManager, (String) jComboBoxName.getSelectedItem()).setVisible(true);
                 }
                 //time   
@@ -291,7 +293,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                  if (jComboBoxName.getSelectedItem() == null && jComboTime.getSelectedItem() == null) {
                      
                      JOptionPane.showMessageDialog(null, "Sie haben keine Fütterungszeit und kein Tier ausgewählt\n\nBitte treffen sie mindestens eine Auswahl","Fehlermeldung", JOptionPane.CANCEL_OPTION);
-                     
+                     new ChooseAnimalAndTimeJFrame(goBackFrame,zooManager);
                  }
                 
             }
@@ -322,14 +324,59 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jComboBoxNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxNameActionPerformed
-        // TODO add your handling code here:
+        if(jComboBoxName.getSelectedItem() != null){
+            try {
+                String animal = (String)jComboBoxName.getSelectedItem();
+            
+                LinkedList<FeedingInfo> feedingInfos = guestModeManager.getAnimalFeedingInfo(animal);
+                ArrayList <String> time = new ArrayList <String>();
+                String [] mode = new String[feedingInfos.size()+1];
+            
+                //fehlermeldung
+
+
+                Object row = new Object();
+
+
+                for (FeedingInfo feedingInfo : feedingInfos){
+                    //Hier bekommt man die Spalten der Zeile
+
+                    row = feedingInfo.getStartFeedingTime();
+                    
+                    time.add(row.toString());
+                    
+
+                }
+
+
+                mode = time.toArray(mode);
+
+                DefaultComboBoxModel dm = new DefaultComboBoxModel(mode);
+                jComboTime.setModel(dm);
+
+            } catch (ParseException ex) {
+                Logger.getLogger(ChooseAnimalAndTimeJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            }else{
+            
+            try {
+                SetComboxTime();
+            } catch (ParseException ex) {
+                Logger.getLogger(ChooseAnimalAndTimeJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }    
         
-
-
+        
+     
     }//GEN-LAST:event_jComboBoxNameActionPerformed
 
     private void jComboTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboTimeActionPerformed
-        // TODO add your handling code here:
+        
+        
+        
+        
+        
     }//GEN-LAST:event_jComboTimeActionPerformed
 
     /**

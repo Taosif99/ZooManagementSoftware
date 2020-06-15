@@ -93,7 +93,11 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         
         LinkedList<FeedingInfo> feedingInfos = guestModeManager.getAnimalFeedingInfo(animal);
         if(feedingInfos.isEmpty()){ //BEARBEITEN
+            
+            goBackFrame.setVisible(true);
+            this.dispose();
             JOptionPane.showMessageDialog(null, "Keine Fütterungen für 'Tier' heute!\n\nVielleicht haben sie an einem anderen Tag mehr Glück :)");
+            
         }
         else{
         //fehlermeldung

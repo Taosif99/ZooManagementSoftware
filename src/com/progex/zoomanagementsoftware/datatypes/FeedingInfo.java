@@ -49,6 +49,12 @@ public class FeedingInfo
         
     }
     
+    public FeedingInfo(String animalName) {
+   
+        this.animalName = animalName;
+        
+    }
+    
     
     
     public FeedingInfo(int ID){
