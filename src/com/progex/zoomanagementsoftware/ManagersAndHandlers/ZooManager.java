@@ -215,7 +215,7 @@ public class ZooManager {
                 + "INNER JOIN "
                 + "compound "
                 + "ON animal.CompoundID = compound.ID) "
-                + "AS joinedTable WHERE joinedTable.UserName = \"" + username + "\" "
+                + "AS joinedTable WHERE joinedTable.UserName = \"" + username + "\" and joinedTable.FütterungsZeit > current_date() "
                 + "ORDER BY fütterungszeit desc";
 
         return connectionHandler.performQuery(query);
