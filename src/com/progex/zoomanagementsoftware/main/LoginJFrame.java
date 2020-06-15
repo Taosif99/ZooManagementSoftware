@@ -7,6 +7,9 @@ package com.progex.zoomanagementsoftware.main;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.admin.AdminHomepageJFrame;
+import com.progex.zoomanagementsoftware.datatypes.Admin;
+import com.progex.zoomanagementsoftware.datatypes.User;
+import com.progex.zoomanagementsoftware.datatypes.Zookeeper;
 import com.progex.zoomanagementsoftware.hashing.MD5Hash;
 import com.progex.zoomanagementsoftware.zookeeper.ZookeeperModeHomePageJFrame;
 import java.awt.Color;
@@ -158,9 +161,11 @@ public class LoginJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_formWindowClosing
 
-    // login Button performed
+    /**
+     * login Button pressed
+     * @param evt 
+     */
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
-        try {
 
             // Get username from input field
             String username = jTextFieldUsername.getText();
@@ -170,12 +175,30 @@ public class LoginJFrame extends javax.swing.JFrame {
             String hashedPw = hasher.hashString(new String(jPasswordFieldPassword.getPassword()));
 
             // Check if username and password match data in database and if user is zookeepr 
-            if (zooManager.isUserAccepted(username, hashedPw).equals("ZOOKEEPER")) {
+            
+            User user = zooManager.getUserManager().login(username, hashedPw);
+            
+            if(user instanceof Admin){
+                
+                zooManager.getUserManager().setLoggedInUser(user);
+                
+                //                //Open admin window here
+                /* Create and display Admin Homepage form */
+                // Open AdminHomePage when Login successful and pass zooManager reference
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new AdminHomepageJFrame(zooManager).setVisible(true);
+                    }
+                });
 
-                System.out.println("OldLastLogDate: " + zooManager.getLastLoginDateFromUser());
-                zooManager.updateLastLogDateFromUser();
-                System.out.println("updatesLastLogDate: " + zooManager.getLastLoginDateFromUser());
+                mainMenuJFrame.setVisible(false);
+                this.dispose();                
+                
+            }
+            if(user instanceof Zookeeper){
 
+                zooManager.getUserManager().setLoggedInUser(user);
+                
                 // Open ZookeeperHomePage when Login successful and pass zooManager reference
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
@@ -187,37 +210,16 @@ public class LoginJFrame extends javax.swing.JFrame {
                             Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                });
-
+                });                
+                
                 //Make main menue invisible
                 mainMenuJFrame.setVisible(false);
-                this.dispose();
+                this.dispose();                
             }
-
-            // Check if username and password match data in database and if user is admin 
-            if (zooManager.isUserAccepted(username, hashedPw).equals("ADMIN")) {
-
-                //                //Open admin window here
-                /* Create and display Admin Homepage form */
-                // Open AdminHomePage when Login successful and pass zooManager reference
-                java.awt.EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                        new AdminHomepageJFrame(zooManager).setVisible(true);
-                    }
-                });
-
-                mainMenuJFrame.setVisible(false);
-                this.dispose();
-            }
-            // If Login was not successful
-            if (zooManager.isUserAccepted(username, hashedPw).equals("ERROR")) {
+            else{
                 jLabelLoginError.setText("Anmeldedaten nicht korrekt!");
-                jLabelLoginError.setForeground(Color.RED);
+                jLabelLoginError.setForeground(Color.RED);                
             }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
     /**

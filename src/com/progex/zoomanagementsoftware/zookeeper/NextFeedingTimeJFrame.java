@@ -46,22 +46,33 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
     }
 
     
-    // Method is used to display feedingInfo. Method gets all information from zooManager
+    /**
+     * Method is used to display feedingInfo. Method gets all information from zooManager
+     * @throws SQLException
+     * @throws ParseException 
+     */
     public void setFeedingInfo() throws SQLException, ParseException {
 
-        FeedingInfo x = zooManager.getNextFeedingInfo();
-
+        FeedingInfo x = zooManager.getUserManager().getNextFeedingInfo();
+        
+        String food = x.getFoodName();
+        String animalName = x.getAnimalName();
+        String storageRoom = x.getAbstellraum();
+        double amount = x.getAmountOfFood();
+        String compound = x.getCompundName();
+        int nextFeedingTimeInMinutes = zooManager.getUserManager().getNextFeedingInfoInMinutes();
+        
         // If nextfeedingInfo has valid minute time then display it
         
-        if(x.getNextFeedingInMinutes() >= 0){
-            nextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung in "+x.getNextFeedingInMinutes()+" Minuten");
-            futter.setText("Futter: "+x.getFoodName());
-            abstellraumnummer.setText("Abstellraumnummer: "+x.getAbstellraum());
-            futtermenge.setText("Menge: "+x.getAmountOfFood()+" Kilogramm");
-            gehege.setText("Gehege: "+x.getCompundName());
-            tierName.setText("Tier: "+x.getAnimalName());
+        System.out.println("DEBUG NEXT FEEDING TIME JFRAME: "+nextFeedingTimeInMinutes);
         
-        
+        if(nextFeedingTimeInMinutes != -1 ){
+            nextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung in : "+nextFeedingTimeInMinutes+" Minuten");
+            futter.setText("Futter: "+food);
+            abstellraumnummer.setText("Abstellraumnummer: "+storageRoom);
+            futtermenge.setText("Menge: "+amount+" Kilogramm");
+            gehege.setText("Gehege: "+compound);
+            tierName.setText("Tier: "+animalName);
         }
         // else dont display it, instead display that there are no feedings anymore
         else{
@@ -72,12 +83,16 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
             gehege.setText("");
             tierName.setText("");       
         
-        }
+    //    }
 
+    }
     }
 
     
-    // resolution settings
+    
+    /**
+     * resolution settings
+     */
     public void myInitComponents() {
 
         //setUndecorated(true);
@@ -284,11 +299,15 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    // Button Logout pressed
+   
+    /**
+     * Button "Logout" pressed
+     * @param evt 
+     */
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
         try {
             // TODO add your handling code here:
-            zooManager.updateLastLogDateFromUser();
+            zooManager.getUserManager().logout();
             this.dispose();
             mainMenuJFrame.setVisible(true);
         } catch (SQLException ex) {
@@ -309,7 +328,11 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonNextFeedingTimeMouseClicked
 
-    // Button show AllFeedingTime pressed
+   
+    /**
+     * Button show AllFeedingTime pressed
+     * @param evt 
+     */
     private void jButtonNextFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeActionPerformed
         // TODO add your handling code here:
 
@@ -328,7 +351,10 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonNextFeedingTimeActionPerformed
 
-    // Button zurück is pressed
+    /**
+     * Button "zurück is pressed"
+     * @param evt 
+     */
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);

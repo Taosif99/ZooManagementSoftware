@@ -44,7 +44,9 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
         populateTableInKG();
     }
 
-    // Settings for resolution
+    /**
+     * Settings for resolution
+     */
     private void myInitComponents() {
 
         Toolkit tk = Toolkit.getDefaultToolkit();
@@ -67,16 +69,19 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
 
     }
 
-    //tj4qgd <- Password for schäfernooa
-    // populate the jtable by getting the resultSet from zooManager and populating it with a lib
+    /**
+     * populate the jtable by getting the resultSet from zooManager and populating it with a lib
+     */
     private void populateTableInKG() {
-        jTableAlleFütterungen.setModel(DbUtils.resultSetToTableModel(zooManager.getAllFeedingTimeInKG()));
+        jTableAlleFütterungen.setModel(DbUtils.resultSetToTableModel(zooManager.getUserManager().getAllFeedingTimeInKG()));
     }
 
-// populate the jtable by getting the resultSet from zooManager and populating it with a lib
+    /**
+     * populate the jtable by getting the resultSet from zooManager and populating it with a lib
+     */
     private void populateTableInGramm() {
 
-        jTableAlleFütterungen.setModel(DbUtils.resultSetToTableModel(zooManager.getAllFeedingTimeInGramm()));
+        jTableAlleFütterungen.setModel(DbUtils.resultSetToTableModel(zooManager.getUserManager().getAllFeedingTimeInGramm()));
 
     }
 
@@ -253,7 +258,10 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     private void jLabelTimeAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabelTimeAncestorAdded
     }//GEN-LAST:event_jLabelTimeAncestorAdded
 
-    // When Pressing Zurück Button
+    /**
+     * When Pressing "zurück" Button
+     * @param evt 
+     */
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
         this.setVisible(false);
         zookeeperModeHomePageFrame.setVisible(true);
@@ -265,16 +273,22 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     private void jButtonNextFeedingTimeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeMouseClicked
     }//GEN-LAST:event_jButtonNextFeedingTimeMouseClicked
 
-    // When pressing Radiobutton "Menge in Kilogramm"
+    /**
+     *  When pressing Radiobutton "Menge in Kilogramm"
+     * @param evt 
+     */
     private void jRadioButtonAmountOfFoodInKiloGrammActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAmountOfFoodInKiloGrammActionPerformed
         populateTableInKG();
 
     }//GEN-LAST:event_jRadioButtonAmountOfFoodInKiloGrammActionPerformed
 
-    // When pressing Logout Button
+    /**
+     * When pressing "Logout" Button
+     * @param evt 
+     */
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
         try {
-            zooManager.updateLastLogDateFromUser();
+            zooManager.getUserManager().logout();
             this.dispose();
             mainMenuJFrame.setVisible(true);
         } catch (SQLException ex) {
@@ -286,7 +300,10 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     private void jButtonLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLogoutMouseClicked
     }//GEN-LAST:event_jButtonLogoutMouseClicked
 
-    // When pressing Button "Näcshste Fütterung anzeigen"
+    /**
+     * When pressing Button "Näcshste Fütterung anzeigen"
+     * @param evt 
+     */
     private void jButtonNextFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeActionPerformed
 
         if (nextFeedingTimeFrame != null) {
@@ -313,7 +330,10 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonNextFeedingTimeActionPerformed
 
-    // Pressing Radiobutton "Menge in gramm anzeigen"
+    /**
+     *  Pressing Radiobutton "Menge in gramm anzeigen"
+     * @param evt 
+     */
     private void jRadioButtonAmountOfFoodInGrammActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAmountOfFoodInGrammActionPerformed
         populateTableInGramm();
     }//GEN-LAST:event_jRadioButtonAmountOfFoodInGrammActionPerformed

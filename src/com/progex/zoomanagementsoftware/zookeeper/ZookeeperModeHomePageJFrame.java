@@ -27,57 +27,70 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
      */
     public ZookeeperModeHomePageJFrame(JFrame goBack, ZooManager zooManager) throws SQLException, ParseException {
         initComponents();
-        
+
         // resolution settings init
         myInitComponents();
-        
+
         // init references and paramteres
         this.zooManager = zooManager;
         this.setLocationRelativeTo(null);
         mainMenuJFrame = goBack;
-        
+
         // set welcome user label
         setNameLabel();
         // set lastlogdate from user
         setLastLogDate();
-        
+
         // Display next feeding time
         setNextFeedingTimeInfo();
 
     }
 
-    
-    // this methods gets from the zoomangager the nextfeedingtime and is displayed accordingly
+    /**
+     * this methods gets from the zoomangager the nextfeedingtime and is displayed accordingly
+     * @throws SQLException
+     * @throws ParseException 
+     */
     private void setNextFeedingTimeInfo() throws SQLException, ParseException {
 
-        if (zooManager.getNextFeedingInfo().getNextFeedingInMinutes() >= 0) {
-            nächsteFütterungIn.setText("Nächste Fütterung in :" + zooManager.getNextFeedingInfo().getNextFeedingInMinutes() + " Minuten");
-        } else {
-            nächsteFütterungIn.setText("Keine Fütterung für heute mehr");
-
+        
+        if(zooManager.getUserManager().getNextFeedingInfo().getNextFeedingInMinutes() >= 0){
+        nächsteFütterungIn.setText("Nächste Fütterung in : " + zooManager.getUserManager().getNextFeedingInfoInMinutes() + " Minuten");
+        
+        }
+        else{
+        nächsteFütterungIn.setText("Keine Fütterung mehr heute!");
+            
         }
     }
-    
-    
-    
-    // name of zookeeper is displayed accordingly
+
+    /**
+     * name of zookeeper is displayed accordingly
+     * @throws SQLException 
+     */
     private void setNameLabel() throws SQLException {
 
-        zookeeperName.setText("Hallo " + zooManager.getNameOfUser() + "!");
-
-    }
-
-    // lastlogdate of zookeeper is displayed accordingly    
-    private void setLastLogDate() throws SQLException {
-
-        jLabelLastLoginTime.setText(zooManager.getLastLoginDateFromUser());
-
-        System.out.println("--------- HOMEPAGE GET LASTLOGDATE---------" + zooManager.getLastLoginDateFromUser());
+        zookeeperName.setText("Hallo " + zooManager.getUserManager().getLoggedInUser().getFirstname() + "!");
 
     }
 
     
-    // resolution settings
+    /**
+     *  lastlogdate of zookeeper is displayed accordingly 
+     * @throws SQLException 
+     */
+    private void setLastLogDate() throws SQLException {
+
+        jLabelLastLoginTime.setText("" + zooManager.getUserManager().getLoggedInUser().getLastLogDate());
+
+        System.out.println("--------- HOMEPAGE GET LASTLOGDATE---------" + zooManager.getUserManager().getLoggedInUser().getLastLogDate());
+
+    }
+
+    // 
+    /**
+     * resolution settings
+     */
     private void myInitComponents() {
 
         Toolkit tk = Toolkit.getDefaultToolkit();
@@ -223,7 +236,11 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
     }//GEN-LAST:event_formWindowClosed
 
-    // Nächste Fütterung anzeigen Button Click Event
+   
+    /**
+     * Nächste Fütterung anzeigen Button Click Event
+     * @param evt 
+     */
     private void jButtonNextFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeActionPerformed
         // TODO add your handling code here:
         this.dispose();
@@ -252,8 +269,10 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:   
     }//GEN-LAST:event_jButtonAllFeedingTime1MouseClicked
 
-    
-    // "Alle Fütterungen Anzeigen" Button is pressed
+    /**
+     * "Alle Fütterungen Anzeigen" Button is pressed
+     * @param evt 
+     */
     private void jButtonAllFeedingTime1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAllFeedingTime1ActionPerformed
         // TODO add your handling code here:
 
@@ -266,12 +285,14 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButtonAllFeedingTime1ActionPerformed
 
-    
-    // "LOGOUT" Button is pressed
+    /**
+     * "LOGOUT" Button is pressed
+     * @param evt 
+     */
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
 
         try {
-            zooManager.updateLastLogDateFromUser();
+            zooManager.getUserManager().logout();
             this.dispose();
             mainMenuJFrame.setVisible(true);
         } catch (SQLException ex) {

@@ -27,7 +27,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         will be passed to the corresponding frames*/
         String url = "jdbc:mysql://localhost/";
         String username = "root";
-        String password = "0000";
+        String password = "AbuKungFu707-";
         String dbName = "zoo";
 
         zooManager = new ZooManager(url, dbName, username, password);
@@ -176,8 +176,11 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jButtonGuestFeedingTimeActionPerformed
 
-    // This Methods opens the loginframe
 
+    /**
+     *  This Methods opens the loginframe
+     * @param evt 
+     */
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
 
         JFrame thisFrame = this;

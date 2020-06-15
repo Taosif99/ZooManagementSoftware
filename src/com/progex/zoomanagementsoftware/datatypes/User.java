@@ -1,6 +1,7 @@
 package com.progex.zoomanagementsoftware.datatypes;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * @(#) User.java
@@ -27,9 +28,9 @@ public abstract class User {
 
     private Address address;
 
-    private Date lastLogDate;
+    private Timestamp lastLogDate;
 
-    public User(String username, String firstname, String lastname, String email, String phoneNumber, int id, Salutation salutation, Date birthday, String hashedPassword, Address address, Date lastLogDate) {
+    public User(String username, String firstname, String lastname, String email, String phoneNumber, int id, Salutation salutation, Date birthday, String hashedPassword, Address address, Timestamp lastLogDate) {
 
         this.username = username;
         this.firstname = firstname;
@@ -120,11 +121,11 @@ public abstract class User {
         this.address = address;
     }
 
-    public Date getLastLogDate() {
+    public Timestamp getLastLogDate() {
         return lastLogDate;
     }
 
-    public void setLastLogDate(Date lastLogDate) {
+    public void setLastLogDate(Timestamp lastLogDate) {
         this.lastLogDate = lastLogDate;
     }
 }
