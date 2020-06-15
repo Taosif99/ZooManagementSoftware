@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 //import javax.swing.table.TableColumnModel;
 
 /**
@@ -27,45 +28,43 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ManageUserJFrame
-     * @param goBackFrame The frame which will appear when the go back button is used
+     *
+     * @param goBackFrame The frame which will appear when the go back button is
+     * used
      */
-    public ManageUserJFrame(JFrame goBackFrame,ZooManager zooManager) {
+    public ManageUserJFrame(JFrame goBackFrame, ZooManager zooManager) {
         initComponents();
         this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
         userManager = zooManager.getUserManager();
-        methods = new Methods();    
-        methods.showTimeAndDate(jLabelShowDateTime);  
+        methods = new Methods();
+        methods.showTimeAndDate(jLabelShowDateTime);
         myInitComponents();
     }
-    
-    
-    
-    
-    public void myInitComponents(){
-       
+
+    public void myInitComponents() {
+
         updateButtonsAndLabels();
         LinkedList<User> users = userManager.getUsers();
         viewUsers(users);
-     }
-    
-    
-    
-    
-     public void viewUsers(LinkedList<User> users){
-     
+    }
+
+    public void viewUsers(LinkedList<User> users) {
+
         cleanTable();
-                cleanTable();
+        cleanTable();
         DefaultTableModel model = (DefaultTableModel) jTableUserData.getModel();
         Object[] row = new Object[13]; // Spalten
 
         for (User user : users) {
-            
+
             row[0] = user.getId();
-            if (user instanceof Zookeeper){
-            Shift shift =  ((Zookeeper) user).getShift();
-            row[1] = methods.shiftToString(shift);
-            } else row[1] = "KEINE";
+            if (user instanceof Zookeeper) {
+                Shift shift = ((Zookeeper) user).getShift();
+                row[1] = methods.shiftToString(shift);
+            } else {
+                row[1] = "KEINE";
+            }
             row[2] = methods.salutationToString(user.getSalutation());
             row[3] = user.getUsername();
             row[4] = user.getFirstname();
@@ -73,25 +72,26 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             row[6] = user.getPhoneNumber();
             row[7] = user.getBirthday();
             row[8] = user.getEmail();
-            
+
             Address address = user.getAddress();
             row[9] = address.getZip();
             row[10] = address.getStreet();
             row[11] = address.getCity();
             row[12] = address.getCountry();
-      
+
             model.addRow(row);
         }
-     
-     }
-    
-        private void cleanTable(){
-    
+
+    }
+
+    private void cleanTable() {
+
         DefaultTableModel tableModel = (DefaultTableModel) jTableUserData.getModel();
         while (tableModel.getRowCount() > 0) {
             tableModel.removeRow(0);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -189,6 +189,11 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jTableUserData.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTableUserData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTableUserData.getTableHeader().setReorderingAllowed(false);
+        jTableUserData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableUserDataMouseClicked(evt);
+            }
+        });
         jScrollPaneUserData.setViewportView(jTableUserData);
 
         buttonGroupUserType.add(jRadioButtonZookeeper);
@@ -589,20 +594,21 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
-        
+
         goBackFrame.setVisible(true);
         //Close frame
         this.dispose();
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
-    
-    private void jRadioButtonZookeeperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonZookeeperActionPerformed
 
+    private void jRadioButtonZookeeperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonZookeeperActionPerformed
+        userType = "Zookeeper";
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonZookeeperActionPerformed
 
     private void jRadioButtonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAdminActionPerformed
 
+        userType = "Admin";
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAdminActionPerformed
 
@@ -619,37 +625,87 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxShiftActionPerformed
 
     private void jButtonAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddUserActionPerformed
-        
-        
-        jTextFieldID.setText(""); 
-        JTextField textFields[] = {jTextFieldFirstname,jTextFieldLastname,
-                                    jTextFieldStreet,jTextFieldZIP,
-                                    jTextFieldCity,jTextFieldCountry,
-                                    jTextFieldPhoneNumber, jTextFieldBirthday,
-                                    jTextFieldUsername,jTextFieldEMail};
-        
+
+        //TODO CHECK IF BIRTHDAY IS VALID DATE
+        jTextFieldID.setText("");
+        JTextField textFields[] = {jTextFieldFirstname, jTextFieldLastname,
+            jTextFieldStreet, jTextFieldZIP,
+            jTextFieldCity, jTextFieldCountry,
+            jTextFieldPhoneNumber, jTextFieldBirthday,
+            jTextFieldUsername, jTextFieldEMail};
+
         boolean textFieldsVerified = methods.verifyTextFields(textFields);
-        
-        if (textFieldsVerified){
-        
-        String salutation = jComboBoxSalutation.getSelectedItem().toString();
-        //TODO CHAR ARRAY FOR SECURITY
-        //char password[] = jPasswordFieldEnteredPW.getPassword();
-        //char confirmedPassword[] = jPasswordFieldConfirm.getPassword();
-        String password = jPasswordFieldEnteredPW.getText();
-        String confirmedPassword = jPasswordFieldEnteredPW.getText();
-        String shift = "None";
-        
-        //If user is a zookeeper
-        if (userType.equals("Zookeeper")){
-        shift = jComboBoxShift.getSelectedItem().toString();
+
+        if (textFieldsVerified) {
+
+            String salutationStr = jComboBoxSalutation.getSelectedItem().toString();
+            //TODO CHAR ARRAY FOR SECURITY
+            //char password[] = jPasswordFieldEnteredPW.getPassword();
+            //char confirmedPassword[] = jPasswordFieldConfirm.getPassword();
+            String password = jPasswordFieldEnteredPW.getText();
+            String confirmedPassword = jPasswordFieldConfirm.getText();
+            String shiftStr = "None";
+            //User Can be added here
+
+            //No only white spaces and no empty password
+            if (!password.isBlank() && password.equals(confirmedPassword)) {
+
+                String firstname = jTextFieldFirstname.getText();
+                String lastname = jTextFieldLastname.getText();
+                String street = jTextFieldStreet.getText();
+                String zip = jTextFieldZIP.getText();
+                String city = jTextFieldCity.getText();
+                String country = jTextFieldCountry.getText();
+                String phonenumber = jTextFieldPhoneNumber.getText();
+                String birthday = jTextFieldBirthday.getText();
+                String username = jTextFieldUsername.getText();
+                String email = jTextFieldEMail.getText();
+
+                //If user is a zookeeper
+                if (userType.equals("Zookeeper")) {
+                    shiftStr = jComboBoxShift.getSelectedItem().toString();
+                
+                   
+                    /*Nachteil, da shift auf englisch in der DB ist*/
+                            switch (shiftStr) {
+                            case "Früh":
+                                shiftStr = "Morning";
+                                break;
+                            case "Nachmittag":
+                                shiftStr = "Afternoon";
+                                break;
+                            case "Spät":
+                                   shiftStr = "Night";
+                                   break;
+                            }
+                
+                
+                
+                }
+
+                if (userManager.addUser(userType, salutationStr, firstname, lastname,
+                        street, zip, city, country, phonenumber,
+                        birthday, shiftStr, username, email, password)) {
+
+                    JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+
+                    LinkedList<User> users = userManager.getUsers();
+                    viewUsers(users);
+
+                } else {
+
+                    JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+
+                }
+
+            } else {
+
+                JOptionPane.showMessageDialog(null, "Bitte überprüfen Sie die passwörter", "Passwörter nicht identisch", JOptionPane.CANCEL_OPTION);
+
+            }
+
         }
-        
-        
-        
-        }
-        
-        
+
         /*
         
         if(jRadioButtonZookeeper.isSelected() == true){
@@ -676,120 +732,141 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         //System.out.println(mode); //Debug
 
         //Get the mode
-        switch(mode){
+        switch (mode) {
 
             case "Add admin":
-            JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
-            break;
-            
+                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+                break;
+
             case "Add zookeeper":
-            JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
-            break;
+                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+                break;
 
             case "Update admin":
-            JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Admins ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
-            break;
-            
+                JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Admins ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
+                break;
+
             case "Update zookeeper":
-            JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Tierpfleger/-in ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
-            break;
-            
+                JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Tierpfleger/-in ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
+                break;
+
             case "Delete admin":
-            JOptionPane.showMessageDialog(null, "Bitte die ID des zu löschenden Admins ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
-            break;
-            
+                JOptionPane.showMessageDialog(null, "Bitte die ID des zu löschenden Admins ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
+                break;
+
             case "Delete zookeeper":
-            JOptionPane.showMessageDialog(null, "Bitte die ID des zu löschenden Tierpfleger/-in ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
-            break;
+                JOptionPane.showMessageDialog(null, "Bitte die ID des zu löschenden Tierpfleger/-in ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
+                break;
         }
     }//GEN-LAST:event_jButtonHelpActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
-
+        mode = "Add";
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
 
     private void jRadioButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonUpdateActionPerformed
-
+        mode = "Update";
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonUpdateActionPerformed
 
     private void jRadioButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDeleteActionPerformed
-
+        mode = "Delete";
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonDeleteActionPerformed
 
     private void jButtonDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteUserActionPerformed
-        
-        int decision = JOptionPane.showConfirmDialog(null,"Sind Sie sicher?", "Löschbestätigung",
-                
-        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-        
+
+        int decision = JOptionPane.showConfirmDialog(null, "Sind Sie sicher?", "Löschbestätigung",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
         System.out.println(decision);
 
-        if(jRadioButtonZookeeper.isSelected() == true){
-          
+        if (jRadioButtonZookeeper.isSelected() == true) {
+
             JOptionPane.showMessageDialog(null, "Tierpfleger/-in konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-       
+
             JOptionPane.showMessageDialog(null, "Tierpfleger/-in wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else if(jRadioButtonAdmin.isSelected() == true){
-            
+        } else if (jRadioButtonAdmin.isSelected() == true) {
+
             JOptionPane.showMessageDialog(null, "Admin konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-       
+
             JOptionPane.showMessageDialog(null, "Admin wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_jButtonDeleteUserActionPerformed
 
     private void jButtonUpdateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateUserActionPerformed
-        
-        if(jRadioButtonZookeeper.isSelected() == true){
-          
+
+        if (jRadioButtonZookeeper.isSelected() == true) {
+
             JOptionPane.showMessageDialog(null, "Tierpfleger/-in konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
 
             JOptionPane.showMessageDialog(null, "Tierpfleger/-in wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else if(jRadioButtonAdmin.isSelected() == true){
-            
+        } else if (jRadioButtonAdmin.isSelected() == true) {
+
             JOptionPane.showMessageDialog(null, "Admin konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-        
+
             JOptionPane.showMessageDialog(null, "Admin wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_jButtonUpdateUserActionPerformed
 
     private void jButtonAnimalsToZookeeperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnimalsToZookeeperActionPerformed
-        
+
         //TODO IN IMPLEMENTATION PHASE:
         //GETTING ID OF INSERTED USER AND PASS IT TO THE MANAGEZOOKEEPERTOANIMAL JFRAME
         this.setVisible(false);
-        JFrame thisFrame = this; 
+        JFrame thisFrame = this;
         /* Create and display the JFrame MangeZookeeperToAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ManageZookeeperToAnimalJFrame(thisFrame).setVisible(true);
             }
         });
-        
+
     }//GEN-LAST:event_jButtonAnimalsToZookeeperActionPerformed
 
-    
+    private void jTableUserDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUserDataMouseClicked
+
+        // TODO CHECK MODE !!!
+        int rowIndex = jTableUserData.getSelectedRow();
+        TableModel model = jTableUserData.getModel();
+
+        jTextFieldID.setText(model.getValueAt(rowIndex, 0).toString());
+        String salutation = model.getValueAt(rowIndex, 2).toString();
+        jComboBoxSalutation.setSelectedItem(salutation);
+        jTextFieldFirstname.setText(model.getValueAt(rowIndex, 4).toString());
+        jTextFieldLastname.setText(model.getValueAt(rowIndex, 5).toString());
+        jTextFieldStreet.setText(model.getValueAt(rowIndex, 10).toString());
+        jTextFieldZIP.setText(model.getValueAt(rowIndex, 9).toString());
+        jTextFieldCity.setText(model.getValueAt(rowIndex, 11).toString());
+        jTextFieldCountry.setText(model.getValueAt(rowIndex, 12).toString());
+        jTextFieldPhoneNumber.setText(model.getValueAt(rowIndex, 6).toString());
+        jTextFieldBirthday.setText(model.getValueAt(rowIndex, 7).toString());
+        String shift = model.getValueAt(rowIndex, 1).toString();
+        jComboBoxShift.setSelectedItem(shift);
+        jTextFieldUsername.setText(model.getValueAt(rowIndex, 3).toString());
+        jTextFieldEMail.setText(model.getValueAt(rowIndex, 8).toString());
+
+
+    }//GEN-LAST:event_jTableUserDataMouseClicked
+
     /**
-     * Method to disable/enable buttons depending user/zookeeper mode
-     * and operation selection.
-     *@return The mode as String, null if unknown mode
+     * Method to disable/enable buttons depending user/zookeeper mode and
+     * operation selection.
+     *
+     * @return The mode as String, null if unknown mode
      */
-    private String updateButtonsAndLabels(){
-        
-        
-        if (jRadioButtonAdmin.isSelected()){
+    private String updateButtonsAndLabels() {
+
+        if (jRadioButtonAdmin.isSelected()) {
             System.out.println("Admin Mode");
-             userType = "Admin";
-             jComboBoxShift.setEnabled(false);
-             jLabelShift.setEnabled(false);
-             jButtonAnimalsToZookeeper.setEnabled(false);
-             if (jRadioButtonAdd.isSelected()){
+            userType = "Admin";
+            jComboBoxShift.setEnabled(false);
+            jLabelShift.setEnabled(false);
+            jButtonAnimalsToZookeeper.setEnabled(false);
+            if (jRadioButtonAdd.isSelected()) {
                 System.out.println("    Add mode");
                 mode = "Add";
                 jButtonAddUser.setEnabled(true);
@@ -800,10 +877,10 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jLabelID.setEnabled(false);
                 jLabelSearch.setEnabled(false);
                 jButtonSearch.setEnabled(false);
-                
+
                 return "Add admin";
-                
-            } else if (jRadioButtonUpdate.isSelected()){
+
+            } else if (jRadioButtonUpdate.isSelected()) {
                 System.out.println("    Update mode");
                 mode = "Update";
                 jButtonAddUser.setEnabled(false);
@@ -813,11 +890,11 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jLabelID.setEnabled(true);
                 jLabelSearch.setEnabled(true);
                 jButtonSearch.setEnabled(true);
-                
+
                 return "Update admin";
-                
-            } else if (jRadioButtonDelete.isSelected()){
-                
+
+            } else if (jRadioButtonDelete.isSelected()) {
+
                 System.out.println("    Delete mode");
                 mode = "Delete";
                 jButtonAddUser.setEnabled(false);
@@ -827,18 +904,16 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jLabelID.setEnabled(true);
                 jLabelSearch.setEnabled(true);
                 jButtonSearch.setEnabled(true);
-                
+
                 return "Delete admin";
             }
-        } 
-        
-        else{
+        } else {
 
             System.out.println("Zookeeper Mode");
             jComboBoxShift.setEnabled(true);
             jLabelShift.setEnabled(true);
-            userType = "Zookeeper"; 
-            if (jRadioButtonAdd.isSelected()){
+            userType = "Zookeeper";
+            if (jRadioButtonAdd.isSelected()) {
                 System.out.println("    Add mode");
                 jButtonAnimalsToZookeeper.setEnabled(true);
                 jButtonAddUser.setEnabled(true);
@@ -851,7 +926,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jButtonSearch.setEnabled(false);
                 mode = "Add";
                 return "Add zookeeper";
-            } else if (jRadioButtonUpdate.isSelected()){
+            } else if (jRadioButtonUpdate.isSelected()) {
                 System.out.println("    Update mode");
                 mode = "Update";
                 jButtonAnimalsToZookeeper.setEnabled(true);
@@ -862,10 +937,10 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jLabelID.setEnabled(true);
                 jLabelSearch.setEnabled(true);
                 jButtonSearch.setEnabled(true);
-                
+
                 return "Update zookeeper";
-                
-            } else if (jRadioButtonDelete.isSelected()){
+
+            } else if (jRadioButtonDelete.isSelected()) {
                 mode = "delete";
                 System.out.println("    Delete mode");
                 jButtonAnimalsToZookeeper.setEnabled(false);
@@ -876,19 +951,15 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jLabelID.setEnabled(true);
                 jLabelSearch.setEnabled(true);
                 jButtonSearch.setEnabled(true);
-                
+
                 return "Delete zookeeper";
             }
-            
+
         }
 
         return null;
     }
-    
-    
-    
-    
-    
+
     /**
      * @param args the command line arguments
      */
@@ -915,7 +986,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-   
 
         String url = "jdbc:mysql://localhost/";
         String username = "root";
@@ -926,7 +996,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageUserJFrame(null,zooManager).setVisible(true);
+                new ManageUserJFrame(null, zooManager).setVisible(true);
             }
         });
     }

@@ -1,10 +1,13 @@
 package com.progex.zoomanagementsoftware.ManagersAndHandlers;
 
 import com.progex.zoomanagementsoftware.datatypes.*;
+import com.progex.zoomanagementsoftware.hashing.MD5Hash;
 import java.util.LinkedList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @(#) UserManager.java
@@ -116,28 +119,62 @@ public class UserManager {
         return users;
     }
     
-    //TODO MAKE SMALLER METHOD !!1
+    //TODO MAKE SMALLER METHOD (one which takes a user as parameter for example)!!!
     
-    public boolean addUser(String salutation,String firstname,
+    public boolean addUser(String type,String salutation,String firstname,
             String lastname,String street,String zip,String city,
             String Country,String phoneNumber,String birthday,String shift,
             String username,String email,String password){
     
     
-        //TODO METHOD TO CHECK IF USER ALREADY EXISTS
+        //TODO METHOD TO CHECK IF username ALREADY EXISTS
         
+        boolean retVal = false;
         
         //Get the address with street,zip,city --> I guess country not requird
-        String addressQuery = "SELECT ID FROM Address \n" +
+        String addressQuery = "SELECT ID FROM Address " +
                               "WHERE Zip = '"+zip +"'" +
-                              " AND Street = '" + street + " " +
+                              " AND Street = '" + street + "'" +
                               " AND City = '" + city + "'";
-        
+        System.out.println(addressQuery);
         ResultSet addressResultSet = connectionHandler.performQuery(addressQuery);
-        if (addressResultSet == null) return false;
-        
-        
-        return false;
+        if (addressResultSet == null) return false; //Eventuell message dass addresse nicht existiert
+        try {
+            addressResultSet.next();
+            
+            
+            int addressId = addressResultSet.getInt("ID");
+            
+            MD5Hash hasher = new MD5Hash();
+            
+            String hashedPassword = hasher.hashString(password);
+            //Know the user can be added 
+            String insertUserQuery = "INSERT INTO User (UserName,FirstName,LastName,PhoneNumber,"
+                                    + "Birthday,Email,Salutation,HashedPassword,"
+                                    + "AddressID,Type,Shift,LastLogDate) \n" +
+                                    "VALUES ('"+username+"',"
+                                    + "'"+firstname +"',"
+                                    + "'"+lastname+"',"
+                                    + "'"+phoneNumber+"',"
+                                    +"'"+birthday+"',"
+                                    + "'"+email+"',"
+                                    + "'"+salutation+"',"
+                                    + "'"+hashedPassword+"',"
+                                    + addressId+ ","
+                                    + "'"+type+"',"
+                                    + "'"+shift+"',"
+                                    + "'1998-01-01 00:00:00')"; //Using zeros as initial log date -> does not work
+            
+           retVal = connectionHandler.manipulateDB(insertUserQuery);  
+            
+        System.out.println(addressQuery);    
+        } catch (SQLException ex) {
+            System.err.println("SQL Exception");
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+       
+        return retVal;
     }
     
     
