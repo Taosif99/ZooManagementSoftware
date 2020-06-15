@@ -147,7 +147,7 @@ public class UserManager {
             String Country, String phoneNumber, String birthday, String shift,
             String username, String email, String password) {
 
-        //TODO METHOD TO CHECK IF username ALREADY EXISTS
+     
         boolean retVal = false;
         //Get the address with street,zip,city --> I guess country not requird
         int addressId = searchAddressId(zip, street, city);
