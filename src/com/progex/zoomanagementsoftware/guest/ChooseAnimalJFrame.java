@@ -4,12 +4,21 @@
  * and open the template in the editor.
  */
 package com.progex.zoomanagementsoftware.guest;
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.GuestModeManager;
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
+import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.text.ParseException;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,48 +29,93 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
     /**
      * Creates new form TiernamejFrame
      */
-    public ChooseAnimalJFrame(JFrame goBackFrame) {
+    public ChooseAnimalJFrame(JFrame goBackFrame,ZooManager zooManager,String animal,LinkedList<FeedingInfo> feedingInfos) {
         
         initComponents();
-        myInitComponents();
+        this.animal = animal;
         this.goBackFrame = goBackFrame; 
+        this.zooManager = zooManager;
+        this.guestModeManager = zooManager.getGuestModeManager();
+        myInitComponents();
+        viewAnimals(feedingInfos);
+        
+        
+        
     }
 
      private void myInitComponents(){
-        setUndecorated(true);
-        setAlwaysOnTop(true);
-        setResizable(false);
-        setVisible(true);
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        int x =(int)tk.getScreenSize().getWidth();
-        int y =(int)tk.getScreenSize().getHeight();
-        setSize(x,y);
-        //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
-        if(x == 1920 && y == 1080){
-            
-            jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 60));
-            jTableAninmalData.setFont(new java.awt.Font("Calibri", 1, 30));
-            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 28));
-            
-            
-        }
-        if(x == 1280 && y == 720){
-            
-            
-            jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 48));
-            jTableAninmalData.setFont(new java.awt.Font("Calibri", 1, 26));
-            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 22));
-        } 
-        //Table change Font
-        JTableHeader tableHeader = jTableAninmalData.getTableHeader();
-        Font headerFont = new Font("Calibri", 0, 22);
-        tableHeader.setFont(headerFont);
         
-        //Date Method
-        Methods methods = new Methods();    
-        methods.showTimeAndDate(jLabelShowDateTime);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+            setUndecorated(true);
+            setAlwaysOnTop(true);
+            setResizable(false);
+            setVisible(true);
+            Toolkit tk = Toolkit.getDefaultToolkit();
+            int x =(int)tk.getScreenSize().getWidth();
+            int y =(int)tk.getScreenSize().getHeight();
+            setSize(x,y);
+            //resolution
+            if(x == 1920 && y == 1080){
+                
+                jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 60));
+                jTableAninmalData.setFont(new java.awt.Font("Calibri", 1, 30));
+                jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 28));
+                
+                
+            }
+            if(x == 1280 && y == 720){
+                
+                
+                jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 48));
+                jTableAninmalData.setFont(new java.awt.Font("Calibri", 1, 26));
+                jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 22));
+            }
+            //Table change Font
+            JTableHeader tableHeader = jTableAninmalData.getTableHeader();
+            Font headerFont = new Font("Calibri", 0, 22);
+            tableHeader.setFont(headerFont);
+            jTableAninmalData.setRowHeight(40);
+            
+            //Date Method
+            methods = new Methods();
+            methods.showTimeAndDate(jLabelShowDateTime);
+            this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            
+            //label init
+            jLabelAnimal.setText(animal);
+            
+            //If there arent available feedingTimes
+            
+            
+            
+            
+            
+        
     }
+     
+    /* Load all relevant Data in the model*/ 
+    private void viewAnimals(LinkedList<FeedingInfo> feedingInfos) {
+        
+        
+            DefaultTableModel model = (DefaultTableModel)jTableAninmalData.getModel();
+            
+            Object[] row = new Object[5];
+            
+            
+            for (FeedingInfo feedingInfo : feedingInfos){
+                //Hier bekommt man die Spalten der Zeile
+                row[0] = feedingInfo.getCompundName();
+                System.out.println(row[0]);
+                row[1] = feedingInfo.getStartFeedingTime();
+                System.out.println(row[1]);
+                row[2] = feedingInfo.getEndFeedingTime();
+                System.out.println(row[2]);
+                row[3] = feedingInfo.getFoodName();
+                System.out.println(row[3]);
+                model.addRow(row);
+
+            }
+    
+    } 
      
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,17 +136,18 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
 
         jScrollPaneAnimalTable.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        jTableAninmalData.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
+        jTableAninmalData.setAutoCreateRowSorter(true);
+        jTableAninmalData.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jTableAninmalData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Fütterungszeit", "Gehegename", "Futter"
+                "Gehege", "Start", "Ende", "Futter"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -141,11 +196,11 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonBack, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(5, 5, 5)
-                        .addComponent(jLabelShowDateTime)))
+                        .addComponent(jLabelShowDateTime))
+                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelAnimal)
                 .addGap(72, 72, 72)
@@ -193,11 +248,17 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        String url ="jdbc:mysql://localhost/";
+         String username = "root";
+         String password = "0000";
+         String dbName = "zoo";
+        
+         ZooManager zooManager = new ZooManager(url,dbName,username,password);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChooseAnimalJFrame(null).setVisible(true);
+                new ChooseAnimalJFrame(null,zooManager,null,null).setVisible(true);
             }
         });
     }
@@ -210,4 +271,10 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JTable jTableAninmalData;
     // End of variables declaration//GEN-END:variables
     private javax.swing.JFrame goBackFrame;
+    private ZooManager zooManager;
+    private GuestModeManager guestModeManager;
+    private Methods methods;
+    private String animal;
+    
+    
 }

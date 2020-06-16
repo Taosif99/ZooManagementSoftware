@@ -7,28 +7,64 @@ import java.sql.Date;
 public class FeedingInfo
 {
 	private String animalName;
+        
+        private int ID;
 	
 	private String animalBirthday;
 	
 	private String animalSex;
 	
-	private String compundName;
+	private String compoundName;
 	
-	private Date startFeedingTime; //WAHRSCHEINLICH IST HIER SQL TIMESTAMP ANGEBRACHT
+	private String startFeedingTime; //WAHRSCHEINLICH IST HIER SQL TIMESTAMP ANGEBRACHT
 	
 	private String foodName;
 	
-	private Date endFeedingTime;
+	private String endFeedingTime;
 
-    public FeedingInfo(String animalName, String animalBirthDay, String animalSex, String compundName, Date startFeedingTime, String foodName, Date endFeedingTime) {
+    
+    
+    
+    public FeedingInfo(String compoundName,String startFeedingTime, String endFeedingTime, String foodName) {
+   
         
-        this.animalName = animalName;
-        this.animalBirthday = animalBirthDay;
-        this.animalSex = animalSex;
-        this.compundName = compundName;
+        this.compoundName = compoundName;
         this.startFeedingTime = startFeedingTime;
         this.foodName = foodName;
         this.endFeedingTime = endFeedingTime;
+    }
+    
+    public FeedingInfo(String animal,String compoundName, String foodName) {
+   
+        this.animalName =animal;
+        this.compoundName = compoundName;
+        this.foodName = foodName;
+        
+    }
+    
+    public FeedingInfo(String compoundName, String foodName) {
+   
+        this.compoundName = compoundName;
+        this.foodName = foodName;
+        
+    }
+    
+    public FeedingInfo(String animalName) {
+   
+        this.animalName = animalName;
+        
+    }
+    
+    
+    
+    public FeedingInfo(int ID){
+        
+        this.ID = ID;
+        
+    }
+    
+    public int getID() {
+        return ID;
     }
 
     public String getAnimalName() {
@@ -56,18 +92,18 @@ public class FeedingInfo
     }
 
     public String getCompundName() {
-        return compundName;
+        return compoundName;
     }
 
     public void setCompundName(String compundName) {
-        this.compundName = compundName;
+        this.compoundName = compundName;
     }
 
-    public Date getStartFeedingTime() {
+    public String getStartFeedingTime() {
         return startFeedingTime;
     }
 
-    public void setStartFeedingTime(Date startFeedingTime) {
+    public void setStartFeedingTime(String startFeedingTime) {
         this.startFeedingTime = startFeedingTime;
     }
 
@@ -79,11 +115,11 @@ public class FeedingInfo
         this.foodName = foodName;
     }
 
-    public Date getEndFeedingTime() {
+    public String getEndFeedingTime() {
         return endFeedingTime;
     }
 
-    public void setEndFeedingTime(Date endFeedingTime) {
+    public void setEndFeedingTime(String endFeedingTime) {
         this.endFeedingTime = endFeedingTime;
     }
 
