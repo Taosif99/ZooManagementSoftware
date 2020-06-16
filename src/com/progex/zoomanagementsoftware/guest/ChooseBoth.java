@@ -4,10 +4,18 @@
  * and open the template in the editor.
  */
 package com.progex.zoomanagementsoftware.guest;
+
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.GuestModeManager;
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
+import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import java.awt.Toolkit;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,36 +26,41 @@ public class ChooseBoth extends javax.swing.JFrame {
     /**
      * Creates new form AuswahlJFrame
      */
-    public ChooseBoth(JFrame goBackFrame) {
-        
-       
+    public ChooseBoth(JFrame goBackFrame, ZooManager zooManager, String animal, String time) {
+
+        this.goBackFrame = goBackFrame;
+        this.zooManager = zooManager;
+        this.guestModeManager = zooManager.getGuestModeManager();
+        this.animal = animal;
+        this.time = time;
+
         initComponents();
         myInitComponents();
-        this.goBackFrame = goBackFrame; 
+
     }
-    
-    public void myInitComponents(){
+
+    private void myInitComponents() {
         setUndecorated(true);
         setAlwaysOnTop(true);
         setResizable(false);
         setVisible(true);
         Toolkit tk = Toolkit.getDefaultToolkit();
-        int x =(int)tk.getScreenSize().getWidth();
-        int y =(int)tk.getScreenSize().getHeight();
-        setSize(x,y);
+        int x = (int) tk.getScreenSize().getWidth();
+        int y = (int) tk.getScreenSize().getHeight();
+        setSize(x, y);
         //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
-        if(x == 1920 && y == 1080){
-            jLabelAnimal.setFont(new java.awt.Font("Calibri", 0, 32));
-            jLabelCompound.setFont(new java.awt.Font("Calibri", 0, 32));
-            jLabelCompoundStatic.setFont(new java.awt.Font("Calibri", 0, 32));
-            jLabelFeed.setFont(new java.awt.Font("Calibri", 0, 32));
-            jLabelFeedStatic.setFont(new java.awt.Font("Calibri", 0, 32));
-            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 32));
-            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 32));
-            
+        if (x == 1920 && y == 1080) {
+            jLabelAnimal.setFont(new java.awt.Font("Calibri", 0, 48));
+            jLabelCompound.setFont(new java.awt.Font("Calibri", 0, 48));
+            jLabelCompoundStatic.setFont(new java.awt.Font("Calibri", 0, 48));
+            jLabelFeed.setFont(new java.awt.Font("Calibri", 0, 48));
+            jLabelFeedStatic.setFont(new java.awt.Font("Calibri", 0, 48));
+            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 48));
+            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 48));
+
         }
-        if(x == 1280 && y == 720){
-            
+        if (x == 1280 && y == 720) {
+
             jLabelAnimal.setFont(new java.awt.Font("Calibri", 0, 28));
             jLabelCompound.setFont(new java.awt.Font("Calibri", 0, 28));
             jLabelCompoundStatic.setFont(new java.awt.Font("Calibri", 0, 28));
@@ -55,13 +68,55 @@ public class ChooseBoth extends javax.swing.JFrame {
             jLabelFeedStatic.setFont(new java.awt.Font("Calibri", 0, 28));
             jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 28));
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 28));
-            
-            
+
         }
-        
-        Methods methods = new Methods();    
+
+        Methods methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        //Labels get values
+        jLabelAnimal.setText(animal + ": ");
+        jLabelTime.setText(time + " Uhr");
+
+        //
+        viewAnimalTime();
+
+    }
+
+    /*Load all relevant Data in Label: compound and food*/
+    private void viewAnimalTime() {
+
+        String tmp = time.concat(":00");
+        SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
+        String str = dateformat.format(new Date());
+        String day = str.substring(0, 2);
+        String month = str.substring(3, 5);
+        String year = str.substring(6, 10);
+        String last = (year + "-" + month + "-" + day + " ").concat(tmp);
+
+        LinkedList<FeedingInfo> feedingInfos = guestModeManager.getAnimalTimeFeedingInfo(last, animal);
+        if (!feedingInfos.isEmpty()) {
+
+            //String com = null;
+            //String food = null;
+            String com = feedingInfos.getFirst().getCompundName();
+            LinkedList<String> foods = new LinkedList<String>();
+
+            for (FeedingInfo feedingInfo : feedingInfos) {
+                //Hier bekommt man die Spalten der Zeile
+
+                foods.add(feedingInfo.getFoodName());
+
+            }
+
+            jLabelCompound.setText(com);
+
+            String foodNames = foods.toString();
+            jLabelFeed.setText(foodNames);
+
+        }
+
     }
 
     /**
@@ -123,26 +178,28 @@ public class ChooseBoth extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1683, Short.MAX_VALUE)
-                .addComponent(jLabelShowDateTime)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1683, Short.MAX_VALUE)
+                        .addComponent(jLabelShowDateTime)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(labelKarte, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(573, 573, 573))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelFeedStatic)
-                    .addComponent(jLabelCompoundStatic)
-                    .addComponent(jLabelAnimal))
+                    .addComponent(jLabelAnimal)
+                    .addComponent(jLabelCompoundStatic, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelFeedStatic, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelTime)
                     .addComponent(jLabelCompound)
                     .addComponent(jLabelFeed))
-                .addGap(767, 767, 767))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(819, 819, 819)
-                .addComponent(labelKarte, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(658, 658, 658))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +210,7 @@ public class ChooseBoth extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabelShowDateTime))
-                .addGap(117, 117, 117)
+                .addGap(124, 124, 124)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelAnimal)
                     .addComponent(jLabelTime))
@@ -165,7 +222,7 @@ public class ChooseBoth extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFeedStatic)
                     .addComponent(jLabelFeed))
-                .addGap(69, 69, 69)
+                .addGap(62, 62, 62)
                 .addComponent(labelKarte, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -215,11 +272,17 @@ public class ChooseBoth extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        String url = "jdbc:mysql://localhost/";
+        String username = "root";
+        String password = "0000";
+        String dbName = "zoo";
+
+        ZooManager zooManager = new ZooManager(url, dbName, username, password);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChooseBoth(null).setVisible(true);
+                new ChooseBoth(null, zooManager, null, null).setVisible(true);
             }
         });
     }
@@ -236,5 +299,8 @@ public class ChooseBoth extends javax.swing.JFrame {
     private java.awt.Label labelKarte;
     // End of variables declaration//GEN-END:variables
     private javax.swing.JFrame goBackFrame;
+    private ZooManager zooManager;
+    private GuestModeManager guestModeManager;
+    private String time;
+    private String animal;
 }
-

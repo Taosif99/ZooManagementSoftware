@@ -33,18 +33,15 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jScrollPaneAnimalTable" min="-2" pref="1092" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="411" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabelTime" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="793" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="jScrollPaneAnimalTable" min="-2" pref="1092" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="411" max="-2" attributes="0"/>
                   </Group>
               </Group>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jLabelTime" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="922" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -56,9 +53,9 @@
                   <Component id="jButtonBack" min="-2" pref="57" max="-2" attributes="0"/>
                   <Component id="jLabelShowDateTime" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
               <Component id="jLabelTime" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
               <Component id="jScrollPaneAnimalTable" min="-2" pref="641" max="-2" attributes="0"/>
               <EmptySpace pref="122" max="32767" attributes="0"/>
           </Group>
@@ -122,7 +119,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="48" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="F&#xfc;tterungszeit"/>
+        <Property name="text" type="java.lang.String" value="Uhr"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelShowDateTime">
