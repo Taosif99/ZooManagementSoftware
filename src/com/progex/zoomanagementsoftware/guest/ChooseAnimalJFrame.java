@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,64 +43,67 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
     }
 
      private void myInitComponents(){
-        setUndecorated(true);
-        setAlwaysOnTop(true);
-        setResizable(false);
-        setVisible(true);
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        int x =(int)tk.getScreenSize().getWidth();
-        int y =(int)tk.getScreenSize().getHeight();
-        setSize(x,y);
-        //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
-        if(x == 1920 && y == 1080){
-            
-            jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 60));
-            jTableAninmalData.setFont(new java.awt.Font("Calibri", 1, 30));
-            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 28));
-            
-            
-        }
-        if(x == 1280 && y == 720){
-            
-            
-            jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 48));
-            jTableAninmalData.setFont(new java.awt.Font("Calibri", 1, 26));
-            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 22));
-        } 
-        //Table change Font
-        JTableHeader tableHeader = jTableAninmalData.getTableHeader();
-        Font headerFont = new Font("Calibri", 0, 22);
-        tableHeader.setFont(headerFont);
-        jTableAninmalData.setRowHeight(40);
-        
-        //Date Method
-        methods = new Methods();    
-        methods.showTimeAndDate(jLabelShowDateTime);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        
-        
         try {
-            viewAnimals();
+            setUndecorated(true);
+            setAlwaysOnTop(true);
+            setResizable(false);
+            setVisible(true);
+            Toolkit tk = Toolkit.getDefaultToolkit();
+            int x =(int)tk.getScreenSize().getWidth();
+            int y =(int)tk.getScreenSize().getHeight();
+            setSize(x,y);
+            //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
+            if(x == 1920 && y == 1080){
+                
+                jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 60));
+                jTableAninmalData.setFont(new java.awt.Font("Calibri", 1, 30));
+                jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 28));
+                
+                
+            }
+            if(x == 1280 && y == 720){
+                
+                
+                jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 48));
+                jTableAninmalData.setFont(new java.awt.Font("Calibri", 1, 26));
+                jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 22));
+            }
+            //Table change Font
+            JTableHeader tableHeader = jTableAninmalData.getTableHeader();
+            Font headerFont = new Font("Calibri", 0, 22);
+            tableHeader.setFont(headerFont);
+            jTableAninmalData.setRowHeight(40);
+            
+            //Date Method
+            methods = new Methods();
+            methods.showTimeAndDate(jLabelShowDateTime);
+            this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            
+            //label init
+            jLabelAnimal.setText(animal);
+            
+            //If there arent available feedingTimes
+            if(viewAnimals() == false){
+                
+                JOptionPane.showMessageDialog(null,"Keine Fütterungen für " + animal + " heute mehr ", "Schade :(", JOptionPane.INFORMATION_MESSAGE); 
+                
+                
+            }
+            
+            
+            
+            
         } catch (ParseException ex) {
             Logger.getLogger(ChooseAnimalJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        jLabelAnimal.setText(animal);
     }
      
     /* Load all relevant Data in the model*/ 
-    public void viewAnimals() throws ParseException{
+    public boolean viewAnimals() throws ParseException{
         
         
         LinkedList<FeedingInfo> feedingInfos = guestModeManager.getAnimalFeedingInfo(animal);
-        if(feedingInfos.isEmpty()){ //BEARBEITEN
-            
-            goBackFrame.setVisible(true);
-            this.dispose();
-            JOptionPane.showMessageDialog(null, "Keine Fütterungen für 'Tier' heute!\n\nVielleicht haben sie an einem anderen Tag mehr Glück :)");
-            
-        }
-        else{
+        
         //fehlermeldung
             DefaultTableModel model = (DefaultTableModel)jTableAninmalData.getModel();
         
@@ -120,7 +124,13 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
 
             }
         
-        }     
+        if(feedingInfos.isEmpty()){ //BEARBEITEN
+            return false;
+            
+        }
+        else{ 
+            return true;
+        }    
     
     
     } 

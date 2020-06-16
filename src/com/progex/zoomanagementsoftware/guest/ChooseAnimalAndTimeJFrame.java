@@ -90,7 +90,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         Methods methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
         
-        
+        jButtonSearch.setEnabled(false);
 
     }
     
@@ -324,7 +324,15 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jComboBoxNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxNameActionPerformed
+        //Search button visible or not
+        if(jComboTime.getSelectedItem() != null || jComboBoxName.getSelectedItem() != null){
+            jButtonSearch.setEnabled(true);
+        }else{
+            jButtonSearch.setEnabled(false);
+        }
+        //If Animal choosed, load in times only the available times
         if(jComboBoxName.getSelectedItem() != null){
+            
             try {
                 String animal = (String)jComboBoxName.getSelectedItem();
             
@@ -332,8 +340,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                 ArrayList <String> time = new ArrayList <String>();
                 String [] mode = new String[feedingInfos.size()+1];
             
-                //fehlermeldung
-
+               
 
                 Object row = new Object();
 
@@ -359,7 +366,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
             }
 
             }else{
-            
+             
             try {
                 SetComboxTime();
             } catch (ParseException ex) {
@@ -373,6 +380,11 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
     private void jComboTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboTimeActionPerformed
         
+        if(jComboTime.getSelectedItem() != null || jComboBoxName.getSelectedItem() != null){
+            jButtonSearch.setEnabled(true);
+        }else{
+            jButtonSearch.setEnabled(false);
+        }
         
         
         
