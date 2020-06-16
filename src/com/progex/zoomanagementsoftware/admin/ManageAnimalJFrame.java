@@ -122,7 +122,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tier verwalten");
-        setPreferredSize(new java.awt.Dimension(1280, 600));
         setResizable(false);
 
         jLabelAnimalName.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
