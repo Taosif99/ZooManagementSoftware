@@ -615,6 +615,19 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         jTextFieldZookeepeFirstName.setText(firstName);
         jTextFieldZookeeperLastName.setText(lastName);
 
+        columnNameToValue = new LinkedHashMap<String, String>();
+        columnNameToValue.put("UserID", selectedZookeeperID);
+        columnNameToValue.put("firstname", firstName);
+        columnNameToValue.put("lastname", lastName);
+
+        records = zooManager.searchZookeeperToAnimal(columnNameToValue);
+
+        if (records.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            viewRelationTable();
+        }
+
         if (mode.equals("delete")) {
             jTextFieldUserID.setText(selectedZookeeperID);
         }

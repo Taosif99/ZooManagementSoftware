@@ -147,7 +147,6 @@ public class UserManager {
             String Country, String phoneNumber, String birthday, String shift,
             String username, String email, String password) {
 
-     
         boolean retVal = false;
         //Get the address with street,zip,city --> I guess country not requird
         int addressId = searchAddressId(zip, street, city);
@@ -283,10 +282,37 @@ public class UserManager {
     }
 
     /**
+     * Method to search for users in the database with limit.
+     * @param columnValueMap A mapping of entity attributes and corresponding
+     * @param limit An amount of users we want to have
+     * @return A LinkedList which contains the searched users
+     */
+    public LinkedList<User> searchUsers(LinkedHashMap<String, String> columnValueMap, String limit) {
+
+        String begin = "SELECT User.ID,Type,Shift,Salutation,UserName,FirstName,LastName,\n"
+                + "PhoneNumber,Birthday,Email,Zip,Street,City,\n"
+                + "Country,LastLogDate,HashedPassword\n"
+                + "FROM User\n"
+                + "INNER JOIN Address ON User.AddressID = Address.ID WHERE ";
+        String query = zooManager.generateSearchQuery(columnValueMap, begin);
+
+        query = query + " LIMIT " + limit;
+        System.out.println(query);
+
+        LinkedList<User> users = null;
+        if (query != null) {
+            ResultSet resultSet = connectionHandler.performQuery(query);
+            users = createUsers(resultSet);
+        } else {
+            return this.getUsers(); //Case if we have no attributes
+        }
+        return users;
+    }
+
+    /**
      * Method to search for users in the database.
      *
-     * @param columnValueMap A mapping of entity attributes and corresponding
-     * values
+     * @param columnValueMap A mapping of entity attributes and corresponding values
      * @return A LinkedList which contains the searched users
      */
     public LinkedList<User> searchUsers(LinkedHashMap<String, String> columnValueMap) {
@@ -320,26 +346,22 @@ public class UserManager {
 
         boolean retVal = false;
 
-        String query = "SELECT UserName FROM User WHERE UserName = '" + username +"'";
+        String query = "SELECT UserName FROM User WHERE UserName = '" + username + "'";
         ResultSet resultSet = connectionHandler.performQuery(query);
         try {
 
             if (resultSet.next()) {
                 retVal = true;
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return retVal;
     }
 
     //////////////////////////////////////////////////
-    
-    
-    
-    
     public void addAdmin(Admin admin) {
 
     }

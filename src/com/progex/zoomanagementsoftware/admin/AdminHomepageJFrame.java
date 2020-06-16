@@ -41,8 +41,8 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
         LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
         columnNameToValue.put("type", "Admin");
-
-        LinkedList<User> users = zooManager.getUserManager().searchUsers(columnNameToValue);
+        String limit = jTextFieldAmountAdmins.getText();
+        LinkedList<User> users = zooManager.getUserManager().searchUsers(columnNameToValue, limit);
 
         //LinkedList<Admin> admins = userManager.getAdmins(Integer.parseInt(jTextFieldAmountAdmins.getText()));
         model = (DefaultTableModel) jTableLastLoginAdminsData.getModel();
@@ -79,9 +79,9 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private boolean checkInput() {
         try {
-            int temp = Integer.parseInt(jTextFieldAmountAdmins.getText());
+            int amountAdmins = Integer.parseInt(jTextFieldAmountAdmins.getText());
 
-            if (temp >= 1) {
+            if (amountAdmins >= 1) {
                 return true;
             }
 

@@ -525,9 +525,9 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
         for (Food food : foods) {
             row[0] = food.getId();
-            row[1] = food.getStorageRoomNumber();
-            row[2] = food.getStock() * i;
-            row[3] = food.getName();
+            row[1] = food.getName();
+            row[2] = food.getStorageRoomNumber();
+            row[3] = food.getStock() * i;
 
             model.addRow(row);
         }

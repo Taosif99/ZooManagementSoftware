@@ -40,7 +40,7 @@ public class ZooManager {
     public ZooManager(String url, String dbName, String username, String password) {
 
         connectionHandler = new ConnectionHandler(url, dbName, username, password);
-        userManager = new UserManager(connectionHandler,this);
+        userManager = new UserManager(connectionHandler, this);
         guestModeManager = new GuestModeManager(connectionHandler);
     }
 
@@ -53,7 +53,6 @@ public class ZooManager {
     }
 
     //Mustapha start
-    
     /*Start compound methods*/
     /**
      * Method which access the compounds which are stored in the database
@@ -133,7 +132,8 @@ public class ZooManager {
     /**
      * Method to search for compounds in the database.
      *
-     * @param columnValueMap A mapping of entity attributes and corresponding values
+     * @param columnValueMap A mapping of entity attributes and corresponding
+     * values
      * @return A LinkedList which contains the searched compounds
      */
     public LinkedList<Compound> searchCompounds(LinkedHashMap<String, String> columnValueMap) {
@@ -143,7 +143,9 @@ public class ZooManager {
         if (query != null) {
             ResultSet resultSet = connectionHandler.performQuery(query);
             compounds = createCompounds(resultSet);
-        } else return this.getCompounds(); //Case if we have no attributes
+        } else {
+            return this.getCompounds(); //Case if we have no attributes
+        }
         return compounds;
     }
 
@@ -152,7 +154,8 @@ public class ZooManager {
      * a resultSet which has all requiered attributes.
      *
      * @param resultSet
-     * @return A LinkedList which contains all compounds depending on the result set
+     * @return A LinkedList which contains all compounds depending on the result
+     * set
      */
     private LinkedList<Compound> createCompounds(ResultSet resultSet) {
 
@@ -195,7 +198,8 @@ public class ZooManager {
     /**
      * Method to get the required values of the admin view.
      *
-     * @return A LinkedList of Animal objects which contains all animals which are stored in the database
+     * @return A LinkedList of Animal objects which contains all animals which
+     * are stored in the database
      */
     public LinkedList<Animal> getAnimals() {
 
@@ -359,7 +363,9 @@ public class ZooManager {
             ResultSet resultSet = connectionHandler.performQuery(query);
             animals = createAnimals(resultSet);
 
-        } else return this.getAnimals(); 
+        } else {
+            return this.getAnimals();
+        }
         return animals;
 
     }
@@ -368,6 +374,7 @@ public class ZooManager {
      * *
      * Method which has been implemented to create an Animal datastructure from
      * a resultSet which has all requiered attributes.
+     *
      * @param resultSet
      * @return A LinkedList of Animal objects depending of the result set
      */
@@ -405,7 +412,6 @@ public class ZooManager {
     }
 
     /*Methods concerning animal end here*/
-    
  /*Methods concerning Food to Animal relation start here*/
     /**
      * Method which has been implemented to get all requiered information for
@@ -476,10 +482,10 @@ public class ZooManager {
         return false;
     }
 
-    
     /**
-     * Method which has been implemented to update the food to animal relation 
+     * Method which has been implemented to update the food to animal relation
      * in the database.
+     *
      * @param animalID
      * @param foodName
      * @param startFeedingTime
@@ -535,8 +541,9 @@ public class ZooManager {
     }
 
     /**
-     * Method whcih has been implemented to delete a food to 
-     * animal relation in the database.
+     * Method whcih has been implemented to delete a food to animal relation in
+     * the database.
+     *
      * @param foodID
      * @param animalID
      * @param startFeedingTime
@@ -554,6 +561,7 @@ public class ZooManager {
 
     /**
      * This method searches for FoodToAnimal records in the database.
+     *
      * @param columnValueMap
      * @return The corresponding search response depending on the column values
      */
@@ -571,15 +579,18 @@ public class ZooManager {
 
             ResultSet resultSet = connectionHandler.performQuery(query);
             records = createFoodToAnimal(resultSet, animalID);
-        } else return this.getFoodToAnimalRecords(animalID);
+        } else {
+            return this.getFoodToAnimalRecords(animalID);
+        }
 
         return records;
     }
 
     /**
      * *
-     * Method which has been implemented to create a FoodToAnimalR datastructure from
-     * a resultSet which has all requiered attributes.
+     * Method which has been implemented to create a FoodToAnimalR datastructure
+     * from a resultSet which has all requiered attributes.
+     *
      * @param resultSet
      * @param animalID
      * @return A LinkedList with all requested FoodToAnimalR objects
@@ -614,8 +625,7 @@ public class ZooManager {
  /*Own reused methods*/
     /**
      * https://www.geeksforgeeks.org/mysql-regular-expressions-regexp/ zum
-     * Nachgucken 
-     * Method which constructs a search query using the parameters
+     * Nachgucken Method which constructs a search query using the parameters
      * and regular expressions.
      *
      * @param columnValueMap
@@ -674,13 +684,10 @@ public class ZooManager {
         }
     }
     //Mustapha end
-    
-    
-    
+
     //Taosif start
-    
     //Methods concerning Food
-    public LinkedList<Food> createFoods(ResultSet resultSet) {
+    private LinkedList<Food> createFoods(ResultSet resultSet) {
         LinkedList<Food> foods = new LinkedList<Food>();
         if (resultSet != null) {
 
@@ -704,10 +711,10 @@ public class ZooManager {
     }
 
     /**
-     * This method is used to get certain foods.
+     * This method searches for food in the database.
      *
      * @param columnValueMap
-     * @return
+     * @return The corresponding search response depending on the column values
      */
     public LinkedList<Food> searchFoods(LinkedHashMap<String, String> columnValueMap) {
 
@@ -723,9 +730,10 @@ public class ZooManager {
     }
 
     /**
-     * This method is used to get all foods from the database.
+     * Method to get all foods from the database.
      *
-     * @return
+     * @return A LinkedList of Food objects which contains all foods which are
+     * stored in the database
      */
     public LinkedList<Food> getFoods() {
 
@@ -736,13 +744,16 @@ public class ZooManager {
     }
 
     /**
-     * This method is used to check if a food exists in the database.
+     * This method is used to check if a food exists in the database. If the the
+     * food name is unknowm then name must be null. If the food id is unknown
+     * then id must be -1.
+     *
      * @param name
      * @param id
      * @return True if the food exists and false if the food doesnt exist
      */
     public boolean checkFoodExists(String name, int id) {
-        
+
         try {
             ResultSet resultSet;
             String query;
@@ -781,6 +792,14 @@ public class ZooManager {
         return false;
     }
 
+    /**
+     * This method is used to add food to the database.
+     *
+     * @param storageRoomNumber
+     * @param stock
+     * @param name
+     * @return If the operation was successfull
+     */
     public boolean addFood(int storageRoomNumber, double stock, String name) {
 
         String query = "INSERT INTO Food(StorageRoomNumber,Stock,Name) VALUES(" + storageRoomNumber + "," + stock + ",'" + name + "');";
@@ -789,6 +808,15 @@ public class ZooManager {
         return retVal;
     }
 
+    /**
+     * This method is used to update food in the database.
+     *
+     * @param storageRoomNumber
+     * @param stock
+     * @param name
+     * @param id
+     * @return If the operation was successfull
+     */
     public boolean updateFood(int storageRoomNumber, double stock, String name, int id) {
 
         String query = "UPDATE food SET storageRoomNumber = " + storageRoomNumber + ", stock = " + stock
@@ -801,6 +829,12 @@ public class ZooManager {
         return retVal;
     }
 
+    /**
+     * This method is used to delete food from the database.
+     *
+     * @param id
+     * @return If the operation was successfull
+     */
     public boolean deleteFood(int id) {
 
         String query = "DELETE FROM food WHERE id = " + id + ";";
@@ -808,13 +842,12 @@ public class ZooManager {
         return retVal;
     }
 
- 
     //TakesCare
     /**
      * This method is used to get all animal ids with the same animal name.
      *
      * @param animalName
-     * @return
+     * @return A LinkedList of animal ids
      */
     public LinkedList<Integer> getAnimalIds(String animalName) {
 
@@ -840,6 +873,13 @@ public class ZooManager {
         return animalIds;
     }
 
+    /**
+     * This method is used to add a takes care relation.
+     *
+     * @param animalIds
+     * @param zookeeperId
+     * @return If the operation was successfull
+     */
     public boolean addZookeeperToAnimal(LinkedList<Integer> animalIds, String zookeeperId) {
         String query;
         System.out.println("add zookeeperId  : " + zookeeperId);
@@ -854,6 +894,13 @@ public class ZooManager {
         return true;
     }
 
+    /**
+     * This method is used to delete a takes care relation
+     * 
+     * @param animalIds
+     * @param zookeeperId
+     * @return If the operation was successfull
+     */
     public boolean deleteZookeeperToAnimal(LinkedList<Integer> animalIds, int zookeeperId) {
 
         boolean retVal = false;
@@ -887,6 +934,12 @@ public class ZooManager {
         return records;
     }
 
+    /**
+     * This method is used to search for takes care relations in the database.
+     * 
+     * @param columnValueMap
+     * @return A LinkedList which contains the searched takes care relations.
+     */
     public LinkedList<ZookeeperToAnimalR> searchZookeeperToAnimal(LinkedHashMap<String, String> columnValueMap) {
 
         String begin = "SELECT takescare.UserID, user.firstname, user.lastname, takescare.AnimalID, animal.AnimalName\n"
@@ -906,6 +959,12 @@ public class ZooManager {
         return records;
     }
 
+    /**
+     * Method which has been implemented to get all requiered information for
+     * the zookeeper to animal relation.
+     * 
+     * @return The corresponding records saved in a LinkedList
+     */
     public LinkedList<ZookeeperToAnimalR> getZookeeperToAnimalR() {
 
         String query = "SELECT takescare.UserID, user.firstname, user.lastname, takescare.AnimalID, animal.AnimalName\n"
@@ -918,6 +977,13 @@ public class ZooManager {
         return records;
     }
 
+    /**
+     * This method is used to check if the takes care relation exists.
+     * 
+     * @param animalName
+     * @param zookeeperId
+     * @return True if the relation exists and false if the relation doesnt exist
+     */
     public boolean checkZookeeperToAnimalExists(String animalName, int zookeeperId) {
 
         LinkedList<Integer> animalIds = getAnimalIds(animalName);
@@ -946,5 +1012,5 @@ public class ZooManager {
         return false;
     }
     //Taosif end
-    
+
 }
