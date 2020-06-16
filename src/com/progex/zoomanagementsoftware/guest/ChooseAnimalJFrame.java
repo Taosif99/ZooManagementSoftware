@@ -52,7 +52,7 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
             int x =(int)tk.getScreenSize().getWidth();
             int y =(int)tk.getScreenSize().getHeight();
             setSize(x,y);
-            //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
+            //resolution
             if(x == 1920 && y == 1080){
                 
                 jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 60));

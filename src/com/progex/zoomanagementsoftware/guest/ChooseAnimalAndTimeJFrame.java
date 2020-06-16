@@ -31,15 +31,18 @@ import javax.swing.table.DefaultTableModel;
 public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form AuswahlTierZeitJFrame
+     * Creates new form nimalAndTimeJFrame
      */
     public ChooseAnimalAndTimeJFrame(JFrame goBackFrame,ZooManager zooManager) {
 
         initComponents();
         myInitComponents();
+        
         this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
         this.guestModeManager = zooManager.getGuestModeManager();
+        
+        //Fulfill Comboboxes
         SetComboxAnimals();
         try {
             SetComboxTime();
@@ -54,7 +57,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     }
     /* Individual initialization*/
     public void myInitComponents() {
-
+        //Fullscreen Guestmode
         setUndecorated(true);
         setAlwaysOnTop(true);
         setResizable(false);
@@ -63,7 +66,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         int x = (int) tk.getScreenSize().getWidth();
         int y = (int) tk.getScreenSize().getHeight();
         setSize(x, y);
-        //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
+        //get Screenresolution
         if (x == 1920 && y == 1080) {
 
             jComboBoxName.setFont(new java.awt.Font("Calibri", 0, 32));
@@ -86,7 +89,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 28));
 
         }
-
+        //get Date
         Methods methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
         
@@ -273,40 +276,28 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
             public void run() {
 
                 
-                //animal
+                //choosed animal
                 if (jComboBoxName.getSelectedItem()!= null && jComboTime.getSelectedItem() == null) {
                     
                     
                     new ChooseAnimalJFrame(thisFrame,zooManager, (String) jComboBoxName.getSelectedItem()).setVisible(true);
                 }
-                //time   
+                ///choosed time   
                 if (jComboBoxName.getSelectedItem() == null && jComboTime.getSelectedItem() != null) {
                     //String in Date
                     
                     new ChooseTimeJFrame(thisFrame,zooManager,(String) jComboTime.getSelectedItem()).setVisible(true);
                 }
-                //both
+                ///choosed both
                 if (jComboBoxName.getSelectedItem() != null && jComboTime.getSelectedItem() != null) {
 
                     new ChooseBoth(thisFrame,zooManager,(String) jComboBoxName.getSelectedItem(),(String) jComboTime.getSelectedItem()).setVisible(true);
-                }//null
-                 if (jComboBoxName.getSelectedItem() == null && jComboTime.getSelectedItem() == null) {
-                     
-                     JOptionPane.showMessageDialog(null, "Sie haben keine Fütterungszeit und kein Tier ausgewählt\n\nBitte treffen sie mindestens eine Auswahl","Fehlermeldung", JOptionPane.CANCEL_OPTION);
-                     new ChooseAnimalAndTimeJFrame(goBackFrame,zooManager);
-                 }
+                }
+                 
                 
             }
         });
-        //TODO
-        //wenn keine Eingabe
-        //JOptionPane.showMessageDialog(null, "Sie haben keine Fütterungszeit und kein Tier ausgewählt\n\nBitte treffen sie mindestens eine Auswahl","Fehlermeldung", JOptionPane.CANCEL_OPTION);
-        //wenn Tier keine Fütterungen mehr hat
-        //JOptionPane.showMessageDialog(null, "Keine Fütterungen für 'Tier' heute!\n\nVielleicht haben sie an einem anderen Tag mehr Glück :)","Schade", JOptionPane.CANCEL_OPTION);
-        //wenn Uhrzeit keine Fütterungen hat 
-        // JOptionPane.showMessageDialog(null, "Es finden keine Fütterungen um diese Uhrzeit heute statt \n\nVielleicht haben sie an einem anderen Tag mehr Glück :)","Schade", JOptionPane.CANCEL_OPTION); 
-        //wenn Tier und Uhrzeit false
-        // JOptionPane.showMessageDialog(null, "Es finden keine Fütterungen für 'Tier' um  'Uhrzeit' heute statt!\n\nSuchen Sie nur nach dem Tier, um Verfügbare Uhrzeiten angezeigt zu bekommen","Schade", JOptionPane.CANCEL_OPTION);
+         
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonBackMouseClicked
@@ -330,7 +321,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         }else{
             jButtonSearch.setEnabled(false);
         }
-        //If Animal choosed, load in times only the available times
+        //If Animal choosed, load times only the available times
         if(jComboBoxName.getSelectedItem() != null){
             
             try {

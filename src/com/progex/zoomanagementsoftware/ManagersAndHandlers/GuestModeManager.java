@@ -84,7 +84,7 @@ public class GuestModeManager {
         
        
     }
-    /*get all available animals*/
+    /*get all animals in db*/
     public LinkedList<String> getAnimals() {
         
         LinkedList<String> animals = new LinkedList<String>();
