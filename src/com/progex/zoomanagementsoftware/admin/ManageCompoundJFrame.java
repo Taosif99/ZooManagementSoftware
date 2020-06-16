@@ -147,6 +147,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         jLabelArea.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelArea.setText("Fläche");
 
+        jTextFieldConstructionYear.setToolTipText("Format: yyyy-MM-dd");
+
         jButtonAddCompound.setText("Hinzufügen");
         jButtonAddCompound.setPreferredSize(new java.awt.Dimension(73, 23));
         jButtonAddCompound.addActionListener(new java.awt.event.ActionListener() {

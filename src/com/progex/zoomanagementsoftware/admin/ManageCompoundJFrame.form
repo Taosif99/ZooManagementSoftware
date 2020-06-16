@@ -195,6 +195,9 @@
     <Component class="javax.swing.JTextField" name="jTextFieldCompoundName">
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldConstructionYear">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Format: yyyy-MM-dd"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldArea">
     </Component>
