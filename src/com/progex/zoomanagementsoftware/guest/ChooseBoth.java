@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.progex.zoomanagementsoftware.guest;
+
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.GuestModeManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
@@ -25,30 +26,30 @@ public class ChooseBoth extends javax.swing.JFrame {
     /**
      * Creates new form AuswahlJFrame
      */
-    public ChooseBoth(JFrame goBackFrame,ZooManager zooManager,String animal,String time) {
-        
-        this.goBackFrame = goBackFrame; 
+    public ChooseBoth(JFrame goBackFrame, ZooManager zooManager, String animal, String time) {
+
+        this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
         this.guestModeManager = zooManager.getGuestModeManager();
         this.animal = animal;
         this.time = time;
-        
+
         initComponents();
         myInitComponents();
-        
+
     }
-    
-    public void myInitComponents(){
+
+    private void myInitComponents() {
         setUndecorated(true);
         setAlwaysOnTop(true);
         setResizable(false);
         setVisible(true);
         Toolkit tk = Toolkit.getDefaultToolkit();
-        int x =(int)tk.getScreenSize().getWidth();
-        int y =(int)tk.getScreenSize().getHeight();
-        setSize(x,y);
+        int x = (int) tk.getScreenSize().getWidth();
+        int y = (int) tk.getScreenSize().getHeight();
+        setSize(x, y);
         //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
-        if(x == 1920 && y == 1080){
+        if (x == 1920 && y == 1080) {
             jLabelAnimal.setFont(new java.awt.Font("Calibri", 0, 48));
             jLabelCompound.setFont(new java.awt.Font("Calibri", 0, 48));
             jLabelCompoundStatic.setFont(new java.awt.Font("Calibri", 0, 48));
@@ -56,10 +57,10 @@ public class ChooseBoth extends javax.swing.JFrame {
             jLabelFeedStatic.setFont(new java.awt.Font("Calibri", 0, 48));
             jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 48));
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 48));
-            
+
         }
-        if(x == 1280 && y == 720){
-            
+        if (x == 1280 && y == 720) {
+
             jLabelAnimal.setFont(new java.awt.Font("Calibri", 0, 28));
             jLabelCompound.setFont(new java.awt.Font("Calibri", 0, 28));
             jLabelCompoundStatic.setFont(new java.awt.Font("Calibri", 0, 28));
@@ -67,62 +68,57 @@ public class ChooseBoth extends javax.swing.JFrame {
             jLabelFeedStatic.setFont(new java.awt.Font("Calibri", 0, 28));
             jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 28));
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 28));
-            
-            
+
         }
-        
-        Methods methods = new Methods();    
+
+        Methods methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         //Labels get values
-        jLabelAnimal.setText(animal + ": "); 
+        jLabelAnimal.setText(animal + ": ");
         jLabelTime.setText(time + " Uhr");
-        
+
         //
         viewAnimalTime();
-        
+
     }
+
     /*Load all relevant Data in Label: compound and food*/
-    public void viewAnimalTime(){
-        
+    private void viewAnimalTime() {
+
         String tmp = time.concat(":00");
-        SimpleDateFormat dateformat =new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
         String str = dateformat.format(new Date());
         String day = str.substring(0, 2);
         String month = str.substring(3, 5);
         String year = str.substring(6, 10);
-        String last = (year+"-"+month+"-"+day +" ").concat(tmp);
-        
-        
+        String last = (year + "-" + month + "-" + day + " ").concat(tmp);
+
         LinkedList<FeedingInfo> feedingInfos = guestModeManager.getAnimalTimeFeedingInfo(last, animal);
-        
-        
-        
-        String com = null;
-        String food = null;
-        
-        
-        for (FeedingInfo feedingInfo : feedingInfos){
-           //Hier bekommt man die Spalten der Zeile
-           com = feedingInfo.getCompundName();
-           System.out.println(com);
-           food = feedingInfo.getFoodName();
-           System.out.println(food);
-        }   
-       
-       
-       
-        
-        jLabelCompound.setText(com);
-        jLabelFeed.setText(food);
-    
-    
-    
-    } 
-    
-    
-        
+        if (!feedingInfos.isEmpty()) {
+
+            //String com = null;
+            //String food = null;
+            String com = feedingInfos.getFirst().getCompundName();
+            LinkedList<String> foods = new LinkedList<String>();
+
+            for (FeedingInfo feedingInfo : feedingInfos) {
+                //Hier bekommt man die Spalten der Zeile
+
+                foods.add(feedingInfo.getFoodName());
+
+            }
+
+            jLabelCompound.setText(com);
+
+            String foodNames = foods.toString();
+            jLabelFeed.setText(foodNames);
+
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -276,17 +272,17 @@ public class ChooseBoth extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        String url ="jdbc:mysql://localhost/";
+        String url = "jdbc:mysql://localhost/";
         String username = "root";
         String password = "0000";
         String dbName = "zoo";
-        
-        ZooManager zooManager = new ZooManager(url,dbName,username,password);
+
+        ZooManager zooManager = new ZooManager(url, dbName, username, password);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChooseBoth(null,zooManager,null,null).setVisible(true);
+                new ChooseBoth(null, zooManager, null, null).setVisible(true);
             }
         });
     }
@@ -308,4 +304,3 @@ public class ChooseBoth extends javax.swing.JFrame {
     private String time;
     private String animal;
 }
-

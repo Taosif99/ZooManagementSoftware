@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.progex.zoomanagementsoftware.guest;
+
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.GuestModeManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
@@ -22,95 +23,90 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 /**
- * 
- * @author Oli
- * TODOO grösse in tabel ändern //abwarten mit datensätzen
- * 
- * 
+ *
+ * @author Oli TODOO grösse in tabel ändern //abwarten mit datensätzen
+ *
+ *
  */
 public class ChooseTimeJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ZeitjFrame
      */
-    public ChooseTimeJFrame(JFrame goBackFrame,ZooManager zooManager, String time) {
-       
-        this.goBackFrame = goBackFrame; 
+    public ChooseTimeJFrame(JFrame goBackFrame, ZooManager zooManager, String time) {
+
+        this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
         this.guestModeManager = zooManager.getGuestModeManager();
         this.time = time;
-        
-        
+
         initComponents();
         myInitComponents();
         viewTimes();
     }
-    
-    public void myInitComponents(){
-        
+
+    private void myInitComponents() {
+
         setUndecorated(true);
         setAlwaysOnTop(true);
         setResizable(false);
         setVisible(true);
         Toolkit tk = Toolkit.getDefaultToolkit();
-        int x =(int)tk.getScreenSize().getWidth();
-        int y =(int)tk.getScreenSize().getHeight();
-        setSize(x,y);
+        int x = (int) tk.getScreenSize().getWidth();
+        int y = (int) tk.getScreenSize().getHeight();
+        setSize(x, y);
         //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
-        if(x == 1920 && y == 1080){
+        if (x == 1920 && y == 1080) {
             jLabelTime.setFont(new java.awt.Font("Calibri", 1, 60));
             jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 28));
         }
-        if(x == 1280 && y == 720){
+        if (x == 1280 && y == 720) {
             jLabelTime.setFont(new java.awt.Font("Calibri", 1, 48));
             jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 22));
         }
-        
-        
+
         JTableHeader tableHeader = jTableTimeData.getTableHeader();
         Font headerFont = new Font("Calibri", 0, 22);
         tableHeader.setFont(headerFont);
-        
+
         jLabelTime.setText(time);
         jTableTimeData.setRowHeight(40);
-        
-        
-        Methods methods = new Methods();    
+
+        Methods methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
+
     /*Fulfill all relevant Data in Table */
-    public void viewTimes(){
-    
+    private void viewTimes() {
+
         //Time String in Date String 
         String tmp = time.concat(":00");
-        SimpleDateFormat dateformat =new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
         String str = dateformat.format(new Date());
         String day = str.substring(0, 2);
         String month = str.substring(3, 5);
         String year = str.substring(6, 10);
-        String last = (year+"-"+month+"-"+day +" ").concat(tmp);
-                   
+        String last = (year + "-" + month + "-" + day + " ").concat(tmp);
 
         LinkedList<FeedingInfo> feedingInfos = guestModeManager.getTimeFeedingInfo(last);
-        
-        DefaultTableModel model = (DefaultTableModel)jTableTimeData.getModel();
-        
-        Object[] row = new Object[3]; 
-        
-        
-        for (FeedingInfo feedingInfo : feedingInfos){
-           //Hier bekommt man die Spalten der Zeile
-           row[0] = feedingInfo.getAnimalName();
+
+        DefaultTableModel model = (DefaultTableModel) jTableTimeData.getModel();
+
+        Object[] row = new Object[3];
+
+        for (FeedingInfo feedingInfo : feedingInfos) {
+            //Hier bekommt man die Spalten der Zeile
+            row[0] = feedingInfo.getAnimalName();
             System.out.println(row[0]);
-           row[1] = feedingInfo.getCompundName();
-           System.out.println(row[1]);
-           row[2] = feedingInfo.getFoodName();
-           System.out.println(row[2]);
-           model.addRow(row);
-         
+            row[1] = feedingInfo.getCompundName();
+            System.out.println(row[1]);
+            row[2] = feedingInfo.getFoodName();
+            System.out.println(row[2]);
+            model.addRow(row);
+
         }
-    
+
     }
 
     /**
@@ -207,8 +203,8 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
         goBackFrame.setVisible(true);
         //Close frame
         this.dispose();
-        
-         
+
+
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     /**
@@ -240,17 +236,17 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        String url ="jdbc:mysql://localhost/";
+        String url = "jdbc:mysql://localhost/";
         String username = "root";
         String password = "0000";
         String dbName = "zoo";
-        
-        ZooManager zooManager = new ZooManager(url,dbName,username,password);
+
+        ZooManager zooManager = new ZooManager(url, dbName, username, password);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChooseTimeJFrame(null,zooManager,null).setVisible(true);
+                new ChooseTimeJFrame(null, zooManager, null).setVisible(true);
             }
         });
     }
@@ -267,5 +263,5 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
     private GuestModeManager guestModeManager;
     private String time;
     private Date date;
-    
+
 }

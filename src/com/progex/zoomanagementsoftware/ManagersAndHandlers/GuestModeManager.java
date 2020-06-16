@@ -22,6 +22,13 @@ public class GuestModeManager {
         
     }
     /*If User choose a animal, this is the function for the table(compound,start/end feedingtime, food*/
+    
+    /**
+     * Method to return FeedingInfo for ChooseAnimalJframe
+     * @param animal
+     * @return LinkedList FeedingInfos with attributes : compound,startFeedingTime,endFeedingTime,food
+     * @throws ParseException 
+     */
     public LinkedList<FeedingInfo> getAnimalFeedingInfo(String animal) throws ParseException {
         
         LinkedList<FeedingInfo> feedingInfos = new LinkedList<FeedingInfo>();
@@ -85,6 +92,11 @@ public class GuestModeManager {
        
     }
     /*get all animals in db*/
+    
+    /**
+     * Method to return all animals in database
+     * @return LinkedList with animals
+     */
     public LinkedList<String> getAnimals() {
         
         LinkedList<String> animals = new LinkedList<String>();
@@ -110,6 +122,12 @@ public class GuestModeManager {
     
     
     /*get all available feedingtimes*/
+    
+    /**
+     * Method to return all available times for ChooseAnimalAndTimeJFrame
+     * @return LinkedList with all available times in database from today
+     * @throws ParseException 
+     */
     public LinkedList<String> getTimes() throws ParseException{
         LinkedList<String> times = new LinkedList<String>();
         String query = "Select distinct startFeedingTime from eats order by startFeedingTime ASC";
@@ -152,6 +170,12 @@ public class GuestModeManager {
     }
         
 /*If User choose a time, this is the function for the table(animalName,compund and food*/
+    
+    /**
+     * Method to return TimefeedingInfo for ChooseTimeJFrame
+     * @param feedingTime
+     * @return Linked List with FeedingInfos attributes : animal,compound,food
+     */
     public LinkedList<FeedingInfo> getTimeFeedingInfo(String feedingTime) {
         
        
@@ -189,12 +213,18 @@ public class GuestModeManager {
     
     
     /*If User choose a animal and time, this is the function for the labels food and compound*/
+    /**
+     * Method to return feedingInfo for ChooseBothJFrame
+     * @param feedingTime
+     * @param animalName
+     * @return LinkedList feedingInfo with attributes from Class feedingInfo : compound, food 
+     */
     public LinkedList<FeedingInfo> getAnimalTimeFeedingInfo(String feedingTime, String animalName) {
         
         
      
         LinkedList<FeedingInfo> feedingInfos = new LinkedList<FeedingInfo>();
-        String query = "Select distinct compound.name as gehege,food.name as essen FROM compound,food,eats,animal WHERE eats.AnimalID = animal.ID AND eats.FoodID = food.ID AND animal.CompoundID = compound.ID AND eats.StartFeedingTime = '" + feedingTime + " 'AND AnimalName = '"+animalName+"'";
+        String query = "Select compound.name as gehege,food.name as essen FROM compound,food,eats,animal WHERE eats.AnimalID = animal.ID AND eats.FoodID = food.ID AND animal.CompoundID = compound.ID AND eats.StartFeedingTime = '" + feedingTime + " 'AND AnimalName = '"+animalName+"'";
         ResultSet resultFeeding = connectionHandler.performQuery(query);  
        
             if(resultFeeding != null){
@@ -221,6 +251,65 @@ public class GuestModeManager {
         }
         
         return feedingInfos;
+    }
+    
+    /**
+     * Method to return a distinct feedingtime for ChooseAnimalAndTimeJFrame
+     * @param animal
+     * @return  LinkedList with all unique feeding times
+     * @throws ParseException 
+     */
+    
+    public LinkedList<String> getUniqueFeedingTimes(String animal) throws ParseException {
+        
+        LinkedList<String> feedingTimes = new LinkedList<String>();
+        String query = "Select distinct eats.StartFeedingTime " +
+                        "FROM animal,eats,food " +
+                        "WHERE eats.AnimalID = animal.ID AND animal.animalname = '"+animal +"' AND eats.FoodID = food.ID Order by StartFeedingTime ASC;";
+        ResultSet resultFeeding = connectionHandler.performQuery(query);
+        
+        if(resultFeeding != null){
+            
+            try{
+                while(resultFeeding.next()){
+                    
+                    
+                    //Date von Datenbank in String umwandeln
+                    //Date erstellen mit Spalte startfeedingtime von Datenbank
+                    java.util.Date datestart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(resultFeeding.getString("StartFeedingTime"));
+                    //in Timestamp umwandeln
+                    java.sql.Timestamp timestampstart = new java.sql.Timestamp(datestart.getTime());
+                   
+                    //als String um Datum zu vergleichen
+                    String times = timestampstart.toString();
+                    String tmp = times.substring(0, 10);
+                    //Datum von heute in compStamp bzw tmpTwo speichern
+                    
+                    java.sql.Timestamp compStamp = new java.sql.Timestamp(System.currentTimeMillis());
+                    String tmpTwo = compStamp.toString().substring(0, 10);
+                    
+                    //wenn Datum gleich heute dann erst adden
+                    if(tmpTwo.equals(tmp)){
+                    
+                    
+                        String timeStart = times.substring(11, 16);
+                    
+                        
+                        
+                        feedingTimes.add(timeStart);
+                    }    
+                }
+                
+                
+            }catch (SQLException e) {
+                System.err.println("SQL exception");
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        return feedingTimes;
+        
+       
     }
     
     
