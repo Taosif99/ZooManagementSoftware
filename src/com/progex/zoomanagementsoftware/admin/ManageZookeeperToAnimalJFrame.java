@@ -5,32 +5,45 @@
  */
 package com.progex.zoomanagementsoftware.admin;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import com.progex.zoomanagementsoftware.datatypes.Salutation;
+import com.progex.zoomanagementsoftware.datatypes.User;
+import com.progex.zoomanagementsoftware.datatypes.Zookeeper;
+import com.progex.zoomanagementsoftware.datatypes.ZookeeperToAnimalR;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
- * @author 
+ * @author taosi
  */
 public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ZookeeperToAnimalJFrame
-     * @param goBackFrame The frame which will appear when the go back button is used
+     *
+     * @param goBackFrame The frame which will appear when the go back button is
+     * used
      */
-    public ManageZookeeperToAnimalJFrame(JFrame goBackFrame) {
-        
+    public ManageZookeeperToAnimalJFrame(JFrame goBackFrame, ZooManager zooManager) {
+
         initComponents();
         this.goBackFrame = goBackFrame;
+        this.zooManager = zooManager;
+        methods = new Methods();
+
         myInitComponents();
     }
-    
-    public void myInitComponents(){
-        
+
+    public void myInitComponents() {
+
         updateButtonsAndLabels();
-        Methods methods = new Methods();    
         methods.showTimeAndDate(jLabelShowDateTime);
     }
 
@@ -110,6 +123,11 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         jLabelZookeeperLastName.setText("Tierpfleger/-in Nachname");
 
         jButtonSearchZookeeper.setText("Tierpfleger/-in suchen");
+        jButtonSearchZookeeper.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchZookeeperActionPerformed(evt);
+            }
+        });
 
         jLabelSelectZookeeper.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelSelectZookeeper.setText("Bitte Tierpfleger/-in auswählen");
@@ -134,6 +152,11 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         });
         jTableTakesCareData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTableTakesCareData.getTableHeader().setReorderingAllowed(false);
+        jTableTakesCareData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableTakesCareDataMouseClicked(evt);
+            }
+        });
         jScrollTakesCareTable.setViewportView(jTableTakesCareData);
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -159,11 +182,11 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Benutzer ID", "Vorname", "Nachname", "Tier ID", "Tiername"
+                "Benutzer ID", "Anrede", "Vorname", "Nachname", "Benutzername"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -172,6 +195,11 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         });
         jTableZookeeperData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTableZookeeperData.getTableHeader().setReorderingAllowed(false);
+        jTableZookeeperData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableZookeeperDataMouseClicked(evt);
+            }
+        });
         jScrollZookeeperTable.setViewportView(jTableZookeeperData);
 
         jLabelAskAnimalName.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -195,6 +223,17 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
         jLabelZookeeperID.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelZookeeperID.setText("BenutzerID");
+
+        jTextFieldUserID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldUserIDActionPerformed(evt);
+            }
+        });
+        jTextFieldUserID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldUserIDKeyTyped(evt);
+            }
+        });
 
         jButtonHelp.setText("Hilfe");
         jButtonHelp.addActionListener(new java.awt.event.ActionListener() {
@@ -325,28 +364,121 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonDeleteActionPerformed
 
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
-        
+
         goBackFrame.setVisible(true);
         //Close frame
         this.dispose();
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
+    private void viewRelationTable() {
+
+        methods.clearTable((DefaultTableModel) jTableTakesCareData.getModel());
+
+        fillRelationTable((DefaultTableModel) jTableTakesCareData.getModel());
+    }
+
+    private void fillRelationTable(DefaultTableModel model) {
+
+        model = (DefaultTableModel) jTableTakesCareData.getModel();
+
+        Object[] row = new Object[5];
+
+        for (ZookeeperToAnimalR record : records) {
+
+            row[0] = record.getUserId();
+            row[1] = record.getFirstname();
+            row[2] = record.getLastname();
+            row[3] = record.getAnimalId();
+            row[4] = record.getAnimalName();
+            model.addRow(row);
+        }
+    }
+
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
-        // TODO add your handling code here:
+
+        try {
+            //Brauche ich für NumberFormatException
+            int exceptionUserId;
+            String userId;
+            if (!jTextFieldUserID.getText().isBlank()) {
+                exceptionUserId = Integer.parseInt(jTextFieldUserID.getText());
+                userId = jTextFieldUserID.getText();
+            } else {
+                userId = "";
+            }
+
+            String firstname = jTextFieldZookeepeFirstName.getText();
+            String lastname = jTextFieldZookeeperLastName.getText();
+            String animalName = jTextFieldAnimalName.getText();
+
+            columnNameToValue = new LinkedHashMap<String, String>();
+            columnNameToValue.put("UserID", userId);
+            columnNameToValue.put("firstname", firstname);
+            columnNameToValue.put("lastname", lastname);
+            columnNameToValue.put("animalName", animalName);
+
+            records = zooManager.searchZookeeperToAnimal(columnNameToValue);
+
+            if (records.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                viewRelationTable();
+            }
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            methods.clearTable((DefaultTableModel) jTableTakesCareData.getModel());
+            JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+        }
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonDeleteFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteFoodActionPerformed
-        
-        int decision = JOptionPane.showConfirmDialog(null, "Sind Sie sicher?", "Löschbestätigung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                  
-        //OK = 0, cancel =2
-        System.out.println(decision);
 
-        //Falls Fehler beim Löschen
-        JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-        
-        //Falls Löschen erfolgreich, pfeil wäre besser
-        JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+        try {
+
+            JTextField textFields[] = {jTextFieldUserID, jTextFieldAnimalName};
+
+            //Ob BenutzerId fehlt
+            if (jTextFieldUserID.getText().isBlank()) {
+                JOptionPane.showMessageDialog(null, "BenutzerID fehlt!", "Textfeld ohne Inhalt", JOptionPane.CANCEL_OPTION);
+            } else {
+                //Wenn BenutzerID und Tiername nciht fehlen
+                if (methods.verifyTextFields(textFields)) {
+
+                    int zookeeperID = Integer.parseInt(jTextFieldUserID.getText());
+                    String animalName = jTextFieldAnimalName.getText();
+
+                    int decision = JOptionPane.showConfirmDialog(null, "Sind Sie sicher?", "Löschbestätigung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (decision == 0) {
+                        //Ob Tiername existiert
+                        if (zooManager.getAnimalIds(animalName).isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Tiername wurde nicht gefunden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                        } else {
+
+                            //Ob die Zuweisung existiert, wenn ja wird gelöscht, wenn nicht fehlermeldung
+                            if (zooManager.checkZookeeperToAnimalExists(animalName, zookeeperID)) {
+                                //Löschen erfolgreich
+                                if (zooManager.deleteZookeeperToAnimal(zooManager.getAnimalIds(animalName), zookeeperID)) {
+                                    if (columnNameToValue != null) {
+                                        records = zooManager.searchZookeeperToAnimal(columnNameToValue);
+                                        viewRelationTable(); // um die Tabelle zu aktualiseren
+                                    }
+                                    JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+                                    clearTextFields();
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                                }
+                            } else { //Fehlermeldung wenn die Zuweisung nicht existiert
+                                JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte nicht gefunden werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+        }
     }//GEN-LAST:event_jButtonDeleteFoodActionPerformed
 
     private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
@@ -355,64 +487,199 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         //System.out.println(mode); //Debug
 
         //Get the mode
-        switch(mode){
+        switch (mode) {
 
             case "add":
-            JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
-            break;
+                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+                break;
 
             case "delete":
-            JOptionPane.showMessageDialog(null, "Bitte die ID des Benutzers und den Tiernamen ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
-            break;
+                JOptionPane.showMessageDialog(null, "Bitte die ID des Benutzers und den Tiernamen ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
+                break;
         }
     }//GEN-LAST:event_jButtonHelpActionPerformed
 
-    private void jButtonAddFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddFoodActionPerformed
-        
-         //Falls Fehler beim Einfügen
-         JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-        
-         //Falls Einfügen erfolgreich, Pfeil wäre besser
-         JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_jButtonAddFoodActionPerformed
-    
-    /**
-     * Method to disable/enable buttons and labels depending on
-     * operation selection.
-     */
-    private String updateButtonsAndLabels(){
-        
-        //\n bei den update texten funktioniert nicht, dadurch verschiebt sich
-        //das Fenster
-            System.out.println("Manage TakesCare");
-   
-            if (jRadioButtonAdd.isSelected()){
-                System.out.println("    Add mode");
-                jButtonAddFood.setEnabled(true);
-                jButtonDeleteFood.setEnabled(false);
-                jTextFieldUserID.setEnabled(false);
-                jLabelZookeeperID.setEnabled(false);
-                jLabelSearch.setEnabled(false);
-                jButtonSearch.setEnabled(false);
-                
-                return "add";
-           
-            } else if (jRadioButtonDelete.isSelected()){
-                
-                System.out.println("    Delete mode");
-                
-                jButtonAddFood.setEnabled(false);
-                jButtonDeleteFood.setEnabled(true);
-                jTextFieldUserID.setEnabled(true);
-                jLabelZookeeperID.setEnabled(true);
-                jLabelSearch.setEnabled(true);
-                jButtonSearch.setEnabled(true);
-                
-                return "delete";
-            }
-            
-            return null;
+    private void clearTextFields() {
+        JTextField textFields[] = {jTextFieldAnimalName, jTextFieldZookeepeFirstName, jTextFieldZookeeperLastName, jTextFieldUserID};
+        for (JTextField textField : textFields) {
+            textField.setText("");
+        }
+        selectedZookeeperID = null;
     }
+
+    private void jButtonAddFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddFoodActionPerformed
+
+        JTextField textFields[] = {jTextFieldAnimalName, jTextFieldZookeepeFirstName, jTextFieldZookeeperLastName};
+
+        boolean textFieldsVerified = methods.verifyTextFields(textFields);
+        try {
+            if (textFieldsVerified) {
+                String animalName = jTextFieldAnimalName.getText();
+
+                if (selectedZookeeperID == null) {
+                    JOptionPane.showMessageDialog(null, "Bitte Tierpfleger/-in auswählen in der Tabelle!", "Einfügen fehlgeschlagen", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+                System.out.println(zooManager.checkZookeeperToAnimalExists(animalName, Integer.parseInt(selectedZookeeperID)));
+
+                if (zooManager.checkZookeeperToAnimalExists(animalName, Integer.parseInt(selectedZookeeperID))) {
+                    JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung existiert bereits!", "Einfügen fehlgeschlagen", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+
+                    LinkedList<Integer> animalIds = zooManager.getAnimalIds(animalName);
+
+                    if (animalIds.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Tiername wurde nicht gefunden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                    } else {
+                        if (zooManager.addZookeeperToAnimal(animalIds, selectedZookeeperID)) {
+                            if (columnNameToValue != null) {
+                                records = zooManager.searchZookeeperToAnimal(columnNameToValue);
+                                viewRelationTable(); // um die Tabelle zu aktualiseren
+                            }
+                            JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+                            clearTextFields();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                        }
+                    }
+                }
+            }
+        } catch (NumberFormatException e) {
+            System.out.print(e.getMessage());
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_jButtonAddFoodActionPerformed
+    private void fillZookeeperTable(DefaultTableModel model) {
+
+        model = (DefaultTableModel) jTableZookeeperData.getModel();
+
+        Object[] row = new Object[5];
+
+        for (User zookeeper : zookeepers) {
+
+            row[0] = zookeeper.getId();
+            row[1] = methods.salutationToString(zookeeper.getSalutation());
+            row[2] = zookeeper.getFirstname();
+            row[3] = zookeeper.getLastname();
+            row[4] = zookeeper.getUsername();
+            model.addRow(row);
+        }
+    }
+
+    private void viewZookeepers() {
+
+        methods.clearTable((DefaultTableModel) jTableZookeeperData.getModel());
+
+        fillZookeeperTable((DefaultTableModel) jTableZookeeperData.getModel());
+    }
+
+    private void jButtonSearchZookeeperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchZookeeperActionPerformed
+
+        try {
+
+            JTextField textFields[] = {jTextFieldZookeepeFirstName, jTextFieldZookeeperLastName};
+
+            String firstname = jTextFieldZookeepeFirstName.getText().trim();;
+            String lastname = jTextFieldZookeeperLastName.getText().trim();
+
+            //System.out.println(firstname + " " + lastname);
+            columnNameToValue = new LinkedHashMap<String, String>();
+            columnNameToValue.put("firstName", firstname);
+            columnNameToValue.put("lastName", lastname);
+            columnNameToValue.put("type", "Zookeeper");
+
+            zookeepers = zooManager.getUserManager().searchUsers(columnNameToValue);
+
+            if (zookeepers.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                viewZookeepers();
+            }
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+        }
+    }//GEN-LAST:event_jButtonSearchZookeeperActionPerformed
+
+    private void jTableZookeeperDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableZookeeperDataMouseClicked
+
+        int zookeeperRowIndex = jTableZookeeperData.getSelectedRow();
+        TableModel zookeeperModel = jTableZookeeperData.getModel();
+
+        selectedZookeeperID = zookeeperModel.getValueAt(zookeeperRowIndex, 0).toString();
+
+        String firstName = zookeeperModel.getValueAt(zookeeperRowIndex, 2).toString();
+        String lastName = zookeeperModel.getValueAt(zookeeperRowIndex, 3).toString();
+        jTextFieldZookeepeFirstName.setText(firstName);
+        jTextFieldZookeeperLastName.setText(lastName);
+
+        if (mode.equals("delete")) {
+            jTextFieldUserID.setText(selectedZookeeperID);
+        }
+    }//GEN-LAST:event_jTableZookeeperDataMouseClicked
+
+    private void jTextFieldUserIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUserIDActionPerformed
+        selectedZookeeperID = jTextFieldUserID.getText();
+        System.out.println(selectedZookeeperID);
+    }//GEN-LAST:event_jTextFieldUserIDActionPerformed
+
+    private void jTextFieldUserIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldUserIDKeyTyped
+        selectedZookeeperID = jTextFieldUserID.getText();
+        //System.out.println(jTextFieldUserID.getText() + "     id");
+    }//GEN-LAST:event_jTextFieldUserIDKeyTyped
+
+    private void jTableTakesCareDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTakesCareDataMouseClicked
+
+        int takesCareRowIndex = jTableTakesCareData.getSelectedRow();
+        TableModel takesCareModel = jTableTakesCareData.getModel();
+
+        selectedZookeeperID = takesCareModel.getValueAt(takesCareRowIndex, 0).toString();
+
+        String animalName = takesCareModel.getValueAt(takesCareRowIndex, 4).toString();
+        jTextFieldAnimalName.setText(animalName);
+
+        if (mode != "add")
+            jTextFieldUserID.setText(selectedZookeeperID);
+    }//GEN-LAST:event_jTableTakesCareDataMouseClicked
+
+    /**
+     * Method to disable/enable buttons and labels depending on operation
+     * selection.
+     */
+    private String updateButtonsAndLabels() {
+
+        if (jRadioButtonAdd.isSelected()) {
+
+            System.out.println("    Add mode");
+            jButtonAddFood.setEnabled(true);
+            jButtonDeleteFood.setEnabled(false);
+            jTextFieldUserID.setEnabled(false);
+            jTextFieldUserID.setText("");
+            jLabelZookeeperID.setEnabled(false);
+            jLabelSearch.setEnabled(false);
+            jButtonSearch.setEnabled(false);
+            mode = "add";
+            return "add";
+
+        } else if (jRadioButtonDelete.isSelected()) {
+
+            System.out.println("    Delete mode");
+
+            jButtonAddFood.setEnabled(false);
+            jButtonDeleteFood.setEnabled(true);
+            jTextFieldUserID.setEnabled(true);
+            jLabelZookeeperID.setEnabled(true);
+            jLabelSearch.setEnabled(true);
+            jButtonSearch.setEnabled(true);
+            mode = "delete";
+            return "delete";
+        }
+
+        return null;
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -441,10 +708,18 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
+        String url = "jdbc:mysql://localhost/";
+        String username = "root";
+        String password = "0000";
+        String dbName = "zoo";
+
+        ZooManager zooManager = new ZooManager(url, dbName, username, password);
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
-                new ManageZookeeperToAnimalJFrame(null).setVisible(true);
+                new ManageZookeeperToAnimalJFrame(null, zooManager).setVisible(true);
             }
         });
     }
@@ -478,4 +753,11 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private javax.swing.JFrame goBackFrame;
+    private ZooManager zooManager;
+    private Methods methods;
+    private LinkedList<User> zookeepers;
+    private String selectedZookeeperID;
+    private String mode;
+    private LinkedList<ZookeeperToAnimalR> records;
+    private LinkedHashMap<String, String> columnNameToValue;
 }

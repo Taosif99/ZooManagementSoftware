@@ -9,6 +9,7 @@ import javax.swing.Timer;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,6 +22,8 @@ public class Methods {
 
     }
 
+    //Mustapha start
+    
     /**
      * Method which changes time every 60 seconds
      *
@@ -329,5 +332,22 @@ public class Methods {
         
      }
    
-    
+   //Mustapha end 
+   
+   
+   //Taosif start
+   
+       /**
+     * This method is used to remove all data from a table.
+     * @param table
+     */
+    public void clearTable(DefaultTableModel table)
+    {     
+        while (table.getRowCount() > 0) {
+            table.removeRow(0);
+        }
+    }
+   
+   //Taosif end
+   
 }

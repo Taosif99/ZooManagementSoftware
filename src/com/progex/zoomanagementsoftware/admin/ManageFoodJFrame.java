@@ -8,11 +8,13 @@ package com.progex.zoomanagementsoftware.admin;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
 import com.progex.zoomanagementsoftware.datatypes.*;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -31,13 +33,14 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         initComponents();
         this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
+        methods = new Methods();
         myInitComponents();
 
     }
 
     public void myInitComponents() {
         updateButtonsAndLabels();
-        methods = new Methods();
+
         methods.showTimeAndDate(jLabelShowDateTime);
     }
 
@@ -171,6 +174,13 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         jLabelStock.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelStock.setText("Menge");
 
+        jTextFieldStock.setToolTipText("Format: 9.87");
+        jTextFieldStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldStockActionPerformed(evt);
+            }
+        });
+
         jButtonAddFood.setText("Hinzufügen");
         jButtonAddFood.setPreferredSize(new java.awt.Dimension(73, 23));
         jButtonAddFood.addActionListener(new java.awt.event.ActionListener() {
@@ -214,6 +224,11 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         });
         jTableFoodData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTableFoodData.getTableHeader().setReorderingAllowed(false);
+        jTableFoodData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableFoodDataMouseClicked(evt);
+            }
+        });
         jScrollPaneFoodTable.setViewportView(jTableFoodData);
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -238,9 +253,19 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         buttonGroupUnitSelection.add(jRadioButtonKg);
         jRadioButtonKg.setSelected(true);
         jRadioButtonKg.setText("kg");
+        jRadioButtonKg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonKgActionPerformed(evt);
+            }
+        });
 
         buttonGroupUnitSelection.add(jRadioButtonGramm);
         jRadioButtonGramm.setText("g");
+        jRadioButtonGramm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonGrammActionPerformed(evt);
+            }
+        });
 
         buttonGroupUnitSelectionTable.add(jRadioButtonKgTable);
         jRadioButtonKgTable.setSelected(true);
@@ -394,9 +419,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
             JTextField textFields[] = {jTextFieldStorageRoomNumber, jTextFieldStock, jTextFieldFoodName, jTextFieldID};
 
-            boolean textFieldsVerified = methods.verifyTextFields(textFields);
-            //Gucken ob die ID existiert
-            if (textFieldsVerified) {
+            if (methods.verifyTextFields(textFields)) {
 
                 int storageRoomNumber = Integer.parseInt(jTextFieldStorageRoomNumber.getText());
                 double stock;
@@ -407,27 +430,33 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                 }
                 String foodName = jTextFieldFoodName.getText();
                 int ID = Integer.parseInt(jTextFieldID.getText());
-                System.out.println(ID + " " + storageRoomNumber + " " + stock + " " + foodName);
 
-                if (zooManager.updateFood(storageRoomNumber, stock, foodName, ID)) {
+                //Gucken ob die ID existiert
+                if (!zooManager.checkFoodExists(null, ID)) {
+                    JOptionPane.showMessageDialog(null, "Futter konnte nicht geupdatet werden! ID existiert nicht.", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                } else {
 
-                    //Falls Updaten erfolgreich, pfeil wäre besser
-                    JOptionPane.showMessageDialog(null, "Futter wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                    /* Tabelle muss direkt aktualisert werden, dazu muss ich foods liste aktualiseren
-                    if (jRadioButtonGrammTable.isSelected()) {
-                        viewFoods(1000);
-                    } else if (jRadioButtonKgTable.isSelected()) {
-                        viewFoods(1);
-                    }*/ 
-                    clearTextFields("update");
+                    if (zooManager.updateFood(storageRoomNumber, stock, foodName, ID)) {
+
+                        //Falls Updaten erfolgreich, pfeil wäre besser
+                        JOptionPane.showMessageDialog(null, "Futter wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+                        // Tabelle muss direkt aktualisert werden, dazu muss ich foods liste aktualiseren
+
+                        if (columnNameToValue != null) {
+                            if (jRadioButtonKgTable.isSelected()) {
+                                foods = zooManager.searchFoods(columnNameToValue);
+                                viewFoods(1);
+                            } else {
+                                foods = zooManager.searchFoods(columnNameToValue);
+                                viewFoods(1000);
+                            }
+                        }
+                        clearTextFields("update");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Futter konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                    }
                 }
-
             }
-            /*else {
-                JOptionPane.showMessageDialog(null, "Futter konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-                //clearTextFields("update");
-            }*/
-
         } catch (NumberFormatException n) {
             n.printStackTrace();
             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
@@ -444,32 +473,48 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             boolean textFieldsVerified = methods.verifyTextFields(textFields);
 
             int ID = Integer.parseInt(jTextFieldID.getText());
-            System.out.println(ID);
 
             if (textFieldsVerified) {
+
                 int decision = JOptionPane.showConfirmDialog(null, "Sind Sie sicher?", "Löschbestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 //OK = 0, cancel =2
                 System.out.println(decision);
 
                 if (decision == 0) {
-                    if (zooManager.deleteFood(ID)) {
-                        //Falls Löschen erfolgreich, pfeil wäre besser
-                        JOptionPane.showMessageDialog(null, "Futter wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                        clearTextFields("delete");
+                    //Gucken ob die ID existiert
+                    if (!zooManager.checkFoodExists(null, ID)) {
+                        JOptionPane.showMessageDialog(null, "Futter konnte nicht gelöscht werden! ID existiert nicht.", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                    } else {
+                        if (zooManager.deleteFood(ID)) {
+                            //Falls Löschen erfolgreich, pfeil wäre besser
+                            JOptionPane.showMessageDialog(null, "Futter wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+                            //Tabelle wird aktualisiert je nachdem welche unit gerade ausgewählt ist
+                            if (columnNameToValue != null) {
+                                System.out.println("in colu");
+                                if (jRadioButtonKgTable.isSelected()) {
+
+                                    foods = zooManager.searchFoods(columnNameToValue);
+                                    viewFoods(1);
+                                } else {
+                                    foods = zooManager.searchFoods(columnNameToValue);
+                                    viewFoods(1000);
+                                }
+                            }
+                            clearTextFields("delete");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Futter konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                        }
                     }
                 }
-                //falls Food mit der Id nicht existiert dann kommt diese Fehlermeldung
-                /*else //Falls Fehler beim Löschen
-                    {
-                        JOptionPane.showMessageDialog(null, "Futter konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-                        clearTextFields("delete");
-                    }*/
             }
 
         } catch (NumberFormatException n) {
-            n.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+
+            if (!jTextFieldID.getText().isBlank()) {
+                n.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+            }
         }
     }//GEN-LAST:event_jButtonDeleteFoodActionPerformed
 
@@ -482,7 +527,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             row[0] = food.getId();
             row[1] = food.getStorageRoomNumber();
             row[2] = food.getStock() * i;
-            row[3] = food.getName();;
+            row[3] = food.getName();
 
             model.addRow(row);
         }
@@ -490,72 +535,74 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
     private void viewFoods(int i) {
 
-        /*Clean the table*/
-        DefaultTableModel tableModel = (DefaultTableModel) jTableFoodData.getModel();
-        while (tableModel.getRowCount() > 0) {
-            tableModel.removeRow(0);
-        }
+        methods.clearTable((DefaultTableModel) jTableFoodData.getModel());
 
-        fillTable(tableModel, i);
+        fillTable((DefaultTableModel) jTableFoodData.getModel(), i);
     }
 
+    private LinkedHashMap<String, String> getJTextFieldInput() {
+
+        columnNameToValue = new LinkedHashMap<String, String>();
+        try {
+            //Brauche ich für NumberFormatException
+            int exceptionId;
+            String id;
+            if (!jTextFieldID.getText().isBlank()) {
+                exceptionId = Integer.parseInt(jTextFieldID.getText());
+                id = jTextFieldID.getText().trim();
+            } else {
+                id = "";
+            }
+
+            int exceptionStorageRoomNumber;
+            String storageRoomNumber;
+            if (!jTextFieldStorageRoomNumber.getText().isBlank()) {
+                storageRoomNumber = jTextFieldStorageRoomNumber.getText().trim();
+                exceptionStorageRoomNumber = Integer.parseInt(jTextFieldStorageRoomNumber.getText());
+            } else {
+                storageRoomNumber = "";
+            }
+
+            double exceptionStock;
+            String stock;
+            if (!jTextFieldStock.getText().isBlank()) {
+                stock = jTextFieldStock.getText().trim();
+                exceptionStock = Double.parseDouble(jTextFieldStock.getText());
+            } else {
+                stock = "";
+            }
+
+            String foodName = jTextFieldFoodName.getText().trim();
+            //System.out.println(id + " " + storageRoomNumber + " " + stock + " " + foodName);
+
+            columnNameToValue.put("ID", id);
+            columnNameToValue.put("StorageRoomNumber", storageRoomNumber);
+            columnNameToValue.put("Stock", stock);
+            columnNameToValue.put("Name", foodName);
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            methods.clearTable((DefaultTableModel) jTableFoodData.getModel());
+            JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+
+        }
+
+        return columnNameToValue;
+    }
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
 
-        try {
-            JTextField textFields[] = {jTextFieldID, jTextFieldStorageRoomNumber, jTextFieldStock, jTextFieldFoodName};
+        foods = zooManager.searchFoods(getJTextFieldInput());
 
-            int id;
-            if (!jTextFieldID.getText().isBlank()) {
-                id = Integer.parseInt(jTextFieldID.getText());
-            } else {
-                id = 0;
+        if (foods.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            if (jRadioButtonGrammTable.isSelected()) {
+                viewFoods(1000);
+            } else if (jRadioButtonKgTable.isSelected()) {
+                viewFoods(1);
             }
-
-            int storageRoomNumber;
-            if (!jTextFieldStorageRoomNumber.getText().isBlank()) {
-                storageRoomNumber = Integer.parseInt(jTextFieldStorageRoomNumber.getText());
-            } else {
-                storageRoomNumber = -1;
-            }
-
-            double stock;
-            if (!jTextFieldStock.getText().isBlank()) {
-                if (jRadioButtonGramm.isSelected()) {
-                    stock = Double.parseDouble(jTextFieldStock.getText()) / 1000;
-                } else {
-                    stock = Double.parseDouble(jTextFieldStock.getText());
-                }
-            } else {
-                stock = -1;
-            }
-
-            String foodName;
-            if (!jTextFieldFoodName.getText().isBlank()) {
-                foodName = jTextFieldFoodName.getText();
-            } else {
-                foodName = null;
-            }
-
-            System.out.println(id + " " + storageRoomNumber + " " + stock + " " + foodName);
-
-            foods = zooManager.getFoods(id, storageRoomNumber, stock, foodName);
-
-            if (foods.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse.", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                if (jRadioButtonGrammTable.isSelected()) {
-                    viewFoods(1000);
-                } else if (jRadioButtonKgTable.isSelected()) {
-                    viewFoods(1);
-                }
-            }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
         }
-
-
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jRadioButtonKgTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonKgTableActionPerformed
@@ -565,7 +612,6 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
     private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
 
         String mode = updateButtonsAndLabels();
-        //System.out.println(mode); //Debug
 
         //Get the mode
         switch (mode) {
@@ -603,7 +649,6 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
     private void jButtonAddFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddFoodActionPerformed
 
         try {
-
             JTextField textFields[] = {jTextFieldStorageRoomNumber, jTextFieldStock, jTextFieldFoodName};
 
             boolean textFieldsVerified = methods.verifyTextFields(textFields);
@@ -619,25 +664,18 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                 }
                 String foodName = jTextFieldFoodName.getText();
 
-                // System.out.println(storageRoomNumber + " " + stock + " " + foodName);
-                boolean foodExists = zooManager.checkFoodExists(foodName);
-                System.out.println(foodExists + "< foodExists");
+                if (!zooManager.checkFoodExists(foodName, -1)) {
 
-                if (!foodExists) {
-
-                    boolean foodAdded = zooManager.addFood(storageRoomNumber, stock, foodName);
-                    //System.out.println(foodAdded + "< foodAdded");
-
-                    if (foodAdded) {
+                    if (zooManager.addFood(storageRoomNumber, stock, foodName)) {
                         clearTextFields("add");
                         JOptionPane.showMessageDialog(null, "Futter konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                        //Alle Textfelder ohne Inhalt
+
                     } else {
                         JOptionPane.showMessageDialog(null, "Futter konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
 
-                } else if (foodExists) {
-                    //clearTextFields("add");
+                } else {
+
                     JOptionPane.showMessageDialog(null, "Futter konnte nicht eingefügt werden! Es existiert bereits in der Datenbank.", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                 }
             }
@@ -645,8 +683,6 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt.", JOptionPane.CANCEL_OPTION);
-        } catch (NullPointerException n) {
-            n.printStackTrace();
         }
     }//GEN-LAST:event_jButtonAddFoodActionPerformed
 
@@ -654,6 +690,36 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
         viewFoods(1000);
     }//GEN-LAST:event_jRadioButtonGrammTableActionPerformed
+
+    private void jTableFoodDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFoodDataMouseClicked
+        int foodRowIndex = jTableFoodData.getSelectedRow();
+        TableModel foodModel = jTableFoodData.getModel();
+
+        String foodID = foodModel.getValueAt(foodRowIndex, 0).toString();
+        String storageRoomNumber = foodModel.getValueAt(foodRowIndex, 1).toString();
+        String stock = foodModel.getValueAt(foodRowIndex, 2).toString();
+        String foodName = foodModel.getValueAt(foodRowIndex, 3).toString();
+
+        if (mode == "delete" || mode == "update") {
+            jTextFieldFoodName.setText(foodName);
+            jTextFieldID.setText(foodID);
+            jTextFieldStock.setText(stock);
+            jTextFieldStorageRoomNumber.setText(storageRoomNumber);
+        }
+    }//GEN-LAST:event_jTableFoodDataMouseClicked
+
+    private void jRadioButtonKgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonKgActionPerformed
+
+
+    }//GEN-LAST:event_jRadioButtonKgActionPerformed
+
+    private void jRadioButtonGrammActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonGrammActionPerformed
+
+    }//GEN-LAST:event_jRadioButtonGrammActionPerformed
+
+    private void jTextFieldStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldStockActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldStockActionPerformed
 
     /**
      * Method to disable/enable buttons and labels depending on operation
@@ -666,7 +732,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         if (jRadioButtonAdd.isSelected()) {
 
             System.out.println("    Add mode");
-
+            methods.clearTable((DefaultTableModel) jTableFoodData.getModel());
             jButtonAddFood.setEnabled(true);
             jButtonUpdateFood.setEnabled(false);
             jButtonDeleteFood.setEnabled(false);
@@ -677,7 +743,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(false);
             jRadioButtonKgTable.setEnabled(false);
             jRadioButtonGrammTable.setEnabled(false);
-            //mode = "add";
+            mode = "add";
             return "add";
 
         } else if (jRadioButtonUpdate.isSelected()) {
@@ -693,7 +759,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(true);
             jRadioButtonKgTable.setEnabled(true);
             jRadioButtonGrammTable.setEnabled(true);
-            //mode = "update";
+            mode = "update";
             return "update";
 
         } else if (jRadioButtonDelete.isSelected()) {
@@ -709,7 +775,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(true);
             jRadioButtonKgTable.setEnabled(true);
             jRadioButtonGrammTable.setEnabled(true);
-            //mode = "delete";
+            mode = "delete";
             return "delete";
         }
 
@@ -733,13 +799,17 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageFoodJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageFoodJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageFoodJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageFoodJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageFoodJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageFoodJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageFoodJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageFoodJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>   
 
@@ -794,6 +864,9 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
     private javax.swing.JFrame goBackFrame;
     private ZooManager zooManager;
     private Methods methods;
-    //private String mode;
+    private String mode;
     private LinkedList<Food> foods;
+    private LinkedHashMap<String, String> columnNameToValue;
+    private String unit;
+
 }

@@ -982,7 +982,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         /* Create and display the JFrame MangeZookeeperToAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageZookeeperToAnimalJFrame(thisFrame).setVisible(true);
+                new ManageZookeeperToAnimalJFrame(thisFrame,zooManager).setVisible(true);
             }
         });
 
