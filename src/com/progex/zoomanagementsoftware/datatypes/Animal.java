@@ -21,9 +21,9 @@ public class Animal {
 
     private Meal meals;
 
-    private String animalName;
+   // private String animalName;
 
-    public Animal(int id, String name, Date birthday, String sex, Compound compound, Species species, Meal meals, String animalName) {
+    public Animal(int id, String name, Date birthday, String sex, Compound compound, Species species, Meal meals) {
 
         this.id = id;
         this.name = name;
@@ -32,7 +32,7 @@ public class Animal {
         this.compound = compound;
         this.species = species;
         this.meals = meals;
-        this.animalName = animalName;
+       // this.animalName = animalName;
     }
 
     public int getId() {
@@ -87,11 +87,12 @@ public class Animal {
         this.meals = meals;
     }
 
+    /*
     public String getAnimalName() {
         return animalName;
     }
 
     public void setAnimalName(String animalName) {
         this.animalName = animalName;
-    }
+    }*/
 }

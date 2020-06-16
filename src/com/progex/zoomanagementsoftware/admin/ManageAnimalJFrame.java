@@ -5,9 +5,16 @@
  */
 package com.progex.zoomanagementsoftware.admin;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
+import com.progex.zoomanagementsoftware.datatypes.Animal;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -17,24 +24,62 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ManageUserJFrameOld
-     * @param goBackFrame The frame which will appear when the go back button is used
+     *
+     * @param goBackFrame The frame which will appear when the go back button is
+     * used
      */
-    public ManageAnimalJFrame(JFrame goBackFrame) {
+    public ManageAnimalJFrame(JFrame goBackFrame, ZooManager zooManager) {
         initComponents();
         this.goBackFrame = goBackFrame;
-        myInitComponents();
-    }
-    
-    
-    
-    
-    public void myInitComponents(){
-        updateButtonsAndLabels();
-        Methods methods = new Methods();    
+        this.zooManager = zooManager;
+        methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
+        myInitComponents();
+
+    }
+
+    public void myInitComponents() {
+        updateButtonsAndLabels();
+        //LinkedList <Animal> allAnimals = zooManager.getAnimals();
+        //viewAnimals(allAnimals);
+    }
+
+    
+    private void cleanTable(){
+    
+        DefaultTableModel tableModel = (DefaultTableModel) jTableAnimalData.getModel();
+        while (tableModel.getRowCount() > 0) {
+            tableModel.removeRow(0);
+        }
     }
     
-    
+    /**
+     * Method which has been implemented to map a LinkedList
+     * of Animal objects to a JTable.
+     * @param animals
+     */
+    private void viewAnimals(LinkedList<Animal> animals) {
+
+       
+        cleanTable();
+        DefaultTableModel model = (DefaultTableModel) jTableAnimalData.getModel();
+        Object[] row = new Object[6]; // Spalten
+
+        for (Animal animal : animals) {
+            //Hier bekommt man die Spalten der Zeile
+            row[0] = animal.getId();
+            row[1] = animal.getName();
+            row[2] = animal.getSex();
+            row[3] = animal.getBirthday(); 
+            //DIE LINE IST NOCH HÄSSLICH
+            row[4] = methods.descriptionToString(animal.getSpecies().getDescription());
+            row[5] = animal.getCompound().getName();
+            //Hier wird es Hinzugefuegt
+            model.addRow(row);
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,7 +97,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         jLabelSpecies = new javax.swing.JLabel();
         jTextFieldAnimalName = new javax.swing.JTextField();
         jTextFieldSex = new javax.swing.JTextField();
-        jTextCompound = new javax.swing.JTextField();
+        jTextFieldCompound = new javax.swing.JTextField();
         jTextFieldDateOfBirth = new javax.swing.JTextField();
         jComboBoxSpecies = new javax.swing.JComboBox<>();
         jButtonAddAnimal = new javax.swing.JButton();
@@ -77,7 +122,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tier verwalten");
-        setPreferredSize(new java.awt.Dimension(1280, 600));
         setResizable(false);
 
         jLabelAnimalName.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -95,7 +139,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         jLabelSpecies.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelSpecies.setText("Spezies");
 
-        jComboBoxSpecies.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Säugetier", "Fisch", "Vogel", "Amphibie", "Reptil", "Insekt", "Spinnentier", "Wirbellos. " }));
+        jComboBoxSpecies.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Säugetier", "Fisch", "Vogel", "Amphibie", "Reptil", "Insekt", "Spinnentier", "Wirbellos" }));
         jComboBoxSpecies.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxSpeciesActionPerformed(evt);
@@ -226,7 +270,19 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         });
         jTableAnimalData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTableAnimalData.getTableHeader().setReorderingAllowed(false);
+        jTableAnimalData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableAnimalDataMouseClicked(evt);
+            }
+        });
         jScrollPaneAnimalTable.setViewportView(jTableAnimalData);
+        if (jTableAnimalData.getColumnModel().getColumnCount() > 0) {
+            jTableAnimalData.getColumnModel().getColumn(1).setPreferredWidth(180);
+            jTableAnimalData.getColumnModel().getColumn(2).setPreferredWidth(120);
+            jTableAnimalData.getColumnModel().getColumn(3).setPreferredWidth(150);
+            jTableAnimalData.getColumnModel().getColumn(4).setPreferredWidth(170);
+            jTableAnimalData.getColumnModel().getColumn(5).setPreferredWidth(200);
+        }
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelShowDateTime.setText("TIME");
@@ -277,10 +333,10 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                                     .addComponent(jLabelSpecies)
                                     .addComponent(jLabelCompound))
                                 .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextCompound, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldDateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBoxSpecies, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldCompound, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldDateOfBirth, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                                    .addComponent(jComboBoxSpecies, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jButtonDeleteAnimal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -298,7 +354,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jPanelOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(144, 144, 144)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelID)
@@ -307,9 +363,9 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jButtonSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabelSearch, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabelShowDateTime))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addGap(69, 69, 69))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,7 +393,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCompound)
-                    .addComponent(jTextCompound, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldCompound, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAddAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -351,11 +407,12 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 .addGap(106, 106, 106))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabelShowDateTime)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelID)
                     .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelSearch)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -372,189 +429,319 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxSpeciesActionPerformed
 
     private void jButtonAddAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddAnimalActionPerformed
-        // TODO 
+
+        jTextFieldID.setText("");
+
+        JTextField textFields[] = {jTextFieldAnimalName, jTextFieldCompound,
+            jTextFieldDateOfBirth, jTextFieldSex};
+
+   
+        boolean textFieldsVerified = methods.verifyTextFields(textFields);
+
         
-        
-         //Falls Fehler beim Einfügen
-         JOptionPane.showMessageDialog(null, "Tier konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-        
-         //Falls Einfügen erfolgreich, pfeil wäre besser
-         JOptionPane.showMessageDialog(null, "Tier konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-         
+        /*TODO clean fields eventually*/
+
+        if (textFieldsVerified) {
+
+            String animalName = jTextFieldAnimalName.getText();
+            String compoundName = jTextFieldCompound.getText();
+            String date = jTextFieldDateOfBirth.getText();
+            String sex = jTextFieldSex.getText();
+            String species = jComboBoxSpecies.getSelectedItem().toString();
+            
+            boolean dateFormatCorrect = methods.isValidDateString(date);
+            
+          if(dateFormatCorrect){  
+            if (zooManager.addAnimal(animalName, compoundName, date, sex, species)) {
+                //Falls Einfügen erfolgreichr
+                JOptionPane.showMessageDialog(null, "Tier konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+                LinkedList<Animal> animals = zooManager.getAnimals();
+                viewAnimals(animals);
+            } else {
+                //Falls Fehler beim Einfügen
+                JOptionPane.showMessageDialog(null, "Tier konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+            }
+          } else 
+                 JOptionPane.showMessageDialog(null, "Bitte Geburtstsag im format yyyy-MM-dd eintragen !", "Falsches Datumformat", JOptionPane.CANCEL_OPTION); 
+          
+          
+        }
+
     }//GEN-LAST:event_jButtonAddAnimalActionPerformed
 
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
-        
+
         goBackFrame.setVisible(true);
         //Close frame
         this.dispose();
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
-        
-     
+        cleanTable();
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
 
     private void jRadioButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonUpdateActionPerformed
-        
+
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonUpdateActionPerformed
 
-    
+
     private void jRadioButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDeleteActionPerformed
-        
-    
+
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonDeleteActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
-        // TODO add your handling code here:
+        
+            String animalName = jTextFieldAnimalName.getText().trim();
+            String compoundName = jTextFieldCompound.getText().trim();
+            String birthday = jTextFieldDateOfBirth.getText().trim();
+            String sex = jTextFieldSex.getText().trim();
+            String species = jComboBoxSpecies.getSelectedItem().toString();
+            String ID = jTextFieldID.getText().trim();
+        
+           LinkedHashMap<String,String> columnNameToValue = new LinkedHashMap<String,String>();
+           columnNameToValue.put("Animal.ID", ID);
+           columnNameToValue.put("AnimalName", animalName);
+           columnNameToValue.put("Sex", sex);
+           columnNameToValue.put("Birthday", birthday);
+           columnNameToValue.put("Description",species);
+           columnNameToValue.put("Name", compoundName);
+           
+           LinkedList<Animal> animals = zooManager.searchAnimals(columnNameToValue);
+           viewAnimals(animals);
+           
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonAssignFeedingTimesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssignFeedingTimesActionPerformed
         // GO TO FeedingTime FORM
-         this.setVisible(false);
-        
-        
-        JFrame thisFrame = this; 
+        this.setVisible(false);
+
+        JFrame thisFrame = this;
         /* Create and display the JFrame FoodToAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageFoodToAnimalJFrame(thisFrame).setVisible(true);
+                new ManageFoodToAnimalJFrame(thisFrame,zooManager).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButtonAssignFeedingTimesActionPerformed
 
     private void jButtonAssignZookeeperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssignZookeeperActionPerformed
         //  GOTO Relationship between Animal and Zookeeper FORM
-         this.setVisible(false);
-        
-        
-        JFrame thisFrame = this; 
+        this.setVisible(false);
+
+        JFrame thisFrame = this;
         /* Create and display the JFrame MangeUser*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageZookeeperToAnimalJFrame(thisFrame).setVisible(true);
+                new ManageZookeeperToAnimalJFrame(thisFrame,zooManager).setVisible(true);
             }
         });
-        
-        
+
+
     }//GEN-LAST:event_jButtonAssignZookeeperActionPerformed
 
     private void jButtonUpdateAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateAnimalActionPerformed
-        // TODO
-         //Falls Fehler beim Updaten
-         JOptionPane.showMessageDialog(null, "Tier konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-        
-         //Falls Updaten erfolgreich, pfeil wäre besser
-         JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+
+        JTextField textFields[] = {
+            jTextFieldAnimalName,
+            jTextFieldCompound,
+            jTextFieldDateOfBirth,
+            jTextFieldSex,
+            jTextFieldID};
+
+        boolean textFieldsVerified = methods.verifyTextFields(textFields);
+
+        if (textFieldsVerified) {
+
+            String animalName = jTextFieldAnimalName.getText();
+            String compoundName = jTextFieldCompound.getText();
+            String date = jTextFieldDateOfBirth.getText();
+            String sex = jTextFieldSex.getText();
+            String species = jComboBoxSpecies.getSelectedItem().toString();
+            try {
+                int ID = Integer.parseInt(jTextFieldID.getText());
+                 
+                
+                boolean dateFormatCorrect = methods.isValidDateString(date);
+                
+                if (dateFormatCorrect){
+                if (zooManager.updateAnimal(ID, animalName, compoundName, date, sex, species)) {
+                    //Falls Updaten erfolgreich, pfeil wäre besser
+                    JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+                    LinkedList<Animal> animals= zooManager.getAnimals();
+                    viewAnimals(animals);
+                } else {
+
+                    //Falls Fehler beim Updaten
+                    JOptionPane.showMessageDialog(null, "Tier konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+
+                }
+
+                } else 
+                 JOptionPane.showMessageDialog(null, "Bitte Geburtstsag im format yyyy-MM-dd eintragen !", "Falsches Datumformat", JOptionPane.CANCEL_OPTION); 
+                
+                
+            } catch (NumberFormatException numberFormatException) {
+
+                System.err.println("NumberFormatException");
+                System.out.println(numberFormatException.getMessage());
+                JOptionPane.showMessageDialog(null, "Tier konnte nicht geupdated werden !", "IDfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+
+            }
+
+        }
+
     }//GEN-LAST:event_jButtonUpdateAnimalActionPerformed
 
     private void jButtonDeleteAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteAnimalActionPerformed
-          
-            
-           //Nachfragen ob er sich sicher ist, hier if Abfrage mache
-       
-          //TODO Cancel auf deutsch
-         int decision = JOptionPane.showConfirmDialog(null,
-                "Sind Sie sicher", "Löschbestätigung",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-          //OK = 0, cancel =2
-     System.out.println(decision);
 
+        JTextField textFields[] = {jTextFieldID};
+        boolean textFieldsVerified = methods.verifyTextFields(textFields);
 
-          //Falls Fehler beim Löschen
-         JOptionPane.showMessageDialog(null, "Tier konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-        
-         //Falls Löschen erfolgreich, pfeil wäre besser
-         JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                                                       
+        try {
+            int ID = Integer.parseInt(jTextFieldID.getText());
+
+            if (textFieldsVerified) {
+
+                //Nachfragen ob er sich sicher ist, hier if Abfrage mache
+                //TODO Cancel auf deutsch
+                int decision = JOptionPane.showConfirmDialog(null,
+                        "Sind Sie sicher", "Löschbestätigung",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (decision == 0) {
+                    if (zooManager.deleteAnimal(ID)) {
+                        //Falls Löschen erfolgreich, pfeil wäre besser
+                        JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+                        LinkedList<Animal> animals = zooManager.getAnimals();
+                        viewAnimals(animals);
+                    } else {
+                        //Falls Fehler beim Löschen
+                        JOptionPane.showMessageDialog(null, "Tier konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+
+                    }
+
+                }
+
+            }
+
+        } catch (NumberFormatException numberFormatException) {
+
+            System.err.println("NumberFormatException");
+            System.out.println(numberFormatException.getMessage());
+            JOptionPane.showMessageDialog(null, "Tier konnte nicht gelöscht werden !", "IDfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+
+        }
+
     }//GEN-LAST:event_jButtonDeleteAnimalActionPerformed
 
     private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
-        
-        String mode = updateButtonsAndLabels();
+
         //System.out.println(mode); //Debug
-        
         //Get the mode
-         switch(mode){
-        
-             case "add":
-                 JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
-                 break;
-             
-             case "update":
-                 JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Tieres ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
-                 break;
-             case "delete":
-                 JOptionPane.showMessageDialog(null, "Bitte die ID des zu löschenden Tieres ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
-                 break;  
-         }
+        switch (mode) {
+
+            case "add":
+                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+                break;
+
+            case "update":
+                JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Tieres ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case "delete":
+                JOptionPane.showMessageDialog(null, "Bitte die ID des zu löschenden Tieres ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
     }//GEN-LAST:event_jButtonHelpActionPerformed
 
-    
-     /**
-     * Method to disable/enable buttons and labels depending on
-     *  operation selection.
+    /**
+     * This Method makes it possible to update the fields, depending which row
+     * is clicked
+     *
+     * @param evt
+     */
+    private void jTableAnimalDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAnimalDataMouseClicked
+
+        if (!mode.equals("add")) {
+
+            int rowIndex = jTableAnimalData.getSelectedRow();
+            TableModel model = jTableAnimalData.getModel();
+            jTextFieldID.setText(model.getValueAt(rowIndex, 0).toString());
+            jTextFieldAnimalName.setText(model.getValueAt(rowIndex, 1).toString());
+            jTextFieldSex.setText(model.getValueAt(rowIndex, 2).toString());
+
+            jTextFieldDateOfBirth.setText(model.getValueAt(rowIndex, 3).toString());
+
+            String species = model.getValueAt(rowIndex, 4).toString();
+            jComboBoxSpecies.setSelectedItem(species);
+            jTextFieldCompound.setText(model.getValueAt(rowIndex, 5).toString());
+        }
+
+
+    }//GEN-LAST:event_jTableAnimalDataMouseClicked
+
+    /**
+     * Method to disable/enable buttons and labels depending on operation
+     * selection.
+     *
      * @return The mode as String, null if unknown mode
      */
-    private String updateButtonsAndLabels(){
-         
+    private String updateButtonsAndLabels() {
+
         //TODO statt Textfeld UpdateDelete 
-            System.out.println("Animal Mode");
-             
-            if (jRadioButtonAdd.isSelected()){
-                System.out.println("    Add mode");
-                //jLabelUpdateDelete.setText("");
-                jButtonAddAnimal.setEnabled(true);
-                jButtonUpdateAnimal.setEnabled(false);
-                jButtonDeleteAnimal.setEnabled(false);
-                jTextFieldID.setEnabled(false);
-                jLabelID.setEnabled(false);
-                jLabelSearch.setEnabled(false);
-                jButtonSearch.setEnabled(false);
-                jButtonAssignFeedingTimes.setEnabled(true);
-                jButtonAssignZookeeper.setEnabled(true);
-                return "add";
-            } else if (jRadioButtonUpdate.isSelected()){
-                System.out.println("    Update mode");
-                jButtonAddAnimal.setEnabled(false);
-                jButtonUpdateAnimal.setEnabled(true);
-                jButtonDeleteAnimal.setEnabled(false);
-                jTextFieldID.setEnabled(true);
-                jLabelID.setEnabled(true);
-                jLabelSearch.setEnabled(true);
-                jButtonSearch.setEnabled(true);
-                jButtonAssignFeedingTimes.setEnabled(true);
-                jButtonAssignZookeeper.setEnabled(true);   
-                return "update";
-            } else if (jRadioButtonDelete.isSelected()){
-                System.out.println("    Delete mode");
-                jButtonAddAnimal.setEnabled(false);
-                jButtonUpdateAnimal.setEnabled(false);
-                jButtonDeleteAnimal.setEnabled(true);
-                jTextFieldID.setEnabled(true);
-                jLabelID.setEnabled(true);
-                jLabelSearch.setEnabled(true);
-                jButtonSearch.setEnabled(true);
-                jButtonAssignFeedingTimes.setEnabled(false);
-                jButtonAssignZookeeper.setEnabled(false);
-                return "delete";
-            }
-                 
+        System.out.println("Animal Mode");
+
+        if (jRadioButtonAdd.isSelected()) {
+            System.out.println("    Add mode");
+            //jLabelUpdateDelete.setText("");
+            jButtonAddAnimal.setEnabled(true);
+            jButtonUpdateAnimal.setEnabled(false);
+            jButtonDeleteAnimal.setEnabled(false);
+            jTextFieldID.setEnabled(false);
+            jLabelID.setEnabled(false);
+            jLabelSearch.setEnabled(false);
+            jButtonSearch.setEnabled(false);
+            jButtonAssignFeedingTimes.setEnabled(true);
+            jButtonAssignZookeeper.setEnabled(true);
+            mode = "add";
+            return "add";
+        } else if (jRadioButtonUpdate.isSelected()) {
+            System.out.println("    Update mode");
+            jButtonAddAnimal.setEnabled(false);
+            jButtonUpdateAnimal.setEnabled(true);
+            jButtonDeleteAnimal.setEnabled(false);
+            jTextFieldID.setEnabled(true);
+            jLabelID.setEnabled(true);
+            jLabelSearch.setEnabled(true);
+            jButtonSearch.setEnabled(true);
+            jButtonAssignFeedingTimes.setEnabled(true);
+            jButtonAssignZookeeper.setEnabled(true);
+            mode = "update";
+            return "update";
+        } else if (jRadioButtonDelete.isSelected()) {
+            System.out.println("    Delete mode");
+            jButtonAddAnimal.setEnabled(false);
+            jButtonUpdateAnimal.setEnabled(false);
+            jButtonDeleteAnimal.setEnabled(true);
+            jTextFieldID.setEnabled(true);
+            jLabelID.setEnabled(true);
+            jLabelSearch.setEnabled(true);
+            jButtonSearch.setEnabled(true);
+            jButtonAssignFeedingTimes.setEnabled(false);
+            jButtonAssignZookeeper.setEnabled(false);
+            mode = "delete";
+            return "delete";
+        }
+
         return null;
     }
-    
-    
-    
-    
-    
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -577,10 +764,18 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+
+        String url = "jdbc:mysql://localhost/";
+        String username = "root";
+        String password = "0000";
+        String dbName = "zoo";
+
+        ZooManager zooManager = new ZooManager(url, dbName, username, password);
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageAnimalJFrame(null).setVisible(true);
+                new ManageAnimalJFrame(null, zooManager).setVisible(true);
             }
         });
     }
@@ -611,12 +806,15 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButtonUpdate;
     private javax.swing.JScrollPane jScrollPaneAnimalTable;
     private javax.swing.JTable jTableAnimalData;
-    private javax.swing.JTextField jTextCompound;
     private javax.swing.JTextField jTextFieldAnimalName;
+    private javax.swing.JTextField jTextFieldCompound;
     private javax.swing.JTextField jTextFieldDateOfBirth;
     private javax.swing.JTextField jTextFieldID;
     private javax.swing.JTextField jTextFieldSex;
     // End of variables declaration//GEN-END:variables
-    
+
     private javax.swing.JFrame goBackFrame;
+    private String mode;
+    private ZooManager zooManager;
+    private Methods methods;
 }

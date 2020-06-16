@@ -205,7 +205,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
             }
         });        
         
-        
     }//GEN-LAST:event_jButtonNextFeedingTimeActionPerformed
 
     private void jButtonNextFeedingTimeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeMouseClicked

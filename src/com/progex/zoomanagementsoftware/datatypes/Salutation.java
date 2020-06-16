@@ -1,6 +1,6 @@
 package com.progex.zoomanagementsoftware.datatypes;
 
-enum Salutation {
+public enum Salutation {
   mr,
   mrs,
   diverse

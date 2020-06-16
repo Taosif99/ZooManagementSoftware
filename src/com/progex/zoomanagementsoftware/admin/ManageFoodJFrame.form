@@ -44,7 +44,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabelStockRoomNumber" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabelStorageRoomNumber" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabelStock" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
@@ -56,7 +56,7 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jRadioButtonGramm" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="jTextStockRoomNumber" min="-2" pref="188" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldStorageRoomNumber" min="-2" pref="188" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
@@ -111,9 +111,9 @@
                   <Component id="jButtonGoBack" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabelShowDateTime" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace pref="41" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jTextFieldID" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelID" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -123,8 +123,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPaneFoodTable" min="-2" pref="399" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="jPanelOperation" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -133,8 +132,8 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabelStockRoomNumber" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextStockRoomNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelStorageRoomNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldStorageRoomNumber" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -281,7 +280,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabelStockRoomNumber">
+    <Component class="javax.swing.JLabel" name="jLabelStorageRoomNumber">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="0"/>
@@ -298,6 +297,12 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldStock">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Format: 9.87"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldStockActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonAddFood">
       <Properties>
@@ -380,6 +385,9 @@
               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableFoodDataMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -434,6 +442,9 @@
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="kg"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonKgActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonGramm">
       <Properties>
@@ -442,6 +453,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="g"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonGrammActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonKgTable">
       <Properties>
@@ -462,8 +476,11 @@
         </Property>
         <Property name="text" type="java.lang.String" value="g"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonGrammTableActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextStockRoomNumber">
+    <Component class="javax.swing.JTextField" name="jTextFieldStorageRoomNumber">
     </Component>
   </SubComponents>
 </Form>
