@@ -69,13 +69,14 @@ public class ConnectionHandler {
 
         try {
             
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            //Class.forName("com.mysql.cj.jdbc.Driver");
+             Class.forName("com.mysql.jdbc.Driver");
             //System.out.println("Successfully connected!");
             //Bei mir klappt nur das, probiert mal beide versionen
             //connection = DriverManager.getConnection(url + dbName + "?characterEncoding=latin1", username, password); //Connector 5...
-            connection = DriverManager.getConnection(url +  dbName+ "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC" , username, password); //Connector 8...
+            //connection = DriverManager.getConnection(url +  dbName+ "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC" , username, password); //Connector 8...
             //For utf 8 
-        
+         connection = DriverManager.getConnection(url + dbName + "?characterEncoding=utf-8", username, password);
         
         
         
@@ -186,6 +187,5 @@ public class ConnectionHandler {
     
        return false;
     }
-    
     
 }

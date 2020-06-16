@@ -298,7 +298,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldStock">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Format: 9.87"/>
+        <Property name="toolTipText" type="java.lang.String" value="Format: zum Beispiel 9.87"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldStockActionPerformed"/>

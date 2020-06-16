@@ -174,7 +174,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         jLabelStock.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelStock.setText("Menge");
 
-        jTextFieldStock.setToolTipText("Format: 9.87");
+        jTextFieldStock.setToolTipText("Format: zum Beispiel 9.87");
         jTextFieldStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldStockActionPerformed(evt);

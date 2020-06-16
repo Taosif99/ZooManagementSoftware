@@ -38,8 +38,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     public void myInitComponents() {
         updateButtonsAndLabels();
-        LinkedList<Animal> animals = zooManager.getAnimals();
-        viewAnimals(animals);
+       
     }
 
     private void viewAnimals(LinkedList<Animal> animals) {
@@ -332,6 +331,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
         jLabelAmountFood.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelAmountFood.setText("Menge");
+
+        jTextFieldAmountFood.setToolTipText("Format: zum Beispiel 9.87");
 
         jButtonSearchAnimal.setText("Suche Tiere");
         jButtonSearchAnimal.addActionListener(new java.awt.event.ActionListener() {
@@ -978,8 +979,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     private void jButtonSearchAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchAnimalActionPerformed
 
-        JTextField[] textFieldArr = {jTextFieldAnimalName};
-        boolean textFieldsVerfied = methods.verifyTextFields(textFieldArr);
+        jTextFieldAnimalName.setText(jTextFieldAnimalName.getText().trim());
 
         LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
         String animalName = jTextFieldAnimalName.getText();
