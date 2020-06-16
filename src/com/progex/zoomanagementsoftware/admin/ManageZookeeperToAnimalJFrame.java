@@ -381,7 +381,6 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
         model = (DefaultTableModel) jTableTakesCareData.getModel();
 
-        System.out.println("Noch kein prob");
         Object[] row = new Object[5];
 
         for (ZookeeperToAnimalR record : records) {
@@ -412,7 +411,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             String lastname = jTextFieldZookeeperLastName.getText();
             String animalName = jTextFieldAnimalName.getText();
 
-            LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
+            columnNameToValue = new LinkedHashMap<String, String>();
             columnNameToValue.put("UserID", userId);
             columnNameToValue.put("firstname", firstname);
             columnNameToValue.put("lastname", lastname);
@@ -438,14 +437,13 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         try {
 
             JTextField textFields[] = {jTextFieldUserID, jTextFieldAnimalName};
-            boolean textFieldsVerified = methods.verifyTextFields(textFields);
 
             //Ob BenutzerId fehlt
             if (jTextFieldUserID.getText().isBlank()) {
                 JOptionPane.showMessageDialog(null, "BenutzerID fehlt!", "Textfeld ohne Inhalt", JOptionPane.CANCEL_OPTION);
             } else {
                 //Wenn BenutzerID und Tiername nciht fehlen
-                if (textFieldsVerified) {
+                if (methods.verifyTextFields(textFields)) {
 
                     int zookeeperID = Integer.parseInt(jTextFieldUserID.getText());
                     String animalName = jTextFieldAnimalName.getText();
@@ -459,9 +457,12 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
                             //Ob die Zuweisung existiert, wenn ja wird gelöscht, wenn nicht fehlermeldung
                             if (zooManager.checkZookeeperToAnimalExists(animalName, zookeeperID)) {
-                                //System.out.println("Kombi exists");
                                 //Löschen erfolgreich
                                 if (zooManager.deleteZookeeperToAnimal(zooManager.getAnimalIds(animalName), zookeeperID)) {
+                                    if (columnNameToValue != null) {
+                                        records = zooManager.searchZookeeperToAnimal(columnNameToValue);
+                                        viewRelationTable(); // um die Tabelle zu aktualiseren
+                                    }
                                     JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                                     clearTextFields();
                                 } else {
@@ -531,6 +532,10 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Tiername wurde nicht gefunden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     } else {
                         if (zooManager.addZookeeperToAnimal(animalIds, selectedZookeeperID)) {
+                            if (columnNameToValue != null) {
+                                records = zooManager.searchZookeeperToAnimal(columnNameToValue);
+                                viewRelationTable(); // um die Tabelle zu aktualiseren
+                            }
                             JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                             clearTextFields();
                         } else {
@@ -579,7 +584,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             String lastname = jTextFieldZookeeperLastName.getText().trim();
 
             //System.out.println(firstname + " " + lastname);
-            LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
+            columnNameToValue = new LinkedHashMap<String, String>();
             columnNameToValue.put("firstName", firstname);
             columnNameToValue.put("lastName", lastname);
             columnNameToValue.put("type", "Zookeeper");
@@ -754,4 +759,5 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     private String selectedZookeeperID;
     private String mode;
     private LinkedList<ZookeeperToAnimalR> records;
+    private LinkedHashMap<String, String> columnNameToValue;
 }

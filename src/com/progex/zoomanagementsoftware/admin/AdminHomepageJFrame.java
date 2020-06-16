@@ -11,6 +11,7 @@ import com.progex.zoomanagementsoftware.datatypes.Admin;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import com.progex.zoomanagementsoftware.datatypes.Salutation;
 import com.progex.zoomanagementsoftware.datatypes.User;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -28,10 +29,9 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     public AdminHomepageJFrame(ZooManager zooManager) {
 
         this.zooManager = zooManager;
-        this.userManager = zooManager.getUserManager();
         initComponents();
         myInitComponents();
-        
+
     }
 
     public void myInitComponents() {
@@ -326,54 +326,60 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jButtonManageEatsActionPerformed
 
-    
-    private void fillTable(DefaultTableModel model){
+    private void fillTable(DefaultTableModel model) {
+
+        LinkedHashMap <String, String> columnNameToValue = new LinkedHashMap<String, String>();
+        columnNameToValue.put("type", "Admin");
         
-        LinkedList <Admin> admins = userManager.getAdmins(Integer.parseInt(jTextFieldAmountAdmins.getText()));
         
+        LinkedList<User> users = zooManager.getUserManager().searchUsers(columnNameToValue);
+
+        //LinkedList<Admin> admins = userManager.getAdmins(Integer.parseInt(jTextFieldAmountAdmins.getText()));
+
         model = (DefaultTableModel) jTableLastLoginAdminsData.getModel();
-        
+
         Object[] row = new Object[5];
-        
-        for(Admin admin : admins){
+
+        for (User admin : users) {
             row[0] = admin.getId();
             row[1] = admin.getLastLogDate();
-            if(admin.getSalutation().equals(Salutation.mr))
+            if (admin.getSalutation().equals(Salutation.mr)) {
                 row[2] = "Herr";
-            else if(admin.getSalutation().equals(Salutation.mrs))
+            } else if (admin.getSalutation().equals(Salutation.mrs)) {
                 row[2] = "Frau";
-            else
+            } else {
                 row[2] = "Divers";
+            }
             row[3] = admin.getFirstname();
             row[4] = admin.getLastname();
-   
+
             model.addRow(row);
         }
     }
-    
-    private void viewAdmins(){
-        
+
+    private void viewAdmins() {
+
         /*Clean the table*/
         DefaultTableModel tableModel = (DefaultTableModel) jTableLastLoginAdminsData.getModel();
         while (tableModel.getRowCount() > 0) {
             tableModel.removeRow(0);
         }
-        
+
         fillTable(tableModel);
     }
-    
-    
+
     private boolean checkInput() {
         try {
             int temp = Integer.parseInt(jTextFieldAmountAdmins.getText());
-            
-            if(temp >= 1)
+
+            if (temp >= 1) {
                 return true;
+            }
 
         } catch (NumberFormatException numberFormatException) {
 
             System.err.println("NumberFormatException");
-            System.out.println(numberFormatException.getMessage());   
+            System.out.println(numberFormatException.getMessage());
         }
         return false;
     }
@@ -381,9 +387,8 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     private void jButtonShowAdminsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowAdminsActionPerformed
 
         boolean validInput = checkInput();
-        
-        if(validInput)
-        {
+
+        if (validInput) {
             viewAdmins();
         } else
             JOptionPane.showMessageDialog(null, "Anzahl der auszugebenden Admins ungültig!", "Zahlenfeld falsch ausgefüllt.", JOptionPane.CANCEL_OPTION);
@@ -425,7 +430,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         String dbName = "zoo";
 
         ZooManager zooManager = new ZooManager(url, dbName, username, password);
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -454,7 +459,6 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private ZooManager zooManager;
-    private UserManager userManager;
     private Methods methods;
 
 }

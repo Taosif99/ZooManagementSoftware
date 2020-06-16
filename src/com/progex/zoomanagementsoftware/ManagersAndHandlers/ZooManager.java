@@ -145,9 +145,14 @@ public class ZooManager {
         return foods;
     }
 
+    /**
+     * This method is used to check if a food exists in the database.
+     * @param name
+     * @param id
+     * @return True if the food exists and false if the food doesnt exist
+     */
     public boolean checkFoodExists(String name, int id) {
-
-        //System.out.println("In chekcFood " + name + " " + id);
+        
         try {
             ResultSet resultSet;
             String query;
@@ -158,6 +163,7 @@ public class ZooManager {
 
                 if (resultSet != null) {
                     if (resultSet.next()) {
+                        System.out.println("True");
                         return true;
                     }
                 }
@@ -167,6 +173,7 @@ public class ZooManager {
                 resultSet = connectionHandler.performQuery(query);
                 if (resultSet != null) {
                     if (resultSet.next()) {
+                        System.out.println("True");
                         return true;
                     }
                 }
@@ -211,6 +218,9 @@ public class ZooManager {
         return retVal;
     }
 
+    
+    
+    
     //TakesCare
     /**
      * This method is used to get all animal ids with the same animal name.
