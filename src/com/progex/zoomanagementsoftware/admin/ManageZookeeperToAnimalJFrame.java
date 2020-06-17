@@ -483,17 +483,17 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
     private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
 
-        String mode = updateButtonsAndLabels();
+        updateButtonsAndLabels();
         //System.out.println(mode); //Debug
 
         //Get the mode
         switch (mode) {
 
-            case "add":
+            case add:
                 JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
                 break;
 
-            case "delete":
+            case delete:
                 JOptionPane.showMessageDialog(null, "Bitte die ID des Benutzers und den Tiernamen ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
                 break;
         }
@@ -628,7 +628,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             viewRelationTable();
         }
 
-        if (mode.equals("delete")) {
+        if (mode == mode.delete) {
             jTextFieldUserID.setText(selectedZookeeperID);
         }
     }//GEN-LAST:event_jTableZookeeperDataMouseClicked
@@ -653,7 +653,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         String animalName = takesCareModel.getValueAt(takesCareRowIndex, 4).toString();
         jTextFieldAnimalName.setText(animalName);
 
-        if (mode != "add")
+        if (mode != mode.add)
             jTextFieldUserID.setText(selectedZookeeperID);
     }//GEN-LAST:event_jTableTakesCareDataMouseClicked
 
@@ -661,7 +661,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
      * Method to disable/enable buttons and labels depending on operation
      * selection.
      */
-    private String updateButtonsAndLabels() {
+    private void updateButtonsAndLabels() {
 
         if (jRadioButtonAdd.isSelected()) {
 
@@ -673,8 +673,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             jLabelZookeeperID.setEnabled(false);
             jLabelSearch.setEnabled(false);
             jButtonSearch.setEnabled(false);
-            mode = "add";
-            return "add";
+            mode = mode.add;
 
         } else if (jRadioButtonDelete.isSelected()) {
 
@@ -686,11 +685,8 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             jLabelZookeeperID.setEnabled(true);
             jLabelSearch.setEnabled(true);
             jButtonSearch.setEnabled(true);
-            mode = "delete";
-            return "delete";
+            mode = mode.delete;
         }
-
-        return null;
     }
 
     /**
@@ -770,7 +766,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     private Methods methods;
     private LinkedList<User> zookeepers;
     private String selectedZookeeperID;
-    private String mode;
+    private Mode mode;
     private LinkedList<ZookeeperToAnimalR> records;
     private LinkedHashMap<String, String> columnNameToValue;
 }
