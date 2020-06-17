@@ -98,6 +98,20 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     }
 
+    private void cleanFields(){
+    
+        jTextFieldFood.setText("");
+        jTextFieldStartFeedingTime.setText("");
+        jTextFieldEndFeedingTime.setText("");
+        jTextFieldAmountFood.setText("");
+        jTextFieldAnimalID.setText("");
+        jTextFieldFoodID.setText("");
+        jTextFieldDateTimeID.setText("");
+    
+    
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -612,7 +626,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             try {
 
                 JTextField textFields[] = {jTextFieldFood, jTextFieldStartFeedingTime,
-                    jTextFieldEndFeedingTime, jTextFieldAmountFood,};
+                    jTextFieldEndFeedingTime, jTextFieldAmountFood};
 
                 boolean textFieldsVerified = methods.verifyTextFields(textFields);
                 if (textFieldsVerified) {
@@ -651,7 +665,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                             int animalID = Integer.parseInt(selectedAnimalID);
                             LinkedList<FoodToAnimalR> records = zooManager.getFoodToAnimalRecords(animalID);
                             viewRelationTable(records);
-
+                            cleanFields();
+                            
                         } else {
                             JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                         }
@@ -701,7 +716,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
-         
+        cleanFields();
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
 

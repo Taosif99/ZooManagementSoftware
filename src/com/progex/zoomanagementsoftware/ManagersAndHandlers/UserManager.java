@@ -232,6 +232,7 @@ public class UserManager {
      * @param username
      * @param email
      * @param password
+     * @param changePassword
      * @return true if operation is sucessful, else false
      */
     public boolean updateUser(int id, String type, String salutation, String firstname,
@@ -244,11 +245,30 @@ public class UserManager {
 
         int addressId = searchAddressId(zip, street, city);
         if (addressId != -1) {
-
+        //Check if username changed and if yes, check if new username already used     
+        String oldUsername = " ";
+        String userNameQuery = "SELECT UserName FROM USER WHERE ID = " +id;
+        ResultSet resultSet = connectionHandler.performQuery(userNameQuery);
+        if(resultSet != null){
+        
+            try {
+                if (resultSet.next()){
+                oldUsername = resultSet.getString("UserName");
+                } 
+                
+            } catch (SQLException ex) {
+               System.err.println("SQL Exception");
+               System.out.println(ex.getMessage());
+            }
+        } 
+        
+        if (! oldUsername.equals(username)){
+            if(this.usernameExists(username)) return false;
+        }
+        
+            
         String query;    
-            
-            
-            
+               
                 query = "UPDATE User\n"
                     + "SET UserName = '" + username + "',\n"
                     + "FirstName = '" + firstname + "',\n"
@@ -265,19 +285,15 @@ public class UserManager {
 
             if (changePassword){
             
-                query = query + "HashedPassword = '" + hashedPassword + "',\n" 
+                query = query + " ,HashedPassword = '" + hashedPassword + "'\n" 
                         + " WHERE ID = " + id;
-            
             } else query = query +   " WHERE ID = " + id;     
-                   
-                   
                    
             //DEBUG
             System.out.println(query);
             return connectionHandler.manipulateDB(query);
 
         }
-
         return false;
     }
 

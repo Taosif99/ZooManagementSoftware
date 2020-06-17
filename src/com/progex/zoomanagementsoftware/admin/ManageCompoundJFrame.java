@@ -53,6 +53,18 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     }
 
+    
+    private void cleanFields(){
+            jTextFieldID.setText("");
+            jTextFieldCompoundName.setText("");
+            jTextFieldConstructionYear.setText("");
+            jTextFieldMaxCapacity.setText("");
+            jTextFieldArea.setText("");
+    
+    
+    }
+    
+    
     /**
      * Method which has been implemented to map a LinkedList of Compound objects
      * to a JTable.
@@ -426,7 +438,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
             int maxCapacity = Integer.parseInt(jTextFieldMaxCapacity.getText());
             Double area = Double.parseDouble(jTextFieldArea.getText());
 
-            /*TODO clean fields eventually*/
+            
             if (textFieldsVerified) {
 
                 if (checkGreaterZero(constructionYear, maxCapacity, area)) {
@@ -434,10 +446,12 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                 }
 
                 if (zooManager.addCompound(compundName, area, constructionYear, maxCapacity)) {
-                    //Falls Einfügen erfolgreich, pfeil wäre besser
+                    
                     JOptionPane.showMessageDialog(null, "Gehege konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                    LinkedList<Compound> compounds = zooManager.getCompounds();
-                    viewCompounds(compounds);
+                    cleanFields();
+                    
+                    
+                    
                 } else //Falls Fehler beim Einfügen in die Datenbank", JOptionPane.CANCEL_OPTION      
                 {
                     JOptionPane.showMessageDialog(null, "Gehege konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -469,6 +483,9 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
+       
+      
+        cleanFields();
         cleanTable();
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
@@ -590,8 +607,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                     if (zooManager.deleteCompound(ID)) {
                         //Falls Löschen erfolgreich
                         JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                        LinkedList<Compound> compounds = zooManager.getCompounds();
-                        viewCompounds(compounds);
+                        cleanFields();
+                        cleanTable();
                     } else {
                         //Falls Fehler beim Löschen
                         JOptionPane.showMessageDialog(null, "Gehege konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);

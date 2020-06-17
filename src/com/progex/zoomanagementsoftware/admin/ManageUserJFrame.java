@@ -92,6 +92,24 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         }
     }
 
+    private void cleanFields(){
+    
+    jTextFieldFirstname.setText("");
+    jTextFieldLastname.setText("");
+    jTextFieldStreet.setText("");
+    jTextFieldZIP.setText("");
+    jTextFieldCity.setText(""); 
+    jTextFieldCountry.setText("");
+    jTextFieldPhoneNumber.setText("");
+    jTextFieldBirthday.setText("");
+    jTextFieldUsername.setText("");
+    jTextFieldEMail.setText("");
+    jTextFieldID.setText("");
+    jPasswordFieldConfirm.setText("");
+    jPasswordFieldEnteredPW.setText("");
+    }
+    
+    
     /**
      * ICH WÜRDE ES EHER IN DER DATENBANK VERÄNDERN..., dann fallen UNNÖTIGE
      * Übersetzungen weg !
@@ -721,8 +739,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
                             JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
 
-                            LinkedList<User> users = userManager.getUsers();
-                            viewUsers(users);
+                            cleanFields();
 
                         } else {
 
@@ -836,6 +853,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonHelpActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
+        cleanFields();
         cleanTable();
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
@@ -868,12 +886,12 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                     if (userManager.deleteUser(ID)) {
                         //Falls Löschen erfolgreich, pfeil wäre besser
                         JOptionPane.showMessageDialog(null, "Nutzer/-in wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                        LinkedList<User> users = userManager.getUsers();
-                        viewUsers(users);
+                        cleanTable();
+                        cleanFields();
                     } else {
                         //Falls Fehler beim Löschen
                         JOptionPane.showMessageDialog(null, "Tier konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-
+                        
                     }
 
                 }
@@ -911,27 +929,23 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             String confirmedPassword = jPasswordFieldConfirm.getText();
             
             boolean changePassword = false;
+            
+            
+            
             if(!password.isBlank() && ! confirmedPassword.isBlank()){
             
              int passwordDescision = JOptionPane.showConfirmDialog(null,
                         "Wollen Sie wirklich das passwort ändern ? ", "Bestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
              if (passwordDescision == 0) changePassword = true ;
-            
-            // Handling case if password will be changed
-            
-            
-            
-            
-            
-            
-            } //Handle case if password is not changed
-            
-          //  if (changePassword &&  password.equals(confirmedPassword) || changePassword == false){
-            
-            
-            
-            
+
+              //CHECK IF PASSWORD AND CONFIRMED PASSWORD ARE THE SAME
+              
+              if(!password.equals(confirmedPassword)) throw new IllegalArgumentException("passwords not identical");
+              
+              
+            }
+                     
             String shiftStr = "None";
             try {
                 int id = Integer.parseInt(jTextFieldID.getText());
@@ -939,16 +953,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                         "Wollen Sie den Datensatz wirklich ändern ? ", "Bestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (decision == 0) {
-                
-                
-                //Use
-                //No only white spaces and no empty password
-                
-                
-               // if (!password.isBlank() && password.equals(confirmedPassword)) {
-                
-               
-             
+                      
                     String firstname = jTextFieldFirstname.getText();
                     String lastname = jTextFieldLastname.getText();
                     String street = jTextFieldStreet.getText();
@@ -979,7 +984,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
                     }
 
-                    if (!userManager.usernameExists(username)) {
+                    
+                    
            
                         if (userManager.updateUser(id, userTypeStr, salutationStr, firstname,
                                 lastname, street, zip, city, country,
@@ -997,19 +1003,10 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
 
                         }
-                    } else {
-
-                        JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdated werden!", "Nutzername bereits vergeben", JOptionPane.CANCEL_OPTION);
-                    }
-
-                
-                
+                               
                }
 
-               
-         
-             
-                
+
             } 
             
             
@@ -1022,17 +1019,25 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
             } catch (IllegalArgumentException illegalArgumentException) {
 
+                String message = illegalArgumentException.getMessage();
+                
+                
                 System.err.println("Illegal Argument");
-                System.out.println(illegalArgumentException.getMessage());
+                System.out.println(message);
+                
+                if(message.equals("passwords not identical")){
+                JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdated werden !", "Passwörter nicht identisch", JOptionPane.CANCEL_OPTION);
+                }
+                else 
                 JOptionPane.showMessageDialog(null, "Bitte Geburtstsag im format yyyy-MM-dd eintragen !", "Falsches Datumformat", JOptionPane.CANCEL_OPTION);
             }
 
-            
+        }
           //  } else {
             
           //  JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdated werden!", "Passwörter nicht identisch", JOptionPane.CANCEL_OPTION);
            // }
-        }
+        
 
         
             

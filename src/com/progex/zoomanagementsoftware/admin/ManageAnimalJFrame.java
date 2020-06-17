@@ -53,6 +53,17 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         }
     }
     
+    
+    private void cleanFields(){
+    
+        jTextFieldAnimalName.setText("");
+        jTextFieldCompound.setText("");
+        jTextFieldDateOfBirth.setText("");
+        jTextFieldSex.setText("");
+    
+    }
+    
+    
     /**
      * Method which has been implemented to map a LinkedList
      * of Animal objects to a JTable.
@@ -455,8 +466,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             if (zooManager.addAnimal(animalName, compoundName, date, sex, species)) {
                 //Falls Einfügen erfolgreichr
                 JOptionPane.showMessageDialog(null, "Tier konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                LinkedList<Animal> animals = zooManager.getAnimals();
-                viewAnimals(animals);
+                cleanFields();
             } else {
                 //Falls Fehler beim Einfügen
                 JOptionPane.showMessageDialog(null, "Tier konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -477,6 +487,9 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
+        
+    
+        cleanFields();
         cleanTable();
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
