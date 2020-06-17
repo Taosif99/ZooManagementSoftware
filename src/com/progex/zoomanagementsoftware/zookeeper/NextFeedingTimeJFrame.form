@@ -33,7 +33,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jButtonGoBack" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelTime" pref="443" max="32767" attributes="0"/>
+                      <Component id="jLabelTime" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonLogout" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -54,7 +54,7 @@
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jPanel1" max="32767" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="32767" attributes="0"/>
               <Component id="jButtonNextFeedingTime" min="-2" pref="65" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
           </Group>
@@ -119,35 +119,35 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="tierName" alignment="1" max="32767" attributes="0"/>
-                      <Component id="nextFeedingTimeTakesPlaceIn" pref="581" max="32767" attributes="0"/>
-                      <Component id="gehege" alignment="0" max="32767" attributes="0"/>
-                      <Component id="abstellraumnummer" alignment="0" max="32767" attributes="0"/>
-                      <Component id="futtermenge" alignment="0" max="32767" attributes="0"/>
-                      <Component id="futter" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tierName" alignment="1" pref="581" max="32767" attributes="0"/>
+                      <Component id="nextFeedingTimeTakesPlaceIn" max="32767" attributes="0"/>
+                      <Component id="gehege" alignment="0" pref="581" max="32767" attributes="0"/>
+                      <Component id="abstellraumnummer" alignment="0" pref="581" max="32767" attributes="0"/>
+                      <Component id="futtermenge" alignment="0" pref="581" max="32767" attributes="0"/>
+                      <Component id="futter" alignment="0" pref="581" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="nextFeedingTimeTakesPlaceIn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                  <Component id="futter" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="abstellraumnummer" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="futtermenge" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Component id="tierName" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="gehege" max="32767" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="nextFeedingTimeTakesPlaceIn" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="32767" attributes="0"/>
+                  <Component id="futter" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="abstellraumnummer" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="futtermenge" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="tierName" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="gehege" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

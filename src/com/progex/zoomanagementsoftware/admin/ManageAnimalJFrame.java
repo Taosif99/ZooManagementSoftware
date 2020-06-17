@@ -5,6 +5,7 @@
  */
 package com.progex.zoomanagementsoftware.admin;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.AnimalManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Animal;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
@@ -32,6 +33,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         initComponents();
         this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
+        animalManager = zooManager.getAnimalManager();
         methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
         myInitComponents();
@@ -450,7 +452,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         boolean textFieldsVerified = methods.verifyTextFields(textFields);
 
         
-        /*TODO clean fields eventually*/
+  
 
         if (textFieldsVerified) {
 
@@ -463,7 +465,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             boolean dateFormatCorrect = methods.isValidDateString(date);
             
           if(dateFormatCorrect){  
-            if (zooManager.addAnimal(animalName, compoundName, date, sex, species)) {
+            if (animalManager.addAnimal(animalName, compoundName, date, sex, species)) {
                 //Falls Einfügen erfolgreichr
                 JOptionPane.showMessageDialog(null, "Tier konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                 cleanFields();
@@ -522,7 +524,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
            columnNameToValue.put("Description",species);
            columnNameToValue.put("Name", compoundName);
            
-           LinkedList<Animal> animals = zooManager.searchAnimals(columnNameToValue);
+           LinkedList<Animal> animals = animalManager.searchAnimals(columnNameToValue);
            viewAnimals(animals);
            
     }//GEN-LAST:event_jButtonSearchActionPerformed
@@ -588,11 +590,14 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (decision == 0) {     
                     
-               if (zooManager.updateAnimal(ID, animalName, compoundName, date, sex, species)) {
+               if (animalManager.updateAnimal(ID, animalName, compoundName, date, sex, species)) {
                     //Falls Updaten erfolgreich, pfeil wäre besser
                     JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                    LinkedList<Animal> animals= zooManager.getAnimals();
-                    viewAnimals(animals);
+                    //LinkedList<Animal> animals= animalManager.getAnimals();
+                    //viewAnimals(animals);
+                    //???
+                    cleanFields();
+                    
                 } else {
 
                     //Falls Fehler beim Updaten
@@ -634,11 +639,13 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                         "Sind Sie sicher", "Löschbestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (decision == 0) {
-                    if (zooManager.deleteAnimal(ID)) {
+                    if (animalManager.deleteAnimal(ID)) {
                         //Falls Löschen erfolgreich, pfeil wäre besser
                         JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                        LinkedList<Animal> animals = zooManager.getAnimals();
-                        viewAnimals(animals);
+                        //LinkedList<Animal> animals = animalManager.getAnimals();
+                        //viewAnimals(animals);
+                        //???
+                        cleanFields();
                     } else {
                         //Falls Fehler beim Löschen
                         JOptionPane.showMessageDialog(null, "Tier konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -842,5 +849,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JFrame goBackFrame;
     private Mode mode;
     private ZooManager zooManager;
+    private AnimalManager animalManager;
     private Methods methods;
 }

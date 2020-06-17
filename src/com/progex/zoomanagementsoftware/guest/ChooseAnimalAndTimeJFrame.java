@@ -9,20 +9,13 @@ import com.progex.zoomanagementsoftware.ManagersAndHandlers.GuestModeManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
-import com.progex.zoomanagementsoftware.main.MainMenuJFrame;
 import java.awt.Toolkit;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -44,11 +37,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
         //Fulfill Comboboxes
         SetComboxAnimals();
-        try {
-            SetComboxTime();
-        } catch (ParseException ex) {
-            Logger.getLogger(ChooseAnimalAndTimeJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        SetComboxTime();
 
     }
 
@@ -119,20 +108,24 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     }
 
     /*Fullfil Combobox with available feeding times*/
-    private void SetComboxTime() throws ParseException {
+    private void SetComboxTime() {
 
-        LinkedList<String> times = guestModeManager.getTimes();
+        LinkedList<String> times;
+     
+            times = guestModeManager.getTimes();
 
-        String[] atimes = new String[times.size() + 1];
-        atimes[0] = null;
+            String[] atimes = new String[times.size() + 1];
+            atimes[0] = null;
 
-        for (int i = 0; i < times.size(); i++) {
+            for (int i = 0; i < times.size(); i++) {
 
-            atimes[i + 1] = times.get(i);
+                atimes[i + 1] = times.get(i);
 
-        }
-        DefaultComboBoxModel dm = new DefaultComboBoxModel(atimes);
-        jComboTime.setModel(dm);
+            }
+            DefaultComboBoxModel dm = new DefaultComboBoxModel(atimes);
+            jComboTime.setModel(dm);
+
+        
 
     }
 
@@ -215,14 +208,14 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabelFindOut)
+                .addGap(445, 445, 445)
+                .addComponent(jLabelFindOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(470, 470, 470))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1389, 1389, 1389)
-                .addComponent(jLabelShowDateTime, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                .addComponent(jLabelShowDateTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(660, 660, 660)
@@ -233,12 +226,12 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jComboTime, 0, 133, Short.MAX_VALUE)
                     .addComponent(jComboBoxName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(796, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(493, 493, 493)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(486, 486, 486))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabelChoose)
@@ -252,7 +245,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                     .addComponent(jLabelShowDateTime)
                     .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(87, 87, 87)
-                .addComponent(jLabelFindOut)
+                .addComponent(jLabelFindOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(95, 95, 95)
                 .addComponent(jLabelChoose)
                 .addGap(94, 94, 94)
@@ -264,7 +257,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                     .addComponent(jLabelTime)
                     .addComponent(jComboTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(123, 123, 123)
-                .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -277,7 +270,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
             try {
                 String animalName = jComboBoxName.getSelectedItem().toString();
-                LinkedList<FeedingInfo> feedingInfos = guestModeManager.getAnimalFeedingInfo(animalName);
+                LinkedList<FeedingInfo> feedingInfos = guestModeManager.getAnimalFeedingInfos(animalName);
 
                 if (feedingInfos.isEmpty()) {
 
@@ -294,42 +287,36 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                     });
                 }
             } catch (ParseException ex) {
-                Logger.getLogger(ChooseAnimalAndTimeJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println("ParseException");
+                System.out.println(ex.getMessage());
             }
 
         }
 
-             
-                
-            
-                ///choosed time   
-                if (jComboBoxName.getSelectedItem() == null && jComboTime.getSelectedItem() != null) {
-                    
-                    this.setVisible(false);
+        ///choosed time   
+        if (jComboBoxName.getSelectedItem() == null && jComboTime.getSelectedItem() != null) {
 
-                    JFrame thisFrame = this;
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                    new ChooseTimeJFrame(thisFrame,zooManager,(String) jComboTime.getSelectedItem()).setVisible(true);
-                    }
-                  });    
-                }
-                ///choosed both
-                if (jComboBoxName.getSelectedItem() != null && jComboTime.getSelectedItem() != null) {
-                    this.setVisible(false);
+            this.setVisible(false);
 
-                    JFrame thisFrame = this;
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                    new ChooseBoth(thisFrame,zooManager,(String) jComboBoxName.getSelectedItem(),(String) jComboTime.getSelectedItem()).setVisible(true);
-                    }
-                    });    
+            JFrame thisFrame = this;
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new ChooseTimeJFrame(thisFrame, zooManager, (String) jComboTime.getSelectedItem()).setVisible(true);
                 }
-                 
-                
-            
-                
-        
+            });
+        }
+        ///choosed both
+        if (jComboBoxName.getSelectedItem() != null && jComboTime.getSelectedItem() != null) {
+            this.setVisible(false);
+
+            JFrame thisFrame = this;
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new ChooseBoth(thisFrame, zooManager, (String) jComboBoxName.getSelectedItem(), (String) jComboTime.getSelectedItem()).setVisible(true);
+                }
+            });
+        }
+
 
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
@@ -357,34 +344,26 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         //If Animal choosed, load times only the available times
         if (jComboBoxName.getSelectedItem() != null) {
 
-            try {
+          
                 String animal = (String) jComboBoxName.getSelectedItem();
 
                 LinkedList<String> times = guestModeManager.getUniqueFeedingTimes(animal);
-                
 
-               String [] timesArr = new String[times.size()];
-               for(int i = 0;i < times.size();i++){
-                   
-                   timesArr[i] = times.get(i);
-               }
+                String[] timesArr = new String[times.size()];
+                for (int i = 0; i < times.size(); i++) {
 
-                
+                    timesArr[i] = times.get(i);
+                }
 
                 DefaultComboBoxModel dm = new DefaultComboBoxModel(timesArr);
                 jComboTime.setModel(dm);
 
-            } catch (ParseException ex) {
-                Logger.getLogger(ChooseAnimalAndTimeJFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
+         
 
         } else {
 
-            try {
-                SetComboxTime();
-            } catch (ParseException ex) {
-                Logger.getLogger(ChooseAnimalAndTimeJFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SetComboxTime();
+
         }
 
 

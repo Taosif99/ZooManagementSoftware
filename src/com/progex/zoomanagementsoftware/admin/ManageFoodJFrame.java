@@ -750,7 +750,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(false);
             jRadioButtonKgTable.setEnabled(false);
             jRadioButtonGrammTable.setEnabled(false);
-            mode = mode.add;
+            mode =mode.add;
 
         } else if (jRadioButtonUpdate.isSelected()) {
 

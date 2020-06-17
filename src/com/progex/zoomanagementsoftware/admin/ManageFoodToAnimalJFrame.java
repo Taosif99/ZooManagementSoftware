@@ -5,6 +5,8 @@
  */
 package com.progex.zoomanagementsoftware.admin;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.AnimalManager;
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.FoodToAnimalManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.*;
 import java.util.HashMap;
@@ -18,7 +20,7 @@ import javax.swing.table.TableModel;
 
 /**
  *
- * TODO CATCH THAT EXPLICIT THAT WHY ENTRY CANNOT BE ADDED
+ * 
  *
  * @author Ouchen
  */
@@ -31,6 +33,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         initComponents();
         this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
+        this.animalManager = zooManager.getAnimalManager();
+        this.foodToAnimalManager = zooManager.getFoodToAnimalManager();
         methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
         myInitComponents();
@@ -658,12 +662,12 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                         //System.out.println("start" + methods.isValidFeedingTime(startFeedingTime));
                         //System.out.println("end" + methods.isValidFeedingTime(endFeedingTime));
                         //Here the zooManager may add the FoodToAnimalRecord
-                        if (zooManager.addFoodToAnimal(selectedAnimalID, food, startFeedingTime, endFeedingTime, amount)) {
+                        if (foodToAnimalManager.addFoodToAnimal(selectedAnimalID, food, startFeedingTime, endFeedingTime, amount)) {
 
                             JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                             
                             int animalID = Integer.parseInt(selectedAnimalID);
-                            LinkedList<FoodToAnimalR> records = zooManager.getFoodToAnimalRecords(animalID);
+                            LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
                             viewRelationTable(records);
                             cleanFields();
                             
@@ -765,7 +769,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             columnValueMap.put("EndFeedingTime", endFeedingTime);
             columnValueMap.put("Amount", amountStr);
 
-            LinkedList<FoodToAnimalR> records = zooManager.searchFoodToAnimal(columnValueMap);
+            LinkedList<FoodToAnimalR> records = foodToAnimalManager.searchFoodToAnimal(columnValueMap);
             viewRelationTable(records);
 
         } else {
@@ -832,10 +836,10 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                         
                         
                         
-                        if (zooManager.updateFoodToAnimal(selectedAnimalID, foodName, startFeedingTime, endFeedingTime, amount, keys)) {
+                        if (foodToAnimalManager.updateFoodToAnimal(selectedAnimalID, foodName, startFeedingTime, endFeedingTime, amount, keys)) {
 
                             int animalID = Integer.parseInt(selectedAnimalID);
-                            LinkedList<FoodToAnimalR> records = zooManager.getFoodToAnimalRecords(animalID);
+                            LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
                             viewRelationTable(records);
                             
                             JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
@@ -911,11 +915,11 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         //OK = 0, cancel =2
         //System.out.println(decision);
         if (decision == 0) {
-            if (zooManager.deleteFoodToAnimal(foodIDKey, selectedAnimalID, startFeedingTimeKey)) {
+            if (foodToAnimalManager.deleteFoodToAnimal(foodIDKey, selectedAnimalID, startFeedingTimeKey)) {
                 JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                 
                    int animalID = Integer.parseInt(selectedAnimalID);
-                   LinkedList<FoodToAnimalR> records = zooManager.getFoodToAnimalRecords(animalID);
+                   LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
                    viewRelationTable(records);
 
                 jTextFieldFood.setText("");
@@ -960,7 +964,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         selectedAnimalID = animalModel.getValueAt(animalRowIndex, 0).toString();
 
            int animalID = Integer.parseInt(selectedAnimalID);
-           LinkedList<FoodToAnimalR> records = zooManager.getFoodToAnimalRecords(animalID);
+           LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
            viewRelationTable(records);
         
 
@@ -990,13 +994,13 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     private void jRadioButtonGTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonGTableActionPerformed
            int animalID = Integer.parseInt(selectedAnimalID);
-           LinkedList<FoodToAnimalR> records = zooManager.getFoodToAnimalRecords(animalID);
+           LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
            viewRelationTable(records);
     }//GEN-LAST:event_jRadioButtonGTableActionPerformed
 
     private void jRadioButtonKgTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonKgTableActionPerformed
            int animalID = Integer.parseInt(selectedAnimalID);
-           LinkedList<FoodToAnimalR> records = zooManager.getFoodToAnimalRecords(animalID);
+           LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
            viewRelationTable(records);
     }//GEN-LAST:event_jRadioButtonKgTableActionPerformed
 
@@ -1007,7 +1011,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
         String animalName = jTextFieldAnimalName.getText();
         columnNameToValue.put("AnimalName", animalName);
-        LinkedList<Animal> animals = zooManager.searchAnimals(columnNameToValue);
+        LinkedList<Animal> animals = animalManager.searchAnimals(columnNameToValue);
         viewAnimals(animals);
 
     }//GEN-LAST:event_jButtonSearchAnimalActionPerformed
@@ -1156,6 +1160,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JFrame goBackFrame;
     private Mode mode;
     private ZooManager zooManager;
+    private AnimalManager animalManager;
+    private FoodToAnimalManager foodToAnimalManager;
     private Methods methods;
     private String selectedAnimalID;
 }

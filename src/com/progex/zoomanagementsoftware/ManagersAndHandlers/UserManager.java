@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.Timestamp;
 
 /**
  * @(#) UserManager.java
@@ -36,10 +37,18 @@ public class UserManager {
         return connectionHandler;
     }
 
-    public void setConnectionHandler(ConnectionHandler connectionHandler) {
-        this.connectionHandler = connectionHandler;
+    
+    
+    public void setLoggedInUser(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
     }
+    
 
+
+    
+    
+    
+    
     //TODO Überlegen ob es Sinn macht addressen auch hier zu verwalten,wäre
     //praktisch machbar...
     /**
@@ -91,7 +100,7 @@ public class UserManager {
                 String street = resultSet.getString("Street");
                 String city = resultSet.getString("City");
                 String country = resultSet.getString("Country");
-                Date lastLogDate = resultSet.getDate("LastLogDate");
+                Timestamp lastLogDate = resultSet.getTimestamp("LastLogDate");
                 String hashedPassword = resultSet.getString("hashedPassword");
 
                 Address address = new Address(id, street, country, zip, city);
@@ -238,38 +247,39 @@ public class UserManager {
     public boolean updateUser(int id, String type, String salutation, String firstname,
             String lastname, String street, String zip, String city,
             String country, String phoneNumber, String birthday, String shift,
-            String username, String email, String password,boolean changePassword) {
+            String username, String email, String password, boolean changePassword) {
 
         MD5Hash hasher = new MD5Hash();
         String hashedPassword = hasher.hashString(password);
 
         int addressId = searchAddressId(zip, street, city);
         if (addressId != -1) {
-        //Check if username changed and if yes, check if new username already used     
-        String oldUsername = " ";
-        String userNameQuery = "SELECT UserName FROM USER WHERE ID = " +id;
-        ResultSet resultSet = connectionHandler.performQuery(userNameQuery);
-        if(resultSet != null){
-        
-            try {
-                if (resultSet.next()){
-                oldUsername = resultSet.getString("UserName");
-                } 
-                
-            } catch (SQLException ex) {
-               System.err.println("SQL Exception");
-               System.out.println(ex.getMessage());
+            //Check if username changed and if yes, check if new username already used     
+            String oldUsername = " ";
+            String userNameQuery = "SELECT UserName FROM USER WHERE ID = " + id;
+            ResultSet resultSet = connectionHandler.performQuery(userNameQuery);
+            if (resultSet != null) {
+
+                try {
+                    if (resultSet.next()) {
+                        oldUsername = resultSet.getString("UserName");
+                    }
+
+                } catch (SQLException ex) {
+                    System.err.println("SQL Exception");
+                    System.out.println(ex.getMessage());
+                }
             }
-        } 
-        
-        if (! oldUsername.equals(username)){
-            if(this.usernameExists(username)) return false;
-        }
-        
-            
-        String query;    
-               
-                query = "UPDATE User\n"
+
+            if (!oldUsername.equals(username)) {
+                if (this.usernameExists(username)) {
+                    return false;
+                }
+            }
+
+            String query;
+
+            query = "UPDATE User\n"
                     + "SET UserName = '" + username + "',\n"
                     + "FirstName = '" + firstname + "',\n"
                     + "LastName = '" + lastname + "',\n"
@@ -281,14 +291,16 @@ public class UserManager {
                     + "AddressID = " + addressId + ",\n"
                     + "Type = 'Admin',\n"
                     + "Shift = 'None'\n";
-                   // + "WHERE ID = " + id;
+            // + "WHERE ID = " + id;
 
-            if (changePassword){
-            
-                query = query + " ,HashedPassword = '" + hashedPassword + "'\n" 
+            if (changePassword) {
+
+                query = query + " ,HashedPassword = '" + hashedPassword + "'\n"
                         + " WHERE ID = " + id;
-            } else query = query +   " WHERE ID = " + id;     
-                   
+            } else {
+                query = query + " WHERE ID = " + id;
+            }
+
             //DEBUG
             System.out.println(query);
             return connectionHandler.manipulateDB(query);
@@ -312,6 +324,7 @@ public class UserManager {
 
     /**
      * Method to search for users in the database with limit.
+     *
      * @param columnValueMap A mapping of entity attributes and corresponding
      * @param limit An amount of users we want to have
      * @return A LinkedList which contains the searched users
@@ -341,7 +354,8 @@ public class UserManager {
     /**
      * Method to search for users in the database.
      *
-     * @param columnValueMap A mapping of entity attributes and corresponding values
+     * @param columnValueMap A mapping of entity attributes and corresponding
+     * values
      * @return A LinkedList which contains the searched users
      */
     public LinkedList<User> searchUsers(LinkedHashMap<String, String> columnValueMap) {
@@ -390,33 +404,253 @@ public class UserManager {
         return retVal;
     }
 
-    //////////////////////////////////////////////////
-    public void addAdmin(Admin admin) {
+    //Khalid start TODO, case if nothing returns
+    //
+    /**
+     * Method returns a user after checking if the given username and hashed
+     * password match.
+     *
+     * @param username
+     * @param hashedPassword
+     * @return User that has been successfully logged in, else null
+     */
+    public User login(String username, String hashedPassword) {
+
+        try {
+            // set query
+            String query = "SELECT username, firstname, user.Type, lastlogdate FROM USER WHERE username = \"" + username + "\"";
+            // perform query
+            ResultSet resultSet = connectionHandler.performQuery(query);
+
+            // set variable to catch result from query
+            String firstName = "";
+            String userName = "";
+            Timestamp lastLogDate = null;
+            String type = "";
+
+            // catch results from query and save in variables
+            if (resultSet.next()) {
+
+                userName = resultSet.getString(1);
+                firstName = resultSet.getString(2);
+                type = resultSet.getString(3);
+                lastLogDate = resultSet.getTimestamp(4);
+
+                if (type.equals("Admin")) {
+
+                    Admin admin = new Admin(userName, firstName, null, null, null, 0, null, null, null, null, lastLogDate);
+                    return admin;
+                }
+                if (type.equals("Zookeeper")) {
+                    Zookeeper zookeeper = new Zookeeper(null, null, userName, firstName, null, null, null, 0, null, null, null, null, lastLogDate);
+
+                    System.out.println("--------USERMANAGER-----"
+                            + "username" + username
+                            + "firstName" + firstName
+                            + "" + type
+                            + "" + lastLogDate);
+                    return zookeeper;
+
+                } else {
+                    return null;
+                }
+
+            }
+        } catch (SQLException ex) {
+                System.err.println("SQL EXCEPTION");
+            System.out.println(ex.getMessage());
+        }
+
+        return null;
 
     }
 
-    public void addZookeeper(Zookeeper zookeeper) {
+    /**
+     * Updates the lastlogdate from the logged in user
+     *
+     * 
+     */
+    public void updateLastLogDateFromUser() {
+
+        // set query        
+        String query = "UPDATE user "
+                + "SET LastLogDate = current_timestamp() WHERE username = \"" + loggedInUser.getUsername() + "\"";
+
+        // perform query
+        connectionHandler.manipulateDB(query);
 
     }
 
-    public void performQuery(String query, String message) {
+    /**
+     * Logsout the user and resets the user, also updates the lastlogdate when
+     * logging out
+     *
+     * 
+     */
+    public void logout()  {
 
+        updateLastLogDateFromUser();
+        loggedInUser = null;
     }
 
-    public boolean loginAdmin(String userName, String password) {
-        return false;
-    }
+    /**TODO RETURN COMMENT
+     * WAS FALLS ES WELCHE GIBT DIE ZU GLEICHEN ZEIT HABEN
+     * Get NextFeedingInfo Object to display a zookeepers next feeding time
+     *
+     * @return ZookeeperInfo that shows all important information for the next
+     * feeding info for the zookeeper
+     * 
+     */
+    public ZookeeperInfo getNextFeedingInfo() {
 
-    public boolean loginZookeeper(String userName, String password) {
-        return false;
-    }
+        try {
+            // set query
+            String query = "SELECT Fütterungszeit,Tier,Futter,MengeInKG,Abstellraumnummer,Gehege,diff_min "
+                    + "FROM (SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount AS MengeInKG, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName as UserName, timestampdiff(MINUTE,current_timestamp(),eats.StartFeedingTime) as diff_min "
+                    + "FROM eats "
+                    + "INNER JOIN "
+                    + "food "
+                    + "ON eats.FoodID = food.ID "
+                    + "INNER JOIN "
+                    + "animal "
+                    + "ON eats.AnimalID = animal.ID "
+                    + "INNER JOIN "
+                    + "takescare "
+                    + "ON eats.AnimalID = takescare.AnimalID "
+                    + "INNER JOIN "
+                    + "user "
+                    + "ON takescare.UserID = user.ID "
+                    + "INNER JOIN "
+                    + "compound "
+                    + "ON compound.ID = animal.CompoundID) AS joinedTable "
+                    + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" "
+                    + "ORDER BY joinedTable.Fütterungszeit DESC "
+                    + "LIMIT 1";
+            
+            ResultSet resultSet = connectionHandler.performQuery(query);
+            
+            // init variables to catch from resultset
+            String tiername = "";
+            String futter = "";
+            double menge = 0;
+            String abstellRaum = "";
+            String gehege = "";
+            int feedingTimeInMinutes = -1;
+            
+            // set variables from resultset
+            while (resultSet.next()) {
+                tiername = resultSet.getString(2);
+                futter = resultSet.getString(3);
+                menge = Double.parseDouble(resultSet.getString(4));
+                abstellRaum = resultSet.getString(5);
+                gehege = resultSet.getString(6);
+                feedingTimeInMinutes = resultSet.getInt(7);
+                
+            }
+            
+            System.out.println("------------DEBUG----------- \n"
+                    + "Username: " + loggedInUser.getUsername()
+                    + "Tiername: " + tiername
+                    + "Futter: " + futter
+                    + "Menge: " + menge
+                    + "Abstellraum: " + abstellRaum
+                    + "Gehege: " + gehege
+                    + "FeedingTimeInMinutes: " + feedingTimeInMinutes);
+            
+            // create FeedingInfo based on Database Information and return it
+            ZookeeperInfo x = new ZookeeperInfo(feedingTimeInMinutes, gehege, tiername, futter, abstellRaum, menge);
+            return x;
+        } 
+        
+        catch (SQLException ex) {
+            System.err.println("SQL EXCEPTION");
+            System.out.println(ex.getMessage());
+        }
 
-    public void logout() {
-
-    }
-
-    public ZookeeperInfo createZookeeperInfo() {
         return null;
     }
 
+    /**
+     * This Methods returns a resultset of all Feeding Informations for a user
+     * -> amount is in Kilogramm, resultset is later used to populate the jtable
+     *
+     * @return ResultSet witth allfeedingtimes to populate the resultset in
+     * another method
+     */
+    public ResultSet getAllFeedingTimeInKG() {
+
+        String query = "SELECT CONVERT(Fütterungszeit, time) as Uhrzeit,Tier,Futter,MengeKG,Abstellraumnummer,Gehege FROM (SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount AS MengeKG, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName "
+                + "FROM eats "
+                + "INNER JOIN "
+                + "food "
+                + "ON eats.FoodID = food.ID "
+                + "INNER JOIN "
+                + "animal "
+                + "ON eats.AnimalID = animal.ID "
+                + "INNER JOIN "
+                + "takescare "
+                + "ON eats.AnimalID = takescare.AnimalID "
+                + "INNER JOIN "
+                + "user "
+                + "ON takescare.UserID = user.ID "
+                + "INNER JOIN "
+                + "compound "
+                + "ON animal.CompoundID = compound.ID) "
+                + "AS joinedTable WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and joinedTable.FütterungsZeit > current_date() "
+                + "ORDER BY fütterungszeit desc";
+
+        return connectionHandler.performQuery(query);
+
+    }
+
+    /**
+     * This Methods returns a resultset of all Feeding Informations for a user
+     * -> amount is in Gramm resultset is later used to populate the jtable
+     *
+     * @return ResultSet witth allfeedingtimes to populate the resultset in
+     * another method
+     */
+    public ResultSet getAllFeedingTimeInGramm() {
+
+        String query = "SELECT CONVERT(Fütterungszeit, time) as Uhrzeit,Tier,Futter,MengeGramm,Abstellraumnummer,Gehege FROM (SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount * 1000 AS MengeGramm, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName "
+                + "FROM eats "
+                + "INNER JOIN "
+                + "food "
+                + "ON eats.FoodID = food.ID "
+                + "INNER JOIN "
+                + "animal "
+                + "ON eats.AnimalID = animal.ID "
+                + "INNER JOIN "
+                + "takescare "
+                + "ON eats.AnimalID = takescare.AnimalID "
+                + "INNER JOIN "
+                + "user "
+                + "ON takescare.UserID = user.ID "
+                + "INNER JOIN "
+                + "compound "
+                + "ON animal.CompoundID = compound.ID) "
+                + "AS joinedTable WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and joinedTable.FütterungsZeit > current_date() "
+                + "ORDER BY fütterungszeit desc";
+
+        return connectionHandler.performQuery(query);
+
+    }
+
+    /**
+     * Return minutes until next feeding time for zookeeper
+     *
+     * @return the next feeding time in minutes
+     */
+    public int getNextFeedingInfoInMinutes() {
+
+        if (getNextFeedingInfo().getFeedingTime() >= 0) {
+            return getNextFeedingInfo().getFeedingTime();
+        } else {
+            return -1;
+            
+        }
+     
+    }
+
+    //Khalid end
 }

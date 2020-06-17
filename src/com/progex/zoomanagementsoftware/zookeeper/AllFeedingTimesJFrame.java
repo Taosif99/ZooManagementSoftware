@@ -5,10 +5,12 @@
  */
 package com.progex.zoomanagementsoftware.zookeeper;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
-import com.progex.zoomanagementsoftware.main.MainMenuJFrame;
+
 import java.awt.Toolkit;
 import javax.swing.JFrame;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -19,45 +21,63 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     /**
      * Creates new form NächsteFütterungJFrame
      */
-    public AllFeedingTimesJFrame(JFrame goBack, JFrame goBack2, JFrame goBack3) {
+    public AllFeedingTimesJFrame(JFrame mainMenuJFrame, JFrame zookeeperModeHomePageFrame, JFrame nextFeedingTimeFrame, ZooManager zooManager) {
         initComponents();
         myInitComponents();
-        mainMenuJFrame = goBack;
-        zookeeperModeHomePageFrame = goBack2;
-        nextFeedingTimeFrame = goBack3;
+
+        // init parameters and references
+        this.mainMenuJFrame = mainMenuJFrame;
+        this.zookeeperModeHomePageFrame = zookeeperModeHomePageFrame;
+        this.nextFeedingTimeFrame = nextFeedingTimeFrame;
+        this.zooManager = zooManager;
+
+        // Display Date
         Methods methods = new Methods();
         methods.showTimeAndDate(jLabelTime);
+
+        // populate the table with default amount in Kilogram
+        populateTableInKG();
     }
-        private void myInitComponents(){
-        
-        //Done in netbeans window
-        //this.setUndecorated(true);
-        //this.setAlwaysOnTop(true);
-        //this.setResizable(false);
-       // this.setVisible(true);
+
+    /**
+     * Settings for resolution
+     */
+    private void myInitComponents() {
+
         Toolkit tk = Toolkit.getDefaultToolkit();
-        int x =(int)tk.getScreenSize().getWidth();
-        int y =(int)tk.getScreenSize().getHeight();
-        setSize(x,y);
+        int x = (int) tk.getScreenSize().getWidth();
+        int y = (int) tk.getScreenSize().getHeight();
+        setSize(x, y);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
+
         //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
-        if(x == 1920 && y == 1080){
-            
-            
+        if (x == 1920 && y == 1080) {
+
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 32));
 
-            
         }
-        if(x == 1280 && y == 720){
-            
-            
+        if (x == 1280 && y == 720) {
+
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 28));
 
-            
-        }        
-        
-        
+        }
+
+    }
+
+    /**
+     * populate the jtable by getting the resultSet from zooManager and populating it with a lib
+     */
+    private void populateTableInKG() {
+        jTableAlleFütterungen.setModel(DbUtils.resultSetToTableModel(zooManager.getUserManager().getAllFeedingTimeInKG()));
+    }
+
+    /**
+     * populate the jtable by getting the resultSet from zooManager and populating it with a lib
+     */
+    private void populateTableInGramm() {
+
+        jTableAlleFütterungen.setModel(DbUtils.resultSetToTableModel(zooManager.getUserManager().getAllFeedingTimeInGramm()));
+
     }
 
     /**
@@ -170,39 +190,41 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
 
         buttonGroupConvertAmountOfFood.add(jRadioButtonAmountOfFoodInGramm);
         jRadioButtonAmountOfFoodInGramm.setText("Futtermenge in Gramm");
+        jRadioButtonAmountOfFoodInGramm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonAmountOfFoodInGrammActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Meine Fütterungszeiten");
+        jLabel1.setText("Alle Fütterungen für heute");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPaneTable)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPaneTable, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jRadioButtonAmountOfFoodInKiloGramm, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jRadioButtonAmountOfFoodInGramm, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jButtonGoBack)
                         .addGap(18, 18, 18)
                         .addComponent(jLabelTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonLogout))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(0, 56, Short.MAX_VALUE)
                         .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 56, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,62 +251,79 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelTimeAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabelTimeAncestorAdded
-        // TODO add your handlig code here:
     }//GEN-LAST:event_jLabelTimeAncestorAdded
 
+    /**
+     * When Pressing "zurück" Button
+     * @param evt 
+     */
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
         zookeeperModeHomePageFrame.setVisible(true);
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jButtonGoBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGoBackMouseClicked
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonGoBackMouseClicked
 
     private void jButtonNextFeedingTimeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeMouseClicked
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonNextFeedingTimeMouseClicked
 
+    /**
+     *  When pressing Radiobutton "Menge in Kilogramm"
+     * @param evt 
+     */
     private void jRadioButtonAmountOfFoodInKiloGrammActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAmountOfFoodInKiloGrammActionPerformed
-        // TODO add your handling code here:
+        populateTableInKG();
+
     }//GEN-LAST:event_jRadioButtonAmountOfFoodInKiloGrammActionPerformed
 
+    /**
+     * When pressing "Logout" Button
+     * @param evt 
+     */
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
-        // TODO add your handling code here:
+        zooManager.getUserManager().logout();
         this.dispose();
         mainMenuJFrame.setVisible(true);
-       
+
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 
     private void jButtonLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLogoutMouseClicked
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonLogoutMouseClicked
 
+    /**
+     * When pressing Button "Näcshste Fütterung anzeigen"
+     * @param evt 
+     */
     private void jButtonNextFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeActionPerformed
-        // TODO add your handling code here:
-        
-        if(nextFeedingTimeFrame != null){
+
+        if (nextFeedingTimeFrame != null) {
             nextFeedingTimeFrame.setVisible(true);
             this.setVisible(false);
-        }
-        else{
-            
+        } else {
+
             JFrame thisFrame = this;
-            
+
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new NextFeedingTimeJFrame(mainMenuJFrame,zookeeperModeHomePageFrame,thisFrame).setVisible(true);
+                   
+                        new NextFeedingTimeJFrame(mainMenuJFrame, zookeeperModeHomePageFrame, thisFrame, zooManager).setVisible(true);
+                    
                 }
-            });                
+            });
             this.setVisible(false);
         }
-      
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_jButtonNextFeedingTimeActionPerformed
+
+    /**
+     *  Pressing Radiobutton "Menge in gramm anzeigen"
+     * @param evt 
+     */
+    private void jRadioButtonAmountOfFoodInGrammActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAmountOfFoodInGrammActionPerformed
+        populateTableInGramm();
+    }//GEN-LAST:event_jRadioButtonAmountOfFoodInGrammActionPerformed
 
     /**
      * @param args the command line arguments
@@ -312,18 +351,13 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(AllFeedingTimesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+       
+ 
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AllFeedingTimesJFrame(null,null,null).setVisible(true);
+                new AllFeedingTimesJFrame(null, null, null, null).setVisible(true);
             }
         });
     }
@@ -341,8 +375,9 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     private javax.swing.JTable jTableAlleFütterungen;
     // End of variables declaration//GEN-END:variables
 
-   private javax.swing.JFrame mainMenuJFrame;
-   private javax.swing.JFrame zookeeperModeHomePageFrame;
-   private javax.swing.JFrame nextFeedingTimeFrame;
+    private javax.swing.JFrame mainMenuJFrame;
+    private javax.swing.JFrame zookeeperModeHomePageFrame;
+    private javax.swing.JFrame nextFeedingTimeFrame;
+    private ZooManager zooManager;
 
 }

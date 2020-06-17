@@ -19,11 +19,10 @@ public class Animal {
 
     private Species species;
 
-    private Meal meals;
 
    // private String animalName;
 
-    public Animal(int id, String name, Date birthday, String sex, Compound compound, Species species, Meal meals) {
+    public Animal(int id, String name, Date birthday, String sex, Compound compound, Species species) {
 
         this.id = id;
         this.name = name;
@@ -31,8 +30,7 @@ public class Animal {
         this.sex = sex;
         this.compound = compound;
         this.species = species;
-        this.meals = meals;
-       // this.animalName = animalName;
+
     }
 
     public int getId() {
@@ -79,20 +77,4 @@ public class Animal {
         this.species = species;
     }
 
-    public Meal getMeals() {
-        return meals;
-    }
-
-    public void setMeals(Meal meals) {
-        this.meals = meals;
-    }
-
-    /*
-    public String getAnimalName() {
-        return animalName;
-    }
-
-    public void setAnimalName(String animalName) {
-        this.animalName = animalName;
-    }*/
 }

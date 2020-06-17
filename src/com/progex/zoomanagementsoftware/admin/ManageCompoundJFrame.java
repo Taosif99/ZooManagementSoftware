@@ -31,6 +31,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         initComponents();
         this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
+        this.compoundManager = zooManager.getCompoundManager();
         methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
         myInitComponents();
@@ -445,11 +446,11 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                     throw new IllegalArgumentException("Negative values not allowed");
                 }
 
-                if (zooManager.addCompound(compundName, area, constructionYear, maxCapacity)) {
+                if (compoundManager.addCompound(compundName, area, constructionYear, maxCapacity)) {
                     
                     JOptionPane.showMessageDialog(null, "Gehege konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                     cleanFields();
-                    
+                    //???
                     
                     
                 } else //Falls Fehler beim Einfügen in die Datenbank", JOptionPane.CANCEL_OPTION      
@@ -517,7 +518,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         columnNameToValue.put("ConstructionYear", constructionYear);
         columnNameToValue.put("MaxCapacity", maxCapacity);
 
-        LinkedList<Compound> compounds = zooManager.searchCompounds(columnNameToValue);
+        LinkedList<Compound> compounds = compoundManager.searchCompounds(columnNameToValue);
         viewCompounds(compounds);
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
@@ -555,12 +556,14 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                 if (decision == 0) {
                 
                 
-                if (zooManager.updateCompound(ID, compoundName, area, constructionYear, maxCapacity)) {
+                if (compoundManager.updateCompound(ID, compoundName, area, constructionYear, maxCapacity)) {
 
                     //Falls Updaten erfolgreich, pfeil wäre besser
                     JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                    LinkedList<Compound> compounds = zooManager.getCompounds();
-                    viewCompounds(compounds);
+                    //LinkedList<Compound> compounds = compoundManager.getCompounds();
+                    //viewCompounds(compounds);
+                    //???
+                    
                 } else {
 
                     //Falls Fehler beim Updaten
@@ -604,7 +607,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                 //OK = 0, cancel =2
                 //System.out.println(decision);
                 if (decision == 0) {
-                    if (zooManager.deleteCompound(ID)) {
+                    if (compoundManager.deleteCompound(ID)) {
                         //Falls Löschen erfolgreich
                         JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                         cleanFields();
@@ -798,7 +801,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     private javax.swing.JFrame goBackFrame;
     private ZooManager zooManager;
-    //private String mode;
+    private CompoundManager compoundManager;
     private Mode mode;
     private Methods methods;
 

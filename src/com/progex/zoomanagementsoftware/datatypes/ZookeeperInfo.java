@@ -1,12 +1,12 @@
 package com.progex.zoomanagementsoftware.datatypes;
-import java.sql.Date;
+
 /**
  * @(#) ZookeeperInfo.java
  */
 
 public class ZookeeperInfo
 {
-	private Date feedingTime;
+	private int nextFeedingTimeInMinutes;
 	
 	private String compoundName;
 	
@@ -14,13 +14,13 @@ public class ZookeeperInfo
 	
 	private String foodName;
 	
-	private int storageRoomNumber;
+	private String storageRoomNumber;
 	
 	private double amountFood;
 
-    public ZookeeperInfo(Date feedingTime, String compoundName, String animalName, String foodName, int storageRoomNumber, double amountFood) {
+    public ZookeeperInfo(int feedingTime, String compoundName, String animalName, String foodName, String storageRoomNumber, double amountFood) {
         
-        this.feedingTime = feedingTime;
+        this.nextFeedingTimeInMinutes = feedingTime;
         this.compoundName = compoundName;
         this.animalName = animalName;
         this.foodName = foodName;
@@ -28,12 +28,12 @@ public class ZookeeperInfo
         this.amountFood = amountFood;
     }
 
-    public Date getFeedingTime() {
-        return feedingTime;
+    public int getFeedingTime() {
+        return nextFeedingTimeInMinutes;
     }
 
-    public void setFeedingTime(Date feedingTime) {
-        this.feedingTime = feedingTime;
+    public void setFeedingTime(int feedingTime) {
+        this.nextFeedingTimeInMinutes = feedingTime;
     }
 
     public String getCompoundName() {
@@ -60,11 +60,11 @@ public class ZookeeperInfo
         this.foodName = foodName;
     }
 
-    public int getStorageRoomNumber() {
+    public String getStorageRoomNumber() {
         return storageRoomNumber;
     }
 
-    public void setStorageRoomNumber(int storageRoomNumber) {
+    public void setStorageRoomNumber(String storageRoomNumber) {
         this.storageRoomNumber = storageRoomNumber;
     }
 
