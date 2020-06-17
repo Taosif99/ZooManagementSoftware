@@ -237,7 +237,7 @@ public class UserManager {
     public boolean updateUser(int id, String type, String salutation, String firstname,
             String lastname, String street, String zip, String city,
             String country, String phoneNumber, String birthday, String shift,
-            String username, String email, String password) {
+            String username, String email, String password,boolean changePassword) {
 
         MD5Hash hasher = new MD5Hash();
         String hashedPassword = hasher.hashString(password);
@@ -245,7 +245,11 @@ public class UserManager {
         int addressId = searchAddressId(zip, street, city);
         if (addressId != -1) {
 
-            String query = "UPDATE User\n"
+        String query;    
+            
+            
+            
+                query = "UPDATE User\n"
                     + "SET UserName = '" + username + "',\n"
                     + "FirstName = '" + firstname + "',\n"
                     + "LastName = '" + lastname + "',\n"
@@ -253,14 +257,23 @@ public class UserManager {
                     + "Birthday = '" + birthday + "',\n"
                     + "Email = '" + email + "',\n"
                     + "Salutation= '" + salutation + "',\n"
-                    + "HashedPassword = '" + hashedPassword + "',\n"
+                    //+ "HashedPassword = '" + hashedPassword + "',\n"
                     + "AddressID = " + addressId + ",\n"
                     + "Type = 'Admin',\n"
-                    + "Shift = 'None'\n"
-                    + "WHERE ID = " + id;
+                    + "Shift = 'None'\n";
+                   // + "WHERE ID = " + id;
 
+            if (changePassword){
+            
+                query = query + "HashedPassword = '" + hashedPassword + "',\n" 
+                        + " WHERE ID = " + id;
+            
+            } else query = query +   " WHERE ID = " + id;     
+                   
+                   
+                   
             //DEBUG
-            //System.out.println(query);
+            System.out.println(query);
             return connectionHandler.manipulateDB(query);
 
         }

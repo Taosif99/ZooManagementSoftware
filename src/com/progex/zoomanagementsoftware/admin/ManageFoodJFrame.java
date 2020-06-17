@@ -7,7 +7,6 @@ package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
 import com.progex.zoomanagementsoftware.datatypes.*;
-import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import javax.swing.JFrame;

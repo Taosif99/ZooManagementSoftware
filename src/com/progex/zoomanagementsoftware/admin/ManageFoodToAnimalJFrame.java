@@ -809,7 +809,14 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                             throw new IllegalArgumentException("End feeding time cannot start before start feeding time");
                         }
 
-                        //Here the zooManager may add the FoodToAnimalRecord
+                        
+                             int decision = JOptionPane.showConfirmDialog(null,
+                        "Wollen Sie den Datensatz wirklich ändern ? ", "Bestätigung",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (decision == 0) {
+                        
+                        
+                        
                         if (zooManager.updateFoodToAnimal(selectedAnimalID, foodName, startFeedingTime, endFeedingTime, amount, keys)) {
 
                             int animalID = Integer.parseInt(selectedAnimalID);
@@ -822,11 +829,11 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                             for (JTextField textField : textFields) {
                                 textField.setText("");
                             }
-
+                        
                         } else {
                             JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                         }
-
+                        }
                     } else {
 
                         JOptionPane.showMessageDialog(null, "Bitte geben Sie die Fütterungszeiten im Format yyyy-MM-dd HH:mm an!", "Falsches Format für Fütterungszeiten", JOptionPane.CANCEL_OPTION);
@@ -835,6 +842,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
                 }
 
+                
             } //END Tray //END Tray
             catch (NumberFormatException numberFormatException) {
 
@@ -912,14 +920,14 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         //Get the mode
         switch (mode) {
 
-            case "add":
+            case add:
                 JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
                 break;
 
-            case "update":
+            case update:
                 JOptionPane.showMessageDialog(null, "Bitte die Daten der zu updatenden Futter-Tier-Beziehung ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
                 break;
-            case "delete":
+            case delete:
                 JOptionPane.showMessageDialog(null, "Bitte die IDs und Startfütterungszeit der zu löschenden Futter-Tier-Beziehung ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
                 break;
         }
@@ -1005,7 +1013,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             jButtonDelete.setEnabled(false);
             jLabelSearch.setEnabled(false);
             jButtonSearch.setEnabled(false);
-            mode = "add";
+            //mode = "add";
+            mode = Mode.add;
             return "add";
 
         } else if (jRadioButtonUpdate.isSelected()) {
@@ -1018,7 +1027,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(true);
             jLabelAnimalID.setEnabled(true);
             jLabelDateTimeID.setEnabled(true);
-            mode = "update";
+            //mode = "update";
+            mode = Mode.update;
             return "update";
         } else if (jRadioButtonDelete.isSelected()) {
             System.out.println("    Delete mode");
@@ -1030,7 +1040,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(true);
             jLabelAnimalID.setEnabled(true);
             jLabelDateTimeID.setEnabled(true);
-            mode = "delete";
+            //mode = "delete";
+            mode = Mode.delete;
             return "delete";
 
         }
@@ -1128,7 +1139,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private javax.swing.JFrame goBackFrame;
-    private String mode;
+    private Mode mode;
     private ZooManager zooManager;
     private Methods methods;
     private String selectedAnimalID;

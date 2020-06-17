@@ -567,7 +567,15 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 boolean dateFormatCorrect = methods.isValidDateString(date);
                 
                 if (dateFormatCorrect){
-                if (zooManager.updateAnimal(ID, animalName, compoundName, date, sex, species)) {
+
+                    
+                    
+                    int decision = JOptionPane.showConfirmDialog(null,
+                        "Wollen Sie den Datensatz wirklich ändern ? ", "Bestätigung",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (decision == 0) {     
+                    
+               if (zooManager.updateAnimal(ID, animalName, compoundName, date, sex, species)) {
                     //Falls Updaten erfolgreich, pfeil wäre besser
                     JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                     LinkedList<Animal> animals= zooManager.getAnimals();
@@ -579,10 +587,12 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
                 }
 
+                }
+               
                 } else 
                  JOptionPane.showMessageDialog(null, "Bitte Geburtstsag im format yyyy-MM-dd eintragen !", "Falsches Datumformat", JOptionPane.CANCEL_OPTION); 
                 
-                
+                 
             } catch (NumberFormatException numberFormatException) {
 
                 System.err.println("NumberFormatException");
@@ -642,14 +652,14 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         //Get the mode
         switch (mode) {
 
-            case "add":
+            case add:
                 JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
                 break;
 
-            case "update":
+            case update:
                 JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Tieres ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
                 break;
-            case "delete":
+            case delete:
                 JOptionPane.showMessageDialog(null, "Bitte die ID des zu löschenden Tieres ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
                 break;
         }
@@ -663,7 +673,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
      */
     private void jTableAnimalDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAnimalDataMouseClicked
 
-        if (!mode.equals("add")) {
+        if (!mode.equals(Mode.add)) {
 
             int rowIndex = jTableAnimalData.getSelectedRow();
             TableModel model = jTableAnimalData.getModel();
@@ -704,7 +714,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(false);
             jButtonAssignFeedingTimes.setEnabled(true);
             jButtonAssignZookeeper.setEnabled(true);
-            mode = "add";
+            //mode = "add";
+            mode = Mode.add;
             return "add";
         } else if (jRadioButtonUpdate.isSelected()) {
             System.out.println("    Update mode");
@@ -717,7 +728,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(true);
             jButtonAssignFeedingTimes.setEnabled(true);
             jButtonAssignZookeeper.setEnabled(true);
-            mode = "update";
+            //mode = "update";
+            mode = Mode.update;
             return "update";
         } else if (jRadioButtonDelete.isSelected()) {
             System.out.println("    Delete mode");
@@ -730,7 +742,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(true);
             jButtonAssignFeedingTimes.setEnabled(false);
             jButtonAssignZookeeper.setEnabled(false);
-            mode = "delete";
+            //mode = "delete";
+            mode = Mode.delete;
             return "delete";
         }
 
@@ -814,7 +827,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private javax.swing.JFrame goBackFrame;
-    private String mode;
+    private Mode mode;
     private ZooManager zooManager;
     private Methods methods;
 }
