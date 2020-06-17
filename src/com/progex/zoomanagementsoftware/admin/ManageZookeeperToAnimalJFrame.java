@@ -6,6 +6,7 @@
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZookeeperToAnimalManager;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import com.progex.zoomanagementsoftware.datatypes.Salutation;
 import com.progex.zoomanagementsoftware.datatypes.User;
@@ -36,6 +37,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         initComponents();
         this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
+        this.zookeeperToAnimalManager = zooManager.getZookeeperToAnimalManager();
         methods = new Methods();
 
         myInitComponents();
@@ -417,7 +419,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             columnNameToValue.put("lastname", lastname);
             columnNameToValue.put("animalName", animalName);
 
-            records = zooManager.searchZookeeperToAnimal(columnNameToValue);
+            records = zookeeperToAnimalManager.searchZookeeperToAnimal(columnNameToValue);
 
             if (records.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
@@ -451,16 +453,16 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                     int decision = JOptionPane.showConfirmDialog(null, "Sind Sie sicher?", "Löschbestätigung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (decision == 0) {
                         //Ob Tiername existiert
-                        if (zooManager.getAnimalIds(animalName).isEmpty()) {
+                        if (zookeeperToAnimalManager.getAnimalIds(animalName).isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Tiername wurde nicht gefunden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                         } else {
 
                             //Ob die Zuweisung existiert, wenn ja wird gelöscht, wenn nicht fehlermeldung
-                            if (zooManager.checkZookeeperToAnimalExists(animalName, zookeeperID)) {
+                            if (zookeeperToAnimalManager.checkZookeeperToAnimalExists(animalName, zookeeperID)) {
                                 //Löschen erfolgreich
-                                if (zooManager.deleteZookeeperToAnimal(zooManager.getAnimalIds(animalName), zookeeperID)) {
+                                if (zookeeperToAnimalManager.deleteZookeeperToAnimal(zookeeperToAnimalManager.getAnimalIds(animalName), zookeeperID)) {
                                     if (columnNameToValue != null) {
-                                        records = zooManager.searchZookeeperToAnimal(columnNameToValue);
+                                        records = zookeeperToAnimalManager.searchZookeeperToAnimal(columnNameToValue);
                                         viewRelationTable(); // um die Tabelle zu aktualiseren
                                     }
                                     JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
@@ -520,20 +522,20 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Bitte Tierpfleger/-in auswählen in der Tabelle!", "Einfügen fehlgeschlagen", JOptionPane.INFORMATION_MESSAGE);
                 }
 
-                System.out.println(zooManager.checkZookeeperToAnimalExists(animalName, Integer.parseInt(selectedZookeeperID)));
+                
 
-                if (zooManager.checkZookeeperToAnimalExists(animalName, Integer.parseInt(selectedZookeeperID))) {
+                if (zookeeperToAnimalManager.checkZookeeperToAnimalExists(animalName, Integer.parseInt(selectedZookeeperID))) {
                     JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung existiert bereits!", "Einfügen fehlgeschlagen", JOptionPane.INFORMATION_MESSAGE);
                 } else {
 
-                    LinkedList<Integer> animalIds = zooManager.getAnimalIds(animalName);
+                    LinkedList<Integer> animalIds = zookeeperToAnimalManager.getAnimalIds(animalName);
 
                     if (animalIds.isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Tiername wurde nicht gefunden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     } else {
-                        if (zooManager.addZookeeperToAnimal(animalIds, selectedZookeeperID)) {
+                        if (zookeeperToAnimalManager.addZookeeperToAnimal(animalIds, selectedZookeeperID)) {
                             if (columnNameToValue != null) {
-                                records = zooManager.searchZookeeperToAnimal(columnNameToValue);
+                                records = zookeeperToAnimalManager.searchZookeeperToAnimal(columnNameToValue);
                                 viewRelationTable(); // um die Tabelle zu aktualiseren
                             }
                             JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
@@ -620,7 +622,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         columnNameToValue.put("firstname", firstName);
         columnNameToValue.put("lastname", lastName);
 
-        records = zooManager.searchZookeeperToAnimal(columnNameToValue);
+        records = zookeeperToAnimalManager.searchZookeeperToAnimal(columnNameToValue);
 
         if (records.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
@@ -628,7 +630,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             viewRelationTable();
         }
 
-        if (mode == mode.delete) {
+        if (mode == Mode.delete) {
             jTextFieldUserID.setText(selectedZookeeperID);
         }
     }//GEN-LAST:event_jTableZookeeperDataMouseClicked
@@ -653,7 +655,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         String animalName = takesCareModel.getValueAt(takesCareRowIndex, 4).toString();
         jTextFieldAnimalName.setText(animalName);
 
-        if (mode != mode.add)
+        if (mode != Mode.add)
             jTextFieldUserID.setText(selectedZookeeperID);
     }//GEN-LAST:event_jTableTakesCareDataMouseClicked
 
@@ -673,7 +675,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             jLabelZookeeperID.setEnabled(false);
             jLabelSearch.setEnabled(false);
             jButtonSearch.setEnabled(false);
-            mode = mode.add;
+            mode = Mode.add;
 
         } else if (jRadioButtonDelete.isSelected()) {
 
@@ -685,7 +687,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             jLabelZookeeperID.setEnabled(true);
             jLabelSearch.setEnabled(true);
             jButtonSearch.setEnabled(true);
-            mode = mode.delete;
+            mode = Mode.delete;
         }
     }
 
@@ -769,4 +771,5 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     private Mode mode;
     private LinkedList<ZookeeperToAnimalR> records;
     private LinkedHashMap<String, String> columnNameToValue;
+    private ZookeeperToAnimalManager zookeeperToAnimalManager;
 }
