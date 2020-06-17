@@ -154,10 +154,6 @@ public class UserManager {
         loggedInUser = null;
     }
 
-    public ZookeeperInfo createZookeeperInfo() {
-        return null;
-    }
-
 
     /**
      * Get NextFeedingInfo Object to display a zookeepers next feeding time
@@ -231,8 +227,6 @@ public class UserManager {
      * resultset is later used to populate the jtable
      * @return ResultSet witth allfeedingtimes to populate the resultset in another method
      */
-    // This Methods returns a resultset of all Feeding Informations for a user -> amount is in Kilogramm
-    // resultset is later used to populate the jtable
     public ResultSet getAllFeedingTimeInKG() {
 
         String query = "SELECT CONVERT(Fütterungszeit, time) as Uhrzeit,Tier,Futter,MengeKG,Abstellraumnummer,Gehege FROM (SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount AS MengeKG, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName "
