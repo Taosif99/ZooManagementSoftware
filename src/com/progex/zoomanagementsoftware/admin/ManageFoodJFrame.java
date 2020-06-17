@@ -7,7 +7,6 @@ package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
 import com.progex.zoomanagementsoftware.datatypes.*;
-import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import javax.swing.JFrame;
@@ -174,7 +173,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         jLabelStock.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelStock.setText("Menge");
 
-        jTextFieldStock.setToolTipText("Format: 9.87");
+        jTextFieldStock.setToolTipText("Format: zum Beispiel 9.87");
         jTextFieldStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldStockActionPerformed(evt);

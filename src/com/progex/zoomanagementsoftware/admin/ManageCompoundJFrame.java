@@ -529,6 +529,15 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                 if (checkGreaterZero(constructionYear, maxCapacity, area)) {
                     throw new IllegalArgumentException("Negative values not allowed");
                 }
+                
+                
+                
+                     int decision = JOptionPane.showConfirmDialog(null,
+                        "Wollen Sie den Datensatz wirklich ändern ? ", "Bestätigung",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (decision == 0) {
+                
+                
                 if (zooManager.updateCompound(ID, compoundName, area, constructionYear, maxCapacity)) {
 
                     //Falls Updaten erfolgreich, pfeil wäre besser
@@ -543,6 +552,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                 }
             }
 
+         }
         } catch (NumberFormatException numberFormatException) {
 
             System.err.println("NumberFormatException");
@@ -610,14 +620,14 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         //Get the mode
         switch (mode) {
 
-            case "add":
+            case add:
                 JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
                 break;
 
-            case "update":
+            case update:
                 JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Geheges ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
                 break;
-            case "delete":
+            case delete:
                 JOptionPane.showMessageDialog(null, "Bitte die ID des zu löschenden Geheges ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
                 break;
         }
@@ -662,7 +672,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
             jLabelSearch.setEnabled(false);
             jButtonSearch.setEnabled(false);
 
-            mode = "add";
+            //mode = "add";
+            mode = Mode.add;
             return "add";
 
         } else if (jRadioButtonUpdate.isSelected()) {
@@ -674,7 +685,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
             jLabelID.setEnabled(true);
             jLabelSearch.setEnabled(true);
             jButtonSearch.setEnabled(true);
-            mode = "update";
+            //mode = "update";
+            mode = Mode.update;
             return "update";
 
         } else if (jRadioButtonDelete.isSelected()) {
@@ -686,7 +698,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
             jLabelID.setEnabled(true);
             jLabelSearch.setEnabled(true);
             jButtonSearch.setEnabled(true);
-            mode = "delete";
+            //mode = "delete";
+            mode = Mode.delete;
             return "delete";
         }
 
@@ -768,7 +781,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     private javax.swing.JFrame goBackFrame;
     private ZooManager zooManager;
-    private String mode;
+    //private String mode;
+    private Mode mode;
     private Methods methods;
 
 }
