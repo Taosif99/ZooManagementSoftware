@@ -8,6 +8,7 @@ package com.progex.zoomanagementsoftware.zookeeper;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import com.progex.zoomanagementsoftware.datatypes.ZookeeperInfo;
 import com.progex.zoomanagementsoftware.main.MainMenuJFrame;
 import java.awt.Toolkit;
 import java.sql.SQLException;
@@ -53,13 +54,13 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
      */
     public void setFeedingInfo() throws SQLException, ParseException {
 
-        FeedingInfo x = zooManager.getUserManager().getNextFeedingInfo();
+        ZookeeperInfo x = zooManager.getUserManager().getNextFeedingInfo();
         
         String food = x.getFoodName();
         String animalName = x.getAnimalName();
-        String storageRoom = x.getAbstellraum();
-        double amount = x.getAmountOfFood();
-        String compound = x.getCompundName();
+        String storageRoom = x.getStorageRoomNumber();
+        double amount = x.getAmountFood();
+        String compound = x.getCompoundName();
         int nextFeedingTimeInMinutes = zooManager.getUserManager().getNextFeedingInfoInMinutes();
         
         // If nextfeedingInfo has valid minute time then display it

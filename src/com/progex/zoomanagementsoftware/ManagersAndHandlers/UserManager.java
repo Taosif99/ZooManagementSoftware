@@ -75,7 +75,7 @@ public class UserManager {
      * Method returns a user after checking if the given username and hashed password match.
      * @param username
      * @param hashedPassword
-     * @return 
+     * @return User that has been successfully logged in
      */
     public User login(String username, String hashedPassword) {
 
@@ -161,11 +161,11 @@ public class UserManager {
 
     /**
      * Get NextFeedingInfo Object to display a zookeepers next feeding time
-     * @return
+     * @return ZookeeperInfo that shows all important information for the next feeding info for the zookeeper
      * @throws SQLException
      * @throws ParseException 
      */
-    public FeedingInfo getNextFeedingInfo() throws SQLException, ParseException {
+    public ZookeeperInfo getNextFeedingInfo() throws SQLException, ParseException {
 
         // set query
         String query = "SELECT Fütterungszeit,Tier,Futter,MengeInKG,Abstellraumnummer,Gehege,diff_min "
@@ -221,7 +221,7 @@ public class UserManager {
                 + "FeedingTimeInMinutes: " + feedingTimeInMinutes);
 
         // create FeedingInfo based on Database Information and return it
-        FeedingInfo x = new FeedingInfo(tiername, gehege, null, feedingTimeInMinutes, futter, null, abstellRaum, menge);
+        ZookeeperInfo x = new ZookeeperInfo(feedingTimeInMinutes, gehege,  tiername, futter,abstellRaum,  menge);
         return x;
 
     }
@@ -229,7 +229,7 @@ public class UserManager {
     /**
      * This Methods returns a resultset of all Feeding Informations for a user -> amount is in Kilogramm,
      * resultset is later used to populate the jtable
-     * @return 
+     * @return ResultSet witth allfeedingtimes to populate the resultset in another method
      */
     // This Methods returns a resultset of all Feeding Informations for a user -> amount is in Kilogramm
     // resultset is later used to populate the jtable
@@ -265,7 +265,7 @@ public class UserManager {
     /**
      * This Methods returns a resultset of all Feeding Informations for a user -> amount is in Gramm
      * resultset is later used to populate the jtable
-     * @return 
+     * @return ResultSet witth allfeedingtimes to populate the resultset in another method
      */
     public ResultSet getAllFeedingTimeInGramm() {
 
@@ -286,7 +286,7 @@ public class UserManager {
                 + "INNER JOIN "
                 + "compound "
                 + "ON animal.CompoundID = compound.ID) "
-                + "AS joinedTable WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" "
+                + "AS joinedTable WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and joinedTable.FütterungsZeit > current_date() "
                 + "ORDER BY fütterungszeit desc";
 
         return connectionHandler.performQuery(query);
@@ -296,13 +296,15 @@ public class UserManager {
     
     /**
      * Return minutes until next feeding time for zookeeper
-     * @return 
+     * @return the next feeding time in minutes
      */
     public int getNextFeedingInfoInMinutes() {
+        
+        
 
         try {
-            if (getNextFeedingInfo().getNextFeedingInMinutes() >= 0) {
-                return getNextFeedingInfo().getNextFeedingInMinutes();
+            if (getNextFeedingInfo().getFeedingTime() >= 0) {
+                return getNextFeedingInfo().getFeedingTime();
             } else {
                 return -1;
 

@@ -54,8 +54,8 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     private void setNextFeedingTimeInfo() throws SQLException, ParseException {
 
         
-        if(zooManager.getUserManager().getNextFeedingInfo().getNextFeedingInMinutes() >= 0){
-        nächsteFütterungIn.setText("Nächste Fütterung in : " + zooManager.getUserManager().getNextFeedingInfoInMinutes() + " Minuten");
+        if(zooManager.getUserManager().getNextFeedingInfo().getFeedingTime() >= 0){
+        nächsteFütterungIn.setText("Nächste Fütterung in : " + zooManager.getUserManager().getNextFeedingInfo().getFeedingTime() + " Minuten");
         
         }
         else{
