@@ -8,15 +8,14 @@ package com.progex.zoomanagementsoftware.admin;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZookeeperToAnimalManager;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
-import com.progex.zoomanagementsoftware.datatypes.Salutation;
 import com.progex.zoomanagementsoftware.datatypes.User;
-import com.progex.zoomanagementsoftware.datatypes.Zookeeper;
 import com.progex.zoomanagementsoftware.datatypes.ZookeeperToAnimalR;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -47,6 +46,10 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
         updateButtonsAndLabels();
         methods.showTimeAndDate(jLabelShowDateTime);
+         UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
+         UIManager.put("OptionPane.noButtonText", "Nein");
+         UIManager.put("OptionPane.okButtonText", "OK");
+         UIManager.put("OptionPane.yesButtonText", "Ja");
     }
 
     /**

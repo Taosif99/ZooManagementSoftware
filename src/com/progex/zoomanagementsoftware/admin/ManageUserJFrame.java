@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 //import javax.swing.table.TableColumnModel;
@@ -46,8 +47,10 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     private void myInitComponents() {
 
         updateButtonsAndLabels();
-        // LinkedList<User> users = userManager.getUsers();
-        // viewUsers(users);
+         UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
+         UIManager.put("OptionPane.noButtonText", "Nein");
+         UIManager.put("OptionPane.okButtonText", "OK");
+         UIManager.put("OptionPane.yesButtonText", "Ja");
     }
 
     private void viewUsers(LinkedList<User> users) {
