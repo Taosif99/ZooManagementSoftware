@@ -7,7 +7,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Tierpfleger/-in zu Tier Zuweisung hinzuf&#xfc;gen"/>
+    <Property name="title" type="java.lang.String" value="Tierpfleger/-in zu Tier Zuweisung verwalten"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>

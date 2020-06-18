@@ -88,7 +88,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         jButtonHelp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Tierpfleger/-in zu Tier Zuweisung hinzufügen");
+        setTitle("Tierpfleger/-in zu Tier Zuweisung verwalten");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
