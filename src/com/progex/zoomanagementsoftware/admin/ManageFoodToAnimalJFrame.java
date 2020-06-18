@@ -464,10 +464,10 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabelAmountUnitTable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButtonKgTable, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButtonKgTable)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jRadioButtonGTable)
-                .addGap(0, 23, Short.MAX_VALUE))
+                .addGap(0, 47, Short.MAX_VALUE))
         );
         jPanelAmountUnitTableLayout.setVerticalGroup(
             jPanelAmountUnitTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

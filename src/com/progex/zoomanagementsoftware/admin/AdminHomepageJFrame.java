@@ -420,7 +420,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         if (validInput) {
             viewAdmins();
         } else
-            JOptionPane.showMessageDialog(null, "Anzahl der auszugebenden Admins ungültig!", "Zahlenfeld falsch ausgefüllt.", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, "Anzahl der auszugebenden Admins ungültig!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
     }//GEN-LAST:event_jButtonShowAdminsActionPerformed
 
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
