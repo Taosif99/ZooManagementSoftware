@@ -42,15 +42,6 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="485" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButtonAddUser" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
-                                  <Component id="jButtonUpdateUser" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
-                                  <Component id="jButtonDeleteUser" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -110,18 +101,30 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jComboBoxShift" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  <Component id="jTextFieldBirthday" pref="141" max="32767" attributes="0"/>
-                                                  <Component id="jTextFieldUsername" alignment="0" pref="141" max="32767" attributes="0"/>
-                                                  <Component id="jTextFieldEMail" alignment="0" pref="141" max="32767" attributes="0"/>
-                                                  <Component id="jPasswordFieldEnteredPW" alignment="0" max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jButtonAddUser" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
+                                                  <Component id="jButtonUpdateUser" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
+                                                  <Component id="jButtonDeleteUser" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
                                               </Group>
+                                              <EmptySpace max="32767" attributes="0"/>
                                           </Group>
-                                          <Component id="jPasswordFieldConfirm" max="32767" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                          <Component id="jComboBoxShift" min="-2" pref="91" max="-2" attributes="0"/>
+                                                          <Component id="jTextFieldBirthday" pref="141" max="32767" attributes="0"/>
+                                                          <Component id="jTextFieldUsername" alignment="0" pref="141" max="32767" attributes="0"/>
+                                                          <Component id="jTextFieldEMail" alignment="0" pref="141" max="32767" attributes="0"/>
+                                                          <Component id="jPasswordFieldEnteredPW" alignment="0" max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <Component id="jPasswordFieldConfirm" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -168,113 +171,105 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jButtonGoBack" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelShowDateTime" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabelID" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldID" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jScrollPaneUserData" min="-2" pref="385" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jLabelSearch" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jButtonAnimalsToZookeeper" max="32767" attributes="0"/>
+                  <Component id="jButtonSearch" pref="35" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jPanelOperation" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Component id="jLabelUserType" min="-2" pref="25" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButtonGoBack" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelShowDateTime" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabelID" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldID" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jScrollPaneUserData" min="-2" pref="385" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanelOperation" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                              <Component id="jLabelUserType" min="-2" pref="25" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jRadioButtonAdmin" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jRadioButtonZookeeper" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jComboBoxSalutation" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelSalutation" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                              <Component id="jLabelBirthday" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldBirthday" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                              <Component id="jTextFieldFirstname" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelFirstname" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextFieldLastname" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelShift" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBoxShift" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelLastname" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextFieldStreet" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabelUsername" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldUsername" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelStreet" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabelZIP" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldZIP" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelEMail" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldEMail" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabelCity" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldCity" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPasswordFieldEnteredPW" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabelCountry" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldCountry" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelConfirmPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPasswordFieldConfirm" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabelPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButtonAddUser" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="jRadioButtonAdmin" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jRadioButtonZookeeper" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="jButtonUpdateUser" min="-2" pref="37" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButtonDeleteUser" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="jComboBoxSalutation" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelSalutation" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                      <Component id="jLabelBirthday" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldBirthday" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="jLabelSearch" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jButtonAnimalsToZookeeper" max="32767" attributes="0"/>
-                          <Component id="jButtonSearch" pref="35" max="32767" attributes="0"/>
-                      </Group>
+                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                      <Component id="jTextFieldFirstname" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelFirstname" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="29" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jTextFieldLastname" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelShift" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jComboBoxShift" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelLastname" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jTextFieldStreet" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabelUsername" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldUsername" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelStreet" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabelZIP" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldZIP" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelEMail" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldEMail" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabelCity" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldCity" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPasswordFieldEnteredPW" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabelCountry" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldCountry" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelConfirmPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPasswordFieldConfirm" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabelPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jButtonAddUser" min="-2" pref="35" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jButtonUpdateUser" min="-2" pref="37" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jButtonDeleteUser" min="-2" pref="37" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

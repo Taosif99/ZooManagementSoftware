@@ -139,6 +139,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Admin Mode");
+        setPreferredSize(new java.awt.Dimension(1280, 600));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -255,7 +256,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(197, 197, 197)
+                        .addContainerGap(197, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jButtonManageUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -265,7 +266,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
                                 .addComponent(jButtonManageFood, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButtonManageEats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabelQuestion))
-                        .addGap(118, 118, 118))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(106, 106, 106)
                         .addComponent(jLabelWelcomeAdmin)
@@ -286,7 +287,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabelShowDateTime, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPaneLastLoginAdminsTable, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE))
+                            .addComponent(jScrollPaneLastLoginAdminsTable, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE))
                         .addGap(36, 36, 36)
                         .addComponent(jButtonLogout)
                         .addGap(22, 22, 22))))
@@ -294,9 +295,9 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonLogout)
                             .addComponent(jLabelShowDateTime))
@@ -311,7 +312,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPaneLastLoginAdminsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
+                        .addGap(0, 22, Short.MAX_VALUE)
                         .addComponent(jLabelWelcomeAdmin)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelQuestion)
@@ -326,8 +327,8 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButtonManageTakesCare, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonManageEats, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)))
-                .addGap(60, 60, 60))
+                        .addComponent(jButtonManageEats, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pack();
@@ -400,19 +401,6 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jButtonManageTakesCareActionPerformed
 
-    private void jButtonManageEatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageEatsActionPerformed
-
-        this.setVisible(false);
-
-        JFrame thisFrame = this;
-        /* Create and display the JFrame ManageFoodToAnimal*/
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ManageFoodToAnimalJFrame(thisFrame, zooManager).setVisible(true);
-            }
-        });
-    }//GEN-LAST:event_jButtonManageEatsActionPerformed
-
     private void jButtonShowAdminsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowAdminsActionPerformed
 
         boolean validInput = checkInput();
@@ -435,6 +423,19 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         System.out.append("LOGOUT");
         userManager.logout();
     }//GEN-LAST:event_formWindowClosing
+
+    private void jButtonManageEatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageEatsActionPerformed
+
+        this.setVisible(false);
+
+        JFrame thisFrame = this;
+        /* Create and display the JFrame ManageFoodToAnimal*/
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ManageFoodToAnimalJFrame(thisFrame, zooManager).setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_jButtonManageEatsActionPerformed
 
     /**
      * @param args the command line arguments
