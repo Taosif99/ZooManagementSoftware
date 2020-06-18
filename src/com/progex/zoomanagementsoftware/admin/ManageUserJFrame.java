@@ -200,6 +200,11 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Benutzer Verwalten");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabelID.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelID.setText("ID");
@@ -430,6 +435,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jLabelSearch.setText("Suche Anhand nicht leerer Felder");
 
         jButtonSearch.setText("Suche");
+        jButtonSearch.setToolTipText("Suche anhand angegebener regulärer Ausdrücke, Anrede , Schicht und Benutzertyp, falls zum Beispiel Feld A und Feld B ausgefüllt sind, wird das resultat den Ausdruck von A und B erfüllen.Passwortfelder werden nicht berücksichtigt ! ");
         jButtonSearch.setMaximumSize(new java.awt.Dimension(73, 23));
         jButtonSearch.setMinimumSize(new java.awt.Dimension(73, 23));
         jButtonSearch.setPreferredSize(new java.awt.Dimension(73, 23));
@@ -807,6 +813,9 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         columnNameToValue.put("Zip", zip);
         columnNameToValue.put("Street", street);
         columnNameToValue.put("Country", country);
+        String userType;
+        if (this.userType == mode.admin) userType = "Admin"; else userType = "Zookeeper";
+        columnNameToValue.put("Type", userType);
         LinkedList<User> users = userManager.searchUsers(columnNameToValue);
         viewUsers(users);
 
@@ -1084,6 +1093,11 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jTableUserDataMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.out.append("LOGOUT");
+        zooManager.getUserManager().logout();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * Method to disable/enable buttons depending user/zookeeper mode and

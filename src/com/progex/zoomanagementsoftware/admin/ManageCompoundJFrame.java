@@ -147,6 +147,11 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gehege verwalten");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabelCompoundName.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelCompoundName.setText("Name");
@@ -303,6 +308,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         jLabelShowDateTime.setText("TIME");
 
         jButtonSearch.setText("Suche");
+        jButtonSearch.setToolTipText("Suche anhand angegebener regulärer Ausdrücke, falls zum Beispiel Feld A und Feld B ausgefüllt sind, wird das resultat den Ausdruck von A und B erfüllen.");
         jButtonSearch.setMaximumSize(new java.awt.Dimension(73, 23));
         jButtonSearch.setMinimumSize(new java.awt.Dimension(73, 23));
         jButtonSearch.setPreferredSize(new java.awt.Dimension(73, 23));
@@ -672,6 +678,11 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jTableCompoundDataMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.out.append("LOGOUT");
+        zooManager.getUserManager().logout();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * Method to disable/enable buttons/labels depending on operation selection.

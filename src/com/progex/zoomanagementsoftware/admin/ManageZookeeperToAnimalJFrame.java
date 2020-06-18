@@ -86,8 +86,12 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tierpfleger/-in zu Tier Zuweisung hinzufügen");
-        setPreferredSize(new java.awt.Dimension(1280, 600));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         buttonGroupOperation.add(jRadioButtonAdd);
         jRadioButtonAdd.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
@@ -168,6 +172,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         jLabelSearch.setText("Suche Anhand nicht leerer Felder");
 
         jButtonSearch.setText("Suche");
+        jButtonSearch.setToolTipText("Suche anhand des Tiernamen bzw seiner ID. Ein/e Tierpfleger-/in muss angeklickt sein !");
         jButtonSearch.setMaximumSize(new java.awt.Dimension(73, 23));
         jButtonSearch.setMinimumSize(new java.awt.Dimension(73, 23));
         jButtonSearch.setPreferredSize(new java.awt.Dimension(73, 23));
@@ -658,6 +663,11 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         if (mode != Mode.add)
             jTextFieldUserID.setText(selectedZookeeperID);
     }//GEN-LAST:event_jTableTakesCareDataMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.out.append("LOGOUT");
+        zooManager.getUserManager().logout();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * Method to disable/enable buttons and labels depending on operation

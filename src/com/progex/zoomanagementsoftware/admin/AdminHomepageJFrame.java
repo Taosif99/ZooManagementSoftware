@@ -27,6 +27,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         this.zooManager = zooManager;
         this.userManager = zooManager.getUserManager();
         this.mainMenuJFrame = mainMenuJFrame;
+        this.methods = new Methods();
         initComponents();
         myInitComponents();
 
@@ -34,12 +35,22 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     public void myInitComponents() {
 
-        Methods methods = new Methods();
+   
         methods.showTimeAndDate(jLabelShowDateTime);
+        
+        try{
         User loggedInUser = userManager.getLoggedInUser();
         //TODO LOGIN SO VERÄNDERN DASS MAN AUCH DEN NACHNAMEN BEKOMMEN KANN !
         jLabelWelcomeAdmin.setText("Hallo " + loggedInUser.getFirstname());
-    }
+        }
+        
+        catch(NullPointerException nullPointerException){
+        System.out.println("DEBUG");
+        
+        jLabelWelcomeAdmin.setText("Hallo Superuser !");
+        }
+        
+        }
 
     private void fillTable(DefaultTableModel model) {
 
@@ -55,7 +66,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
         for (User admin : users) {
             row[0] = admin.getId();
-            row[1] = admin.getLastLogDate();
+            row[1] = methods.removeSeconds(admin.getLastLogDate().toString());
             if (admin.getSalutation().equals(Salutation.mr)) {
                 row[2] = "Herr";
             } else if (admin.getSalutation().equals(Salutation.mrs)) {
@@ -129,6 +140,11 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Admin Mode");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelShowDateTime.setText("TIME");
@@ -221,6 +237,9 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         jTableLastLoginAdminsData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTableLastLoginAdminsData.getTableHeader().setReorderingAllowed(false);
         jScrollPaneLastLoginAdminsTable.setViewportView(jTableLastLoginAdminsData);
+        if (jTableLastLoginAdminsData.getColumnModel().getColumnCount() > 0) {
+            jTableLastLoginAdminsData.getColumnModel().getColumn(1).setPreferredWidth(140);
+        }
 
         jButtonShowAdmins.setText("Ausgeben");
         jButtonShowAdmins.addActionListener(new java.awt.event.ActionListener() {
@@ -386,7 +405,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         this.setVisible(false);
 
         JFrame thisFrame = this;
-        /* Create and display the JFrame FoodToAnimal*/
+        /* Create and display the JFrame ManageFoodToAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ManageFoodToAnimalJFrame(thisFrame, zooManager).setVisible(true);
@@ -407,10 +426,15 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
 
 
-        zooManager.getUserManager().logout();
+       userManager.logout();
         this.dispose();
         mainMenuJFrame.setVisible(true);
     }//GEN-LAST:event_jButtonLogoutActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.out.append("LOGOUT");
+        userManager.logout();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -476,4 +500,5 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     private ZooManager zooManager;
     private UserManager userManager;
     private JFrame mainMenuJFrame;
+    private Methods methods;
 }

@@ -323,7 +323,7 @@ public class UserManager {
     }
 
     /**
-     * Method to search for users in the database with limit.
+     * Method to search for users in the database with limit, ordered by the last log date
      *
      * @param columnValueMap A mapping of entity attributes and corresponding
      * @param limit An amount of users we want to have
@@ -338,7 +338,7 @@ public class UserManager {
                 + "INNER JOIN Address ON User.AddressID = Address.ID WHERE ";
         String query = zooManager.generateSearchQuery(columnValueMap, begin);
 
-        query = query + " LIMIT " + limit;
+        query = query + " ORDER BY LastLogDate DESC LIMIT " + limit;
         System.out.println(query);
 
         LinkedList<User> users = null;

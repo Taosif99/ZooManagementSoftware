@@ -16,6 +16,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -763,6 +766,7 @@
     <Component class="javax.swing.JButton" name="jButtonSearch">
       <Properties>
         <Property name="text" type="java.lang.String" value="Suche"/>
+        <Property name="toolTipText" type="java.lang.String" value="Suche anhand angegebener regul&#xe4;rer Ausdr&#xfc;cke, Anrede , Schicht und Benutzertyp, falls zum Beispiel Feld A und Feld B ausgef&#xfc;llt sind, wird das resultat den Ausdruck von A und B erf&#xfc;llen.Passwortfelder werden nicht ber&#xfc;cksichtigt ! "/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[73, 23]"/>
         </Property>

@@ -87,6 +87,11 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Futter verwalten");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jButtonGoBack.setText("Zurück");
         jButtonGoBack.addActionListener(new java.awt.event.ActionListener() {
@@ -238,6 +243,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         jLabelID.setText("ID");
 
         jButtonSearch.setText("Suche");
+        jButtonSearch.setToolTipText("Suche anhand angegebener regulärer Ausdrücke, falls zum Beispiel Feld A und Feld B ausgefüllt sind, wird das resultat den Ausdruck von A und B erfüllen.");
         jButtonSearch.setMaximumSize(new java.awt.Dimension(73, 23));
         jButtonSearch.setMinimumSize(new java.awt.Dimension(73, 23));
         jButtonSearch.setPreferredSize(new java.awt.Dimension(73, 23));
@@ -728,6 +734,11 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
     private void jTextFieldStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldStockActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldStockActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.out.append("LOGOUT");
+        zooManager.getUserManager().logout();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * Method to disable/enable buttons and labels depending on operation

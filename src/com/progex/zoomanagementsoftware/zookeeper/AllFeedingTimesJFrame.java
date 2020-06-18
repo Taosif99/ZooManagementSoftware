@@ -354,10 +354,20 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
        
  
 
+        
+        
+        
+        String url = "jdbc:mysql://localhost/";
+        String username = "root";
+        String password = "0000";
+        String dbName = "zoo";
+
+        ZooManager zooManager = new ZooManager(url, dbName, username, password);
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AllFeedingTimesJFrame(null, null, null, null).setVisible(true);
+                new AllFeedingTimesJFrame(null, null, null, zooManager).setVisible(true);
             }
         });
     }

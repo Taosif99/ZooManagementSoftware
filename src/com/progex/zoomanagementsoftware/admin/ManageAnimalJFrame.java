@@ -136,6 +136,11 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tier verwalten");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabelAnimalName.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelAnimalName.setText("Tiername");
@@ -301,6 +306,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         jLabelShowDateTime.setText("TIME");
 
         jButtonSearch.setText("Suche");
+        jButtonSearch.setToolTipText("Suche anhand angegebener regulärer Ausdrücke und Spezies, falls zum Beispiel Feld A und Feld B ausgefüllt sind, wird das resultat den Ausdruck von A und B erfüllen.");
         jButtonSearch.setMaximumSize(new java.awt.Dimension(73, 23));
         jButtonSearch.setMinimumSize(new java.awt.Dimension(73, 23));
         jButtonSearch.setPreferredSize(new java.awt.Dimension(73, 23));
@@ -710,6 +716,11 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jTableAnimalDataMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.out.append("LOGOUT");
+        zooManager.getUserManager().logout();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * Method to disable/enable buttons and labels depending on operation

@@ -198,13 +198,9 @@ public class LoginJFrame extends javax.swing.JFrame {
                 // Open ZookeeperHomePage when Login successful and pass zooManager reference
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
-                        try {
+                        
                             new ZookeeperModeHomePageJFrame(mainMenuJFrame, zooManager).setVisible(true);
-                        } catch (SQLException ex) {
-                            Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (ParseException ex) {
-                            Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        
                     }
                 });                
                 
