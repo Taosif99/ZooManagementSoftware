@@ -50,18 +50,18 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         setSize(x,y);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
-        
+        //https://www.baeldung.com/java-images
         BufferedImage img = null;
         //Hier werte testen...
         int scaledWidth = 1000;
-        int scaledHeight = 350;
+        int scaledHeight = 400;
         
         try {
             //TODO LOAD PICTURE DYNAMICALLY and ordentlicher machen
             img = ImageIO.read(new File("C:\\Users\\Ouchen\\Documents\\NetBeansProjects\\ZooManagementSoftware\\src\\com\\progex\\zoomanagementsoftware\\main\\ZooMap2.PNG"));
             
              BufferedImage outputImage = new BufferedImage(scaledWidth,
-               scaledHeight, img.getType());
+             scaledHeight, img.getType());
            
          // scales the input image to the output image
         Graphics2D g2d = outputImage.createGraphics();
@@ -102,7 +102,7 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         setTitle("Zoo Karte");
         setAlwaysOnTop(true);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1200, 600));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -119,7 +119,7 @@ public class ZooMapJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Picture from www.freepik.com Designed by rawpixel.com ");
+        jLabel1.setText("Symbolbild: www.freepik.com Designed by rawpixel.com ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,19 +128,19 @@ public class ZooMapJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jLabelLegend))))
+                            .addComponent(jLabelLegend)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonBack)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelShowDateTime)
                 .addGap(40, 40, 40))
             .addGroup(layout.createSequentialGroup()
                 .addGap(132, 132, 132)
-                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                 .addGap(433, 433, 433))
         );
         layout.setVerticalGroup(
@@ -152,14 +152,14 @@ public class ZooMapJFrame extends javax.swing.JFrame {
                         .addComponent(jLabelShowDateTime))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29)
-                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonBack)))
+                .addGap(57, 57, 57)
+                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                 .addGap(121, 121, 121)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabelLegend)
-                .addGap(74, 74, 74))
+                .addGap(56, 56, 56))
         );
 
         pack();
