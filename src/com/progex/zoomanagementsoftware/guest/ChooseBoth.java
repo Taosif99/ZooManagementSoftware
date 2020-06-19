@@ -54,7 +54,7 @@ public class ChooseBoth extends javax.swing.JFrame {
             jLabelCompoundStatic.setFont(new java.awt.Font("Calibri", 0, 48));
             jLabelFeed.setFont(new java.awt.Font("Calibri", 0, 48));
             jLabelFeedStatic.setFont(new java.awt.Font("Calibri", 0, 48));
-            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 48));
+            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 28));
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 48));
 
         }
