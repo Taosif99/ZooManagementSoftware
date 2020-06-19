@@ -494,7 +494,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
             if (textFieldsVerified) {
 
-                int decision = JOptionPane.showConfirmDialog(null, "Sind Sie sicher?", "Löschbestätigung",
+                int decision = JOptionPane.showConfirmDialog(null, "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 //OK = 0, cancel =2
                 System.out.println(decision);
