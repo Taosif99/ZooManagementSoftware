@@ -818,6 +818,12 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         if (this.userType == mode.admin) userType = "Admin"; else userType = "Zookeeper";
         columnNameToValue.put("Type", userType);
         LinkedList<User> users = userManager.searchUsers(columnNameToValue);
+      
+        
+            if (users.isEmpty()) {
+            methods.clearTable((DefaultTableModel) jTableUserData.getModel());
+            JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
+        } else
         viewUsers(users);
 
     }//GEN-LAST:event_jButtonSearchActionPerformed

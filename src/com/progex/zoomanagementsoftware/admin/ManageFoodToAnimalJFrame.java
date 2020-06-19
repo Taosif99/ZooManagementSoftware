@@ -781,6 +781,10 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             columnValueMap.put("Amount", amountStr);
 
             LinkedList<FoodToAnimalR> records = foodToAnimalManager.searchFoodToAnimal(columnValueMap);
+                if (records.isEmpty()) {
+            methods.clearTable((DefaultTableModel) jTableFoodToAnimalData.getModel());
+            JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
+        } else
             viewRelationTable(records);
 
         } else {

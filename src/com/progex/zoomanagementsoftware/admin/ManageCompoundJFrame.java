@@ -529,6 +529,10 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         columnNameToValue.put("MaxCapacity", maxCapacity);
 
         LinkedList<Compound> compounds = compoundManager.searchCompounds(columnNameToValue);
+            if (compounds.isEmpty()) {
+            cleanTable();
+            JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
+        } else
         viewCompounds(compounds);
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
