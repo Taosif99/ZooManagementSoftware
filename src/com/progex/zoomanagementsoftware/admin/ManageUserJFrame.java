@@ -768,7 +768,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
             } else {
 
-                JOptionPane.showMessageDialog(null, "Bitte überprüfen Sie die passwörter", "Passwörter nicht identisch", JOptionPane.CANCEL_OPTION);
+                JOptionPane.showMessageDialog(null, "Bitte überprüfen Sie die Passwörter", "Passwörter nicht identisch", JOptionPane.CANCEL_OPTION);
 
             }
 
@@ -945,7 +945,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             if(!password.isBlank() && ! confirmedPassword.isBlank()){
             
              int passwordDescision = JOptionPane.showConfirmDialog(null,
-                        "Wollen Sie wirklich das passwort ändern ? ", "Bestätigung",
+                        "Wollen Sie wirklich das Passwort ändern? ", "Bestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
              if (passwordDescision == 0) changePassword = true ;
 

@@ -5,7 +5,15 @@
  */
 package com.progex.zoomanagementsoftware.main;;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 
@@ -41,6 +49,34 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         int y =(int)tk.getScreenSize().getHeight();
         setSize(x,y);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        
+        BufferedImage img = null;
+        //Hier werte testen...
+        int scaledWidth = 1000;
+        int scaledHeight = 350;
+        
+        try {
+            //TODO LOAD PICTURE DYNAMICALLY and ordentlicher machen
+            img = ImageIO.read(new File("C:\\Users\\Ouchen\\Documents\\NetBeansProjects\\ZooManagementSoftware\\src\\com\\progex\\zoomanagementsoftware\\main\\ZooMap2.PNG"));
+            
+             BufferedImage outputImage = new BufferedImage(scaledWidth,
+               scaledHeight, img.getType());
+           
+         // scales the input image to the output image
+        Graphics2D g2d = outputImage.createGraphics();
+        g2d.drawImage(img, 0, 0, scaledWidth, scaledHeight, null);
+        g2d.dispose();
+ 
+            
+       ImageIcon icon = new ImageIcon(outputImage);      
+       imageLabel.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(ZooMapJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+              
+        
     
     
     }
@@ -59,12 +95,14 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         jLabelShowDateTime = new javax.swing.JLabel();
         jLabelLegend = new javax.swing.JLabel();
         jButtonBack = new javax.swing.JButton();
+        imageLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Zoo Karte");
         setAlwaysOnTop(true);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(600, 720));
+        setPreferredSize(new java.awt.Dimension(1200, 600));
         setResizable(false);
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -81,6 +119,8 @@ public class ZooMapJFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Picture from www.freepik.com Designed by rawpixel.com ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,14 +128,20 @@ public class ZooMapJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabelLegend))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 326, Short.MAX_VALUE)
+                        .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabelLegend))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelShowDateTime)
                 .addGap(40, 40, 40))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(132, 132, 132)
+                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(433, 433, 433))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,7 +153,11 @@ public class ZooMapJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(121, 121, 121)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addComponent(jLabelLegend)
                 .addGap(74, 74, 74))
         );
@@ -163,7 +213,9 @@ public class ZooMapJFrame extends javax.swing.JFrame {
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel imageLabel;
     private javax.swing.JButton jButtonBack;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelLegend;
     private javax.swing.JLabel jLabelShowDateTime;
     // End of variables declaration//GEN-END:variables

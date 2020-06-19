@@ -538,7 +538,7 @@ public class UserManager {
             int feedingTimeInMinutes = -1;
             
             // set variables from resultset
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 tiername = resultSet.getString(2);
                 futter = resultSet.getString(3);
                 menge = Double.parseDouble(resultSet.getString(4));
