@@ -104,7 +104,7 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 1, 28)); // NOI18N
+        jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabelShowDateTime.setText("TIME  and Date");
         jLabelShowDateTime.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
@@ -134,12 +134,12 @@ public class ZooMapJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButtonBack)))
-                .addGap(213, 213, 213)
-                .addComponent(jLabelShowDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelShowDateTime)
                 .addGap(40, 40, 40))
             .addGroup(layout.createSequentialGroup()
                 .addGap(132, 132, 132)
-                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                 .addGap(433, 433, 433))
         );
         layout.setVerticalGroup(
@@ -148,12 +148,12 @@ public class ZooMapJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(jLabelShowDateTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabelShowDateTime))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButtonBack)))
                 .addGap(57, 57, 57)
-                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                 .addGap(121, 121, 121)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
