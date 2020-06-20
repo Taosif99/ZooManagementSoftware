@@ -6,6 +6,7 @@
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.AnimalManager;
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.CompoundManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Animal;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
@@ -38,6 +39,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
         myInitComponents();
+        lastSearchedAnimals = null;
+        lastSearchMap = null;
 
     }
 
@@ -45,41 +48,32 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         updateButtonsAndLabels();
         //LinkedList <Animal> allAnimals = zooManager.getAnimals();
         //viewAnimals(allAnimals);
-         UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
-         UIManager.put("OptionPane.noButtonText", "Nein");
-         UIManager.put("OptionPane.okButtonText", "OK");
-         UIManager.put("OptionPane.yesButtonText", "Ja");
+        UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
+        UIManager.put("OptionPane.noButtonText", "Nein");
+        UIManager.put("OptionPane.okButtonText", "OK");
+        UIManager.put("OptionPane.yesButtonText", "Ja");
     }
 
-    
-    private void cleanTable(){
-    
-        DefaultTableModel tableModel = (DefaultTableModel) jTableAnimalData.getModel();
-        while (tableModel.getRowCount() > 0) {
-            tableModel.removeRow(0);
-        }
-    }
-    
-    
-    private void cleanFields(){
-    
+
+
+    private void cleanFields() {
+
         jTextFieldAnimalName.setText("");
         jTextFieldCompound.setText("");
         jTextFieldDateOfBirth.setText("");
         jTextFieldSex.setText("");
-    
+        jTextFieldID.setText("");
     }
-    
-    
+
     /**
-     * Method which has been implemented to map a LinkedList
-     * of Animal objects to a JTable.
+     * Method which has been implemented to map a LinkedList of Animal objects
+     * to a JTable.
+     *
      * @param animals
      */
     private void viewAnimals(LinkedList<Animal> animals) {
 
-       
-        cleanTable();
+         methods.clearTable((DefaultTableModel) jTableAnimalData.getModel());
         DefaultTableModel model = (DefaultTableModel) jTableAnimalData.getModel();
         Object[] row = new Object[6]; // Spalten
 
@@ -88,7 +82,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             row[0] = animal.getId();
             row[1] = animal.getName();
             row[2] = animal.getSex();
-            row[3] = animal.getBirthday(); 
+            row[3] = animal.getBirthday();
             //DIE LINE IST NOCH HÄSSLICH
             row[4] = methods.descriptionToString(animal.getSpecies().getDescription());
             row[5] = animal.getCompound().getName();
@@ -140,7 +134,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tier verwalten");
-        setPreferredSize(new java.awt.Dimension(1280, 600));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -162,6 +155,10 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
         jLabelSpecies.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelSpecies.setText("Spezies");
+
+        jTextFieldSex.setToolTipText("W für weiblich, M für männlich");
+
+        jTextFieldDateOfBirth.setToolTipText("Format: yyyy-MM-dd");
 
         jComboBoxSpecies.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Säugetier", "Fisch", "Vogel", "Amphibie", "Reptil", "Insekt", "Spinnentier", "Wirbellos" }));
         jComboBoxSpecies.addActionListener(new java.awt.event.ActionListener() {
@@ -360,7 +357,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                                 .addGap(29, 29, 29)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTextFieldCompound, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldDateOfBirth, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                                     .addComponent(jComboBoxSpecies, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -375,7 +371,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                         .addGap(162, 162, 162)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTextFieldSex, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldAnimalName, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextFieldAnimalName, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldDateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jPanelOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -404,13 +401,13 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                     .addComponent(jTextFieldAnimalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelAnimalName))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelSex)
-                    .addComponent(jTextFieldSex, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldSex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelDateOfBirth, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextFieldDateOfBirth, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelDateOfBirth)
+                    .addComponent(jTextFieldDateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelSpecies)
@@ -460,11 +457,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         JTextField textFields[] = {jTextFieldAnimalName, jTextFieldCompound,
             jTextFieldDateOfBirth, jTextFieldSex};
 
-   
         boolean textFieldsVerified = methods.verifyTextFields(textFields);
-
-        
-  
 
         if (textFieldsVerified) {
 
@@ -473,22 +466,33 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             String date = jTextFieldDateOfBirth.getText();
             String sex = jTextFieldSex.getText();
             String species = jComboBoxSpecies.getSelectedItem().toString();
-            
+
             boolean dateFormatCorrect = methods.isValidDateString(date);
-            
-          if(dateFormatCorrect){  
-            if (animalManager.addAnimal(animalName, compoundName, date, sex, species)) {
-                //Falls Einfügen erfolgreichr
-                JOptionPane.showMessageDialog(null, "Tier konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                cleanFields();
+            CompoundManager compoundManager = zooManager.getCompoundManager();
+
+            boolean compoundNameExists = compoundManager.compoundExists(compoundName);
+
+            if (compoundNameExists) {
+                if (dateFormatCorrect) {
+                    if (animalManager.addAnimal(animalName, compoundName, date, sex, species)) {
+                        //Falls Einfügen erfolgreichr
+                        JOptionPane.showMessageDialog(null, "Tier konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+                        cleanFields();
+                        
+                 
+                        
+                        
+                    } else {
+                        //Falls Fehler beim Einfügen
+                        JOptionPane.showMessageDialog(null, "Tier konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Bitte Geburtstsag im format yyyy-MM-dd eintragen !", "Falsches Datumformat", JOptionPane.CANCEL_OPTION);
+                }
             } else {
-                //Falls Fehler beim Einfügen
-                JOptionPane.showMessageDialog(null, "Tier konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                JOptionPane.showMessageDialog(null, "Tier konnte nicht eingefügt werden!", "Gehege existiert nicht", JOptionPane.CANCEL_OPTION);
             }
-          } else 
-                 JOptionPane.showMessageDialog(null, "Bitte Geburtstsag im format yyyy-MM-dd eintragen !", "Falsches Datumformat", JOptionPane.CANCEL_OPTION); 
-          
-          
+
         }
 
     }//GEN-LAST:event_jButtonAddAnimalActionPerformed
@@ -501,44 +505,48 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
-        
+
     
-        cleanFields();
-        cleanTable();
+        jTextFieldID.setText("");
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
 
     private void jRadioButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonUpdateActionPerformed
-
+   
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonUpdateActionPerformed
 
 
     private void jRadioButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDeleteActionPerformed
-
+        
+     
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonDeleteActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
+
+        String animalName = jTextFieldAnimalName.getText().trim();
+        String compoundName = jTextFieldCompound.getText().trim();
+        String birthday = jTextFieldDateOfBirth.getText().trim();
+        String sex = jTextFieldSex.getText().trim();
+        String species = jComboBoxSpecies.getSelectedItem().toString();
+        String ID = jTextFieldID.getText().trim();
+
+        LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
+        columnNameToValue.put("Animal.ID", ID);
+        columnNameToValue.put("AnimalName", animalName);
+        columnNameToValue.put("Sex", sex);
+        columnNameToValue.put("Birthday", birthday);
+        columnNameToValue.put("Description", species);
+        columnNameToValue.put("Name", compoundName);
+
+        lastSearchMap = columnNameToValue;
         
-            String animalName = jTextFieldAnimalName.getText().trim();
-            String compoundName = jTextFieldCompound.getText().trim();
-            String birthday = jTextFieldDateOfBirth.getText().trim();
-            String sex = jTextFieldSex.getText().trim();
-            String species = jComboBoxSpecies.getSelectedItem().toString();
-            String ID = jTextFieldID.getText().trim();
-        
-           LinkedHashMap<String,String> columnNameToValue = new LinkedHashMap<String,String>();
-           columnNameToValue.put("Animal.ID", ID);
-           columnNameToValue.put("AnimalName", animalName);
-           columnNameToValue.put("Sex", sex);
-           columnNameToValue.put("Birthday", birthday);
-           columnNameToValue.put("Description",species);
-           columnNameToValue.put("Name", compoundName);
-           
-           LinkedList<Animal> animals = animalManager.searchAnimals(columnNameToValue);
-           viewAnimals(animals);
-           
+       
+        LinkedList<Animal> animals = animalManager.searchAnimals(columnNameToValue);
+        if (!animals.isEmpty())
+        viewAnimals(animals);
+        else  JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonAssignFeedingTimesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssignFeedingTimesActionPerformed
@@ -549,7 +557,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         /* Create and display the JFrame FoodToAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageFoodToAnimalJFrame(thisFrame,zooManager).setVisible(true);
+                new ManageFoodToAnimalJFrame(thisFrame, zooManager).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButtonAssignFeedingTimesActionPerformed
@@ -562,7 +570,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         /* Create and display the JFrame MangeUser*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageZookeeperToAnimalJFrame(thisFrame,zooManager).setVisible(true);
+                new ManageZookeeperToAnimalJFrame(thisFrame, zooManager).setVisible(true);
             }
         });
 
@@ -589,40 +597,50 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             String species = jComboBoxSpecies.getSelectedItem().toString();
             try {
                 int ID = Integer.parseInt(jTextFieldID.getText());
-                 
-                
+
                 boolean dateFormatCorrect = methods.isValidDateString(date);
-                
-                if (dateFormatCorrect){
+                CompoundManager compoundManager = zooManager.getCompoundManager();
+                boolean compoundNameExists = compoundManager.compoundExists(compoundName);
+                if (compoundNameExists){
+                if (dateFormatCorrect) {
 
-                    
-                    
                     int decision = JOptionPane.showConfirmDialog(null,
-                        "Wollen Sie den Datensatz wirklich ändern ? ", "Bestätigung",
-                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (decision == 0) {     
-                    
-               if (animalManager.updateAnimal(ID, animalName, compoundName, date, sex, species)) {
-                    //Falls Updaten erfolgreich, pfeil wäre besser
-                    JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                    //LinkedList<Animal> animals= animalManager.getAnimals();
-                    //viewAnimals(animals);
-                    //???
-                    cleanFields();
-                    
+                            "Wollen Sie den Datensatz wirklich ändern ? ", "Bestätigung",
+                            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (decision == 0) {
+
+                        if (animalManager.updateAnimal(ID, animalName, compoundName, date, sex, species)) {
+                            //Falls Updaten erfolgreich, pfeil wäre besser
+                            JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+
+                            cleanFields();
+                       
+                        //Update table if old search exist
+                        if (lastSearchMap != null){
+                          
+                            lastSearchedAnimals = animalManager.searchAnimals(lastSearchMap);
+                            viewAnimals(lastSearchedAnimals);
+       
+                        }
+                            
+                            
+                        } else {
+
+                            //Falls Fehler beim Updaten
+                            JOptionPane.showMessageDialog(null, "Tier konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+
+                        }
+
+                    }
+
                 } else {
-
-                    //Falls Fehler beim Updaten
-                    JOptionPane.showMessageDialog(null, "Tier konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-
-                }
-
-                }
-               
-                } else 
-                 JOptionPane.showMessageDialog(null, "Bitte Geburtstsag im format yyyy-MM-dd eintragen !", "Falsches Datumformat", JOptionPane.CANCEL_OPTION); 
+                    JOptionPane.showMessageDialog(null, "Bitte Geburtstsag im format yyyy-MM-dd eintragen !", "Falsches Datumformat", JOptionPane.CANCEL_OPTION);
                 
-                 
+                }
+                
+            } else JOptionPane.showMessageDialog(null, "Tier konnte nicht geupdated werden!", "Gehege existiert nicht", JOptionPane.CANCEL_OPTION);
+                    
+
             } catch (NumberFormatException numberFormatException) {
 
                 System.err.println("NumberFormatException");
@@ -648,16 +666,21 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 //Nachfragen ob er sich sicher ist, hier if Abfrage mache
                 //TODO Cancel auf deutsch
                 int decision = JOptionPane.showConfirmDialog(null,
-                        "Sind Sie sicher", "Löschbestätigung",
+                        "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (decision == 0) {
                     if (animalManager.deleteAnimal(ID)) {
                         //Falls Löschen erfolgreich, pfeil wäre besser
                         JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                        //LinkedList<Animal> animals = animalManager.getAnimals();
-                        //viewAnimals(animals);
-                        //???
                         cleanFields();
+                      
+                         //Update table if old search exist
+                        if (lastSearchMap != null){  
+                            lastSearchedAnimals = animalManager.searchAnimals(lastSearchMap);
+                            viewAnimals(lastSearchedAnimals);
+       
+                        }
+                        
                     } else {
                         //Falls Fehler beim Löschen
                         JOptionPane.showMessageDialog(null, "Tier konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -751,8 +774,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(false);
             jButtonAssignFeedingTimes.setEnabled(true);
             jButtonAssignZookeeper.setEnabled(true);
-            //mode = "add";
             mode = Mode.add;
+            methods.clearTable((DefaultTableModel) jTableAnimalData.getModel());
             return "add";
         } else if (jRadioButtonUpdate.isSelected()) {
             System.out.println("    Update mode");
@@ -868,4 +891,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     private ZooManager zooManager;
     private AnimalManager animalManager;
     private Methods methods;
+    private LinkedList<Animal> lastSearchedAnimals;
+    private LinkedHashMap<String,String> lastSearchMap;
 }

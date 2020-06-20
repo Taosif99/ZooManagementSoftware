@@ -48,15 +48,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     }
 
-    private void cleanTable() {
-
-        DefaultTableModel tableModel = (DefaultTableModel) jTableCompoundData.getModel();
-        while (tableModel.getRowCount() > 0) {
-            tableModel.removeRow(0);
-        }
-
-    }
-
     
     private void cleanFields(){
             jTextFieldID.setText("");
@@ -77,7 +68,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
      */
     private void viewCompounds(LinkedList<Compound> compounds) {
 
-        cleanTable();
+        methods.clearTable((DefaultTableModel) jTableCompoundData.getModel());
 
         /*For example loading all existing Compounds*/
         //LinkedList<Compound> compounds = zooManager.getCompounds();
@@ -149,7 +140,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gehege verwalten");
-        setPreferredSize(new java.awt.Dimension(1280, 600));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -169,7 +159,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         jLabelArea.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelArea.setText("Fläche");
 
-        jTextFieldConstructionYear.setToolTipText("Format: yyyy-MM-dd");
+        jTextFieldConstructionYear.setToolTipText("Format: yyyy");
 
         jButtonAddCompound.setText("Hinzufügen");
         jButtonAddCompound.setPreferredSize(new java.awt.Dimension(73, 23));
@@ -444,23 +434,26 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
             boolean textFieldsVerified = methods.verifyTextFields(textFields);
 
-            String compundName = jTextFieldCompoundName.getText();
+            String compoundName = jTextFieldCompoundName.getText();
             int constructionYear = Integer.parseInt(jTextFieldConstructionYear.getText());
             int maxCapacity = Integer.parseInt(jTextFieldMaxCapacity.getText());
             Double area = Double.parseDouble(jTextFieldArea.getText());
-
+            boolean compoundNameExists = compoundManager.compoundExists(compoundName);
             
             if (textFieldsVerified) {
+                
+                
+                if(compoundNameExists){
 
                 if (checkGreaterZero(constructionYear, maxCapacity, area)) {
                     throw new IllegalArgumentException("Negative values not allowed");
                 }
 
-                if (compoundManager.addCompound(compundName, area, constructionYear, maxCapacity)) {
+                if (compoundManager.addCompound(compoundName, area, constructionYear, maxCapacity)) {
                     
                     JOptionPane.showMessageDialog(null, "Gehege konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                     cleanFields();
-                    //???
+                    
                     
                     
                 } else //Falls Fehler beim Einfügen in die Datenbank", JOptionPane.CANCEL_OPTION      
@@ -468,13 +461,19 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Gehege konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                 }
 
+                
+                } else {
+                
+                JOptionPane.showMessageDialog(null, "Gehege konnte nicht eingefügt werden!", "Name schon vorhanden !", JOptionPane.CANCEL_OPTION);
+                
+                }
             }
 
         } catch (NumberFormatException numberFormatException) {
 
             System.err.println("NumberFormatException");
             System.out.println(numberFormatException.getMessage());
-            JOptionPane.showMessageDialog(null, "Gehege konnte nicht eingefügt werden !", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt.", JOptionPane.CANCEL_OPTION);
 
         } catch (IllegalArgumentException illegalArgumentEcxeption) {
 
@@ -496,19 +495,20 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
        
       
-        cleanFields();
-        cleanTable();
+        jTextFieldID.setText(""); 
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
 
     private void jRadioButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonUpdateActionPerformed
-
+        
+    
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonUpdateActionPerformed
 
 
     private void jRadioButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDeleteActionPerformed
 
+    
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonDeleteActionPerformed
 
@@ -527,10 +527,11 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         columnNameToValue.put("Area", area);
         columnNameToValue.put("ConstructionYear", constructionYear);
         columnNameToValue.put("MaxCapacity", maxCapacity);
-
+        lastSearchMap = columnNameToValue;
+        
         LinkedList<Compound> compounds = compoundManager.searchCompounds(columnNameToValue);
             if (compounds.isEmpty()) {
-            cleanTable();
+             methods.clearTable((DefaultTableModel) jTableCompoundData.getModel());
             JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
         } else
         viewCompounds(compounds);
@@ -572,11 +573,16 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                 
                 if (compoundManager.updateCompound(ID, compoundName, area, constructionYear, maxCapacity)) {
 
-                    //Falls Updaten erfolgreich, pfeil wäre besser
+                 
                     JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                    //LinkedList<Compound> compounds = compoundManager.getCompounds();
-                    //viewCompounds(compounds);
-                    //???
+                    cleanFields();
+                    
+                        //Update table if old search exist
+                        if (lastSearchMap != null){
+                            lastSearchedCompounds = compoundManager.searchCompounds(lastSearchMap);
+                            viewCompounds(lastSearchedCompounds);
+                        }
+                            
                     
                 } else {
 
@@ -616,16 +622,22 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                 //Nachfragen ob er sich sicher ist, hier if Abfrage mache
                 //TODO Cancel auf deutsch
                 int decision = JOptionPane.showConfirmDialog(null,
-                        "Sind Sie sicher", "Löschbestätigung",
+                       "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                //OK = 0, cancel =2
-                //System.out.println(decision);
+
                 if (decision == 0) {
                     if (compoundManager.deleteCompound(ID)) {
                         //Falls Löschen erfolgreich
                         JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                         cleanFields();
-                        cleanTable();
+                       
+                        //Update table if old search exist
+                        if (lastSearchMap != null){
+                            lastSearchedCompounds = compoundManager.searchCompounds(lastSearchMap);
+                            viewCompounds(lastSearchedCompounds);
+                        }
+                        
+                        
                     } else {
                         //Falls Fehler beim Löschen
                         JOptionPane.showMessageDialog(null, "Gehege konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -711,8 +723,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
             jLabelSearch.setEnabled(false);
             jButtonSearch.setEnabled(false);
 
-            //mode = "add";
             mode = Mode.add;
+            methods.clearTable((DefaultTableModel) jTableCompoundData.getModel());
             return "add";
 
         } else if (jRadioButtonUpdate.isSelected()) {
@@ -823,5 +835,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     private CompoundManager compoundManager;
     private Mode mode;
     private Methods methods;
+    private LinkedList<Compound> lastSearchedCompounds;
+    private LinkedHashMap<String,String> lastSearchMap;
 
 }

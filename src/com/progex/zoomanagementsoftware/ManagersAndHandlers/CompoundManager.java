@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -168,5 +170,32 @@ public class CompoundManager {
         return compounds;
     }
 
+    /**
+     * Method to check if a compound with the given name already exists
+     * @param compoundName
+     * @return true if compound with this name is found, else false 
+     */
+    public boolean compoundExists(String compoundName){
+    
+        
+          try {
+              String query = "SELECT Name FROM Compound WHERE Name = '" +compoundName + "'";
+              ResultSet resultSet = connectionHandler.performQuery(query);
+              
+              if (resultSet == null) return false;
+              
+              if (resultSet.next()){
+                  
+                  return true;
+                  
+              } else return false;
+          } catch (SQLException ex) {
+              System.err.println("SQL EXCEPTION");
+              System.out.println(ex.getMessage());
+              
+          }
+          return false;
+    }
+    
     /*End Compund Methods*/
 }
