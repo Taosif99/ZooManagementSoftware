@@ -5,7 +5,10 @@
  */
 package com.progex.zoomanagementsoftware.zookeeper;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
+import com.progex.zoomanagementsoftware.datatypes.Methods;
+import com.progex.zoomanagementsoftware.datatypes.User;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
@@ -74,8 +77,15 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
      */
     private void setLastLogDate() {
 
-        jLabelLastLoginTime.setText("" + zooManager.getUserManager().getLoggedInUser().getLastLogDate());
-
+        UserManager userManager = zooManager.getUserManager();
+        User loggedInUser = userManager.getLoggedInUser();
+        Methods methods = new Methods();
+        String lastLogDate = loggedInUser.getLastLogDate().toString();
+        
+        
+        //jLabelLastLoginTime.setText("" + zooManager.getUserManager().getLoggedInUser().getLastLogDate());
+         //Versucht lieber variablen zu deklarieren als tausend "." zu benutzen
+        jLabelLastLoginTime.setText(methods.removeSeconds(lastLogDate));
         System.out.println("--------- HOMEPAGE GET LASTLOGDATE---------" + zooManager.getUserManager().getLoggedInUser().getLastLogDate());
 
     }
