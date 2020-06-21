@@ -42,10 +42,10 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
     public void myInitComponents() {
         updateButtonsAndLabels();
         methods.showTimeAndDate(jLabelShowDateTime);
-         UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
-         UIManager.put("OptionPane.noButtonText", "Nein");
-         UIManager.put("OptionPane.okButtonText", "OK");
-         UIManager.put("OptionPane.yesButtonText", "Ja");
+        UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
+        UIManager.put("OptionPane.noButtonText", "Nein");
+        UIManager.put("OptionPane.okButtonText", "OK");
+        UIManager.put("OptionPane.yesButtonText", "Ja");
     }
 
     /**
@@ -442,7 +442,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                 String foodName = jTextFieldFoodName.getText();
                 int ID = Integer.parseInt(jTextFieldID.getText());
 
-                int decision = JOptionPane.showConfirmDialog(null, "Wollen Sie den Datensatz wikrlich ändern?", "Bestätigung",
+                int decision = JOptionPane.showConfirmDialog(null, "Wollen Sie den Datensatz wirklich ändern?", "Bestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 //OK = 0, cancel =2
                 System.out.println(decision);
@@ -452,25 +452,29 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                     if (!foodManager.checkFoodExists(null, ID)) {
                         JOptionPane.showMessageDialog(null, "Futter konnte nicht geupdatet werden! ID existiert nicht.", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     } else {
+                        //Checken ob futtermenge nciht negativ ist
+                        if (stock >= 0) {
+                            if (foodManager.updateFood(storageRoomNumber, stock, foodName, ID)) {
 
-                        if (foodManager.updateFood(storageRoomNumber, stock, foodName, ID)) {
+                                //Falls Updaten erfolgreich, pfeil wäre besser
+                                JOptionPane.showMessageDialog(null, "Futter wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+                                // Tabelle muss direkt aktualisert werden, dazu muss ich foods liste aktualiseren
 
-                            //Falls Updaten erfolgreich, pfeil wäre besser
-                            JOptionPane.showMessageDialog(null, "Futter wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                            // Tabelle muss direkt aktualisert werden, dazu muss ich foods liste aktualiseren
-
-                            if (columnNameToValue != null) {
-                                if (jRadioButtonKgTable.isSelected()) {
-                                    foods = foodManager.searchFoods(columnNameToValue);
-                                    viewFoods(1);
-                                } else {
-                                    foods = foodManager.searchFoods(columnNameToValue);
-                                    viewFoods(1000);
+                                if (columnNameToValue != null) {
+                                    if (jRadioButtonKgTable.isSelected()) {
+                                        foods = foodManager.searchFoods(columnNameToValue);
+                                        viewFoods(1);
+                                    } else {
+                                        foods = foodManager.searchFoods(columnNameToValue);
+                                        viewFoods(1000);
+                                    }
                                 }
+                                clearTextFields();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Futter konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                             }
-                            clearTextFields();
                         } else {
-                            JOptionPane.showMessageDialog(null, "Futter konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                            JOptionPane.showMessageDialog(null, "Futter konnte nicht eingefügt werden! Futtermenge darf nicht negativ sein.", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                         }
                     }
                 }
@@ -684,17 +688,20 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                 String foodName = jTextFieldFoodName.getText();
 
                 if (!foodManager.checkFoodExists(foodName, -1)) {
+                    //Checken ob Futtermenge positiv ist
+                    if (stock >= 0) {
+                        if (foodManager.addFood(storageRoomNumber, stock, foodName)) {
+                            clearTextFields();
+                            JOptionPane.showMessageDialog(null, "Futter konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
 
-                    if (foodManager.addFood(storageRoomNumber, stock, foodName)) {
-                        clearTextFields();
-                        JOptionPane.showMessageDialog(null, "Futter konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Futter konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Futter konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                        JOptionPane.showMessageDialog(null, "Futter konnte nicht eingefügt werden! Futtermenge darf nicht negativ sein.", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
 
                 } else {
-
                     JOptionPane.showMessageDialog(null, "Futter konnte nicht eingefügt werden! Es existiert bereits in der Datenbank.", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                 }
             }
@@ -718,7 +725,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         String foodName = foodModel.getValueAt(foodRowIndex, 1).toString();
         String storageRoomNumber = foodModel.getValueAt(foodRowIndex, 2).toString();
         String stock = foodModel.getValueAt(foodRowIndex, 3).toString();
-        
+
         if (mode == Mode.delete || mode == Mode.update) {
             jTextFieldFoodName.setText(foodName);
             jTextFieldID.setText(foodID);

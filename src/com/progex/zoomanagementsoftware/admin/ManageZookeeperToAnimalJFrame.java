@@ -430,6 +430,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             records = zookeeperToAnimalManager.searchZookeeperToAnimal(columnNameToValue);
 
             if (records.isEmpty()) {
+                methods.clearTable((DefaultTableModel) jTableTakesCareData.getModel());
                 JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 viewRelationTable();
@@ -458,7 +459,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                     int zookeeperID = Integer.parseInt(jTextFieldUserID.getText());
                     String animalName = jTextFieldAnimalName.getText();
 
-                    int decision = JOptionPane.showConfirmDialog(null, "Sind Sie sicher?", "Löschbestätigung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    int decision = JOptionPane.showConfirmDialog(null, "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (decision == 0) {
                         //Ob Tiername existiert
                         if (zookeeperToAnimalManager.getAnimalIds(animalName).isEmpty()) {
@@ -530,8 +531,6 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Bitte Tierpfleger/-in auswählen in der Tabelle!", "Einfügen fehlgeschlagen", JOptionPane.INFORMATION_MESSAGE);
                 }
 
-                
-
                 if (zookeeperToAnimalManager.checkZookeeperToAnimalExists(animalName, Integer.parseInt(selectedZookeeperID))) {
                     JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung existiert bereits!", "Einfügen fehlgeschlagen", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -541,6 +540,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                     if (animalIds.isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Tiername wurde nicht gefunden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     } else {
+                        //if(zookeeper schon eine Fütterung um diese Uhrzeit hat
                         if (zookeeperToAnimalManager.addZookeeperToAnimal(animalIds, selectedZookeeperID)) {
                             if (columnNameToValue != null) {
                                 records = zookeeperToAnimalManager.searchZookeeperToAnimal(columnNameToValue);
