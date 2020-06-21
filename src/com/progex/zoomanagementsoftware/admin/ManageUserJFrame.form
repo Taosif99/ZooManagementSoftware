@@ -599,6 +599,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldStreet">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Stra&#xdf;e und Hausnummer eintragen"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldStreetActionPerformed"/>
       </Events>
@@ -632,6 +635,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldCountry">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="DE f&#xfc;r Deutschland"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelPhoneNumber">
       <Properties>
@@ -761,7 +767,7 @@
     <Component class="javax.swing.JButton" name="jButtonSearch">
       <Properties>
         <Property name="text" type="java.lang.String" value="Suche"/>
-        <Property name="toolTipText" type="java.lang.String" value="Suche anhand angegebener regul&#xe4;rer Ausdr&#xfc;cke, Anrede , Schicht und Benutzertyp, falls zum Beispiel Feld A und Feld B ausgef&#xfc;llt sind, wird das resultat den Ausdruck von A und B erf&#xfc;llen.Passwortfelder werden nicht ber&#xfc;cksichtigt ! "/>
+        <Property name="toolTipText" type="java.lang.String" value="Suche anhand angegebener regul&#xe4;rer Ausdr&#xfc;cke, Anrede , Schicht und Benutzertyp, falls zum Beispiel Feld A und Feld B ausgef&#xfc;llt sind, wird das Resultat den Ausdruck von A und B erf&#xfc;llen.Passwortfelder werden nicht ber&#xfc;cksichtigt ! "/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[73, 23]"/>
         </Property>

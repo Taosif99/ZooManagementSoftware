@@ -6,6 +6,7 @@
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.AnimalManager;
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.FoodManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.FoodToAnimalManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.*;
@@ -342,7 +343,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         jLabelShowDateTime.setText("TIME");
 
         jButtonSearch.setText("Suche");
-        jButtonSearch.setToolTipText("Suche anhand angegebener regulärer Ausdrücke, falls zum Beispiel Feld A und Feld B ausgefüllt sind, wird das resultat den Ausdruck von A und B erfüllen. Ein Tier muss angeklickt sein !");
+        jButtonSearch.setToolTipText("Suche anhand angegebener regulärer Ausdrücke, falls zum Beispiel Feld A und Feld B ausgefüllt sind, wird das Resultat den Ausdruck von A und B erfüllen. Ein Tier muss angeklickt sein !");
         jButtonSearch.setMaximumSize(new java.awt.Dimension(73, 23));
         jButtonSearch.setMinimumSize(new java.awt.Dimension(73, 23));
         jButtonSearch.setPreferredSize(new java.awt.Dimension(73, 23));
@@ -644,17 +645,20 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     jTextFieldEndFeedingTime, jTextFieldAmountFood};
 
                 boolean textFieldsVerified = methods.verifyTextFields(textFields);
+               
                 if (textFieldsVerified) {
                     //AnimalID must be selected and FoodID must be getted!
 
-                    String food = jTextFieldFood.getText();
+                    String foodName = jTextFieldFood.getText();
                     String startFeedingTime = jTextFieldStartFeedingTime.getText() + ":00";
                     String endFeedingTime = jTextFieldEndFeedingTime.getText() + ":00";
                     double amount = Double.parseDouble(jTextFieldAmountFood.getText());
-
+                    
                     boolean feedingOrderTimesOk = methods.isFeedingTimesGreater(startFeedingTime, endFeedingTime);
                     //System.out.println("feeding times ok: " +feedingOrderTimesOk) ;
-
+                    FoodManager foodManager = zooManager.getFoodManager();
+                    boolean foodExists = foodManager.checkFoodExists(foodName,-1);
+                    
                     if (amount <= 0) {
                         throw new IllegalArgumentException("Amount must be greater zero");
                     }
@@ -664,6 +668,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                         amount /= 1000;
                     }
 
+                    if(foodExists){
+                    
                     if (methods.isValidFeedingTime(startFeedingTime) && methods.isValidFeedingTime(endFeedingTime)) {
 
                         if (!feedingOrderTimesOk) {
@@ -673,7 +679,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                         //System.out.println("start" + methods.isValidFeedingTime(startFeedingTime));
                         //System.out.println("end" + methods.isValidFeedingTime(endFeedingTime));
                         //Here the zooManager may add the FoodToAnimalRecord
-                        if (foodToAnimalManager.addFoodToAnimal(selectedAnimalID, food, startFeedingTime, endFeedingTime, amount)) {
+                        if (foodToAnimalManager.addFoodToAnimal(selectedAnimalID, foodName, startFeedingTime, endFeedingTime, amount)) {
 
                             JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                             
@@ -691,7 +697,10 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Bitte geben Sie die Fütterungszeiten im Format yyyy-MM-dd HH:mm an!", "Falsches Format für Fütterungszeiten", JOptionPane.CANCEL_OPTION);
 
                     }
-
+                } else{
+                    
+                    JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht eingefügt werden!", "Futter existiert nicht!", JOptionPane.CANCEL_OPTION);
+                    }
                 }
 
             } //END Tray //END Tray
@@ -825,7 +834,10 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     String startFeedingTime = jTextFieldStartFeedingTime.getText() + ":00";
                     String endFeedingTime = jTextFieldEndFeedingTime.getText() + ":00";
                     double amount = Double.parseDouble(jTextFieldAmountFood.getText());
-
+                    
+                    FoodManager foodManager = zooManager.getFoodManager();
+                    boolean foodExists = foodManager.checkFoodExists(foodName,-1);
+                    
                     boolean feedingOrderTimesOk = methods.isFeedingTimesGreater(startFeedingTime, endFeedingTime);
 
                     if (amount <= 0) {
@@ -837,6 +849,9 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                         amount /= 1000;
                     }
 
+                    
+                   if(foodExists){ 
+                    
                     if (methods.isValidFeedingTime(startFeedingTime) && methods.isValidFeedingTime(endFeedingTime)) {
 
                         if (!feedingOrderTimesOk) {
@@ -874,6 +889,11 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
                     }
 
+                   } else{
+                    
+                    JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht geupdated werden!", "Futter existiert nicht!", JOptionPane.CANCEL_OPTION);
+                    }
+                    
                 }
 
                 

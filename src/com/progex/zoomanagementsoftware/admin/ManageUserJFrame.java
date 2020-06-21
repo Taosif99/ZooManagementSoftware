@@ -365,6 +365,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jLabelStreet.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelStreet.setText("Straße");
 
+        jTextFieldStreet.setToolTipText("Straße und Hausnummer eintragen");
         jTextFieldStreet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldStreetActionPerformed(evt);
@@ -379,6 +380,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
         jLabelCountry.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelCountry.setText("Land");
+
+        jTextFieldCountry.setToolTipText("DE für Deutschland");
 
         jLabelPhoneNumber.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelPhoneNumber.setText("Telefonnummer");
@@ -438,7 +441,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jLabelSearch.setText("Suche Anhand nicht leerer Felder");
 
         jButtonSearch.setText("Suche");
-        jButtonSearch.setToolTipText("Suche anhand angegebener regulärer Ausdrücke, Anrede , Schicht und Benutzertyp, falls zum Beispiel Feld A und Feld B ausgefüllt sind, wird das resultat den Ausdruck von A und B erfüllen.Passwortfelder werden nicht berücksichtigt ! ");
+        jButtonSearch.setToolTipText("Suche anhand angegebener regulärer Ausdrücke, Anrede , Schicht und Benutzertyp, falls zum Beispiel Feld A und Feld B ausgefüllt sind, wird das Resultat den Ausdruck von A und B erfüllen.Passwortfelder werden nicht berücksichtigt ! ");
         jButtonSearch.setMaximumSize(new java.awt.Dimension(73, 23));
         jButtonSearch.setMinimumSize(new java.awt.Dimension(73, 23));
         jButtonSearch.setPreferredSize(new java.awt.Dimension(73, 23));
@@ -684,7 +687,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
     private void jButtonAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddUserActionPerformed
 
-        //TODO CHECK IF BIRTHDAY IS VALID DATE
+        
         jTextFieldID.setText("");
         JTextField textFields[] = {jTextFieldFirstname, jTextFieldLastname,
             jTextFieldStreet, jTextFieldZIP,
@@ -718,6 +721,12 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 String username = jTextFieldUsername.getText();
                 String email = jTextFieldEMail.getText();
 
+                boolean validEmail = methods.isValidEmail(email);
+                
+                if (validEmail){
+                //Check password length
+                if(!(password.length() < 8)){
+                
                 try {
 
                     if (!methods.isValidDateString(birthday)) {
@@ -766,6 +775,18 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Bitte Geburtstsag im format yyyy-MM-dd eintragen !", "Falsches Datumformat", JOptionPane.CANCEL_OPTION);
                 }
 
+                
+            } else {
+                    JOptionPane.showMessageDialog(null, "Passwort muss mindestent 8 Zeichen haben! ", "Passwortänge nicht ausreichend", JOptionPane.CANCEL_OPTION);
+                }
+                
+              } else {
+                
+                    JOptionPane.showMessageDialog(null, "Bitte geben Sie eine gültige Email an! ", "Email nich", JOptionPane.CANCEL_OPTION);
+                
+                }
+                
+                
             } else {
 
                 JOptionPane.showMessageDialog(null, "Bitte überprüfen Sie die Passwörter", "Passwörter nicht identisch", JOptionPane.CANCEL_OPTION);
@@ -817,8 +838,10 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         String userType;
         if (this.userType == mode.admin) userType = "Admin"; else userType = "Zookeeper";
         columnNameToValue.put("Type", userType);
+        
+        lastSearchMap = columnNameToValue;
         LinkedList<User> users = userManager.searchUsers(columnNameToValue);
-      
+        
         
             if (users.isEmpty()) {
             methods.clearTable((DefaultTableModel) jTableUserData.getModel());
@@ -869,8 +892,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonHelpActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
-        cleanFields();
-        cleanTable();
+      
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
 
@@ -902,7 +924,12 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                     if (userManager.deleteUser(ID)) {
                         //Falls Löschen erfolgreich, pfeil wäre besser
                         JOptionPane.showMessageDialog(null, "Nutzer/-in wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                        cleanTable();
+                        
+                          if(lastSearchMap != null){
+                            LinkedList<User> users = userManager.searchUsers(lastSearchMap);
+                            viewUsers(users);
+                            }
+                     
                         cleanFields();
                     } else {
                         //Falls Fehler beim Löschen
@@ -953,12 +980,12 @@ public class ManageUserJFrame extends javax.swing.JFrame {
              int passwordDescision = JOptionPane.showConfirmDialog(null,
                         "Wollen Sie wirklich das Passwort ändern? ", "Bestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-             if (passwordDescision == 0) changePassword = true ;
+             if (passwordDescision == 0) {changePassword = true ;
 
               //CHECK IF PASSWORD AND CONFIRMED PASSWORD ARE THE SAME
               
               if(!password.equals(confirmedPassword)) throw new IllegalArgumentException("passwords not identical");
-              
+             }
               
             }
                      
@@ -981,6 +1008,9 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                     String username = jTextFieldUsername.getText();
                     String email = jTextFieldEMail.getText();
                     
+                    boolean validEmail = methods.isValidEmail(email);
+                    if(validEmail){
+                    
                     if (!methods.isValidDateString(birthday)) {
                         throw new IllegalArgumentException();
                     }
@@ -1001,26 +1031,39 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                     }
 
                     
-                    
+                    if((!changePassword || (password.length()>=8))){
            
                         if (userManager.updateUser(id, userTypeStr, salutationStr, firstname,
                                 lastname, street, zip, city, country,
                                 phonenumber, birthday, shiftStr, username, email, password,changePassword)) {
 
                             JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich geupdated werden!", "Updaten erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-
-                            LinkedList<User> users = userManager.getUsers();
+                            cleanFields();
+                            
+                            
+                            if(lastSearchMap != null){
+                            LinkedList<User> users = userManager.searchUsers(lastSearchMap);
                             viewUsers(users);
-
-                            //TODO CLEAN FIELDS
-                            //AFTER UPDATE?
+                            }
+                            
+                            
+                            
                         } else {
 
                             JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
 
                         }
-                               
-               }
+                    
+                } else {
+                    JOptionPane.showMessageDialog(null, "Passwort muss mindestent 8 Zeichen haben! ", "Passwortänge nicht ausreichend", JOptionPane.CANCEL_OPTION);
+                }
+                    
+                    }  else {
+                
+                    JOptionPane.showMessageDialog(null, "Bitte geben Sie eine gültige Email an! ", "Email nich", JOptionPane.CANCEL_OPTION);
+                }
+                
+             }
 
 
             } 
@@ -1116,7 +1159,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
         if (jRadioButtonAdmin.isSelected()) {
             System.out.println("Admin Mode");
-            //userType = "Admin";
+           
             userType = Mode.admin;
             jComboBoxShift.setEnabled(false);
             jLabelShift.setEnabled(false);
@@ -1124,7 +1167,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             if (jRadioButtonAdd.isSelected()) {
                 System.out.println("    Add mode");
                 mode = Mode.add;
-                //mode = "Add";
+                 methods.clearTable((DefaultTableModel)jTableUserData.getModel());
                 jButtonAddUser.setEnabled(true);
                 jButtonUpdateUser.setEnabled(false);
                 jButtonDeleteUser.setEnabled(false);
@@ -1174,6 +1217,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             userType = Mode.zookeeper;
             if (jRadioButtonAdd.isSelected()) {
                 System.out.println("    Add mode");
+                methods.clearTable((DefaultTableModel)jTableUserData.getModel());
                 jButtonAnimalsToZookeeper.setEnabled(true);
                 jButtonAddUser.setEnabled(true);
                 jButtonUpdateUser.setEnabled(false);
@@ -1320,10 +1364,10 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     //Own delcared private variable
     private javax.swing.JFrame goBackFrame;
     private Methods methods;
-    //private String mode;
     private Mode mode;
-    //private String userType;
     private Mode userType;
     private ZooManager zooManager;
     private UserManager userManager;
+    private LinkedList<User> lastSearchedUsers;
+    private LinkedHashMap<String,String> lastSearchMap;
 }

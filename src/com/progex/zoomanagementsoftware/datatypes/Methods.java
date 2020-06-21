@@ -11,6 +11,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+//For email checking
+import java.util.regex.Matcher; 
+import java.util.regex.Pattern; 
+
 /**
  *
  * This class shall general provide methods for the Implementation If they
@@ -331,6 +335,28 @@ public class Methods {
         
         
      }
+   
+   
+     /**
+      * Method to check if a Email has a valid pattern
+      * Regular expression from: https://owasp.org/www-community/OWASP_Validation_Regex_Repository
+      * @param email
+      * @return true if pattern is right, else false
+      */
+     public boolean isValidEmail(String email) 
+    { 
+        String emailRegularExpression = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
+                            "[a-zA-Z0-9_+&*-]+)*@" + 
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
+                            "A-Z]{2,7}$"; 
+                              
+        Pattern pattern = Pattern.compile(emailRegularExpression); 
+        if (email == null) 
+            return false; 
+        return pattern.matcher(email).matches(); 
+    } 
+   
+   
    
    //Mustapha end 
    

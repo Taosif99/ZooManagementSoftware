@@ -500,7 +500,7 @@
     <Component class="javax.swing.JButton" name="jButtonSearch">
       <Properties>
         <Property name="text" type="java.lang.String" value="Suche"/>
-        <Property name="toolTipText" type="java.lang.String" value="Suche anhand angegebener regul&#xe4;rer Ausdr&#xfc;cke, falls zum Beispiel Feld A und Feld B ausgef&#xfc;llt sind, wird das resultat den Ausdruck von A und B erf&#xfc;llen. Ein Tier muss angeklickt sein !"/>
+        <Property name="toolTipText" type="java.lang.String" value="Suche anhand angegebener regul&#xe4;rer Ausdr&#xfc;cke, falls zum Beispiel Feld A und Feld B ausgef&#xfc;llt sind, wird das Resultat den Ausdruck von A und B erf&#xfc;llen. Ein Tier muss angeklickt sein !"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[73, 23]"/>
         </Property>
