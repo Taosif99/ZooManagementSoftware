@@ -28,19 +28,26 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="445" max="-2" attributes="0"/>
-              <Component id="jLabelFindOut" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="470" max="-2" attributes="0"/>
-          </Group>
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButtonBack" min="-2" pref="179" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="1389" max="-2" attributes="0"/>
-              <Component id="jLabelShowDateTime" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="jButtonBack" min="-2" pref="179" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="1389" max="-2" attributes="0"/>
+                      <Component id="jLabelShowDateTime" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="435" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jButtonSearch" alignment="1" min="-2" pref="869" max="-2" attributes="0"/>
+                          <Component id="jLabelFindOut" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="470" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="660" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jLabelTime" max="32767" attributes="0"/>
@@ -54,17 +61,9 @@
               <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="493" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="jButtonSearch" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="486" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="jLabelChoose" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="593" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jLabelChoose" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="636" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -77,10 +76,10 @@
                   <Component id="jButtonBack" min="-2" pref="57" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
-              <Component id="jLabelFindOut" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
+              <Component id="jLabelFindOut" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
               <Component id="jLabelChoose" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelName" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jComboBoxName" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -90,9 +89,9 @@
                   <Component id="jLabelTime" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jComboTime" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
-              <Component id="jButtonSearch" pref="91" max="32767" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+              <Component id="jButtonSearch" min="-2" pref="120" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
