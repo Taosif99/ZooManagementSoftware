@@ -89,7 +89,7 @@
                   <Component id="jLabelTime" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jComboTime" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
               <Component id="jButtonSearch" min="-2" pref="120" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
           </Group>
