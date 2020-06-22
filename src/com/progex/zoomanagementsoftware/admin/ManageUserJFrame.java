@@ -20,7 +20,6 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-//import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -47,10 +46,10 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     private void myInitComponents() {
 
         updateButtonsAndLabels();
-         UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
-         UIManager.put("OptionPane.noButtonText", "Nein");
-         UIManager.put("OptionPane.okButtonText", "OK");
-         UIManager.put("OptionPane.yesButtonText", "Ja");
+        UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
+        UIManager.put("OptionPane.noButtonText", "Nein");
+        UIManager.put("OptionPane.okButtonText", "OK");
+        UIManager.put("OptionPane.yesButtonText", "Ja");
     }
 
     private void viewUsers(LinkedList<User> users) {
@@ -84,7 +83,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
             model.addRow(row);
         }
-
     }
 
     private void cleanTable() {
@@ -95,24 +93,23 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         }
     }
 
-    private void cleanFields(){
-    
-    jTextFieldFirstname.setText("");
-    jTextFieldLastname.setText("");
-    jTextFieldStreet.setText("");
-    jTextFieldZIP.setText("");
-    jTextFieldCity.setText(""); 
-    jTextFieldCountry.setText("");
-    jTextFieldPhoneNumber.setText("");
-    jTextFieldBirthday.setText("");
-    jTextFieldUsername.setText("");
-    jTextFieldEMail.setText("");
-    jTextFieldID.setText("");
-    jPasswordFieldConfirm.setText("");
-    jPasswordFieldEnteredPW.setText("");
+    private void cleanFields() {
+
+        jTextFieldFirstname.setText("");
+        jTextFieldLastname.setText("");
+        jTextFieldStreet.setText("");
+        jTextFieldZIP.setText("");
+        jTextFieldCity.setText("");
+        jTextFieldCountry.setText("");
+        jTextFieldPhoneNumber.setText("");
+        jTextFieldBirthday.setText("");
+        jTextFieldUsername.setText("");
+        jTextFieldEMail.setText("");
+        jTextFieldID.setText("");
+        jPasswordFieldConfirm.setText("");
+        jPasswordFieldEnteredPW.setText("");
     }
-    
-    
+
     /**
      * ICH WÜRDE ES EHER IN DER DATENBANK VERÄNDERN..., dann fallen UNNÖTIGE
      * Übersetzungen weg !
@@ -687,7 +684,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
     private void jButtonAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddUserActionPerformed
 
-        
         jTextFieldID.setText("");
         JTextField textFields[] = {jTextFieldFirstname, jTextFieldLastname,
             jTextFieldStreet, jTextFieldZIP,
@@ -722,83 +718,53 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 String email = jTextFieldEMail.getText();
 
                 boolean validEmail = methods.isValidEmail(email);
-                
-                if (validEmail){
-                //Check password length
-                if(!(password.length() < 8)){
-                
-                try {
 
-                    if (!methods.isValidDateString(birthday)) {
-                        throw new IllegalArgumentException();
-                    }
+                if (validEmail) {
+                    //Check password length
+                    if (!(password.length() < 8)) {
+                        try {
+                            if (!methods.isValidDateString(birthday)) {
+                                throw new IllegalArgumentException();
+                            }
+                            String userTypeStr;
+                            if (userType == Mode.zookeeper) {
+                                userTypeStr = "Zookeeper";
+                            } else {
+                                userTypeStr = "Admin";
+                            }
+                            if (userTypeStr.equals("Zookeeper")) {
+                                shiftStr = getGermanShiftString();
+                            }
+                            if (!userManager.usernameExists(username)) {
 
-                    String userTypeStr;
-                    if (userType == Mode.zookeeper) {
+                                if (userManager.addUser(userTypeStr, salutationStr, firstname, lastname,
+                                        street, zip, city, country, phonenumber,
+                                        birthday, shiftStr, username, email, password)) {
 
-                        userTypeStr = "Zookeeper";
-                    } else {
-                        userTypeStr = "Admin";
-                    }
+                                    JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+                                    cleanFields();
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht eingefügt werden!", "Benutzername bereits vergeben", JOptionPane.CANCEL_OPTION);
+                            }
+                        } catch (IllegalArgumentException illegalArgumentException) {
 
-                   
-                    //If user is a zookeeper
-                    if (userTypeStr.equals("Zookeeper")) {
-                        shiftStr = getGermanShiftString();
-                        
-                    }
-
-                    if (!userManager.usernameExists(username)) {
-
-                        
-                        
-                        
-                        if (userManager.addUser(userTypeStr, salutationStr, firstname, lastname,
-                                street, zip, city, country, phonenumber,
-                                birthday, shiftStr, username, email, password)) {
-
-                            JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-
-                            cleanFields();
-
-                        } else {
-
-                            JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-
+                            System.err.println("Illegal Argument");
+                            System.out.println(illegalArgumentException.getMessage());
+                            JOptionPane.showMessageDialog(null, "Falsches Datumformat", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                         }
-
                     } else {
-
-                        JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht eingefügt werden!", "Benutzername bereits vergeben", JOptionPane.CANCEL_OPTION);
+                        JOptionPane.showMessageDialog(null, "Passwort muss mindestens 8 Zeichen haben! ", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
-
-                } catch (IllegalArgumentException illegalArgumentException) {
-
-                    System.err.println("Illegal Argument");
-                    System.out.println(illegalArgumentException.getMessage());
-                    JOptionPane.showMessageDialog(null, "Bitte Geburtstsag im format yyyy-MM-dd eintragen !", "Falsches Datumformat", JOptionPane.CANCEL_OPTION);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Bitte geben Sie eine gültige Email an!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                 }
-
-                
             } else {
-                    JOptionPane.showMessageDialog(null, "Passwort muss mindestent 8 Zeichen haben! ", "Passwortänge nicht ausreichend", JOptionPane.CANCEL_OPTION);
-                }
-                
-              } else {
-                
-                    JOptionPane.showMessageDialog(null, "Bitte geben Sie eine gültige Email an! ", "Email nich", JOptionPane.CANCEL_OPTION);
-                
-                }
-                
-                
-            } else {
-
-                JOptionPane.showMessageDialog(null, "Bitte überprüfen Sie die Passwörter", "Passwörter nicht identisch", JOptionPane.CANCEL_OPTION);
-
+                JOptionPane.showMessageDialog(null, "Passwörter sind nicht identisch!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
             }
-
         }
-
     }//GEN-LAST:event_jButtonAddUserActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
@@ -840,19 +806,20 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         columnNameToValue.put("Street", street);
         columnNameToValue.put("Country", country);
         String userType;
-        if (this.userType == mode.admin) userType = "Admin"; else userType = "Zookeeper";
+        if (this.userType == mode.admin) {
+            userType = "Admin";
+        } else {
+            userType = "Zookeeper";
+        }
         columnNameToValue.put("Type", userType);
-        
         lastSearchMap = columnNameToValue;
         LinkedList<User> users = userManager.searchUsers(columnNameToValue);
-        
-        
-            if (users.isEmpty()) {
+        if (users.isEmpty()) {
             methods.clearTable((DefaultTableModel) jTableUserData.getModel());
             JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
-        } else
-        viewUsers(users);
-
+        } else {
+            viewUsers(users);
+        }
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
@@ -896,7 +863,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonHelpActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
-      
+
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
 
@@ -922,36 +889,30 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
                 //TODO Cancel auf deutsch
                 int decision = JOptionPane.showConfirmDialog(null,
-                        "Sind Sie sicher", "Löschbestätigung",
+                        "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (decision == 0) {
                     if (userManager.deleteUser(ID)) {
                         //Falls Löschen erfolgreich, pfeil wäre besser
                         JOptionPane.showMessageDialog(null, "Nutzer/-in wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                        
-                          if(lastSearchMap != null){
+                        if (lastSearchMap != null) {
                             LinkedList<User> users = userManager.searchUsers(lastSearchMap);
                             viewUsers(users);
-                            }
-                     
+                        }
                         cleanFields();
                     } else {
-                        //Falls Fehler beim Löschen
-                        JOptionPane.showMessageDialog(null, "Tier konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-                        
+
+                        JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
-
                 }
-
             }
 
         } catch (NumberFormatException numberFormatException) {
 
             System.err.println("NumberFormatException");
             System.out.println(numberFormatException.getMessage());
-            JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht gelöscht werden !", "IDfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, "ID Feld falsch ausgefüllt!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
         }
-
     }//GEN-LAST:event_jButtonDeleteUserActionPerformed
 
     private void jButtonUpdateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateUserActionPerformed
@@ -974,33 +935,31 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             //char confirmedPassword[] = jPasswordFieldConfirm.getPassword();
             String password = jPasswordFieldEnteredPW.getText();
             String confirmedPassword = jPasswordFieldConfirm.getText();
-            
+
             boolean changePassword = false;
-            
-            
-            
-            if(!password.isBlank() && ! confirmedPassword.isBlank()){
-            
-             int passwordDescision = JOptionPane.showConfirmDialog(null,
+
+            if (!password.isBlank() && !confirmedPassword.isBlank()) {
+
+                int passwordDescision = JOptionPane.showConfirmDialog(null,
                         "Wollen Sie wirklich das Passwort ändern? ", "Bestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-             if (passwordDescision == 0) {changePassword = true ;
+                if (passwordDescision == 0) {
+                    changePassword = true;
 
-              //CHECK IF PASSWORD AND CONFIRMED PASSWORD ARE THE SAME
-              
-              if(!password.equals(confirmedPassword)) throw new IllegalArgumentException("passwords not identical");
-             }
-              
+                    //CHECK IF PASSWORD AND CONFIRMED PASSWORD ARE THE SAME
+                    if (!password.equals(confirmedPassword)) {
+                        throw new IllegalArgumentException("passwords not identical");
+                    }
+                }
             }
-                     
             String shiftStr = "None";
             try {
                 int id = Integer.parseInt(jTextFieldID.getText());
                 int decision = JOptionPane.showConfirmDialog(null,
-                        "Wollen Sie den Datensatz wirklich ändern ? ", "Bestätigung",
+                        "Wollen Sie den Datensatz wirklich ändern?", "Bestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (decision == 0) {
-                      
+
                     String firstname = jTextFieldFirstname.getText();
                     String lastname = jTextFieldLastname.getText();
                     String street = jTextFieldStreet.getText();
@@ -1011,101 +970,69 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                     String birthday = jTextFieldBirthday.getText();
                     String username = jTextFieldUsername.getText();
                     String email = jTextFieldEMail.getText();
-                    
+
                     boolean validEmail = methods.isValidEmail(email);
-                    if(validEmail){
-                    
-                    if (!methods.isValidDateString(birthday)) {
-                        throw new IllegalArgumentException();
-                    }
+                    if (validEmail) {
 
-                    String userTypeStr;
-                    if (userType == Mode.zookeeper) {
+                        if (!methods.isValidDateString(birthday)) {
+                            throw new IllegalArgumentException();
+                        }
 
-                        userTypeStr = "Zookeeper";
+                        String userTypeStr;
+                        if (userType == Mode.zookeeper) {
 
-                    } else {
-                        userTypeStr = "Admin";
-                    }
+                            userTypeStr = "Zookeeper";
 
-                    //If user is a zookeeper
-                    if (userTypeStr.equals("Zookeeper")) {
-                        shiftStr = getGermanShiftString();
-
-                    }
-
-                    
-                    if((!changePassword || (password.length()>=8))){
-           
-                        if (userManager.updateUser(id, userTypeStr, salutationStr, firstname,
-                                lastname, street, zip, city, country,
-                                phonenumber, birthday, shiftStr, username, email, password,changePassword)) {
-
-                            JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich geupdated werden!", "Updaten erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                            cleanFields();
-                            
-                            
-                            if(lastSearchMap != null){
-                            LinkedList<User> users = userManager.searchUsers(lastSearchMap);
-                            viewUsers(users);
-                            }
-                            
-                            
-                            
                         } else {
+                            userTypeStr = "Admin";
+                        }
 
-                            JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                        //If user is a zookeeper
+                        if (userTypeStr.equals("Zookeeper")) {
+                            shiftStr = getGermanShiftString();
 
                         }
-                    
-                } else {
-                    JOptionPane.showMessageDialog(null, "Passwort muss mindestent 8 Zeichen haben! ", "Passwortänge nicht ausreichend", JOptionPane.CANCEL_OPTION);
-                }
-                    
-                    }  else {
-                
-                    JOptionPane.showMessageDialog(null, "Bitte geben Sie eine gültige Email an! ", "Email nich", JOptionPane.CANCEL_OPTION);
-                }
-                
-             }
+                        if ((!changePassword || (password.length() >= 8))) {
+                            if (userManager.updateUser(id, userTypeStr, salutationStr, firstname,
+                                    lastname, street, zip, city, country,
+                                    phonenumber, birthday, shiftStr, username, email, password, changePassword)) {
+                                JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich geupdatet werden!", "Updaten erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+                                cleanFields();
 
-
-            } 
-            
-            
-            
-            catch (NumberFormatException numberFormatException) {
+                                if (lastSearchMap != null) {
+                                    LinkedList<User> users = userManager.searchUsers(lastSearchMap);
+                                    viewUsers(users);
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Passwort muss mindestens 8 Zeichen haben!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Bitte geben Sie eine gültige Email an!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                    }
+                }
+            } catch (NumberFormatException numberFormatException) {
 
                 System.err.println("NumberFormatException");
                 System.out.println(numberFormatException.getMessage());
-                JOptionPane.showMessageDialog(null, "Nutzer konnte nicht geupdated werden !", "IDfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+                JOptionPane.showMessageDialog(null, "IDfeld falsch ausgefüllt!", "Zahlenfeld wurde falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
 
             } catch (IllegalArgumentException illegalArgumentException) {
 
                 String message = illegalArgumentException.getMessage();
-                
-                
+
                 System.err.println("Illegal Argument");
                 System.out.println(message);
-                
-                if(message.equals("passwords not identical")){
-                JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdated werden !", "Passwörter nicht identisch", JOptionPane.CANCEL_OPTION);
+
+                if (message.equals("passwords not identical")) {
+                    JOptionPane.showMessageDialog(null, "Passwörter sind nicht identisch!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Bitte Geburtstag im Format yyyy-MM-dd eintragen!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                 }
-                else 
-                JOptionPane.showMessageDialog(null, "Bitte Geburtstsag im format yyyy-MM-dd eintragen !", "Falsches Datumformat", JOptionPane.CANCEL_OPTION);
             }
-
         }
-          //  } else {
-            
-          //  JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdated werden!", "Passwörter nicht identisch", JOptionPane.CANCEL_OPTION);
-           // }
-        
-
-        
-            
-            
-            
     }//GEN-LAST:event_jButtonUpdateUserActionPerformed
 
     private void jButtonAnimalsToZookeeperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnimalsToZookeeperActionPerformed
@@ -1163,7 +1090,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
         if (jRadioButtonAdmin.isSelected()) {
             System.out.println("Admin Mode");
-           
+
             userType = Mode.admin;
             jComboBoxShift.setEnabled(false);
             jLabelShift.setEnabled(false);
@@ -1171,7 +1098,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             if (jRadioButtonAdd.isSelected()) {
                 System.out.println("    Add mode");
                 mode = Mode.add;
-                 methods.clearTable((DefaultTableModel)jTableUserData.getModel());
+                methods.clearTable((DefaultTableModel) jTableUserData.getModel());
                 jButtonAddUser.setEnabled(true);
                 jButtonUpdateUser.setEnabled(false);
                 jButtonDeleteUser.setEnabled(false);
@@ -1221,7 +1148,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             userType = Mode.zookeeper;
             if (jRadioButtonAdd.isSelected()) {
                 System.out.println("    Add mode");
-                methods.clearTable((DefaultTableModel)jTableUserData.getModel());
+                methods.clearTable((DefaultTableModel) jTableUserData.getModel());
                 jButtonAnimalsToZookeeper.setEnabled(true);
                 jButtonAddUser.setEnabled(true);
                 jButtonUpdateUser.setEnabled(false);
@@ -1264,9 +1191,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
                 return "Delete zookeeper";
             }
-
         }
-
         return null;
     }
 
@@ -1373,5 +1298,5 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     private ZooManager zooManager;
     private UserManager userManager;
     private LinkedList<User> lastSearchedUsers;
-    private LinkedHashMap<String,String> lastSearchMap;
+    private LinkedHashMap<String, String> lastSearchMap;
 }
