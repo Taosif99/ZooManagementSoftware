@@ -27,6 +27,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jButtonBack" min="-2" pref="179" max="-2" attributes="0"/>
+<<<<<<< Updated upstream
                       <EmptySpace pref="1683" max="32767" attributes="0"/>
                       <Component id="jLabelShowDateTime" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -35,23 +36,36 @@
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="labelKarte" min="-2" pref="503" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="573" max="-2" attributes="0"/>
+=======
+                      <EmptySpace min="-2" pref="1424" max="-2" attributes="0"/>
+                      <Component id="jLabelShowDateTime" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="269" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jLabelAnimal" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelCompoundStatic" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelFeedStatic" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabelTime" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelCompound" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelFeed" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="670" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="labelKarte" min="-2" pref="503" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="530" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+>>>>>>> Stashed changes
                   </Group>
               </Group>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jLabelAnimal" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelCompoundStatic" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelFeedStatic" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabelTime" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelCompound" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelFeed" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="658" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -66,7 +80,7 @@
                   </Group>
                   <Component id="jLabelShowDateTime" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelAnimal" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabelTime" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -81,9 +95,13 @@
                   <Component id="jLabelFeedStatic" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabelFeed" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
               <Component id="labelKarte" min="-2" pref="232" max="-2" attributes="0"/>
+<<<<<<< Updated upstream
               <EmptySpace max="-2" attributes="0"/>
+=======
+              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+>>>>>>> Stashed changes
           </Group>
       </Group>
     </DimensionLayout>

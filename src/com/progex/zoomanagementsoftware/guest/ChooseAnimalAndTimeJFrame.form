@@ -28,6 +28,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< Updated upstream
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               <Component id="jLabelFindOut" min="-2" max="-2" attributes="0"/>
@@ -40,31 +41,62 @@
               <Component id="jLabelShowDateTime" pref="259" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
+=======
+>>>>>>> Stashed changes
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="660" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jLabelTime" max="32767" attributes="0"/>
-                  <Component id="jLabelName" min="-2" pref="254" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jButtonBack" min="-2" pref="179" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="1389" max="-2" attributes="0"/>
+                      <Component id="jLabelShowDateTime" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="660" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabelTime" max="32767" attributes="0"/>
+                          <Component id="jLabelName" min="-2" pref="254" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jComboTime" pref="133" max="32767" attributes="0"/>
+                          <Component id="jComboBoxName" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+<<<<<<< Updated upstream
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jComboTime" pref="133" max="32767" attributes="0"/>
                   <Component id="jComboBoxName" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="796" max="32767" attributes="0"/>
+=======
+>>>>>>> Stashed changes
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
+<<<<<<< Updated upstream
                       <Component id="jButtonSearch" min="-2" pref="868" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="486" max="-2" attributes="0"/>
+=======
+                      <Component id="jLabelFindOut" min="-2" pref="1382" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+>>>>>>> Stashed changes
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jLabelChoose" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="593" max="-2" attributes="0"/>
+                      <Component id="jButtonSearch" min="-2" pref="869" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="477" max="-2" attributes="0"/>
                   </Group>
               </Group>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="694" max="-2" attributes="0"/>
+              <Component id="jLabelChoose" min="-2" pref="555" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="599" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -76,11 +108,17 @@
                   <Component id="jLabelShowDateTime" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonBack" min="-2" pref="57" max="-2" attributes="0"/>
               </Group>
+<<<<<<< Updated upstream
               <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
               <Component id="jLabelFindOut" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
+=======
+              <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+              <Component id="jLabelFindOut" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
+>>>>>>> Stashed changes
               <Component id="jLabelChoose" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelName" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jComboBoxName" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -90,9 +128,15 @@
                   <Component id="jLabelTime" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jComboTime" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+<<<<<<< Updated upstream
               <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
               <Component id="jButtonSearch" min="-2" pref="91" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+=======
+              <EmptySpace pref="56" max="32767" attributes="0"/>
+              <Component id="jButtonSearch" min="-2" pref="135" max="-2" attributes="0"/>
+              <EmptySpace pref="28" max="32767" attributes="0"/>
+>>>>>>> Stashed changes
           </Group>
       </Group>
     </DimensionLayout>
