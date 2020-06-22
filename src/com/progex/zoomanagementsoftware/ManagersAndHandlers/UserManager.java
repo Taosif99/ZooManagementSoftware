@@ -37,18 +37,10 @@ public class UserManager {
         return connectionHandler;
     }
 
-    
-    
     public void setLoggedInUser(User loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
-    
 
-
-    
-    
-    
-    
     //TODO Überlegen ob es Sinn macht addressen auch hier zu verwalten,wäre
     //praktisch machbar...
     /**
@@ -142,7 +134,7 @@ public class UserManager {
      * @param street
      * @param zip
      * @param city
-     * @param Country
+     * @param country
      * @param phoneNumber
      * @param birthday
      * @param shift
@@ -153,39 +145,52 @@ public class UserManager {
      */
     public boolean addUser(String type, String salutation, String firstname,
             String lastname, String street, String zip, String city,
-            String Country, String phoneNumber, String birthday, String shift,
+            String country, String phoneNumber, String birthday, String shift,
             String username, String email, String password) {
 
-        boolean retVal = false;
-        //Get the address with street,zip,city --> I guess country not requird
-        int addressId = searchAddressId(zip, street, city);
-        if (addressId == -1) {
+        //boolean retVal = false;
+        boolean retVal = addAddress(zip, city, country, street);
+        if (retVal) {
+            //Get the address with street,zip,city --> I guess country not requird
+            int addressId = searchAddressId(zip, street, city);
+            if (addressId == -1) {
+                return retVal;
+            }
+
+            MD5Hash hasher = new MD5Hash();
+
+            String hashedPassword = hasher.hashString(password);
+            //Know the user can be added 
+            String insertUserQuery = "INSERT INTO User (UserName,FirstName,LastName,PhoneNumber,"
+                    + "Birthday,Email,Salutation,HashedPassword,"
+                    + "AddressID,Type,Shift,LastLogDate) \n"
+                    + "VALUES ('" + username + "',"
+                    + "'" + firstname + "',"
+                    + "'" + lastname + "',"
+                    + "'" + phoneNumber + "',"
+                    + "'" + birthday + "',"
+                    + "'" + email + "',"
+                    + "'" + salutation + "',"
+                    + "'" + hashedPassword + "',"
+                    + addressId + ","
+                    + "'" + type + "',"
+                    + "'" + shift + "',"
+                    + "'1998-01-01 00:00:00')"; //Using zeros as initial log date -> does not work
+
+            retVal = connectionHandler.manipulateDB(insertUserQuery);
+
+            return retVal;
+        } else {
             return retVal;
         }
+    }
 
-        MD5Hash hasher = new MD5Hash();
+    private boolean addAddress(String zip, String city, String country, String street) {
 
-        String hashedPassword = hasher.hashString(password);
-        //Know the user can be added 
-        String insertUserQuery = "INSERT INTO User (UserName,FirstName,LastName,PhoneNumber,"
-                + "Birthday,Email,Salutation,HashedPassword,"
-                + "AddressID,Type,Shift,LastLogDate) \n"
-                + "VALUES ('" + username + "',"
-                + "'" + firstname + "',"
-                + "'" + lastname + "',"
-                + "'" + phoneNumber + "',"
-                + "'" + birthday + "',"
-                + "'" + email + "',"
-                + "'" + salutation + "',"
-                + "'" + hashedPassword + "',"
-                + addressId + ","
-                + "'" + type + "',"
-                + "'" + shift + "',"
-                + "'1998-01-01 00:00:00')"; //Using zeros as initial log date -> does not work
-
-        retVal = connectionHandler.manipulateDB(insertUserQuery);
-
-        return retVal;
+        String insertAddressQuery = "INSERT INTO Address (Zip, Street, Country, City)"
+                + "VALUES ('" + zip + "','" + street + "','" + country + "','" + city + "')";
+        System.out.println(insertAddressQuery);
+        return connectionHandler.manipulateDB(insertAddressQuery);
     }
 
     /**
@@ -323,7 +328,8 @@ public class UserManager {
     }
 
     /**
-     * Method to search for users in the database with limit, ordered by the last log date
+     * Method to search for users in the database with limit, ordered by the
+     * last log date
      *
      * @param columnValueMap A mapping of entity attributes and corresponding
      * @param limit An amount of users we want to have
@@ -457,7 +463,7 @@ public class UserManager {
 
             }
         } catch (SQLException ex) {
-                System.err.println("SQL EXCEPTION");
+            System.err.println("SQL EXCEPTION");
             System.out.println(ex.getMessage());
         }
 
@@ -468,7 +474,7 @@ public class UserManager {
     /**
      * Updates the lastlogdate from the logged in user
      *
-     * 
+     *
      */
     public void updateLastLogDateFromUser() {
 
@@ -485,21 +491,21 @@ public class UserManager {
      * Logsout the user and resets the user, also updates the lastlogdate when
      * logging out
      *
-     * 
+     *
      */
-    public void logout()  {
+    public void logout() {
 
         updateLastLogDateFromUser();
         loggedInUser = null;
     }
 
-    /**TODO RETURN COMMENT
-     * WAS FALLS ES WELCHE GIBT DIE ZU GLEICHEN ZEIT HABEN
+    /**
+     * TODO RETURN COMMENT WAS FALLS ES WELCHE GIBT DIE ZU GLEICHEN ZEIT HABEN
      * Get NextFeedingInfo Object to display a zookeepers next feeding time
      *
      * @return ZookeeperInfo that shows all important information for the next
      * feeding info for the zookeeper
-     * 
+     *
      */
     public ZookeeperInfo getNextFeedingInfo() {
 
@@ -526,9 +532,9 @@ public class UserManager {
                     + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" "
                     + "ORDER BY joinedTable.Fütterungszeit DESC "
                     + "LIMIT 1";
-            
+
             ResultSet resultSet = connectionHandler.performQuery(query);
-            
+
             // init variables to catch from resultset
             String tiername = "";
             String futter = "";
@@ -536,7 +542,7 @@ public class UserManager {
             String abstellRaum = "";
             String gehege = "";
             int feedingTimeInMinutes = -1;
-            
+
             // set variables from resultset
             if (resultSet.next()) {
                 tiername = resultSet.getString(2);
@@ -545,9 +551,9 @@ public class UserManager {
                 abstellRaum = resultSet.getString(5);
                 gehege = resultSet.getString(6);
                 feedingTimeInMinutes = resultSet.getInt(7);
-                
+
             }
-            
+
             System.out.println("------------DEBUG----------- \n"
                     + "Username: " + loggedInUser.getUsername()
                     + "Tiername: " + tiername
@@ -556,13 +562,11 @@ public class UserManager {
                     + "Abstellraum: " + abstellRaum
                     + "Gehege: " + gehege
                     + "FeedingTimeInMinutes: " + feedingTimeInMinutes);
-            
+
             // create FeedingInfo based on Database Information and return it
             ZookeeperInfo x = new ZookeeperInfo(feedingTimeInMinutes, gehege, tiername, futter, abstellRaum, menge);
             return x;
-        } 
-        
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.err.println("SQL EXCEPTION");
             System.out.println(ex.getMessage());
         }
@@ -647,9 +651,9 @@ public class UserManager {
             return getNextFeedingInfo().getFeedingTime();
         } else {
             return -1;
-            
+
         }
-     
+
     }
 
     //Khalid end
