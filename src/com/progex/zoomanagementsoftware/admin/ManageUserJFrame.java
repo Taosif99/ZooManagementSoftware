@@ -741,14 +741,18 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                         userTypeStr = "Admin";
                     }
 
+                   
                     //If user is a zookeeper
                     if (userTypeStr.equals("Zookeeper")) {
                         shiftStr = getGermanShiftString();
-
+                        
                     }
 
                     if (!userManager.usernameExists(username)) {
 
+                        
+                        
+                        
                         if (userManager.addUser(userTypeStr, salutationStr, firstname, lastname,
                                 street, zip, city, country, phonenumber,
                                 birthday, shiftStr, username, email, password)) {
