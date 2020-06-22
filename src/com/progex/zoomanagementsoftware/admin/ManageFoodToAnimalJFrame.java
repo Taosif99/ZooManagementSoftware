@@ -22,14 +22,12 @@ import javax.swing.table.TableModel;
 
 /**
  *
- * 
+ *
  *
  * @author Ouchen
  */
 public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
-    
-    
-    
+
     public ManageFoodToAnimalJFrame(JFrame goBackFrame, ZooManager zooManager) {
 
         initComponents();
@@ -44,11 +42,11 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     public void myInitComponents() {
         updateButtonsAndLabels();
-         UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
-         UIManager.put("OptionPane.noButtonText", "Nein");
-         UIManager.put("OptionPane.okButtonText", "OK");
-         UIManager.put("OptionPane.yesButtonText", "Ja");
-       
+        UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
+        UIManager.put("OptionPane.noButtonText", "Nein");
+        UIManager.put("OptionPane.okButtonText", "OK");
+        UIManager.put("OptionPane.yesButtonText", "Ja");
+
     }
 
     private void viewAnimals(LinkedList<Animal> animals) {
@@ -74,7 +72,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             row[5] = animal.getCompound().getName();
             model.addRow(row);
         }
-
     }
 
     /**
@@ -82,8 +79,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
      */
     private void viewRelationTable(LinkedList<FoodToAnimalR> records) {
 
-        /*Displaying results to second table*/
- /*Clean the table*/
         DefaultTableModel tableRelationModel = (DefaultTableModel) jTableFoodToAnimalData.getModel();
         while (tableRelationModel.getRowCount() > 0) {
             tableRelationModel.removeRow(0);
@@ -102,14 +97,12 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             } else {
                 row[5] = record.getAmount();
             }
-
             tableRelationModel.addRow(row);
         }
-
     }
 
-    private void cleanFields(){
-    
+    private void cleanFields() {
+
         jTextFieldFood.setText("");
         jTextFieldStartFeedingTime.setText("");
         jTextFieldEndFeedingTime.setText("");
@@ -117,11 +110,9 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         jTextFieldAnimalID.setText("");
         jTextFieldFoodID.setText("");
         jTextFieldDateTimeID.setText("");
-    
-    
+
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -636,100 +627,65 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
 
-        //Check ob ein Tier ausgewählt
         if (selectedAnimalID != null) {
-
             try {
-
                 JTextField textFields[] = {jTextFieldFood, jTextFieldStartFeedingTime,
                     jTextFieldEndFeedingTime, jTextFieldAmountFood};
-
                 boolean textFieldsVerified = methods.verifyTextFields(textFields);
-               
                 if (textFieldsVerified) {
-                    //AnimalID must be selected and FoodID must be getted!
-
                     String foodName = jTextFieldFood.getText();
                     String startFeedingTime = jTextFieldStartFeedingTime.getText() + ":00";
                     String endFeedingTime = jTextFieldEndFeedingTime.getText() + ":00";
                     double amount = Double.parseDouble(jTextFieldAmountFood.getText());
-                    
                     boolean feedingOrderTimesOk = methods.isFeedingTimesGreater(startFeedingTime, endFeedingTime);
-                    //System.out.println("feeding times ok: " +feedingOrderTimesOk) ;
                     FoodManager foodManager = zooManager.getFoodManager();
-                    boolean foodExists = foodManager.checkFoodExists(foodName,-1);
-                    
+                    boolean foodExists = foodManager.checkFoodExists(foodName, -1);
                     if (amount <= 0) {
                         throw new IllegalArgumentException("Amount must be greater zero");
                     }
-
-                    //Check if gramm is selected
                     if (jRadioButtonG.isSelected()) {
                         amount /= 1000;
                     }
-
-                    if(foodExists){
-                    
-                    if (methods.isValidFeedingTime(startFeedingTime) && methods.isValidFeedingTime(endFeedingTime)) {
-
-                        if (!feedingOrderTimesOk) {
-                            throw new IllegalArgumentException("End feeding time cannot start before start feeding time");
-                        }
-
-                        //System.out.println("start" + methods.isValidFeedingTime(startFeedingTime));
-                        //System.out.println("end" + methods.isValidFeedingTime(endFeedingTime));
-                        //Here the zooManager may add the FoodToAnimalRecord
-                        if (foodToAnimalManager.addFoodToAnimal(selectedAnimalID, foodName, startFeedingTime, endFeedingTime, amount)) {
-
-                            JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                            
-                            int animalID = Integer.parseInt(selectedAnimalID);
-                            LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
-                            viewRelationTable(records);
-                            cleanFields();
-                            
+                    if (foodExists) {
+                        if (methods.isValidFeedingTime(startFeedingTime) && methods.isValidFeedingTime(endFeedingTime)) {
+                            if (!feedingOrderTimesOk) {
+                                throw new IllegalArgumentException("End feeding time cannot start before start feeding time");
+                            }
+                            if (foodToAnimalManager.addFoodToAnimal(selectedAnimalID, foodName, startFeedingTime, endFeedingTime, amount)) {
+                                JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+                                int animalID = Integer.parseInt(selectedAnimalID);
+                                LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
+                                viewRelationTable(records);
+                                cleanFields();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                            }
                         } else {
-                            JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                            JOptionPane.showMessageDialog(null, "Bitte geben Sie die Fütterungszeiten im Format yyyy-MM-dd HH:mm an!", "Falsches Format für Fütterungszeiten", JOptionPane.CANCEL_OPTION);
                         }
-
                     } else {
-
-                        JOptionPane.showMessageDialog(null, "Bitte geben Sie die Fütterungszeiten im Format yyyy-MM-dd HH:mm an!", "Falsches Format für Fütterungszeiten", JOptionPane.CANCEL_OPTION);
-
-                    }
-                } else{
-                    
-                    JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht eingefügt werden!", "Futter existiert nicht!", JOptionPane.CANCEL_OPTION);
+                        JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht eingefügt werden!", "Futter existiert nicht!", JOptionPane.CANCEL_OPTION);
                     }
                 }
-
-            } //END Tray //END Tray
-            catch (NumberFormatException numberFormatException) {
-
+            } catch (NumberFormatException numberFormatException) {
                 System.err.println("NumberFormatException");
                 System.out.println(numberFormatException.getMessage());
-                JOptionPane.showMessageDialog(null, "Im Menge Textfeld darf nur eine Zahl stehen !", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
-
+                JOptionPane.showMessageDialog(null, "Im Menge Textfeld darf nur eine Zahl stehen!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
             } catch (IllegalArgumentException illegalArgumentException) {
-
                 String message = illegalArgumentException.getMessage();
-
                 if (message.equals("End feeding time cannot start before start feeding time")) {
                     System.err.println("Illegal feeding times arguments");
                     System.out.println(message);
-                    JOptionPane.showMessageDialog(null, "Beginn der Fütterung kann nicht später als das Ende sein !", "Fütterungszeiten unlogisch", JOptionPane.CANCEL_OPTION);
+                    JOptionPane.showMessageDialog(null, "Beginn der Fütterung kann nicht später als das Ende sein!", "Fütterungszeiten unlogisch", JOptionPane.CANCEL_OPTION);
                 } else if (message.equals("Amount must be greater zero")) {
                     System.err.println("Illegal amount argument");
                     System.out.println(message);
-                    JOptionPane.showMessageDialog(null, "Futtermnege kann nicht kleiner oder gleich 0 sein !", "Futtermenge unlogisch", JOptionPane.CANCEL_OPTION);
+                    JOptionPane.showMessageDialog(null, "Futtermenge kann nicht kleiner oder gleich 0 sein!", "Futtermenge unlogisch", JOptionPane.CANCEL_OPTION);
                 }
-
             }
-
         } else {
-            JOptionPane.showMessageDialog(null, "Sie müssen ein Tier in der Tabelle anklicken !", "Kein Tier ausgewählt", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, "Sie müssen ein Tier in der Tabelle anklicken!", "Kein Tier ausgewählt", JOptionPane.CANCEL_OPTION);
         }
-
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
@@ -790,30 +746,24 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             columnValueMap.put("Amount", amountStr);
 
             LinkedList<FoodToAnimalR> records = foodToAnimalManager.searchFoodToAnimal(columnValueMap);
-                if (records.isEmpty()) {
-            methods.clearTable((DefaultTableModel) jTableFoodToAnimalData.getModel());
-            JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
-        } else
-            viewRelationTable(records);
+            if (records.isEmpty()) {
+                methods.clearTable((DefaultTableModel) jTableFoodToAnimalData.getModel());
+                JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                viewRelationTable(records);
+            }
 
         } else {
             JOptionPane.showMessageDialog(null, "Bitte ein Tier anklicken für die Suche", "Suchen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
         }
-
-
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
 
-        //Check ob ein Tier ausgewählt
         if (selectedAnimalID != null) {
-
             HashMap<String, String> keys = new HashMap<String, String>();
-
-         
             try {
-                    
-                   //Old key values which will be used for update
+
                 int rowIndex = jTableFoodToAnimalData.getSelectedRow();
                 TableModel model = jTableFoodToAnimalData.getModel();
                 String foodIDKey = model.getValueAt(rowIndex, 1).toString();
@@ -821,118 +771,80 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 keys.put("StartFeedingTime", startFeedingTimeKey);
                 keys.put("FoodID", foodIDKey);
 
-                
-                
                 JTextField textFields[] = {jTextFieldFood, jTextFieldStartFeedingTime,
                     jTextFieldEndFeedingTime, jTextFieldAmountFood,};
 
                 boolean textFieldsVerified = methods.verifyTextFields(textFields);
                 if (textFieldsVerified) {
-                    //AnimalID must be selected and FoodID must be getted!
-
                     String foodName = jTextFieldFood.getText();
                     String startFeedingTime = jTextFieldStartFeedingTime.getText() + ":00";
                     String endFeedingTime = jTextFieldEndFeedingTime.getText() + ":00";
                     double amount = Double.parseDouble(jTextFieldAmountFood.getText());
-                    
                     FoodManager foodManager = zooManager.getFoodManager();
-                    boolean foodExists = foodManager.checkFoodExists(foodName,-1);
-                    
+                    boolean foodExists = foodManager.checkFoodExists(foodName, -1);
                     boolean feedingOrderTimesOk = methods.isFeedingTimesGreater(startFeedingTime, endFeedingTime);
-
                     if (amount <= 0) {
                         throw new IllegalArgumentException("Amount must be greater zero");
                     }
-
                     //Check if gramm is selected
                     if (jRadioButtonG.isSelected()) {
                         amount /= 1000;
                     }
+                    if (foodExists) {
+                        if (methods.isValidFeedingTime(startFeedingTime) && methods.isValidFeedingTime(endFeedingTime)) {
 
-                    
-                   if(foodExists){ 
-                    
-                    if (methods.isValidFeedingTime(startFeedingTime) && methods.isValidFeedingTime(endFeedingTime)) {
-
-                        if (!feedingOrderTimesOk) {
-                            throw new IllegalArgumentException("End feeding time cannot start before start feeding time");
-                        }
-
-                        
-                             int decision = JOptionPane.showConfirmDialog(null,
-                        "Wollen Sie den Datensatz wirklich ändern ? ", "Bestätigung",
-                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                        if (decision == 0) {
-                        
-                        
-                        
-                        if (foodToAnimalManager.updateFoodToAnimal(selectedAnimalID, foodName, startFeedingTime, endFeedingTime, amount, keys)) {
-
-                            int animalID = Integer.parseInt(selectedAnimalID);
-                            LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
-                            viewRelationTable(records);
-                            
-                            JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-
-                            /*Hier macht es Sinn nach dem updaten die Felder zu leeren*/
-                            for (JTextField textField : textFields) {
-                                textField.setText("");
+                            if (!feedingOrderTimesOk) {
+                                throw new IllegalArgumentException("End feeding time cannot start before start feeding time");
                             }
-                        
+                            int decision = JOptionPane.showConfirmDialog(null,
+                                    "Wollen Sie den Datensatz wirklich ändern?", "Bestätigung",
+                                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                            if (decision == 0) {
+                                if (foodToAnimalManager.updateFoodToAnimal(selectedAnimalID, foodName, startFeedingTime, endFeedingTime, amount, keys)) {
+                                    int animalID = Integer.parseInt(selectedAnimalID);
+                                    LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
+                                    viewRelationTable(records);
+                                    JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+                                    /*Hier macht es Sinn nach dem updaten die Felder zu leeren*/
+                                    for (JTextField textField : textFields) {
+                                        textField.setText("");
+                                    }
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                                }
+                            }
                         } else {
-                            JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-                        }
+                            JOptionPane.showMessageDialog(null, "Bitte geben Sie die Fütterungszeiten im Format yyyy-MM-dd HH:mm an!", "Falsches Format für Fütterungszeiten", JOptionPane.CANCEL_OPTION);
                         }
                     } else {
-
-                        JOptionPane.showMessageDialog(null, "Bitte geben Sie die Fütterungszeiten im Format yyyy-MM-dd HH:mm an!", "Falsches Format für Fütterungszeiten", JOptionPane.CANCEL_OPTION);
-
+                        JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht geupdatet werden!", "Futter existiert nicht", JOptionPane.CANCEL_OPTION);
                     }
-
-                   } else{
-                    
-                    JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht geupdated werden!", "Futter existiert nicht!", JOptionPane.CANCEL_OPTION);
-                    }
-                    
                 }
-
-                
-            } //END Tray //END Tray
+            }
             catch (NumberFormatException numberFormatException) {
 
                 System.err.println("NumberFormatException");
                 System.out.println(numberFormatException.getMessage());
-                JOptionPane.showMessageDialog(null, "Im Menge Textfeld darf nur eine Zahl stehen !", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
-
+                JOptionPane.showMessageDialog(null, "Im Menge Textfeld darf nur eine Zahl stehen!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
             } catch (IllegalArgumentException illegalArgumentException) {
-
                 String message = illegalArgumentException.getMessage();
                 if (message.equals("End feeding time cannot start before start feeding time")) {
                     System.err.println("Illegal feeding times arguments");
                     System.out.println(message);
-                    JOptionPane.showMessageDialog(null, "Beginn der Fütterung kann nicht später als das Ende sein !", "Fütterungszeiten unlogisch", JOptionPane.CANCEL_OPTION);
+                    JOptionPane.showMessageDialog(null, "Beginn der Fütterung kann nicht später als das Ende sein!", "Fütterungszeiten unlogisch", JOptionPane.CANCEL_OPTION);
                 } else if (message.equals("Amount must be greater zero")) {
                     System.err.println("Illegal amount argument");
                     System.out.println(message);
-                    JOptionPane.showMessageDialog(null, "Futtermnege kann nicht kleiner oder gleich 0 sein !", "Futtermenge unlogisch", JOptionPane.CANCEL_OPTION);
+                    JOptionPane.showMessageDialog(null, "Futtermnege kann nicht kleiner oder gleich 0 sein!", "Futtermenge unlogisch", JOptionPane.CANCEL_OPTION);
                 }
-
-            }
-            
-            catch( ArrayIndexOutOfBoundsException arrOutOfBounds){
-                
+            } catch (ArrayIndexOutOfBoundsException arrOutOfBounds) {
                 System.err.println("No food relation selected");
                 System.out.println(arrOutOfBounds.getMessage());
-                 JOptionPane.showMessageDialog(null, "Bitte Datensatz in der rechten Tabelle auswählen !", "Kein Datensatz ausgewählt", JOptionPane.CANCEL_OPTION);
-                
+                JOptionPane.showMessageDialog(null, "Bitte Datensatz in der rechten Tabelle auswählen!", "Kein Datensatz ausgewählt", JOptionPane.CANCEL_OPTION);
             }
-            
-
         } else {
-            JOptionPane.showMessageDialog(null, "Sie müssen ein Tier in der Tabelle anklicken !", "Kein Tier ausgewählt", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, "Sie müssen ein Tier in der Tabelle anklicken!", "Kein Tier ausgewählt", JOptionPane.CANCEL_OPTION);
         }
-
-
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
@@ -945,23 +857,18 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         String startFeedingTimeKey = model.getValueAt(rowIndex, 3).toString();
 
         int decision = JOptionPane.showConfirmDialog(null,
-                "Sind Sie sicher", "Löschbestätigung",
+                "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-        //OK = 0, cancel =2
-        //System.out.println(decision);
         if (decision == 0) {
             if (foodToAnimalManager.deleteFoodToAnimal(foodIDKey, selectedAnimalID, startFeedingTimeKey)) {
                 JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                
-                   int animalID = Integer.parseInt(selectedAnimalID);
-                   LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
-                   viewRelationTable(records);
-
+                int animalID = Integer.parseInt(selectedAnimalID);
+                LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
+                viewRelationTable(records);
                 jTextFieldFood.setText("");
                 jTextFieldStartFeedingTime.setText("");
                 jTextFieldEndFeedingTime.setText("");
                 jTextFieldAmountFood.setText("");
-
             } else {
                 JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
             }
@@ -970,8 +877,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
 
-        //System.out.println(mode); //Debug
-        //Get the mode
         switch (mode) {
 
             case add:
@@ -998,11 +903,9 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         //Update the animalId when selected
         selectedAnimalID = animalModel.getValueAt(animalRowIndex, 0).toString();
 
-           int animalID = Integer.parseInt(selectedAnimalID);
-           LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
-           viewRelationTable(records);
-        
-
+        int animalID = Integer.parseInt(selectedAnimalID);
+        LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
+        viewRelationTable(records);
     }//GEN-LAST:event_jTableAnimalDataMouseClicked
 
     private void jTableFoodToAnimalDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFoodToAnimalDataMouseClicked
@@ -1010,33 +913,29 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         /*Updating the textfields correspondingly*/
         int rowIndex = jTableFoodToAnimalData.getSelectedRow();
         TableModel model = jTableFoodToAnimalData.getModel();
-
         jTextFieldFood.setText(model.getValueAt(rowIndex, 0).toString());
         jTextFieldFoodID.setText(model.getValueAt(rowIndex, 1).toString());
         jTextFieldAnimalID.setText(model.getValueAt(rowIndex, 2).toString());
-
         String startFeedingTime = model.getValueAt(rowIndex, 3).toString();
         String endFeedingTime = model.getValueAt(rowIndex, 4).toString();
-
         jTextFieldStartFeedingTime.setText(startFeedingTime);
         jTextFieldDateTimeID.setText(startFeedingTime);
         jTextFieldEndFeedingTime.setText(endFeedingTime);
-
         jTextFieldAmountFood.setText(model.getValueAt(rowIndex, 5).toString());
 
 
     }//GEN-LAST:event_jTableFoodToAnimalDataMouseClicked
 
     private void jRadioButtonGTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonGTableActionPerformed
-           int animalID = Integer.parseInt(selectedAnimalID);
-           LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
-           viewRelationTable(records);
+        int animalID = Integer.parseInt(selectedAnimalID);
+        LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
+        viewRelationTable(records);
     }//GEN-LAST:event_jRadioButtonGTableActionPerformed
 
     private void jRadioButtonKgTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonKgTableActionPerformed
-           int animalID = Integer.parseInt(selectedAnimalID);
-           LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
-           viewRelationTable(records);
+        int animalID = Integer.parseInt(selectedAnimalID);
+        LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
+        viewRelationTable(records);
     }//GEN-LAST:event_jRadioButtonKgTableActionPerformed
 
     private void jButtonSearchAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchAnimalActionPerformed
@@ -1058,10 +957,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     /**
      * Method to disable/enable buttons/labels depending on operation selection.
-     *
-     * @return The mode as String, null if unknown mode
      */
-    private String updateButtonsAndLabels() {
+    private void updateButtonsAndLabels() {
 
         System.out.println("FoodToAnimal Mode");
 
@@ -1072,9 +969,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             jButtonDelete.setEnabled(false);
             jLabelSearch.setEnabled(false);
             jButtonSearch.setEnabled(false);
-            //mode = "add";
             mode = Mode.add;
-            return "add";
+            
 
         } else if (jRadioButtonUpdate.isSelected()) {
             System.out.println("    Update mode");
@@ -1086,9 +982,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(true);
             jLabelAnimalID.setEnabled(true);
             jLabelDateTimeID.setEnabled(true);
-            //mode = "update";
             mode = Mode.update;
-            return "update";
+
         } else if (jRadioButtonDelete.isSelected()) {
             System.out.println("    Delete mode");
             jButtonAdd.setEnabled(false);
@@ -1099,13 +994,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(true);
             jLabelAnimalID.setEnabled(true);
             jLabelDateTimeID.setEnabled(true);
-            //mode = "delete";
             mode = Mode.delete;
-            return "delete";
-
         }
-
-        return null;
     }
 
     /**

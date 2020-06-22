@@ -41,25 +41,20 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     public void myInitComponents() {
         updateButtonsAndLabels();
-         UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
-         UIManager.put("OptionPane.noButtonText", "Nein");
-         UIManager.put("OptionPane.okButtonText", "OK");
-         UIManager.put("OptionPane.yesButtonText", "Ja");
-
+        UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
+        UIManager.put("OptionPane.noButtonText", "Nein");
+        UIManager.put("OptionPane.okButtonText", "OK");
+        UIManager.put("OptionPane.yesButtonText", "Ja");
     }
 
-    
-    private void cleanFields(){
-            jTextFieldID.setText("");
-            jTextFieldCompoundName.setText("");
-            jTextFieldConstructionYear.setText("");
-            jTextFieldMaxCapacity.setText("");
-            jTextFieldArea.setText("");
-    
-    
+    private void cleanFields() {
+        jTextFieldID.setText("");
+        jTextFieldCompoundName.setText("");
+        jTextFieldConstructionYear.setText("");
+        jTextFieldMaxCapacity.setText("");
+        jTextFieldArea.setText("");
     }
-    
-    
+
     /**
      * Method which has been implemented to map a LinkedList of Compound objects
      * to a JTable.
@@ -89,7 +84,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     }
 
     /**
-     * Method which has been implemented to restrcit negative values.
+     * Method which has been implemented to restrict negative values. If
+     * compound has not been built then it can initialize with zero.
      *
      * @param constructionYear
      * @param maxCapacity
@@ -439,33 +435,29 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
             int maxCapacity = Integer.parseInt(jTextFieldMaxCapacity.getText());
             Double area = Double.parseDouble(jTextFieldArea.getText());
             boolean compoundNameExists = compoundManager.compoundExists(compoundName);
-            
+
             if (textFieldsVerified) {
-                
-                
-                if(compoundNameExists){
 
-                if (checkGreaterZero(constructionYear, maxCapacity, area)) {
-                    throw new IllegalArgumentException("Negative values not allowed");
-                }
+                if (compoundNameExists) {
 
-                if (compoundManager.addCompound(compoundName, area, constructionYear, maxCapacity)) {
-                    
-                    JOptionPane.showMessageDialog(null, "Gehege konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                    cleanFields();
-                    
-                    
-                    
-                } else //Falls Fehler beim Einfügen in die Datenbank", JOptionPane.CANCEL_OPTION      
-                {
-                    JOptionPane.showMessageDialog(null, "Gehege konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-                }
+                    if (checkGreaterZero(constructionYear, maxCapacity, area)) {
+                        throw new IllegalArgumentException("Negative values not allowed");
+                    }
 
-                
+                    if (compoundManager.addCompound(compoundName, area, constructionYear, maxCapacity)) {
+
+                        JOptionPane.showMessageDialog(null, "Gehege konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+                        cleanFields();
+
+                    } else //Falls Fehler beim Einfügen in die Datenbank", JOptionPane.CANCEL_OPTION      
+                    {
+                        JOptionPane.showMessageDialog(null, "Gehege konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                    }
+
                 } else {
-                
-                JOptionPane.showMessageDialog(null, "Gehege konnte nicht eingefügt werden!", "Name schon vorhanden !", JOptionPane.CANCEL_OPTION);
-                
+
+                    JOptionPane.showMessageDialog(null, "Gehegename schon vorhanden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+
                 }
             }
 
@@ -473,13 +465,13 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
             System.err.println("NumberFormatException");
             System.out.println(numberFormatException.getMessage());
-            JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt.", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
 
         } catch (IllegalArgumentException illegalArgumentEcxeption) {
 
             System.err.println("IllegalArgumentException");
             System.out.println(illegalArgumentEcxeption.getMessage());
-            JOptionPane.showMessageDialog(null, "Gehege konnte nicht eingefügt werden !", "Werte kleiner 0 nicht erlaubt", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, "Werte kleiner 0 nicht erlaubt!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
 
         }
 
@@ -493,27 +485,23 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
-       
-      
-        jTextFieldID.setText(""); 
+
+        jTextFieldID.setText("");
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
 
     private void jRadioButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonUpdateActionPerformed
-        
-    
+
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonUpdateActionPerformed
 
 
     private void jRadioButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDeleteActionPerformed
 
-    
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonDeleteActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
-        
 
         String name = jTextFieldCompoundName.getText().trim();
         String constructionYear = jTextFieldConstructionYear.getText().trim();
@@ -528,13 +516,13 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         columnNameToValue.put("ConstructionYear", constructionYear);
         columnNameToValue.put("MaxCapacity", maxCapacity);
         lastSearchMap = columnNameToValue;
-        
+
         LinkedList<Compound> compounds = compoundManager.searchCompounds(columnNameToValue);
-            if (compounds.isEmpty()) {
-             methods.clearTable((DefaultTableModel) jTableCompoundData.getModel());
+        if (compounds.isEmpty()) {
+            methods.clearTable((DefaultTableModel) jTableCompoundData.getModel());
             JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
         } else
-        viewCompounds(compounds);
+            viewCompounds(compounds);
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonUpdateCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateCompoundActionPerformed
@@ -562,48 +550,36 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                 if (checkGreaterZero(constructionYear, maxCapacity, area)) {
                     throw new IllegalArgumentException("Negative values not allowed");
                 }
-                
-                
-                
-                     int decision = JOptionPane.showConfirmDialog(null,
-                        "Wollen Sie den Datensatz wirklich ändern ? ", "Bestätigung",
+                int decision = JOptionPane.showConfirmDialog(null,
+                        "Wollen Sie den Datensatz wirklich ändern?", "Bestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (decision == 0) {
-                
-                
-                if (compoundManager.updateCompound(ID, compoundName, area, constructionYear, maxCapacity)) {
+                    if (compoundManager.updateCompound(ID, compoundName, area, constructionYear, maxCapacity)) {
 
-                 
-                    JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                    cleanFields();
-                    
+                        JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+                        cleanFields();
                         //Update table if old search exist
-                        if (lastSearchMap != null){
+                        if (lastSearchMap != null) {
                             lastSearchedCompounds = compoundManager.searchCompounds(lastSearchMap);
                             viewCompounds(lastSearchedCompounds);
                         }
-                            
-                    
-                } else {
+                    } else {
 
-                    //Falls Fehler beim Updaten
-                    JOptionPane.showMessageDialog(null, "Gehege konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-
+                        //Falls Fehler beim Updaten
+                        JOptionPane.showMessageDialog(null, "Gehege konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                    }
                 }
             }
-
-         }
         } catch (NumberFormatException numberFormatException) {
-
             System.err.println("NumberFormatException");
             System.out.println(numberFormatException.getMessage());
-            JOptionPane.showMessageDialog(null, "Gehege konnte nicht geupdated werden !", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, "Gehege konnte nicht geupdatet werden!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
 
         } catch (IllegalArgumentException illegalArgumentEcxeption) {
 
             System.err.println("IllegalArgumentException");
             System.out.println(illegalArgumentEcxeption.getMessage());
-            JOptionPane.showMessageDialog(null, "Gehege konnte nicht geupdated werden !", "Werte kleiner 0 nicht erlaubt", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, "Gehege konnte nicht geupdated werden!", "Werte kleiner 0 nicht erlaubt", JOptionPane.CANCEL_OPTION);
 
         }
     }//GEN-LAST:event_jButtonUpdateCompoundActionPerformed
@@ -622,7 +598,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                 //Nachfragen ob er sich sicher ist, hier if Abfrage mache
                 //TODO Cancel auf deutsch
                 int decision = JOptionPane.showConfirmDialog(null,
-                       "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
+                        "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
                 if (decision == 0) {
@@ -630,40 +606,28 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                         //Falls Löschen erfolgreich
                         JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                         cleanFields();
-                       
+
                         //Update table if old search exist
-                        if (lastSearchMap != null){
+                        if (lastSearchMap != null) {
                             lastSearchedCompounds = compoundManager.searchCompounds(lastSearchMap);
                             viewCompounds(lastSearchedCompounds);
                         }
-                        
-                        
                     } else {
                         //Falls Fehler beim Löschen
                         JOptionPane.showMessageDialog(null, "Gehege konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-
                     }
-
                 }
-
             }
-
         } catch (NumberFormatException numberFormatException) {
 
             System.err.println("NumberFormatException");
             System.out.println(numberFormatException.getMessage());
             JOptionPane.showMessageDialog(null, "Gehege konnte nicht gelöscht werden !", "IDfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
-
         }
-
-
     }//GEN-LAST:event_jButtonDeleteCompoundActionPerformed
 
     private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
 
-        //String mode = updateButtonsAndLabels();
-        //System.out.println(mode); //Debug
-        //Get the mode
         switch (mode) {
 
             case add:
@@ -680,8 +644,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonHelpActionPerformed
 
     /**
-     * This Method makes it possible to update the fields, depending which row
-     * is clicked
+     * This method makes it possible to update the fields, depending which row
+     * is clicked.
      *
      * @param evt
      */
@@ -706,10 +670,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     /**
      * Method to disable/enable buttons/labels depending on operation selection.
-     *
-     * @return The mode as String, null if unknown mode
      */
-    private String updateButtonsAndLabels() {
+    private void updateButtonsAndLabels() {
 
         System.out.println("Compound Mode");
 
@@ -725,8 +687,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
             mode = Mode.add;
             methods.clearTable((DefaultTableModel) jTableCompoundData.getModel());
-            return "add";
-
         } else if (jRadioButtonUpdate.isSelected()) {
             System.out.println("    Update mode");
             jButtonAddCompound.setEnabled(false);
@@ -736,10 +696,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
             jLabelID.setEnabled(true);
             jLabelSearch.setEnabled(true);
             jButtonSearch.setEnabled(true);
-            //mode = "update";
             mode = Mode.update;
-            return "update";
-
         } else if (jRadioButtonDelete.isSelected()) {
             System.out.println("    Delete mode");
             jButtonAddCompound.setEnabled(false);
@@ -749,12 +706,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
             jLabelID.setEnabled(true);
             jLabelSearch.setEnabled(true);
             jButtonSearch.setEnabled(true);
-            //mode = "delete";
             mode = Mode.delete;
-            return "delete";
         }
-
-        return null;
     }
 
     /**
@@ -836,6 +789,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     private Mode mode;
     private Methods methods;
     private LinkedList<Compound> lastSearchedCompounds;
-    private LinkedHashMap<String,String> lastSearchMap;
+    private LinkedHashMap<String, String> lastSearchMap;
 
 }

@@ -54,8 +54,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         UIManager.put("OptionPane.yesButtonText", "Ja");
     }
 
-
-
     private void cleanFields() {
 
         jTextFieldAnimalName.setText("");
@@ -73,7 +71,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
      */
     private void viewAnimals(LinkedList<Animal> animals) {
 
-         methods.clearTable((DefaultTableModel) jTableAnimalData.getModel());
+        methods.clearTable((DefaultTableModel) jTableAnimalData.getModel());
         DefaultTableModel model = (DefaultTableModel) jTableAnimalData.getModel();
         Object[] row = new Object[6]; // Spalten
 
@@ -478,10 +476,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                         //Falls Einfügen erfolgreichr
                         JOptionPane.showMessageDialog(null, "Tier konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                         cleanFields();
-                        
-                 
-                        
-                        
+
                     } else {
                         //Falls Fehler beim Einfügen
                         JOptionPane.showMessageDialog(null, "Tier konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -506,20 +501,18 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
 
-    
         jTextFieldID.setText("");
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
 
     private void jRadioButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonUpdateActionPerformed
-   
+
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonUpdateActionPerformed
 
 
     private void jRadioButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDeleteActionPerformed
-        
-     
+
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonDeleteActionPerformed
 
@@ -541,12 +534,12 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         columnNameToValue.put("Name", compoundName);
 
         lastSearchMap = columnNameToValue;
-        
-       
+
         LinkedList<Animal> animals = animalManager.searchAnimals(columnNameToValue);
         if (!animals.isEmpty())
-        viewAnimals(animals);
-        else  JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
+            viewAnimals(animals);
+        else
+            JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonAssignFeedingTimesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssignFeedingTimesActionPerformed
@@ -601,54 +594,36 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 boolean dateFormatCorrect = methods.isValidDateString(date);
                 CompoundManager compoundManager = zooManager.getCompoundManager();
                 boolean compoundNameExists = compoundManager.compoundExists(compoundName);
-                if (compoundNameExists){
-                if (dateFormatCorrect) {
-
-                    int decision = JOptionPane.showConfirmDialog(null,
-                            "Wollen Sie den Datensatz wirklich ändern ? ", "Bestätigung",
-                            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    if (decision == 0) {
-
-                        if (animalManager.updateAnimal(ID, animalName, compoundName, date, sex, species)) {
-                            //Falls Updaten erfolgreich, pfeil wäre besser
-                            JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-
-                            cleanFields();
-                       
-                        //Update table if old search exist
-                        if (lastSearchMap != null){
-                          
-                            lastSearchedAnimals = animalManager.searchAnimals(lastSearchMap);
-                            viewAnimals(lastSearchedAnimals);
-       
+                if (compoundNameExists) {
+                    if (dateFormatCorrect) {
+                        int decision = JOptionPane.showConfirmDialog(null, "Wollen Sie den Datensatz wirklich ändern?", "Bestätigung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (decision == 0) {
+                            if (animalManager.updateAnimal(ID, animalName, compoundName, date, sex, species)) {
+                                //Falls Updaten erfolgreich, pfeil wäre besser
+                                JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+                                cleanFields();
+                                //Update table if old search exist
+                                if (lastSearchMap != null) {
+                                    lastSearchedAnimals = animalManager.searchAnimals(lastSearchMap);
+                                    viewAnimals(lastSearchedAnimals);
+                                }
+                            } else {
+                                //Falls Fehler beim Updaten
+                                JOptionPane.showMessageDialog(null, "Tier konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                            }
                         }
-                            
-                            
-                        } else {
-
-                            //Falls Fehler beim Updaten
-                            JOptionPane.showMessageDialog(null, "Tier konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-
-                        }
-
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Bitte Geburtstag im Format yyyy-MM-dd eintragen!", "Falsches Datumformat", JOptionPane.CANCEL_OPTION);
                     }
-
                 } else {
-                    JOptionPane.showMessageDialog(null, "Bitte Geburtstsag im format yyyy-MM-dd eintragen !", "Falsches Datumformat", JOptionPane.CANCEL_OPTION);
-                
+                    JOptionPane.showMessageDialog(null, "Tier konnte nicht geupdated werden!", "Gehege existiert nicht", JOptionPane.CANCEL_OPTION);
                 }
-                
-            } else JOptionPane.showMessageDialog(null, "Tier konnte nicht geupdated werden!", "Gehege existiert nicht", JOptionPane.CANCEL_OPTION);
-                    
-
             } catch (NumberFormatException numberFormatException) {
 
                 System.err.println("NumberFormatException");
                 System.out.println(numberFormatException.getMessage());
-                JOptionPane.showMessageDialog(null, "Tier konnte nicht geupdated werden !", "IDfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
-
+                JOptionPane.showMessageDialog(null, "Tier konnte nicht geupdated werden!", "ID Feld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
             }
-
         }
 
     }//GEN-LAST:event_jButtonUpdateAnimalActionPerformed
@@ -673,14 +648,14 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                         //Falls Löschen erfolgreich, pfeil wäre besser
                         JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                         cleanFields();
-                      
-                         //Update table if old search exist
-                        if (lastSearchMap != null){  
+
+                        //Update table if old search exist
+                        if (lastSearchMap != null) {
                             lastSearchedAnimals = animalManager.searchAnimals(lastSearchMap);
                             viewAnimals(lastSearchedAnimals);
-       
+
                         }
-                        
+
                     } else {
                         //Falls Fehler beim Löschen
                         JOptionPane.showMessageDialog(null, "Tier konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -695,7 +670,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
             System.err.println("NumberFormatException");
             System.out.println(numberFormatException.getMessage());
-            JOptionPane.showMessageDialog(null, "Tier konnte nicht gelöscht werden !", "IDfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, "ID Feld falsch ausgefüllt!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
 
         }
 
@@ -755,9 +730,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
      * Method to disable/enable buttons and labels depending on operation
      * selection.
      *
-     * @return The mode as String, null if unknown mode
      */
-    private String updateButtonsAndLabels() {
+    private void updateButtonsAndLabels() {
 
         //TODO statt Textfeld UpdateDelete 
         System.out.println("Animal Mode");
@@ -776,7 +750,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             jButtonAssignZookeeper.setEnabled(true);
             mode = Mode.add;
             methods.clearTable((DefaultTableModel) jTableAnimalData.getModel());
-            return "add";
+
         } else if (jRadioButtonUpdate.isSelected()) {
             System.out.println("    Update mode");
             jButtonAddAnimal.setEnabled(false);
@@ -790,7 +764,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             jButtonAssignZookeeper.setEnabled(true);
             //mode = "update";
             mode = Mode.update;
-            return "update";
+
         } else if (jRadioButtonDelete.isSelected()) {
             System.out.println("    Delete mode");
             jButtonAddAnimal.setEnabled(false);
@@ -804,10 +778,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             jButtonAssignZookeeper.setEnabled(false);
             //mode = "delete";
             mode = Mode.delete;
-            return "delete";
-        }
 
-        return null;
+        }
     }
 
     /**
@@ -892,5 +864,5 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     private AnimalManager animalManager;
     private Methods methods;
     private LinkedList<Animal> lastSearchedAnimals;
-    private LinkedHashMap<String,String> lastSearchMap;
+    private LinkedHashMap<String, String> lastSearchMap;
 }

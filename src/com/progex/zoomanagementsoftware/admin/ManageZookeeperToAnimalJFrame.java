@@ -495,9 +495,6 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
 
         updateButtonsAndLabels();
-        //System.out.println(mode); //Debug
-
-        //Get the mode
         switch (mode) {
 
             case add:
@@ -534,9 +531,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                 if (zookeeperToAnimalManager.checkZookeeperToAnimalExists(animalName, Integer.parseInt(selectedZookeeperID))) {
                     JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung existiert bereits!", "Einfügen fehlgeschlagen", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-
                     LinkedList<Integer> animalIds = zookeeperToAnimalManager.getAnimalIds(animalName);
-
                     if (animalIds.isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Tiername wurde nicht gefunden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     } else {
