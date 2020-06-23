@@ -53,12 +53,12 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
         //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
         if (x == 1920 && y == 1080) {
 
-            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 32));
+            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 18));
 
         }
         if (x == 1280 && y == 720) {
 
-            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 28));
+            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 16));
 
         }
 

@@ -39,34 +39,24 @@ public class ChooseBoth extends javax.swing.JFrame {
     }
 
     private void myInitComponents() {
-        setUndecorated(true);
-        setAlwaysOnTop(true);
-        setResizable(false);
-        setVisible(true);
+        
+        
         Toolkit tk = Toolkit.getDefaultToolkit();
         int x = (int) tk.getScreenSize().getWidth();
         int y = (int) tk.getScreenSize().getHeight();
         setSize(x, y);
         //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
         if (x == 1920 && y == 1080) {
-            jLabelAnimal.setFont(new java.awt.Font("Calibri", 0, 48));
-            jLabelCompound.setFont(new java.awt.Font("Calibri", 0, 48));
-            jLabelCompoundStatic.setFont(new java.awt.Font("Calibri", 0, 48));
-            jLabelFeed.setFont(new java.awt.Font("Calibri", 0, 48));
-            jLabelFeedStatic.setFont(new java.awt.Font("Calibri", 0, 48));
-            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 28));
-            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 48));
+            
+            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 18));
+            
 
         }
         if (x == 1280 && y == 720) {
+            
+            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 16));
 
-            jLabelAnimal.setFont(new java.awt.Font("Calibri", 0, 28));
-            jLabelCompound.setFont(new java.awt.Font("Calibri", 0, 28));
-            jLabelCompoundStatic.setFont(new java.awt.Font("Calibri", 0, 28));
-            jLabelFeed.setFont(new java.awt.Font("Calibri", 0, 28));
-            jLabelFeedStatic.setFont(new java.awt.Font("Calibri", 0, 28));
-            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 28));
-            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 28));
+            
 
         }
 
@@ -129,16 +119,19 @@ public class ChooseBoth extends javax.swing.JFrame {
 
         jButtonBack = new javax.swing.JButton();
         jLabelShowDateTime = new javax.swing.JLabel();
+        jLabelFeedStatic = new javax.swing.JLabel();
+        jLabelFeed = new javax.swing.JLabel();
         jLabelAnimal = new javax.swing.JLabel();
         jLabelTime = new javax.swing.JLabel();
         jLabelCompoundStatic = new javax.swing.JLabel();
         jLabelCompound = new javax.swing.JLabel();
-        jLabelFeedStatic = new javax.swing.JLabel();
-        jLabelFeed = new javax.swing.JLabel();
-        labelKarte = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
+        setUndecorated(true);
+        setResizable(false);
 
+        jButtonBack.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jButtonBack.setText("Zurück");
         jButtonBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,27 +142,23 @@ public class ChooseBoth extends javax.swing.JFrame {
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelShowDateTime.setText("TIME");
 
-        jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelAnimal.setText("Tiername :");
-
-        jLabelTime.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelTime.setText("Zeit XX:XX -XX:XX");
-
-        jLabelCompoundStatic.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelCompoundStatic.setText("Gehege:");
-
-        jLabelCompound.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelCompound.setText("xxx Gehege");
-
-        jLabelFeedStatic.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelFeedStatic.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
         jLabelFeedStatic.setText("Futter:");
 
-        jLabelFeed.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabelFeed.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
         jLabelFeed.setText("xxx Futter");
 
-        labelKarte.setAlignment(java.awt.Label.CENTER);
-        labelKarte.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        labelKarte.setText("Karte");
+        jLabelAnimal.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
+        jLabelAnimal.setText("Tiername :");
+
+        jLabelTime.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
+        jLabelTime.setText("Zeit XX:XX -XX:XX");
+
+        jLabelCompoundStatic.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
+        jLabelCompoundStatic.setText("Gehege:");
+
+        jLabelCompound.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
+        jLabelCompound.setText("xxx Gehege");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,18 +166,12 @@ public class ChooseBoth extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(labelKarte, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(573, 573, 573))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1424, 1424, 1424)
-                        .addComponent(jLabelShowDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(269, 269, 269))))
+                .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelShowDateTime)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(108, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelAnimal)
                     .addComponent(jLabelCompoundStatic, javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,18 +181,16 @@ public class ChooseBoth extends javax.swing.JFrame {
                     .addComponent(jLabelTime)
                     .addComponent(jLabelCompound)
                     .addComponent(jLabelFeed))
-                .addGap(658, 658, 658))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelShowDateTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(34, 34, 34))
-                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(124, 124, 124)
+                    .addComponent(jLabelShowDateTime)
+                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelAnimal)
                     .addComponent(jLabelTime))
@@ -221,17 +202,13 @@ public class ChooseBoth extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFeedStatic)
                     .addComponent(jLabelFeed))
-                .addGap(62, 62, 62)
-                .addComponent(labelKarte, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(138, 138, 138))
         );
 
-        labelKarte.getAccessibleContext().setAccessibleName("");
-        labelKarte.getAccessibleContext().setAccessibleDescription("");
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-
         // TODO add your handling code here:
         goBackFrame.setVisible(true);
         //Close frame
@@ -271,6 +248,8 @@ public class ChooseBoth extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+
+        /* Create and display the form */
         String url = "jdbc:mysql://localhost/";
         String username = "root";
         String password = "0000";
@@ -295,7 +274,6 @@ public class ChooseBoth extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelFeedStatic;
     private javax.swing.JLabel jLabelShowDateTime;
     private javax.swing.JLabel jLabelTime;
-    private java.awt.Label labelKarte;
     // End of variables declaration//GEN-END:variables
     private javax.swing.JFrame goBackFrame;
     private ZooManager zooManager;
