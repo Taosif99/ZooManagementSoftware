@@ -23,9 +23,9 @@ import javax.swing.table.TableModel;
 public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form ManageUserJFrameOld.
+     * Creates new form ManageUserJFrame.
      *
-     * @param goBackFrame The frame which will appear when the go back button is.
+     * @param goBackFrame The frame which will appear when the go back button is
      * used
      * @param zooManager The zooManager of the current Programm session which serves as interface
      */

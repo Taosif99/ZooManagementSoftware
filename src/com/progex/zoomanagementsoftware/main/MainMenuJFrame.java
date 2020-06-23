@@ -35,12 +35,6 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     }
 
     private void myInitComponents() {
-
-        //Done in netbeans window
-        //this.setUndecorated(true);
-        //this.setAlwaysOnTop(true);
-        //this.setResizable(false);
-        // this.setVisible(true);
         Toolkit tk = Toolkit.getDefaultToolkit();
         int x = (int) tk.getScreenSize().getWidth();
         int y = (int) tk.getScreenSize().getHeight();

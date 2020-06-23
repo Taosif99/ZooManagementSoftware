@@ -24,7 +24,7 @@ import javax.swing.JFrame;
 public class ZooMapJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form ZooMapJFrame
+     * Creates new form ZooMapJFrame.
      * @param goBackFrame The frame which will appear when the go back button is used
      */
     public ZooMapJFrame(JFrame goBackFrame) {

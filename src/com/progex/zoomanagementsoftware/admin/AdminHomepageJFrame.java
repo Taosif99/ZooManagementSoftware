@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
@@ -19,7 +15,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AdminHomepageJFrame extends javax.swing.JFrame {
 
-   
+   /**
+    * Creates new form AdminHomePageFramne.
+     * @param mainMenuJFrame The frame which will appear when the lpgout back button is
+     * used
+     * @param zooManager The zooManager of the current Programm session which serves as interface
+    */
     public AdminHomepageJFrame(JFrame mainMenuJFrame,ZooManager zooManager) {
 
         this.zooManager = zooManager;
@@ -31,7 +32,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     }
 
-    public void myInitComponents() {
+    private void myInitComponents() {
 
    
         methods.showTimeAndDate(jLabelShowDateTime);
