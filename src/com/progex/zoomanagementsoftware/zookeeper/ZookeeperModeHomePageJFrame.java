@@ -21,7 +21,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     /**
      * Creates new form ZookeeperModeHomePage
      */
-    public ZookeeperModeHomePageJFrame(JFrame goBack, ZooManager zooManager){
+    public ZookeeperModeHomePageJFrame(JFrame goBackMainMenuJFrame, ZooManager zooManager){
         initComponents();
 
         // resolution settings init
@@ -29,8 +29,9 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
 
         // init references and paramteres
         this.zooManager = zooManager;
+        this.userManager = zooManager.getUserManager();
         this.setLocationRelativeTo(null);
-        mainMenuJFrame = goBack;
+        mainMenuJFrame = goBackMainMenuJFrame;
 
         // set welcome user label
         setNameLabel();
@@ -50,8 +51,8 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     private void setNextFeedingTimeInfo()  {
 
         
-        if(zooManager.getUserManager().getNextFeedingInfo().getFeedingTime() >= 0){
-        nächsteFütterungIn.setText("Nächste Fütterung in : " + zooManager.getUserManager().getNextFeedingInfo().getFeedingTime() + " Minuten");
+        if(userManager.getNextFeedingInfo().getFeedingTime() >= 0){
+        nächsteFütterungIn.setText("Nächste Fütterung in : " + userManager.getNextFeedingInfo().getFeedingTime() + " Minuten");
         
         }
         else{
@@ -66,7 +67,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
      */
     private void setNameLabel() {
 
-        zookeeperName.setText("Hallo " + zooManager.getUserManager().getLoggedInUser().getFirstname() + "!");
+        zookeeperName.setText("Hallo " + userManager.getLoggedInUser().getFirstname() + "!");
 
     }
 
@@ -77,7 +78,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
      */
     private void setLastLogDate() {
 
-        UserManager userManager = zooManager.getUserManager();
         User loggedInUser = userManager.getLoggedInUser();
         Methods methods = new Methods();
         String lastLogDate = loggedInUser.getLastLogDate().toString();
@@ -86,7 +86,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         //jLabelLastLoginTime.setText("" + zooManager.getUserManager().getLoggedInUser().getLastLogDate());
          //Versucht lieber variablen zu deklarieren als tausend "." zu benutzen
         jLabelLastLoginTime.setText(methods.removeSeconds(lastLogDate));
-        System.out.println("--------- HOMEPAGE GET LASTLOGDATE---------" + zooManager.getUserManager().getLoggedInUser().getLastLogDate());
+        System.out.println("--------- HOMEPAGE GET LASTLOGDATE---------" + userManager.getLoggedInUser().getLastLogDate());
 
     }
 
@@ -289,7 +289,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
      */
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
 
-        zooManager.getUserManager().logout();
+        userManager.logout();
         this.dispose();
         mainMenuJFrame.setVisible(true);
 
@@ -347,5 +347,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
 
     private javax.swing.JFrame mainMenuJFrame;
     private ZooManager zooManager;
+    private UserManager userManager;
 
 }

@@ -148,15 +148,40 @@ public class UserManager {
             String country, String phoneNumber, String birthday, String shift,
             String username, String email, String password) {
 
-        //boolean retVal = false;
-        boolean retVal = addAddress(zip, city, country, street);
-        if (retVal) {
-            //Get the address with street,zip,city --> I guess country not requird
-            int addressId = searchAddressId(zip, street, city);
-            if (addressId == -1) {
+        //Get the address with street,zip,city --> I guess country not requird
+        int addressId = searchAddressId(zip, street, city);
+        if (addressId == -1) {
+
+            boolean retVal = addAddress(zip, city, country, street);
+            if (retVal) {
+
+                MD5Hash hasher = new MD5Hash();
+
+                String hashedPassword = hasher.hashString(password);
+                //Know the user can be added 
+                String insertUserQuery = "INSERT INTO User (UserName,FirstName,LastName,PhoneNumber,"
+                        + "Birthday,Email,Salutation,HashedPassword,"
+                        + "AddressID,Type,Shift,LastLogDate) \n"
+                        + "VALUES ('" + username + "',"
+                        + "'" + firstname + "',"
+                        + "'" + lastname + "',"
+                        + "'" + phoneNumber + "',"
+                        + "'" + birthday + "',"
+                        + "'" + email + "',"
+                        + "'" + salutation + "',"
+                        + "'" + hashedPassword + "',"
+                        + addressId + ","
+                        + "'" + type + "',"
+                        + "'" + shift + "',"
+                        + "'1998-01-01 00:00:00')"; //Using zeros as initial log date -> does not work
+
+                retVal = connectionHandler.manipulateDB(insertUserQuery);
+
+                return retVal;
+            } else { //Wenn die adresse nicht hinzugefügt werden könnte
                 return retVal;
             }
-
+        } else {
             MD5Hash hasher = new MD5Hash();
 
             String hashedPassword = hasher.hashString(password);
@@ -176,11 +201,10 @@ public class UserManager {
                     + "'" + type + "',"
                     + "'" + shift + "',"
                     + "'1998-01-01 00:00:00')"; //Using zeros as initial log date -> does not work
+            System.out.println("Address ID " + addressId);
+            System.out.println(insertUserQuery);
+            boolean retVal = connectionHandler.manipulateDB(insertUserQuery);
 
-            retVal = connectionHandler.manipulateDB(insertUserQuery);
-
-            return retVal;
-        } else {
             return retVal;
         }
     }
@@ -190,7 +214,8 @@ public class UserManager {
         String insertAddressQuery = "INSERT INTO Address (Zip, Street, Country, City)"
                 + "VALUES ('" + zip + "','" + street + "','" + country + "','" + city + "')";
         System.out.println(insertAddressQuery);
-        return connectionHandler.manipulateDB(insertAddressQuery);
+        boolean retVal = connectionHandler.manipulateDB(insertAddressQuery);
+        return retVal;
     }
 
     /**
@@ -221,7 +246,6 @@ public class UserManager {
         } catch (SQLException ex) {
             System.err.println("SQL Exception");
             System.out.println(ex.getMessage());
-            //ex.printStackTrace();
             return -1;
         }
         return addressId;
@@ -310,8 +334,54 @@ public class UserManager {
             System.out.println(query);
             return connectionHandler.manipulateDB(query);
 
+        } else {
+            String oldUsername = " ";
+            String userNameQuery = "SELECT UserName FROM user WHERE id = " + id;
+            ResultSet resultSet = connectionHandler.performQuery(userNameQuery);
+            if (resultSet != null) {
+
+                try {
+                    if (resultSet.next()) {
+                        oldUsername = resultSet.getString("UserName");
+                    }
+
+                } catch (SQLException ex) {
+                    System.err.println("SQL Exception");
+                    System.out.println(ex.getMessage());
+                }
+            }
+
+            if (!oldUsername.equals(username)) {
+                if (this.usernameExists(username)) {
+                    return false;
+                }
+            }
+            String query;
+
+            query = "UPDATE User\n"
+                    + "SET UserName = '" + username + "',\n"
+                    + "FirstName = '" + firstname + "',\n"
+                    + "LastName = '" + lastname + "',\n"
+                    + "PhoneNumber = '" + phoneNumber + "',\n"
+                    + "Birthday = '" + birthday + "',\n"
+                    + "Email = '" + email + "',\n"
+                    + "Salutation= '" + salutation + "',\n"
+                    + "AddressID = " + addressId + ",\n"
+                    + "Type = 'Admin',\n"
+                    + "Shift = 'None'\n";
+            // + "WHERE ID = " + id;
+
+            if (changePassword) {
+
+                query = query + " ,HashedPassword = '" + hashedPassword + "'\n"
+                        + " WHERE ID = " + id;
+            } else {
+                query = query + " WHERE ID = " + id;
+            }
+
+            System.out.println(query);
+            return connectionHandler.manipulateDB(query);
         }
-        return false;
     }
 
     /**
@@ -564,8 +634,8 @@ public class UserManager {
                     + "FeedingTimeInMinutes: " + feedingTimeInMinutes);
 
             // create FeedingInfo based on Database Information and return it
-            ZookeeperInfo x = new ZookeeperInfo(feedingTimeInMinutes, gehege, tiername, futter, abstellRaum, menge);
-            return x;
+            ZookeeperInfo zookeeperInfo = new ZookeeperInfo(feedingTimeInMinutes, gehege, tiername, futter, abstellRaum, menge);
+            return zookeeperInfo;
         } catch (SQLException ex) {
             System.err.println("SQL EXCEPTION");
             System.out.println(ex.getMessage());
@@ -583,26 +653,35 @@ public class UserManager {
      */
     public ResultSet getAllFeedingTimeInKG() {
 
-        String query = "SELECT CONVERT(Fütterungszeit, time) as Uhrzeit,Tier,Futter,MengeKG,Abstellraumnummer,Gehege FROM (SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount AS MengeKG, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName "
-                + "FROM eats "
-                + "INNER JOIN "
-                + "food "
-                + "ON eats.FoodID = food.ID "
-                + "INNER JOIN "
-                + "animal "
-                + "ON eats.AnimalID = animal.ID "
-                + "INNER JOIN "
-                + "takescare "
-                + "ON eats.AnimalID = takescare.AnimalID "
-                + "INNER JOIN "
-                + "user "
-                + "ON takescare.UserID = user.ID "
-                + "INNER JOIN "
-                + "compound "
-                + "ON animal.CompoundID = compound.ID) "
-                + "AS joinedTable WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and joinedTable.FütterungsZeit > current_date() "
-                + "ORDER BY fütterungszeit desc";
+//        String query = "SELECT Tier,Futter,MengeKG,Abstellraumnummer,Gehege,Uhrzeit,\n" +
+//"case when diffMin<0 then 'Abgelaufen' else diffMin end as \"Findet statt in HH:MM:SS\"\n" +
+//"FROM \n" +
+//"	(SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount AS MengeKG, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName,TIMEDIFF(CONVERT(eats.StartFeedingTime, time), current_time()) as diffMin, CONVERT(eats.StartFeedingTime, time) as Uhrzeit \n" +
+//"	FROM eats \n" +
+//"		INNER JOIN food ON eats.FoodID = food.ID \n" +
+//"        INNER JOIN animal ON eats.AnimalID = animal.ID \n" +
+//"        INNER  JOIN takescare ON eats.AnimalID = takescare.AnimalID \n" +
+//"        INNER JOIN user ON takescare.UserID = user.ID \n" +
+//"        INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable \n" +
+//"	WHERE joinedTable.UserName = \"schäfernooa\" and joinedTable.FütterungsZeit > current_date() \n" +
+//"    ORDER BY case when diffMin<0 then 1 else 0 end,diffMin";
 
+
+        String query = 
+                
+                "SELECT Uhrzeit, case when diffMin<0 then 'Abgelaufen' else diffMin end as \"Findet statt in HH:MM:SS\", Tier,Futter,MengeKG as \"Menge in Kilogramm\",Abstellraumnummer,Gehege "
+                + "FROM "
+                + "(SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount AS MengeKG, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName,TIMEDIFF(CONVERT(eats.StartFeedingTime, time), current_time()) as diffMin, CONVERT(eats.StartFeedingTime, time) as Uhrzeit "
+                + "FROM eats "
+                + "INNER JOIN food ON eats.FoodID = food.ID "
+                + "INNER JOIN animal ON eats.AnimalID = animal.ID "
+                + "INNER  JOIN takescare ON eats.AnimalID = takescare.AnimalID "
+                + "INNER JOIN user ON takescare.UserID = user.ID "
+                + "INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable "
+                + "WHERE joinedTable.UserName = \""+loggedInUser.getUsername()+"\" and joinedTable.FütterungsZeit > current_date() "
+                + "ORDER BY case when diffMin<0 then 1 else 0 end,diffMin";
+        
+        
         return connectionHandler.performQuery(query);
 
     }
@@ -616,26 +695,42 @@ public class UserManager {
      */
     public ResultSet getAllFeedingTimeInGramm() {
 
-        String query = "SELECT CONVERT(Fütterungszeit, time) as Uhrzeit,Tier,Futter,MengeGramm,Abstellraumnummer,Gehege FROM (SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount * 1000 AS MengeGramm, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName "
-                + "FROM eats "
-                + "INNER JOIN "
-                + "food "
-                + "ON eats.FoodID = food.ID "
-                + "INNER JOIN "
-                + "animal "
-                + "ON eats.AnimalID = animal.ID "
-                + "INNER JOIN "
-                + "takescare "
-                + "ON eats.AnimalID = takescare.AnimalID "
-                + "INNER JOIN "
-                + "user "
-                + "ON takescare.UserID = user.ID "
-                + "INNER JOIN "
-                + "compound "
-                + "ON animal.CompoundID = compound.ID) "
-                + "AS joinedTable WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and joinedTable.FütterungsZeit > current_date() "
-                + "ORDER BY fütterungszeit desc";
+//        String query = "SELECT CONVERT(Fütterungszeit, time) as Uhrzeit,Tier,Futter,MengeGramm,Abstellraumnummer,Gehege FROM (SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount * 1000 AS MengeGramm, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName "
+//                + "FROM eats "
+//                + "INNER JOIN "
+//                + "food "
+//                + "ON eats.FoodID = food.ID "
+//                + "INNER JOIN "
+//                + "animal "
+//                + "ON eats.AnimalID = animal.ID "
+//                + "INNER JOIN "
+//                + "takescare "
+//                + "ON eats.AnimalID = takescare.AnimalID "
+//                + "INNER JOIN "
+//                + "user "
+//                + "ON takescare.UserID = user.ID "
+//                + "INNER JOIN "
+//                + "compound "
+//                + "ON animal.CompoundID = compound.ID) "
+//                + "AS joinedTable WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and joinedTable.FütterungsZeit > current_date() "
+//                + "ORDER BY fütterungszeit desc";
 
+        
+
+        String query = 
+                "SELECT Uhrzeit,case when diffMin<0 then 'Abgelaufen' else diffMin end as \"Findet statt in HH:MM:SS\",Tier,Futter,MengeGR as \"Menge in Gramm\",Abstellraumnummer,Gehege "
+                + "FROM "
+                + "(SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount * 1000 AS MengeGR, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName,TIMEDIFF(CONVERT(eats.StartFeedingTime, time), current_time()) as diffMin, CONVERT(eats.StartFeedingTime, time) as Uhrzeit "
+                + "FROM eats "
+                + "INNER JOIN food ON eats.FoodID = food.ID "
+                + "INNER JOIN animal ON eats.AnimalID = animal.ID "
+                + "INNER  JOIN takescare ON eats.AnimalID = takescare.AnimalID "
+                + "INNER JOIN user ON takescare.UserID = user.ID "
+                + "INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable "
+                + "WHERE joinedTable.UserName = \""+loggedInUser.getUsername()+"\" and joinedTable.FütterungsZeit > current_date() "
+                + "ORDER BY case when diffMin<0 then 1 else 0 end,diffMin";
+        
+        
         return connectionHandler.performQuery(query);
 
     }
