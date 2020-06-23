@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
@@ -110,12 +106,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jPasswordFieldEnteredPW.setText("");
     }
 
-    /**
-     * ICH WÜRDE ES EHER IN DER DATENBANK VERÄNDERN..., dann fallen UNNÖTIGE
-     * Übersetzungen weg !
-     *
-     * @return
-     */
+    //TODO CHANGE DATABASE
     private String getGermanShiftString() {
 
         if (userType.equals("Zookeeper")) {
@@ -347,11 +338,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jLabelSalutation.setText("Anrede");
 
         jComboBoxSalutation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Herr", "Frau", "Divers" }));
-        jComboBoxSalutation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxSalutationActionPerformed(evt);
-            }
-        });
 
         jLabelFirstname.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelFirstname.setText("Vorname");
@@ -363,11 +349,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jLabelStreet.setText("Straße");
 
         jTextFieldStreet.setToolTipText("Straße und Hausnummer eintragen");
-        jTextFieldStreet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldStreetActionPerformed(evt);
-            }
-        });
 
         jLabelZIP.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelZIP.setText("PLZ");
@@ -402,11 +383,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jLabelConfirmPassword.setText("Passwort bestätigen");
 
         jComboBoxShift.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Früh", "Nachmittag", "Spät" }));
-        jComboBoxShift.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxShiftActionPerformed(evt);
-            }
-        });
 
         jTextFieldBirthday.setToolTipText("Format: yyyy-MM-dd");
 
@@ -655,7 +631,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
 
         goBackFrame.setVisible(true);
-        //Close frame
         this.dispose();
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
@@ -669,18 +644,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAdminActionPerformed
-
-    private void jComboBoxSalutationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSalutationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxSalutationActionPerformed
-
-    private void jTextFieldStreetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldStreetActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldStreetActionPerformed
-
-    private void jComboBoxShiftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxShiftActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxShiftActionPerformed
 
     private void jButtonAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddUserActionPerformed
 
@@ -893,17 +856,17 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
             if (textFieldsVerified) {
 
-                //TODO Cancel auf deutsch
+                
                 int decision = JOptionPane.showConfirmDialog(null,
                         "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (decision == 0) {
                     if (userManager.deleteUser(ID)) {
-                        //Falls Löschen erfolgreich, pfeil wäre besser
+                        
                         JOptionPane.showMessageDialog(null, "Nutzer/-in wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                         if (lastSearchMap != null) {
-                            LinkedList<User> users = userManager.searchUsers(lastSearchMap);
-                            viewUsers(users);
+                           lastSearchedUsers = userManager.searchUsers(lastSearchMap);
+                            viewUsers(lastSearchedUsers);
                         }
                         cleanFields();
                     } else {
@@ -1006,8 +969,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                 cleanFields();
 
                                 if (lastSearchMap != null) {
-                                    LinkedList<User> users = userManager.searchUsers(lastSearchMap);
-                                    viewUsers(users);
+                                    lastSearchedUsers = userManager.searchUsers(lastSearchMap);
+                                    viewUsers(lastSearchedUsers);
                                 }
                             } else {
                                 JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -1086,12 +1049,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         zooManager.getUserManager().logout();
     }//GEN-LAST:event_formWindowClosing
 
-    /**
-     * Method to disable/enable buttons depending user/zookeeper mode and
-     * operation selection.
-     *
-     * @return The mode as String, null if unknown mode
-     */
+
     private String updateButtonsAndLabels() {
 
         if (jRadioButtonAdmin.isSelected()) {

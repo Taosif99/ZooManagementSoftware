@@ -8,7 +8,9 @@ import java.sql.Date;
 import java.sql.SQLException;
 
 /**
- * @(#) ConnectionHandler.java
+ * Class which is used to handle the connection and basic database operations
+ * in our database.
+ * @author Ouchen
  */
 
 public class ConnectionHandler {

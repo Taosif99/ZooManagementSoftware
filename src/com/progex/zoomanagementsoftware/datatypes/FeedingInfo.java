@@ -1,7 +1,7 @@
 package com.progex.zoomanagementsoftware.datatypes;
-import java.sql.Date;
+
 /**
- * @(#) FeedingInfo.java
+ *  Class which is used to model an Feeding info for a guest in our zoo management software.
  */
 
 public class FeedingInfo
@@ -16,7 +16,7 @@ public class FeedingInfo
 	
 	private String compoundName;
 	
-	private String startFeedingTime; //WAHRSCHEINLICH IST HIER SQL TIMESTAMP ANGEBRACHT
+	private String startFeedingTime; 
 	
 	private String foodName;
 	

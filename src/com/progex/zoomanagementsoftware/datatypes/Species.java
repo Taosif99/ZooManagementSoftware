@@ -1,7 +1,7 @@
 package com.progex.zoomanagementsoftware.datatypes;
 
 /**
- * @(#) Species.java
+ * Class which is used to model the species of an animal in our zoo management software.
  */
 public class Species {
 

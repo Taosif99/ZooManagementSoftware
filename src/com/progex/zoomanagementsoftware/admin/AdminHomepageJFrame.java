@@ -19,9 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AdminHomepageJFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainPageJFrame
-     */
+   
     public AdminHomepageJFrame(JFrame mainMenuJFrame,ZooManager zooManager) {
 
         this.zooManager = zooManager;

@@ -480,7 +480,7 @@ public class UserManager {
         return retVal;
     }
 
-    //Khalid start TODO, case if nothing returns
+    //Khalid start 
     //
     /**
      * Method returns a user after checking if the given username and hashed

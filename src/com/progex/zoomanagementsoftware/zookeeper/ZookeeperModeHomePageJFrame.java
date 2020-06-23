@@ -244,8 +244,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void jButtonNextFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
+        
         JFrame thisFrame = this;
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -256,7 +255,8 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
             }
         });
 
-
+        this.setVisible(false); 
+        
     }//GEN-LAST:event_jButtonNextFeedingTimeActionPerformed
 
     private void jButtonNextFeedingTimeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeMouseClicked
@@ -290,9 +290,8 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
 
         userManager.logout();
-        this.dispose();
         mainMenuJFrame.setVisible(true);
-
+        this.dispose();
 
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 

@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
- * @(#) User.java
+ * Class which is used to model a generic user in our zoo management software.
  */
 public abstract class User {
 

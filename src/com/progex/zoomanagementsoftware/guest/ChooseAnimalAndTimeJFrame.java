@@ -338,7 +338,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(rootPane, "Keine Fütterungen für " + animal + " heute mehr ", "Schade :(", JOptionPane.INFORMATION_MESSAGE);
 
                 } else {
-                    this.setVisible(false);
+                    
 
                     JFrame thisFrame = this;
                     java.awt.EventQueue.invokeLater(new Runnable() {
@@ -346,6 +346,8 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                             new ChooseAnimalJFrame(thisFrame, zooManager, animal, feedingInfos).setVisible(true);
                         }
                     });
+                    
+                    this.setVisible(false);
                 }
             } catch (ParseException ex) {
                 System.err.println("ParseException");
@@ -357,7 +359,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         ///choosed time   
         if (animal.equals("Tier auswählen") && !feedingTime.equals("Zeit auswählen")) {
 
-            this.setVisible(false);
+           
 
             JFrame thisFrame = this;
             java.awt.EventQueue.invokeLater(new Runnable() {
@@ -365,10 +367,12 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                     new ChooseTimeJFrame(thisFrame, zooManager, (String)jComboTime.getSelectedItem()).setVisible(true);
                 }
             });
+            
+            this.setVisible(false); 
         }
         ///choosed both
         if (!animal.equals("Tier auswählen") && !feedingTime.equals("Zeit auswählen")) {
-            this.setVisible(false);
+           
 
             JFrame thisFrame = this;
             java.awt.EventQueue.invokeLater(new Runnable() {
@@ -376,6 +380,8 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                     new ChooseBoth(thisFrame, zooManager, (String) jComboBoxName.getSelectedItem(), (String) jComboTime.getSelectedItem()).setVisible(true);
                 }
             });
+            
+            this.setVisible(false); 
         }
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
@@ -436,6 +442,6 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     private javax.swing.JFrame goBackFrame;
     private ZooManager zooManager;
     private GuestModeManager guestModeManager;
-    private Date date;
+
 
 }

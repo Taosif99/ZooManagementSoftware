@@ -1,6 +1,6 @@
 package com.progex.zoomanagementsoftware.datatypes;
 /**
- * @(#) Food.java
+ *  Class which is used to model the food of the zoo in our zoo management software.
  */
 
 public class Food

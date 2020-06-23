@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 
 /**
- * @(#) Admin.java
+ *  Class which is used to model an Admin user in our zoo management software.
  */
 public class Admin extends User {
 

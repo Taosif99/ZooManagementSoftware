@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.AnimalManager;
@@ -28,6 +24,13 @@ import javax.swing.table.TableModel;
  */
 public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
+    /**
+     * Creates new form ManageFoodToAnimalJFrame.
+     * 
+     * @param goBackFrame The frame which will appear when the go back button is
+     * used
+     * @param zooManager  The zooManager of the current Programm session which serves as interface
+     */
     public ManageFoodToAnimalJFrame(JFrame goBackFrame, ZooManager zooManager) {
 
         initComponents();
@@ -40,7 +43,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         myInitComponents();
     }
 
-    public void myInitComponents() {
+   private void myInitComponents() {
         updateButtonsAndLabels();
         UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
         UIManager.put("OptionPane.noButtonText", "Nein");
@@ -59,14 +62,13 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
         /*Loading all animals to Table, better in own method*/
         DefaultTableModel model = (DefaultTableModel) jTableAnimalData.getModel();
-        Object[] row = new Object[6]; // Spalten
+        Object[] row = new Object[6];
 
         for (Animal animal : animals) {
-            //Hier bekommt man die Spalten der Zeile
             row[0] = animal.getId();
             row[1] = animal.getName();
             row[2] = animal.getBirthday();
-            row[3] = animal.getSex(); //TODO PARSE TO AGE
+            row[3] = animal.getSex(); 
             //DIE LINE IST NOCH HÄSSLICH
             row[4] = methods.descriptionToString(animal.getSpecies().getDescription());
             row[5] = animal.getCompound().getName();
@@ -74,9 +76,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * Method to reload the datasets of the relation table.
-     */
+  
     private void viewRelationTable(LinkedList<FoodToAnimalR> records) {
 
         DefaultTableModel tableRelationModel = (DefaultTableModel) jTableFoodToAnimalData.getModel();

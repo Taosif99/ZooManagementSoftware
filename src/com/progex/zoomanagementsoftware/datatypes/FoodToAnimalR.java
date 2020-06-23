@@ -1,7 +1,7 @@
 
 package com.progex.zoomanagementsoftware.datatypes;
 
-//import java.sql.Timestamp; TODO USE TIMESTAMP EVENTUALLY BETTER APPROACH
+
 
 /**
  *This class has been implemented to represent a record of

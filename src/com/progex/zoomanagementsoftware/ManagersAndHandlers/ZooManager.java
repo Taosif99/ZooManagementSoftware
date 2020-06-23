@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.progex.zoomanagementsoftware.ManagersAndHandlers;
 
 
@@ -14,7 +10,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 /**
- *
+ *This class serves as main interface to our zoo management software.
  * @author Ouchen
  */
 public class ZooManager {
@@ -142,9 +138,6 @@ public class ZooManager {
     }
     //Mustapha end
 
-    //Taosif start
-    //TakesCare
-    
-    //Taosif end
+ 
 
 }

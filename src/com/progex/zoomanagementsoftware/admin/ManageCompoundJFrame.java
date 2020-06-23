@@ -23,10 +23,11 @@ import javax.swing.table.TableModel;
 public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form ManageUserJFrameOld
+     * Creates new form ManageUserJFrameOld.
      *
-     * @param goBackFrame The frame which will appear when the go back button is
+     * @param goBackFrame The frame which will appear when the go back button is.
      * used
+     * @param zooManager The zooManager of the current Programm session which serves as interface
      */
     public ManageCompoundJFrame(JFrame goBackFrame, ZooManager zooManager) {
         initComponents();
@@ -39,7 +40,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     }
 
-    public void myInitComponents() {
+ 
+    private void myInitComponents() {
         updateButtonsAndLabels();
         UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
         UIManager.put("OptionPane.noButtonText", "Nein");
@@ -47,6 +49,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         UIManager.put("OptionPane.yesButtonText", "Ja");
     }
 
+    
+ 
     private void cleanFields() {
         jTextFieldID.setText("");
         jTextFieldCompoundName.setText("");
@@ -55,12 +59,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         jTextFieldArea.setText("");
     }
 
-    /**
-     * Method which has been implemented to map a LinkedList of Compound objects
-     * to a JTable.
-     *
-     * @param compounds
-     */
+  
     private void viewCompounds(LinkedList<Compound> compounds) {
 
         methods.clearTable((DefaultTableModel) jTableCompoundData.getModel());
@@ -83,15 +82,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     }
 
-    /**
-     * Method which has been implemented to restrict negative values. If
-     * compound has not been built then it can initialize with zero.
-     *
-     * @param constructionYear
-     * @param maxCapacity
-     * @param area
-     * @return
-     */
+
     private boolean checkGreaterZero(int constructionYear, int maxCapacity, double area) {
 
         return (constructionYear < 0 || maxCapacity < 0 || area < 0);
@@ -420,6 +411,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+  
     private void jButtonAddCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddCompoundActionPerformed
 
         jTextFieldID.setText("");
@@ -643,12 +635,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonHelpActionPerformed
 
-    /**
-     * This method makes it possible to update the fields, depending which row
-     * is clicked.
-     *
-     * @param evt
-     */
+
     private void jTableCompoundDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCompoundDataMouseClicked
 
         if (!mode.equals("add")) {

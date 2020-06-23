@@ -1,6 +1,4 @@
-/*
- *Class which handles animals in our program.
- */
+
 package com.progex.zoomanagementsoftware.ManagersAndHandlers;
 
 import com.progex.zoomanagementsoftware.datatypes.Animal;
@@ -15,7 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 /**
- *
+ *Class which handles animals in our program.
  * @author Ouchen
  */
 public class AnimalManager {

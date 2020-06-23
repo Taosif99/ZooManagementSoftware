@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.progex.zoomanagementsoftware.ManagersAndHandlers;
 
 import com.progex.zoomanagementsoftware.datatypes.FoodToAnimalR;
@@ -13,7 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 /**
- *
+ *Class which handles the the food to animal relation in our program.
  * @author Ouchen
  */
 public class FoodToAnimalManager {
@@ -22,6 +18,8 @@ public class FoodToAnimalManager {
       private ConnectionHandler connectionHandler;
       private ZooManager zooManager;
 
+      
+      
     public FoodToAnimalManager(ConnectionHandler connectionHandler, ZooManager zooManager) {
         this.connectionHandler = connectionHandler;
         this.zooManager = zooManager;

@@ -3,7 +3,7 @@ package com.progex.zoomanagementsoftware.datatypes;
 import java.sql.Date;
 
 /**
- * @(#) Animal.java
+ *  Class which is used to model an animal in our zoo management software.
  */
 public class Animal {
 
@@ -19,8 +19,6 @@ public class Animal {
 
     private Species species;
 
-
-   // private String animalName;
 
     public Animal(int id, String name, Date birthday, String sex, Compound compound, Species species) {
 

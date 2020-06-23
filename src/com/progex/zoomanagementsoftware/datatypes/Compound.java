@@ -1,9 +1,9 @@
 package com.progex.zoomanagementsoftware.datatypes;
 
-import java.sql.Date;
+
 
 /**
- * @(#) Compound.java
+ * Class which is used to model a compound in our zoo management software.
  */
 public class Compound {
 

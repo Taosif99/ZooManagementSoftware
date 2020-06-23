@@ -256,6 +256,5 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
     private ZooManager zooManager;
     private GuestModeManager guestModeManager;
     private String time;
-    private Date date;
 
 }

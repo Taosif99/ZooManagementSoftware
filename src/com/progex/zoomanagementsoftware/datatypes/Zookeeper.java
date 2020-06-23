@@ -3,7 +3,7 @@ package com.progex.zoomanagementsoftware.datatypes;
 import java.sql.Date;
 import java.sql.Timestamp;
 /**
- * @(#) Zookeeper.java
+ * Class which is used to model a zookeeper in our zoo management software.
  */
 
 public class Zookeeper extends User

@@ -1,7 +1,7 @@
 package com.progex.zoomanagementsoftware.datatypes;
 
 /**
- * @(#) ZookeeperInfo.java
+ * Class which is used to mode zookeeper information in our zoo management software.
  */
 
 public class ZookeeperInfo

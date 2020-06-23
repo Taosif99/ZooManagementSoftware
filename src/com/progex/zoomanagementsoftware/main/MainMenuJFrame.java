@@ -27,7 +27,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         will be passed to the corresponding frames*/
         String url = "jdbc:mysql://localhost/";
         String username = "root";
-        String password = "AbuKungFu707-";
+        String password = "0000";
         String dbName = "zoo";
 
         zooManager = new ZooManager(url, dbName, username, password);
@@ -69,7 +69,6 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         setTitle("Zoo / compund management");
         setAlwaysOnTop(true);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(600, 720));
         setResizable(false);
 
         jLabelWelcome.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N

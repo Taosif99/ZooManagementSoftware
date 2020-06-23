@@ -295,8 +295,8 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
         // TODO add your handling code here:
         userManager.logout();
-        this.dispose();
         mainMenuJFrame.setVisible(true);
+        this.dispose();
 
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 
@@ -340,10 +340,9 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
+        
         zookeeperModeHomePageFrame.setVisible(true);
-
+        this.setVisible(false);
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     /**

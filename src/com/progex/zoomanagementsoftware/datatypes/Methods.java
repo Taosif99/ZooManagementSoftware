@@ -12,13 +12,12 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 //For email checking
-import java.util.regex.Matcher; 
 import java.util.regex.Pattern; 
 
 /**
  *
  * This class shall general provide methods for the Implementation If they
- * cannot be assigned to a concrete Class
+ * cannot be assigned to a concrete Class.
  */
 public class Methods {
 
@@ -29,7 +28,7 @@ public class Methods {
     //Mustapha start
     
     /**
-     * Method which changes time every 60 seconds
+     * Method which changes time every 60 seconds.
      *
      * @param jLabelShowDateTime The label in which current time and date shall
      * be shown
@@ -64,7 +63,7 @@ public class Methods {
      * Method to verify that the user inputs are not empty.
      *
      * @param textFields
-     * @return
+     * @return true if trimmed textfields not blank, else false
      */
     public boolean verifyTextFields(JTextField[] textFields) {
 
@@ -81,7 +80,7 @@ public class Methods {
     }
 
     /**
-     * Method to get the corresponding description enum of an Animal
+     * Method to get the corresponding description enum of an Animal.
      *
      * @param descriptionStr
      * @return The correspondig enum to the description String
@@ -124,7 +123,7 @@ public class Methods {
      * Method to convert a description enum to its corresponding "german" value.
      *
      * @param description
-     * @return The description as String
+     * @return The description as String, null no matches found.
      */
     public String descriptionToString(Description description) {
 
@@ -167,7 +166,7 @@ public class Methods {
      * Method which has been implemented to convert a salutation String 
      * to an enum type
      * @param salutationStr
-     * @return The corresponding salutation
+     * @return The corresponding salutation,diverse if it is not mr or mrs.
      */
     public Salutation stringToSalutation(String salutationStr){
     
@@ -184,7 +183,7 @@ public class Methods {
     
     /**
      * Method which has been implemented to convert a Salutation enum
-     * to a String
+     * to a String.
      * @param salutation
      * @return The corresponding salutation if mapping is possible, else an empty String
      */
@@ -204,7 +203,7 @@ public class Methods {
     }
     
     
-    /**
+    /**TODO
      * Method which has been implemented to convert a shift String 
      * to an enum type -> Vielleicht besser wenn wir es in der Datenbank auf deutsch haben ???
      * @param shiftStr
@@ -232,7 +231,7 @@ public class Methods {
     
     /**
      * Method which has been implemented to convert a Shift enum
-     * to a String
+     * to a String.
      * @param shift
      * @return The corresponding shift as String if mapping is possible, else an empty String
      */
@@ -258,7 +257,7 @@ public class Methods {
     
        
     /**
-     * Method to check if a given date has the format ""yyyy-MM-dd.
+     * Method to check if a given date has the format ""yyyy-MM-dd".
      * @param dateString
      * @return true if pattern is valid, else false
      */
@@ -282,13 +281,14 @@ public class Methods {
      * @return The formated String with YYYY-MM-DD HH:MI
      */
    public String removeSeconds(String dateString){
-   
+       
         return dateString.substring(0,16);
    }
    
    
    /**
-    * TODO: probably merge with function above in a valid pattern function???
+    * Method to check if a feeding time string representation corresponds to the
+    * value format of the database.
     * @param feedingTime
     * @return True if format is yyyy-MM-dd HH:mm:ss, else false
     */
@@ -339,7 +339,7 @@ public class Methods {
    
    
      /**
-      * Method to check if a Email has a valid pattern
+      * Method to check if a Email has a valid pattern.
       * Regular expression from: https://owasp.org/www-community/OWASP_Validation_Regex_Repository
       * @param email
       * @return true if pattern is right, else false

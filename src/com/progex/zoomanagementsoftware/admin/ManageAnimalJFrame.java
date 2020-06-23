@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.AnimalManager;
@@ -26,10 +22,11 @@ import javax.swing.table.TableModel;
 public class ManageAnimalJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form ManageUserJFrameOld
+     * Creates new form ManageUserJFrame.
      *
      * @param goBackFrame The frame which will appear when the go back button is
      * used
+     * @param zooManager  The zooManager of the current Programm session which serves as interface
      */
     public ManageAnimalJFrame(JFrame goBackFrame, ZooManager zooManager) {
         initComponents();
@@ -44,7 +41,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
     }
 
-    public void myInitComponents() {
+    private void myInitComponents() {
         updateButtonsAndLabels();
         //LinkedList <Animal> allAnimals = zooManager.getAnimals();
         //viewAnimals(allAnimals);
@@ -63,12 +60,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         jTextFieldID.setText("");
     }
 
-    /**
-     * Method which has been implemented to map a LinkedList of Animal objects
-     * to a JTable.
-     *
-     * @param animals
-     */
+ 
     private void viewAnimals(LinkedList<Animal> animals) {
 
         methods.clearTable((DefaultTableModel) jTableAnimalData.getModel());
@@ -733,12 +725,11 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
      */
     private void updateButtonsAndLabels() {
 
-        //TODO statt Textfeld UpdateDelete 
+
         System.out.println("Animal Mode");
 
         if (jRadioButtonAdd.isSelected()) {
             System.out.println("    Add mode");
-            //jLabelUpdateDelete.setText("");
             jButtonAddAnimal.setEnabled(true);
             jButtonUpdateAnimal.setEnabled(false);
             jButtonDeleteAnimal.setEnabled(false);
@@ -762,7 +753,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(true);
             jButtonAssignFeedingTimes.setEnabled(true);
             jButtonAssignZookeeper.setEnabled(true);
-            //mode = "update";
             mode = Mode.update;
 
         } else if (jRadioButtonDelete.isSelected()) {
@@ -776,7 +766,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(true);
             jButtonAssignFeedingTimes.setEnabled(false);
             jButtonAssignZookeeper.setEnabled(false);
-            //mode = "delete";
             mode = Mode.delete;
 
         }

@@ -266,8 +266,10 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
-        this.setVisible(false);
+        
         zookeeperModeHomePageFrame.setVisible(true);
+        this.setVisible(false);
+      
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jButtonGoBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGoBackMouseClicked

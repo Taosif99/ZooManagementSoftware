@@ -1,7 +1,7 @@
 package com.progex.zoomanagementsoftware.datatypes;
 
 /**
- * @(#) Address.java
+ * Class which is used to model an address in our zoo management software.
  */
 public class Address {
 

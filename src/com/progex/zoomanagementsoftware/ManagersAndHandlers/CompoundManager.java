@@ -1,6 +1,4 @@
-/**
- * Class which handles the compounds in our program.
- */
+
 package com.progex.zoomanagementsoftware.ManagersAndHandlers;
 
 import com.progex.zoomanagementsoftware.datatypes.Compound;
@@ -8,11 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
- *
+ *Class which handles the compounds in our program.
  * @author Ouchen
  */
 public class CompoundManager {
