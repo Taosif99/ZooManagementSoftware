@@ -5,6 +5,7 @@
  */
 package com.progex.zoomanagementsoftware.zookeeper;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 
@@ -30,6 +31,8 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
         this.zookeeperModeHomePageFrame = zookeeperModeHomePageFrame;
         this.nextFeedingTimeFrame = nextFeedingTimeFrame;
         this.zooManager = zooManager;
+        this.userManager = zooManager.getUserManager();
+        
 
         // Display Date
         Methods methods = new Methods();
@@ -37,8 +40,10 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
 
         // populate the table with default amount in Kilogram
         populateTableInKG();
+        jTableAlleFütterungen.setDefaultEditor(Object.class, null);
+        
+        
     }
-
     /**
      * Settings for resolution
      */
@@ -68,15 +73,16 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
      * populate the jtable by getting the resultSet from zooManager and populating it with a lib
      */
     private void populateTableInKG() {
-        jTableAlleFütterungen.setModel(DbUtils.resultSetToTableModel(zooManager.getUserManager().getAllFeedingTimeInKG()));
+        jTableAlleFütterungen.setModel(DbUtils.resultSetToTableModel(userManager.getAllFeedingTimeInKG()));
     }
 
+    
     /**
      * populate the jtable by getting the resultSet from zooManager and populating it with a lib
      */
     private void populateTableInGramm() {
 
-        jTableAlleFütterungen.setModel(DbUtils.resultSetToTableModel(zooManager.getUserManager().getAllFeedingTimeInGramm()));
+        jTableAlleFütterungen.setModel(DbUtils.resultSetToTableModel(userManager.getAllFeedingTimeInGramm()));
 
     }
 
@@ -150,6 +156,8 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableAlleFütterungen.setEditingColumn(0);
+        jTableAlleFütterungen.setEditingRow(0);
         jScrollPaneTable.setViewportView(jTableAlleFütterungen);
 
         jLabelTime.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -282,7 +290,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
-        zooManager.getUserManager().logout();
+        userManager.logout();
         this.dispose();
         mainMenuJFrame.setVisible(true);
 
@@ -389,5 +397,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     private javax.swing.JFrame zookeeperModeHomePageFrame;
     private javax.swing.JFrame nextFeedingTimeFrame;
     private ZooManager zooManager;
+    private UserManager userManager;
+    
 
 }

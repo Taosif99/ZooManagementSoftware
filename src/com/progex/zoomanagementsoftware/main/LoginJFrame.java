@@ -5,6 +5,7 @@
  */
 package com.progex.zoomanagementsoftware.main;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.admin.AdminHomepageJFrame;
 import com.progex.zoomanagementsoftware.datatypes.Admin;
@@ -29,14 +30,15 @@ public class LoginJFrame extends javax.swing.JFrame {
     /**
      * Creates new form ZooKeeperModeLogin
      */
-    public LoginJFrame(JFrame goBack, ZooManager zooManager) {
+    public LoginJFrame(JFrame goBackMainMenuJFrame, ZooManager zooManager) {
 
         initComponents();
 
         // Set previous JFrame to make it visible/invisible
-        this.mainMenuJFrame = goBack;
+        this.mainMenuJFrame = goBackMainMenuJFrame;
         // Set zooManager to call Methods and stuff
         this.zooManager = zooManager;
+        this.userManager = zooManager.getUserManager();
         // Set LoginJFrame in middle of screen when opened
         this.setLocationRelativeTo(null);
 
@@ -172,11 +174,11 @@ public class LoginJFrame extends javax.swing.JFrame {
 
             // Check if username and password match data in database and if user is zookeepr 
             
-            User user = zooManager.getUserManager().login(username, hashedPw);
+            User user = userManager.login(username, hashedPw);
             
             if(user instanceof Admin){
                 
-                zooManager.getUserManager().setLoggedInUser(user);
+                userManager.setLoggedInUser(user);
                 
                 //                //Open admin window here
                 /* Create and display Admin Homepage form */
@@ -193,7 +195,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
             if(user instanceof Zookeeper){
 
-                zooManager.getUserManager().setLoggedInUser(user);
+                userManager.setLoggedInUser(user);
                 
                 // Open ZookeeperHomePage when Login successful and pass zooManager reference
                 java.awt.EventQueue.invokeLater(new Runnable() {
@@ -265,5 +267,5 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     private javax.swing.JFrame mainMenuJFrame;
     private ZooManager zooManager;
-
+    private UserManager userManager;
 }

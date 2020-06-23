@@ -5,6 +5,7 @@
  */
 package com.progex.zoomanagementsoftware.zookeeper;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import com.progex.zoomanagementsoftware.datatypes.ZookeeperInfo;
@@ -20,17 +21,18 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
     /**
      * Creates new form NächsteFütterungJFrame
      */
-    public NextFeedingTimeJFrame(JFrame goBack, JFrame goBack2, JFrame goBack3, ZooManager zooManager){
+    public NextFeedingTimeJFrame(JFrame goBackToMainMenuJFrame, JFrame goBackZookeeperModeHomePageJFrame, JFrame goBackAllFeedingTimeJFrame, ZooManager zooManager){
         initComponents();
         
         // init resolution
         myInitComponents();
         
         // init references and paramteters
-        mainMenuJFrame = goBack;
-        zookeeperModeHomePageFrame = goBack2;
-        allFeedingTimeFrame = goBack3;
+        mainMenuJFrame = goBackToMainMenuJFrame;
+        zookeeperModeHomePageFrame = goBackZookeeperModeHomePageJFrame;
+        allFeedingTimeFrame = goBackAllFeedingTimeJFrame;
         this.zooManager = zooManager;
+        this.userManager = zooManager.getUserManager();
         
         // display feedingInfo
         setFeedingInfo();
@@ -43,19 +45,16 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
      */
     public void setFeedingInfo()  {
 
-        ZookeeperInfo x = zooManager.getUserManager().getNextFeedingInfo();
+        ZookeeperInfo zookeeperInfo = userManager.getNextFeedingInfo();
         
-        String food = x.getFoodName();
-        String animalName = x.getAnimalName();
-        String storageRoom = x.getStorageRoomNumber();
-        double amount = x.getAmountFood();
-        String compound = x.getCompoundName();
-        int nextFeedingTimeInMinutes = zooManager.getUserManager().getNextFeedingInfoInMinutes();
+        String food = zookeeperInfo.getFoodName();
+        String animalName = zookeeperInfo.getAnimalName();
+        String storageRoom = zookeeperInfo.getStorageRoomNumber();
+        double amount = zookeeperInfo.getAmountFood();
+        String compound = zookeeperInfo.getCompoundName();
+        int nextFeedingTimeInMinutes = userManager.getNextFeedingInfoInMinutes();
         
-        // If nextfeedingInfo has valid minute time then display it
-        
-        System.out.println("DEBUG NEXT FEEDING TIME JFRAME: "+nextFeedingTimeInMinutes);
-        
+        // If nextfeedingInfo has valid minute time then display it        
         if(nextFeedingTimeInMinutes != -1 ){
             nextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung in : "+nextFeedingTimeInMinutes+" Minuten");
             futter.setText("Futter: "+food);
@@ -73,7 +72,6 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
             gehege.setText("");
             tierName.setText("");       
         
-    //    }
 
     }
     }
@@ -296,7 +294,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
      */
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
         // TODO add your handling code here:
-        zooManager.getUserManager().logout();
+        userManager.logout();
         this.dispose();
         mainMenuJFrame.setVisible(true);
 
@@ -411,5 +409,6 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
     private javax.swing.JFrame zookeeperModeHomePageFrame;
     private javax.swing.JFrame allFeedingTimeFrame;
     private ZooManager zooManager;
+    private UserManager userManager;
 
 }

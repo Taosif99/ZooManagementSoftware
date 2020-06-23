@@ -564,8 +564,8 @@ public class UserManager {
                     + "FeedingTimeInMinutes: " + feedingTimeInMinutes);
 
             // create FeedingInfo based on Database Information and return it
-            ZookeeperInfo x = new ZookeeperInfo(feedingTimeInMinutes, gehege, tiername, futter, abstellRaum, menge);
-            return x;
+            ZookeeperInfo zookeeperInfo = new ZookeeperInfo(feedingTimeInMinutes, gehege, tiername, futter, abstellRaum, menge);
+            return zookeeperInfo;
         } catch (SQLException ex) {
             System.err.println("SQL EXCEPTION");
             System.out.println(ex.getMessage());
@@ -583,26 +583,35 @@ public class UserManager {
      */
     public ResultSet getAllFeedingTimeInKG() {
 
-        String query = "SELECT CONVERT(Fütterungszeit, time) as Uhrzeit,Tier,Futter,MengeKG,Abstellraumnummer,Gehege FROM (SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount AS MengeKG, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName "
-                + "FROM eats "
-                + "INNER JOIN "
-                + "food "
-                + "ON eats.FoodID = food.ID "
-                + "INNER JOIN "
-                + "animal "
-                + "ON eats.AnimalID = animal.ID "
-                + "INNER JOIN "
-                + "takescare "
-                + "ON eats.AnimalID = takescare.AnimalID "
-                + "INNER JOIN "
-                + "user "
-                + "ON takescare.UserID = user.ID "
-                + "INNER JOIN "
-                + "compound "
-                + "ON animal.CompoundID = compound.ID) "
-                + "AS joinedTable WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and joinedTable.FütterungsZeit > current_date() "
-                + "ORDER BY fütterungszeit desc";
+//        String query = "SELECT Tier,Futter,MengeKG,Abstellraumnummer,Gehege,Uhrzeit,\n" +
+//"case when diffMin<0 then 'Abgelaufen' else diffMin end as \"Findet statt in HH:MM:SS\"\n" +
+//"FROM \n" +
+//"	(SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount AS MengeKG, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName,TIMEDIFF(CONVERT(eats.StartFeedingTime, time), current_time()) as diffMin, CONVERT(eats.StartFeedingTime, time) as Uhrzeit \n" +
+//"	FROM eats \n" +
+//"		INNER JOIN food ON eats.FoodID = food.ID \n" +
+//"        INNER JOIN animal ON eats.AnimalID = animal.ID \n" +
+//"        INNER  JOIN takescare ON eats.AnimalID = takescare.AnimalID \n" +
+//"        INNER JOIN user ON takescare.UserID = user.ID \n" +
+//"        INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable \n" +
+//"	WHERE joinedTable.UserName = \"schäfernooa\" and joinedTable.FütterungsZeit > current_date() \n" +
+//"    ORDER BY case when diffMin<0 then 1 else 0 end,diffMin";
 
+
+        String query = 
+                
+                "SELECT Uhrzeit, case when diffMin<0 then 'Abgelaufen' else diffMin end as \"Findet statt in HH:MM:SS\", Tier,Futter,MengeKG as \"Menge in Kilogramm\",Abstellraumnummer,Gehege "
+                + "FROM "
+                + "(SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount AS MengeKG, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName,TIMEDIFF(CONVERT(eats.StartFeedingTime, time), current_time()) as diffMin, CONVERT(eats.StartFeedingTime, time) as Uhrzeit "
+                + "FROM eats "
+                + "INNER JOIN food ON eats.FoodID = food.ID "
+                + "INNER JOIN animal ON eats.AnimalID = animal.ID "
+                + "INNER  JOIN takescare ON eats.AnimalID = takescare.AnimalID "
+                + "INNER JOIN user ON takescare.UserID = user.ID "
+                + "INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable "
+                + "WHERE joinedTable.UserName = \""+loggedInUser.getUsername()+"\" and joinedTable.FütterungsZeit > current_date() "
+                + "ORDER BY case when diffMin<0 then 1 else 0 end,diffMin";
+        
+        
         return connectionHandler.performQuery(query);
 
     }
@@ -616,26 +625,42 @@ public class UserManager {
      */
     public ResultSet getAllFeedingTimeInGramm() {
 
-        String query = "SELECT CONVERT(Fütterungszeit, time) as Uhrzeit,Tier,Futter,MengeGramm,Abstellraumnummer,Gehege FROM (SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount * 1000 AS MengeGramm, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName "
-                + "FROM eats "
-                + "INNER JOIN "
-                + "food "
-                + "ON eats.FoodID = food.ID "
-                + "INNER JOIN "
-                + "animal "
-                + "ON eats.AnimalID = animal.ID "
-                + "INNER JOIN "
-                + "takescare "
-                + "ON eats.AnimalID = takescare.AnimalID "
-                + "INNER JOIN "
-                + "user "
-                + "ON takescare.UserID = user.ID "
-                + "INNER JOIN "
-                + "compound "
-                + "ON animal.CompoundID = compound.ID) "
-                + "AS joinedTable WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and joinedTable.FütterungsZeit > current_date() "
-                + "ORDER BY fütterungszeit desc";
+//        String query = "SELECT CONVERT(Fütterungszeit, time) as Uhrzeit,Tier,Futter,MengeGramm,Abstellraumnummer,Gehege FROM (SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount * 1000 AS MengeGramm, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName "
+//                + "FROM eats "
+//                + "INNER JOIN "
+//                + "food "
+//                + "ON eats.FoodID = food.ID "
+//                + "INNER JOIN "
+//                + "animal "
+//                + "ON eats.AnimalID = animal.ID "
+//                + "INNER JOIN "
+//                + "takescare "
+//                + "ON eats.AnimalID = takescare.AnimalID "
+//                + "INNER JOIN "
+//                + "user "
+//                + "ON takescare.UserID = user.ID "
+//                + "INNER JOIN "
+//                + "compound "
+//                + "ON animal.CompoundID = compound.ID) "
+//                + "AS joinedTable WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and joinedTable.FütterungsZeit > current_date() "
+//                + "ORDER BY fütterungszeit desc";
 
+        
+
+        String query = 
+                "SELECT Uhrzeit,case when diffMin<0 then 'Abgelaufen' else diffMin end as \"Findet statt in HH:MM:SS\",Tier,Futter,MengeGR as \"Menge in Gramm\",Abstellraumnummer,Gehege "
+                + "FROM "
+                + "(SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount * 1000 AS MengeGR, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName,TIMEDIFF(CONVERT(eats.StartFeedingTime, time), current_time()) as diffMin, CONVERT(eats.StartFeedingTime, time) as Uhrzeit "
+                + "FROM eats "
+                + "INNER JOIN food ON eats.FoodID = food.ID "
+                + "INNER JOIN animal ON eats.AnimalID = animal.ID "
+                + "INNER  JOIN takescare ON eats.AnimalID = takescare.AnimalID "
+                + "INNER JOIN user ON takescare.UserID = user.ID "
+                + "INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable "
+                + "WHERE joinedTable.UserName = \""+loggedInUser.getUsername()+"\" and joinedTable.FütterungsZeit > current_date() "
+                + "ORDER BY case when diffMin<0 then 1 else 0 end,diffMin";
+        
+        
         return connectionHandler.performQuery(query);
 
     }
