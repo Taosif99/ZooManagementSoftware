@@ -51,17 +51,19 @@ public class ChooseTimeJFrameNew extends javax.swing.JFrame {
         
         if (x == 1920 && y == 1080) {
             
-            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 32));
+            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 32));
         }
         if (x == 1280 && y == 720) {
-            jLabelTime.setFont(new java.awt.Font("Calibri", 0, 28));
+            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 28));
         }
 
         JTableHeader tableHeader = jTableTimeData.getTableHeader();
         Font headerFont = new Font("Calibri", 0, 22);
         tableHeader.setFont(headerFont);
 
-        jLabelTime.setText(time + " Uhr");
+        
+        jLabelTime.setText("Fütterungen um " +time + " Uhr");
+        
         jTableTimeData.setRowHeight(40);
 
         Methods methods = new Methods();
@@ -114,7 +116,6 @@ public class ChooseTimeJFrameNew extends javax.swing.JFrame {
         jLabelTime = new javax.swing.JLabel();
         jScrollPaneAnimalTable = new javax.swing.JScrollPane();
         jTableTimeData = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -158,9 +159,6 @@ public class ChooseTimeJFrameNew extends javax.swing.JFrame {
         jTableTimeData.getTableHeader().setReorderingAllowed(false);
         jScrollPaneAnimalTable.setViewportView(jTableTimeData);
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
-        jLabel1.setText("Fütterungen um :");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,8 +173,6 @@ public class ChooseTimeJFrameNew extends javax.swing.JFrame {
                     .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1092, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
                         .addComponent(jLabelTime)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -189,9 +185,7 @@ public class ChooseTimeJFrameNew extends javax.swing.JFrame {
                     .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelShowDateTime))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabelTime))
+                .addComponent(jLabelTime)
                 .addGap(25, 25, 25)
                 .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                 .addContainerGap())
@@ -252,7 +246,6 @@ public class ChooseTimeJFrameNew extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBack;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelShowDateTime;
     private javax.swing.JLabel jLabelTime;
     private javax.swing.JScrollPane jScrollPaneAnimalTable;
