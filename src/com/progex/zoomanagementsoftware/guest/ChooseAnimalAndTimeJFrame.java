@@ -362,7 +362,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
             JFrame thisFrame = this;
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new ChooseTimeJFrameNew(thisFrame, zooManager, (String)jComboTime.getSelectedItem()).setVisible(true);
+                    new ChooseTimeJFrame(thisFrame, zooManager, (String)jComboTime.getSelectedItem()).setVisible(true);
                 }
             });
         }
