@@ -737,6 +737,12 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                             }
                             if (!userManager.usernameExists(username)) {
 
+                                if (userManager.searchAddressId(zip, street, city) == -1) {
+                                    JOptionPane.showConfirmDialog(null, "Wollen Sie die Adresse wirklich einfügen?\n"
+                                            + "Straße: " + street + "\n"
+                                            + "PLZ: " + zip + "\n"
+                                            + "Stadt: " + city, "Überprüfen",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                                }
                                 if (userManager.addUser(userTypeStr, salutationStr, firstname, lastname,
                                         street, zip, city, country, phonenumber,
                                         birthday, shiftStr, username, email, password)) {
@@ -753,10 +759,10 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
                             System.err.println("Illegal Argument");
                             System.out.println(illegalArgumentException.getMessage());
-                            JOptionPane.showMessageDialog(null, "Falsches Datumformat", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                            JOptionPane.showMessageDialog(null, "Falsches Datumformat!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Passwort muss mindestens 8 Zeichen haben! ", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                        JOptionPane.showMessageDialog(null, "Passwort muss mindestens 8 Zeichen haben!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Bitte geben Sie eine gültige Email an!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -1004,7 +1010,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                     viewUsers(users);
                                 }
                             } else {
-                                JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdated werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                                JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "Passwort muss mindestens 8 Zeichen haben!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -1017,7 +1023,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
                 System.err.println("NumberFormatException");
                 System.out.println(numberFormatException.getMessage());
-                JOptionPane.showMessageDialog(null, "IDfeld falsch ausgefüllt!", "Zahlenfeld wurde falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+                JOptionPane.showMessageDialog(null, "ID Feld falsch ausgefüllt!", "Zahlenfeld wurde falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
 
             } catch (IllegalArgumentException illegalArgumentException) {
 

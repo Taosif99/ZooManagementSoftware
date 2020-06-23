@@ -40,10 +40,10 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
 
      private void myInitComponents(){
         
-            setUndecorated(true);
-            setAlwaysOnTop(true);
-            setResizable(false);
-            setVisible(true);
+            //setUndecorated(true);
+            //setAlwaysOnTop(true);
+            //setResizable(false);
+            
             Toolkit tk = Toolkit.getDefaultToolkit();
             int x =(int)tk.getScreenSize().getWidth();
             int y =(int)tk.getScreenSize().getHeight();
@@ -51,18 +51,14 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
             //resolution
             if(x == 1920 && y == 1080){
                 
-                jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 60));
-                jTableAninmalData.setFont(new java.awt.Font("Calibri", 1, 30));
-                jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 28));
+                jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18));
                 
                 
             }
             if(x == 1280 && y == 720){
                 
+                jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 16));
                 
-                jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 48));
-                jTableAninmalData.setFont(new java.awt.Font("Calibri", 1, 26));
-                jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 22));
             }
             //Table change Font
             JTableHeader tableHeader = jTableAninmalData.getTableHeader();
@@ -76,7 +72,7 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
             
             //label init
-            jLabelAnimal.setText(animal);
+            jLabelAnimal.setText("Fütterungszeiten für " + animal);
             
             //If there arent available feedingTimes
             
@@ -121,18 +117,36 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonBack = new javax.swing.JButton();
+        jLabelShowDateTime = new javax.swing.JLabel();
+        jLabelAnimal = new javax.swing.JLabel();
         jScrollPaneAnimalTable = new javax.swing.JScrollPane();
         jTableAninmalData = new javax.swing.JTable();
-        jLabelAnimal = new javax.swing.JLabel();
-        jLabelShowDateTime = new javax.swing.JLabel();
-        jButtonBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
+        setUndecorated(true);
+        setResizable(false);
+
+        jButtonBack.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jButtonBack.setText("Zurück");
+        jButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBackActionPerformed(evt);
+            }
+        });
+
+        jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelShowDateTime.setText("TIME");
+
+        jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
+        jLabelAnimal.setText("Tiername");
+        jLabelAnimal.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jScrollPaneAnimalTable.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         jTableAninmalData.setAutoCreateRowSorter(true);
-        jTableAninmalData.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        jTableAninmalData.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jTableAninmalData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -153,19 +167,6 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         jTableAninmalData.getTableHeader().setReorderingAllowed(false);
         jScrollPaneAnimalTable.setViewportView(jTableAninmalData);
 
-        jLabelAnimal.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
-        jLabelAnimal.setText("Tiername");
-
-        jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabelShowDateTime.setText("TIME");
-
-        jButtonBack.setText("Zurück");
-        jButtonBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBackActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -173,45 +174,39 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(450, 450, 450)
-                        .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1016, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(429, 429, 429))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelShowDateTime)
-                        .addGap(21, 21, 21))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(800, 800, 800)
-                .addComponent(jLabelAnimal)
-                .addGap(800, 800, 800))
+                        .addComponent(jLabelShowDateTime))
+                    .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelAnimal)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabelShowDateTime))
-                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelShowDateTime))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelAnimal)
-                .addGap(72, 72, 72)
-                .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(150, 150, 150))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-
         // TODO add your handling code here:
         goBackFrame.setVisible(true);
         //Close frame
         this.dispose();
-        
-        
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     /**
@@ -241,8 +236,8 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
+        /* Create and display the form */
         String url ="jdbc:mysql://localhost/";
          String username = "root";
          String password = "0000";
@@ -270,6 +265,7 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
     private GuestModeManager guestModeManager;
     private Methods methods;
     private String animal;
-    
-    
+
+
 }
+
