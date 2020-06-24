@@ -18,16 +18,15 @@ import javax.swing.table.TableModel;
 
 /**
  *
- * @author taosi
  */
 public class ManageFoodJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form ManageFoodJFrame
+     * Creates new form ManageFoodJFrame.
      *
      * @param goBackFrame The frame which will appear when the go back button is
      * used
-     * @param zooManager
+     * @param zooManager The zooManager of the current programm session which serves as interface
      */
     public ManageFoodJFrame(JFrame goBackFrame, ZooManager zooManager) {
 
@@ -432,12 +431,12 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                         if (stock >= 0) {
                             if (foodManager.updateFood(storageRoomNumber, stock, foodName, ID)) {
                                 JOptionPane.showMessageDialog(null, "Futter wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                                if (columnNameToValue != null) {
+                                if (lastSearchMap != null) {
                                     if (jRadioButtonKgTable.isSelected()) {
-                                        foods = foodManager.searchFoods(columnNameToValue);
+                                        foods = foodManager.searchFoods(lastSearchMap);
                                         viewFoods(1);
                                     } else {
-                                        foods = foodManager.searchFoods(columnNameToValue);
+                                        foods = foodManager.searchFoods(lastSearchMap);
                                         viewFoods(1000);
                                     }
                                 }
@@ -474,12 +473,12 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                     } else {
                         if (foodManager.deleteFood(ID)) {
                             JOptionPane.showMessageDialog(null, "Futter wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                            if (columnNameToValue != null) {
+                            if (lastSearchMap!= null) {
                                 if (jRadioButtonKgTable.isSelected()) {
-                                    foods = foodManager.searchFoods(columnNameToValue);
+                                    foods = foodManager.searchFoods(lastSearchMap);
                                     viewFoods(1);
                                 } else {
-                                    foods = foodManager.searchFoods(columnNameToValue);
+                                    foods = foodManager.searchFoods(lastSearchMap);
                                     viewFoods(1000);
                                 }
                             }
@@ -523,7 +522,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
     private LinkedHashMap<String, String> getJTextFieldInput() {
 
-        columnNameToValue = new LinkedHashMap<String, String>();
+        lastSearchMap = new LinkedHashMap<String, String>();
         try {
             //Brauche ich für NumberFormatException
             int exceptionId;
@@ -556,10 +555,10 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             String foodName = jTextFieldFoodName.getText().trim();
             //System.out.println(id + " " + storageRoomNumber + " " + stock + " " + foodName);
 
-            columnNameToValue.put("ID", id);
-            columnNameToValue.put("StorageRoomNumber", storageRoomNumber);
-            columnNameToValue.put("Stock", stock);
-            columnNameToValue.put("Name", foodName);
+            lastSearchMap.put("ID", id);
+            lastSearchMap.put("StorageRoomNumber", storageRoomNumber);
+            lastSearchMap.put("Stock", stock);
+            lastSearchMap.put("Name", foodName);
 
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -568,7 +567,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
         }
 
-        return columnNameToValue;
+        return lastSearchMap;
     }
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
@@ -837,7 +836,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
     private Methods methods;
     private Mode mode;
     private LinkedList<Food> foods;
-    private LinkedHashMap<String, String> columnNameToValue;
+    private LinkedHashMap<String, String> lastSearchMap;
     private String unit;
     private FoodManager foodManager;
 

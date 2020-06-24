@@ -1,4 +1,3 @@
-
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
@@ -19,7 +18,7 @@ import javax.swing.table.TableModel;
 
 /**
  *
- * 
+ *
  */
 public class ManageUserJFrame extends javax.swing.JFrame {
 
@@ -28,6 +27,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
      *
      * @param goBackFrame The frame which will appear when the go back button is
      * used
+     * @param zooManager The zooManager of the current programm session which
+     * serves as interface
      */
     public ManageUserJFrame(JFrame goBackFrame, ZooManager zooManager) {
         initComponents();
@@ -704,7 +705,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                     JOptionPane.showConfirmDialog(null, "Wollen Sie die Adresse wirklich einfügen?\n"
                                             + "Straße: " + street + "\n"
                                             + "PLZ: " + zip + "\n"
-                                            + "Stadt: " + city, "Adresse nicht in Datenbank vorhanden",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                                            + "Stadt: " + city, "Adresse nicht in der Datenbank vorhanden", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                                 }
                                 if (userManager.addUser(userTypeStr, salutationStr, firstname, lastname,
                                         street, zip, city, country, phonenumber,
@@ -856,16 +857,15 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
             if (textFieldsVerified) {
 
-                
                 int decision = JOptionPane.showConfirmDialog(null,
                         "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (decision == 0) {
                     if (userManager.deleteUser(ID)) {
-                        
+
                         JOptionPane.showMessageDialog(null, "Nutzer/-in wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                         if (lastSearchMap != null) {
-                           lastSearchedUsers = userManager.searchUsers(lastSearchMap);
+                            lastSearchedUsers = userManager.searchUsers(lastSearchMap);
                             viewUsers(lastSearchedUsers);
                         }
                         cleanFields();
@@ -962,18 +962,28 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
                         }
                         if ((!changePassword || (password.length() >= 8))) {
-                            if (userManager.updateUser(id, userTypeStr, salutationStr, firstname,
-                                    lastname, street, zip, city, country,
-                                    phonenumber, birthday, shiftStr, username, email, password, changePassword)) {
-                                JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich geupdatet werden!", "Updaten erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                                cleanFields();
+                            if (userManager.searchAddressId(zip, street, city) == -1) {
+                                JOptionPane.showConfirmDialog(null, "Wollen Sie die Adresse wirklich einfügen?\n"
+                                        + "Straße: " + street + "\n"
+                                        + "PLZ: " + zip + "\n"
+                                        + "Stadt: " + city, "Adresse nicht in der Datenbank vorhanden", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                                if (userManager.addAddress(zip, city, country, street)) {
+                                    if (userManager.updateUser(id, userTypeStr, salutationStr, firstname,
+                                            lastname, street, zip, city, country,
+                                            phonenumber, birthday, shiftStr, username, email, password, changePassword)) {
+                                        JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich geupdatet werden!", "Updaten erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+                                        cleanFields();
 
-                                if (lastSearchMap != null) {
-                                    lastSearchedUsers = userManager.searchUsers(lastSearchMap);
-                                    viewUsers(lastSearchedUsers);
+                                        if (lastSearchMap != null) {
+                                            lastSearchedUsers = userManager.searchUsers(lastSearchMap);
+                                            viewUsers(lastSearchedUsers);
+                                        }
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                                    }
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Adresse konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                                 }
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "Passwort muss mindestens 8 Zeichen haben!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -1048,7 +1058,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         System.out.append("LOGOUT");
         zooManager.getUserManager().logout();
     }//GEN-LAST:event_formWindowClosing
-
 
     private String updateButtonsAndLabels() {
 
