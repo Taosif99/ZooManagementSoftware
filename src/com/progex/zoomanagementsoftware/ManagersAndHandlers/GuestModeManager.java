@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 /**
- * Class which handles feeding information
+ * Class which handles feeding information.
  */
 public class GuestModeManager {
 
