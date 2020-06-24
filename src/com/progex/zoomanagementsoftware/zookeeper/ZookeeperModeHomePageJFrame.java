@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.progex.zoomanagementsoftware.zookeeper;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
@@ -44,7 +39,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     }
 
     /**
-     * this methods gets from the zoomangager the nextfeedingtime and is displayed accordingly
+     * this methods gets from the zoomangager the nextfeedingtime and is displayed accordingly.
      * 
      * 
      */
@@ -73,7 +68,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
 
     
     /**
-     *  lastlogdate of zookeeper is displayed accordingly .
+     *  lastlogdate of zookeeper is displayed accordingly.
      * 
      */
     private void setLastLogDate() {
@@ -125,11 +120,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         setTitle("Tierpfleger HomePage");
         setUndecorated(true);
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
 
         letzteAnmeldung.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         letzteAnmeldung.setText("Letze Anmeldung: ");
@@ -147,11 +137,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         jButtonAllFeedingTime1.setMaximumSize(new java.awt.Dimension(171, 23));
         jButtonAllFeedingTime1.setMinimumSize(new java.awt.Dimension(171, 23));
         jButtonAllFeedingTime1.setPreferredSize(new java.awt.Dimension(171, 23));
-        jButtonAllFeedingTime1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonAllFeedingTime1MouseClicked(evt);
-            }
-        });
         jButtonAllFeedingTime1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAllFeedingTime1ActionPerformed(evt);
@@ -171,11 +156,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
 
         jButtonNextFeedingTime.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButtonNextFeedingTime.setText("Nächste Fütterung anzeigen");
-        jButtonNextFeedingTime.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonNextFeedingTimeMouseClicked(evt);
-            }
-        });
         jButtonNextFeedingTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNextFeedingTimeActionPerformed(evt);
@@ -235,9 +215,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-    }//GEN-LAST:event_formWindowClosed
-
+    
    
     /**
      * Nächste Fütterung anzeigen Button Click Event
@@ -259,16 +237,8 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonNextFeedingTimeActionPerformed
 
-    private void jButtonNextFeedingTimeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonNextFeedingTimeMouseClicked
-
-    private void jButtonAllFeedingTime1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAllFeedingTime1MouseClicked
-        // TODO add your handling code here:   
-    }//GEN-LAST:event_jButtonAllFeedingTime1MouseClicked
-
     /**
-     * "Alle Fütterungen Anzeigen" Button is pressed
+     * "Alle Fütterungen Anzeigen" Button is pressed.
      * @param evt 
      */
     private void jButtonAllFeedingTime1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAllFeedingTime1ActionPerformed
@@ -284,7 +254,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAllFeedingTime1ActionPerformed
 
     /**
-     * "LOGOUT" Button is pressed
+     * "LOGOUT" Button is pressed.
      * @param evt 
      */
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed

@@ -20,6 +20,11 @@ public class Zookeeper extends User
         this.shift = shift;
     }
 
+    
+    public Zookeeper(String username, String firstname, Timestamp lastLogDate) {
+        super(username, firstname, lastLogDate);
+    }    
+
     public Animal getAnimalList() {
         return animalList;
     }

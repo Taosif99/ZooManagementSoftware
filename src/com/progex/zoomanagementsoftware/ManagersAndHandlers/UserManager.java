@@ -513,20 +513,12 @@ public class UserManager {
                 lastLogDate = resultSet.getTimestamp(4);
 
                 if (type.equals("Admin")) {
-
-                    Admin admin = new Admin(userName, firstName, null, null, null, 0, null, null, null, null, lastLogDate);
+                    Admin admin = new Admin(userName, firstName,lastLogDate);
                     return admin;
                 }
                 if (type.equals("Zookeeper")) {
-                    Zookeeper zookeeper = new Zookeeper(null, null, userName, firstName, null, null, null, 0, null, null, null, null, lastLogDate);
-
-                    System.out.println("--------USERMANAGER-----"
-                            + "username" + username
-                            + "firstName" + firstName
-                            + "" + type
-                            + "" + lastLogDate);
+                    Zookeeper zookeeper = new Zookeeper(userName, firstName,lastLogDate);
                     return zookeeper;
-
                 } else {
                     return null;
                 }
@@ -571,10 +563,10 @@ public class UserManager {
 
     /**
      * TODO RETURN COMMENT WAS FALLS ES WELCHE GIBT DIE ZU GLEICHEN ZEIT HABEN
-     * Get NextFeedingInfo Object to display a zookeepers next feeding time
+     * Get NextFeedingInfo Object to display a zookeepers next feeding time.
      *
      * @return ZookeeperInfo that shows all important information for the next
-     * feeding info for the zookeeper
+     * feeding info for the zookeeper.
      *
      */
     public ZookeeperInfo getNextFeedingInfo() {
@@ -624,15 +616,6 @@ public class UserManager {
 
             }
 
-            System.out.println("------------DEBUG----------- \n"
-                    + "Username: " + loggedInUser.getUsername()
-                    + "Tiername: " + tiername
-                    + "Futter: " + futter
-                    + "Menge: " + menge
-                    + "Abstellraum: " + abstellRaum
-                    + "Gehege: " + gehege
-                    + "FeedingTimeInMinutes: " + feedingTimeInMinutes);
-
             // create FeedingInfo based on Database Information and return it
             ZookeeperInfo zookeeperInfo = new ZookeeperInfo(feedingTimeInMinutes, gehege, tiername, futter, abstellRaum, menge);
             return zookeeperInfo;
@@ -652,19 +635,6 @@ public class UserManager {
      * another method
      */
     public ResultSet getAllFeedingTimeInKG() {
-
-//        String query = "SELECT Tier,Futter,MengeKG,Abstellraumnummer,Gehege,Uhrzeit,\n" +
-//"case when diffMin<0 then 'Abgelaufen' else diffMin end as \"Findet statt in HH:MM:SS\"\n" +
-//"FROM \n" +
-//"	(SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount AS MengeKG, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName,TIMEDIFF(CONVERT(eats.StartFeedingTime, time), current_time()) as diffMin, CONVERT(eats.StartFeedingTime, time) as Uhrzeit \n" +
-//"	FROM eats \n" +
-//"		INNER JOIN food ON eats.FoodID = food.ID \n" +
-//"        INNER JOIN animal ON eats.AnimalID = animal.ID \n" +
-//"        INNER  JOIN takescare ON eats.AnimalID = takescare.AnimalID \n" +
-//"        INNER JOIN user ON takescare.UserID = user.ID \n" +
-//"        INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable \n" +
-//"	WHERE joinedTable.UserName = \"schäfernooa\" and joinedTable.FütterungsZeit > current_date() \n" +
-//"    ORDER BY case when diffMin<0 then 1 else 0 end,diffMin";
 
 
         String query = 
@@ -688,34 +658,12 @@ public class UserManager {
 
     /**
      * This Methods returns a resultset of all Feeding Informations for a user
-     * -> amount is in Gramm resultset is later used to populate the jtable
+     * -> amount is in Gramm resultset is later used to populate the jtable.
      *
      * @return ResultSet witth allfeedingtimes to populate the resultset in
-     * another method
+     * another method.
      */
     public ResultSet getAllFeedingTimeInGramm() {
-
-//        String query = "SELECT CONVERT(Fütterungszeit, time) as Uhrzeit,Tier,Futter,MengeGramm,Abstellraumnummer,Gehege FROM (SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount * 1000 AS MengeGramm, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName "
-//                + "FROM eats "
-//                + "INNER JOIN "
-//                + "food "
-//                + "ON eats.FoodID = food.ID "
-//                + "INNER JOIN "
-//                + "animal "
-//                + "ON eats.AnimalID = animal.ID "
-//                + "INNER JOIN "
-//                + "takescare "
-//                + "ON eats.AnimalID = takescare.AnimalID "
-//                + "INNER JOIN "
-//                + "user "
-//                + "ON takescare.UserID = user.ID "
-//                + "INNER JOIN "
-//                + "compound "
-//                + "ON animal.CompoundID = compound.ID) "
-//                + "AS joinedTable WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and joinedTable.FütterungsZeit > current_date() "
-//                + "ORDER BY fütterungszeit desc";
-
-        
 
         String query = 
                 "SELECT Uhrzeit,case when diffMin<0 then 'Abgelaufen' else diffMin end as \"Findet statt in HH:MM:SS\",Tier,Futter,MengeGR as \"Menge in Gramm\",Abstellraumnummer,Gehege "
@@ -736,7 +684,7 @@ public class UserManager {
     }
 
     /**
-     * Return minutes until next feeding time for zookeeper
+     * Return minutes until next feeding time for zookeeper.
      *
      * @return the next feeding time in minutes
      */
