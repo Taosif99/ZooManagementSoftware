@@ -430,18 +430,21 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
             if (textFieldsVerified) {
 
-                if (compoundNameExists) {
+                if (!compoundNameExists) {
 
                     if (checkGreaterZero(constructionYear, maxCapacity, area)) {
                         throw new IllegalArgumentException("Negative values not allowed");
                     }
 
-                    if (compoundManager.addCompound(compoundName, area, constructionYear, maxCapacity)) {
+                    
+                    Compound newCompound = new Compound(area, constructionYear, maxCapacity, compoundName);
+                    
+                    if (compoundManager.addCompound(newCompound)) {
 
                         JOptionPane.showMessageDialog(null, "Gehege konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                         cleanFields();
 
-                    } else //Falls Fehler beim Einfügen in die Datenbank", JOptionPane.CANCEL_OPTION      
+                    } else 
                     {
                         JOptionPane.showMessageDialog(null, "Gehege konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
@@ -472,7 +475,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
 
         goBackFrame.setVisible(true);
-        //Close frame
         this.dispose();
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
@@ -546,7 +548,11 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                         "Wollen Sie den Datensatz wirklich ändern?", "Bestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (decision == 0) {
-                    if (compoundManager.updateCompound(ID, compoundName, area, constructionYear, maxCapacity)) {
+                    
+                    Compound newCompound = new Compound(ID,area, constructionYear, maxCapacity, compoundName);
+                    
+                    
+                    if (compoundManager.updateCompound(newCompound)) {
 
                         JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                         cleanFields();

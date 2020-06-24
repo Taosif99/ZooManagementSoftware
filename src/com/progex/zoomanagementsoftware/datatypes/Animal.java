@@ -19,7 +19,16 @@ public class Animal {
 
     private Species species;
 
-
+    
+    /**
+     * Constructor to create an animal object which models a complete animal dataset.
+     * @param id
+     * @param name
+     * @param birthday
+     * @param sex
+     * @param compound
+     * @param species 
+     */
     public Animal(int id, String name, Date birthday, String sex, Compound compound, Species species) {
 
         this.id = id;
@@ -30,7 +39,7 @@ public class Animal {
         this.species = species;
 
     }
-
+    
     public int getId() {
         return id;
     }

@@ -461,6 +461,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
             if (compoundNameExists) {
                 if (dateFormatCorrect) {
+                    
+                    
                     if (animalManager.addAnimal(animalName, compoundName, date, sex, species)) {
                         //Falls Einfügen erfolgreichr
                         JOptionPane.showMessageDialog(null, "Tier konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
