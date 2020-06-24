@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
@@ -661,9 +657,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         zooManager.getUserManager().logout();
     }//GEN-LAST:event_formWindowClosing
 
-    /**
-     * Method to disable/enable buttons/labels depending on operation selection.
-     */
+  
     private void updateButtonsAndLabels() {
 
         System.out.println("Compound Mode");

@@ -955,9 +955,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         zooManager.getUserManager().logout();
     }//GEN-LAST:event_formWindowClosing
 
-    /**
-     * Method to disable/enable buttons/labels depending on operation selection.
-     */
+
     private void updateButtonsAndLabels() {
 
         System.out.println("FoodToAnimal Mode");
