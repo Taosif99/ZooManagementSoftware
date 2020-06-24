@@ -27,6 +27,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
      *
      * @param goBackFrame The frame which will appear when the go back button is
      * used
+     * @param zooManager
      */
     public ManageFoodJFrame(JFrame goBackFrame, ZooManager zooManager) {
 
@@ -39,7 +40,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
     }
 
-    public void myInitComponents() {
+    private void myInitComponents() {
         updateButtonsAndLabels();
         methods.showTimeAndDate(jLabelShowDateTime);
         UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
@@ -184,11 +185,6 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         jLabelStock.setText("Menge");
 
         jTextFieldStock.setToolTipText("Format: zum Beispiel 9.87");
-        jTextFieldStock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldStockActionPerformed(evt);
-            }
-        });
 
         jButtonAddFood.setText("Hinzufügen");
         jButtonAddFood.setPreferredSize(new java.awt.Dimension(73, 23));
@@ -263,19 +259,9 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         buttonGroupUnitSelection.add(jRadioButtonKg);
         jRadioButtonKg.setSelected(true);
         jRadioButtonKg.setText("kg");
-        jRadioButtonKg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonKgActionPerformed(evt);
-            }
-        });
 
         buttonGroupUnitSelection.add(jRadioButtonGramm);
         jRadioButtonGramm.setText("g");
-        jRadioButtonGramm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonGrammActionPerformed(evt);
-            }
-        });
 
         buttonGroupUnitSelectionTable.add(jRadioButtonKgTable);
         jRadioButtonKgTable.setSelected(true);
@@ -704,19 +690,6 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             jTextFieldStorageRoomNumber.setText(storageRoomNumber);
         }
     }//GEN-LAST:event_jTableFoodDataMouseClicked
-
-    private void jRadioButtonKgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonKgActionPerformed
-
-
-    }//GEN-LAST:event_jRadioButtonKgActionPerformed
-
-    private void jRadioButtonGrammActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonGrammActionPerformed
-
-    }//GEN-LAST:event_jRadioButtonGrammActionPerformed
-
-    private void jTextFieldStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldStockActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldStockActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         System.out.append("LOGOUT");

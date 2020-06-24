@@ -18,7 +18,7 @@ import javax.swing.table.TableModel;
 
 /**
  *
- * @author Ouchen
+ *
  */
 public class ManageCompoundJFrame extends javax.swing.JFrame {
 
@@ -571,7 +571,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
             System.err.println("IllegalArgumentException");
             System.out.println(illegalArgumentEcxeption.getMessage());
-            JOptionPane.showMessageDialog(null, "Gehege konnte nicht geupdated werden!", "Werte kleiner 0 nicht erlaubt", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, "Werte kleiner 0 nicht erlaubt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
 
         }
     }//GEN-LAST:event_jButtonUpdateCompoundActionPerformed
@@ -614,7 +614,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
             System.err.println("NumberFormatException");
             System.out.println(numberFormatException.getMessage());
-            JOptionPane.showMessageDialog(null, "Gehege konnte nicht gelöscht werden !", "IDfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, "ID Feld falsch ausgefüllt!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
         }
     }//GEN-LAST:event_jButtonDeleteCompoundActionPerformed
 
@@ -623,11 +623,11 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         switch (mode) {
 
             case add:
-                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken!", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
                 break;
 
             case update:
-                JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Geheges ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Geheges ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten!", "Updaten", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case delete:
                 JOptionPane.showMessageDialog(null, "Bitte die ID des zu löschenden Geheges ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
