@@ -20,13 +20,16 @@ import javax.swing.table.JTableHeader;
 
 /**
  
- * @author Oliver Hinndahl
+ * @author Oliver Hindahl
  
  */
 public class ChooseTimeJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ZeitjFrame
+     * @param goBackFrame
+     * @param zooManager
+     * @param time
      */
     public ChooseTimeJFrame(JFrame goBackFrame, ZooManager zooManager, String time) {
 

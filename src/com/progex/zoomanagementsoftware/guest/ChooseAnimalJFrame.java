@@ -23,6 +23,10 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ChooseAnimalJFrame
+     * @param goBackFrame
+     * @param zooManager
+     * @param animal
+     * @param feedingInfos
      */
     public ChooseAnimalJFrame(JFrame goBackFrame,ZooManager zooManager,String animal,LinkedList<FeedingInfo> feedingInfos) {
         

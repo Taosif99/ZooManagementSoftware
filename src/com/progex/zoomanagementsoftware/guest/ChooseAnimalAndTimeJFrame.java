@@ -25,6 +25,8 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ChooseAnimalAndTimeJFrame
+     * @param goBackFrame
+     * @param zooManager
      */
     public ChooseAnimalAndTimeJFrame(JFrame goBackFrame, ZooManager zooManager) {
 
