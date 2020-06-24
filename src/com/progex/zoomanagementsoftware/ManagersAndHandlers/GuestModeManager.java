@@ -26,7 +26,7 @@ public class GuestModeManager {
      *
      * @param animal
      * @return LinkedList FeedingInfos with attributes :
-     * compound,startFeedingTime,endFeedingTime,food
+     * compound,startFeedingTime,endFeedingTime,food or null
      * @throws ParseException
      */
     public LinkedList<FeedingInfo> getAnimalFeedingInfos(String animal) throws ParseException {
@@ -88,9 +88,9 @@ public class GuestModeManager {
     /*get all animals in db*/
 
     /**
-     * Method to return all animals in database
+     * Method to return all distinct animals in a database
      *
-     * @return LinkedList with animals
+     * @return LinkedList with animals or null
      */
     public LinkedList<String> getAnimals() {
 
@@ -119,7 +119,7 @@ public class GuestModeManager {
     /**
      * Method to return all available times for ChooseAnimalAndTimeJFrame
      *
-     * @return LinkedList with all available times in database from today
+     * @return LinkedList with all available times in database from today or null
      *
      */
     public LinkedList<String> getTimes() {
@@ -169,7 +169,7 @@ public class GuestModeManager {
      * Method to return TimefeedingInfo for ChooseTimeJFrame
      *
      * @param feedingTime
-     * @return Linked List with FeedingInfos attributes : animal,compound,food
+     * @return Linked List with FeedingInfos attributes : animal,compound,food or null
      */
     public LinkedList<FeedingInfo> getTimeFeedingInfo(String feedingTime) {
 
@@ -208,7 +208,7 @@ public class GuestModeManager {
      * @param feedingTime
      * @param animalName
      * @return LinkedList feedingInfo with attributes from Class feedingInfo :
-     * compound, food
+     * compound, food or null
      */
     public LinkedList<FeedingInfo> getAnimalTimeFeedingInfo(String feedingTime, String animalName) {
 
@@ -242,7 +242,7 @@ public class GuestModeManager {
      * Method to return a distinct feedingtime for ChooseAnimalAndTimeJFrame
      *
      * @param animal
-     * @return LinkedList with all unique feeding times
+     * @return LinkedList with all unique feeding times or null
      */
     public LinkedList<String> getUniqueFeedingTimes(String animal) {
 
