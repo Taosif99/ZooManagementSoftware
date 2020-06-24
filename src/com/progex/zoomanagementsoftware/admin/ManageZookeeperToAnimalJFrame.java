@@ -406,14 +406,14 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             String userId;
             if (!jTextFieldUserID.getText().isBlank()) {
                 exceptionUserId = Integer.parseInt(jTextFieldUserID.getText());
-                userId = jTextFieldUserID.getText();
+                userId = jTextFieldUserID.getText().trim();
             } else {
                 userId = "";
             }
 
-            String firstname = jTextFieldZookeepeFirstName.getText();
-            String lastname = jTextFieldZookeeperLastName.getText();
-            String animalName = jTextFieldAnimalName.getText();
+            String firstname = jTextFieldZookeepeFirstName.getText().trim();
+            String lastname = jTextFieldZookeeperLastName.getText().trim();
+            String animalName = jTextFieldAnimalName.getText().trim();
 
             lastSearchMap = new LinkedHashMap<String, String>();
             lastSearchMap.put("UserID", userId);

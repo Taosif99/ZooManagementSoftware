@@ -539,14 +539,13 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             double exceptionStock;
             String stock;
             if (!jTextFieldStock.getText().isBlank()) {
-                stock = jTextFieldStock.getText().trim();
+                stock = methods.removeComma(jTextFieldStock.getText().trim());
                 exceptionStock = Double.parseDouble(jTextFieldStock.getText());
             } else {
                 stock = "";
             }
 
             String foodName = jTextFieldFoodName.getText().trim();
-            //System.out.println(id + " " + storageRoomNumber + " " + stock + " " + foodName);
 
             lastSearchMap.put("ID", id);
             lastSearchMap.put("StorageRoomNumber", storageRoomNumber);
