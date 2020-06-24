@@ -23,6 +23,10 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ChooseBothJFrame
+     * @param goBackFrame
+     * @param zooManager
+     * @param animal
+     * @param time
      */
     public ChooseBothJFrame(JFrame goBackFrame, ZooManager zooManager, String animal, String time) {
 

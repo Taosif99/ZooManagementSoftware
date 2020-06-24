@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 /**
- * @(#) GuestModeManager.java
+ * Class which handles feeding information
  */
 public class GuestModeManager {
 
@@ -19,10 +19,10 @@ public class GuestModeManager {
 
     }
 
-    /*If User choose a animal, this is the function for the table(compound,start/end feedingtime, food*/
+    /*If User choose a animal, this is the function for the table(compound,start/end feedingtime, food.*/
 
     /**
-     * Method to return FeedingInfo for ChooseAnimalJframe
+     * Method to return FeedingInfo for ChooseAnimalJframe.
      *
      * @param animal
      * @return LinkedList FeedingInfos with attributes :
@@ -85,10 +85,10 @@ public class GuestModeManager {
 
     }
 
-    /*get all animals in db*/
+    /*get all animals in db.*/
 
     /**
-     * Method to return all distinct animals in a database
+     * Method to return all distinct animals in a database.
      *
      * @return LinkedList with animals or null
      */
@@ -115,9 +115,9 @@ public class GuestModeManager {
 
     }
 
-    /*get all available feedingtimes*/
+    /*get all available feedingtimes.*/
     /**
-     * Method to return all available times for ChooseAnimalAndTimeJFrame
+     * Method to return all available times for ChooseAnimalAndTimeJFrame.
      *
      * @return LinkedList with all available times in database from today or null
      *
@@ -164,9 +164,9 @@ public class GuestModeManager {
 
     }
 
-    /*If User choose a time, this is the function for the table(animalName,compund and food*/
+    /*If User choose a time, this is the function for the table(animalName,compund and food.*/
     /**
-     * Method to return TimefeedingInfo for ChooseTimeJFrame
+     * Method to return TimefeedingInfo for ChooseTimeJFrame.
      *
      * @param feedingTime
      * @return Linked List with FeedingInfos attributes : animal,compound,food or null
@@ -201,9 +201,9 @@ public class GuestModeManager {
         return feedingInfos;
     }
 
-    /*If User choose a animal and time, this is the function for the labels food and compound*/
+    /*If User choose a animal and time, this is the function for the labels food and compound.*/
     /**
-     * Method to return feedingInfo for ChooseBothJFrame
+     * Method to return feedingInfo for ChooseBothJFrame.
      *
      * @param feedingTime
      * @param animalName
@@ -239,7 +239,7 @@ public class GuestModeManager {
     }
 
     /**
-     * Method to return a distinct feedingtime for ChooseAnimalAndTimeJFrame
+     * Method to return a distinct feedingtime for ChooseAnimalAndTimeJFrame.
      *
      * @param animal
      * @return LinkedList with all unique feeding times or null
