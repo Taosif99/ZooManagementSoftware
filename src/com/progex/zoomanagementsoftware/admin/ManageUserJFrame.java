@@ -19,7 +19,7 @@ import javax.swing.table.TableModel;
 
 /**
  *
- * @author Ouchen
+ * 
  */
 public class ManageUserJFrame extends javax.swing.JFrame {
 
@@ -716,7 +716,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                     JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                                 }
                             } else {
-                                JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht eingefügt werden!", "Benutzername bereits vergeben", JOptionPane.CANCEL_OPTION);
+                                JOptionPane.showMessageDialog(null, "Benutzername bereits vergeben!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                             }
                         } catch (IllegalArgumentException illegalArgumentException) {
 
@@ -797,19 +797,19 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         switch (mode) {
 
             case add:
-                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken!", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case update:
 
                 switch (userType) {
 
                     case admin:
-                        JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Admins ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Admins ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten!", "Updaten", JOptionPane.INFORMATION_MESSAGE);
                         break;
 
                     case zookeeper:
 
-                        JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Tierpfleger/-in ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Tierpfleger/-in ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten!", "Updaten", JOptionPane.INFORMATION_MESSAGE);
                         break;
                 }
 
@@ -910,7 +910,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             if (!password.isBlank() && !confirmedPassword.isBlank()) {
 
                 int passwordDescision = JOptionPane.showConfirmDialog(null,
-                        "Wollen Sie wirklich das Passwort ändern? ", "Bestätigung",
+                        "Wollen Sie wirklich das Passwort ändern?", "Bestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (passwordDescision == 0) {
                     changePassword = true;

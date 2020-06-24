@@ -20,7 +20,7 @@ import javax.swing.table.TableModel;
  *
  *
  *
- * @author Ouchen
+ * 
  */
 public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
@@ -661,10 +661,10 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                             }
                         } else {
-                            JOptionPane.showMessageDialog(null, "Bitte geben Sie die Fütterungszeiten im Format yyyy-MM-dd HH:mm an!", "Falsches Format für Fütterungszeiten", JOptionPane.CANCEL_OPTION);
+                            JOptionPane.showMessageDialog(null, "Falsches Format für Fütterungszeiten!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht eingefügt werden!", "Futter existiert nicht!", JOptionPane.CANCEL_OPTION);
+                        JOptionPane.showMessageDialog(null, "Futter existiert nicht!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
                 }
             } catch (NumberFormatException numberFormatException) {
@@ -814,10 +814,10 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                                 }
                             }
                         } else {
-                            JOptionPane.showMessageDialog(null, "Bitte geben Sie die Fütterungszeiten im Format yyyy-MM-dd HH:mm an!", "Falsches Format für Fütterungszeiten", JOptionPane.CANCEL_OPTION);
+                            JOptionPane.showMessageDialog(null, "Falsches Format für Fütterungszeiten!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht geupdatet werden!", "Futter existiert nicht", JOptionPane.CANCEL_OPTION);
+                        JOptionPane.showMessageDialog(null, "Futter existiert nicht!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
                 }
             }
