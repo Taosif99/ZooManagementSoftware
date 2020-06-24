@@ -13,8 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 /**
- *Class which handles animals in our program.
- * @author Ouchen
+ * Class which handles animals in our program.
  */
 public class AnimalManager {
     

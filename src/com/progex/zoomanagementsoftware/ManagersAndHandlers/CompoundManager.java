@@ -9,8 +9,7 @@ import java.util.LinkedList;
 
 
 /**
- *Class which handles the compounds in our program.
- * @author Ouchen
+ * Class which handles the compounds in our program.
  */
 public class CompoundManager {
 

@@ -12,8 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 /**
- *
- * @author taosi
+ * Class which handles the the zookeeper to animal relation in our program.
  */
 public class ZookeeperToAnimalManager {
     

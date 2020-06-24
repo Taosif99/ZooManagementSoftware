@@ -9,8 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 /**
- *Class which handles the the food to animal relation in our program.
- * @author Ouchen
+ * Class which handles the the food to animal relation in our program.
  */
 public class FoodToAnimalManager {
     

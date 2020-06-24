@@ -8,8 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
- * @author taosi
+ * Class which handles foods in our program.
  */
 public class FoodManager {
 
