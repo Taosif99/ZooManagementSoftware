@@ -16,10 +16,7 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-/**
- *
- *
- */
+
 public class ManageUserJFrame extends javax.swing.JFrame {
 
     /**
@@ -741,16 +738,16 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
         String firstname = jTextFieldFirstname.getText().trim();
         String lastname = jTextFieldLastname.getText().trim();
-        String street = jTextFieldStreet.getText().trim();//
-        String zip = jTextFieldZIP.getText().trim();//
-        String city = jTextFieldCity.getText().trim(); //
+        String street = jTextFieldStreet.getText().trim();
+        String zip = jTextFieldZIP.getText().trim();
+        String city = jTextFieldCity.getText().trim(); 
         String country = jTextFieldCountry.getText().trim();
         String phonenumber = jTextFieldPhoneNumber.getText().trim();
         String birthday = jTextFieldBirthday.getText().trim();
         String username = jTextFieldUsername.getText().trim();
         String email = jTextFieldEMail.getText().trim();
         String salutationStr = jComboBoxSalutation.getSelectedItem().toString();
-        String userID = jTextFieldID.getText().trim(); //TODO PARSE ID AS INTEGER
+        String userID = jTextFieldID.getText().trim(); 
 
         String shiftStr = getGermanShiftString();
 
@@ -775,6 +772,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         columnNameToValue.put("Zip", zip);
         columnNameToValue.put("Street", street);
         columnNameToValue.put("Country", country);
+        columnNameToValue.put("Shift", shiftStr);
         String userType;
         if (this.userType == mode.admin) {
             userType = "Admin";

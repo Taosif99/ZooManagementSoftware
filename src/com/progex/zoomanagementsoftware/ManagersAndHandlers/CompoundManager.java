@@ -40,19 +40,19 @@ public class CompoundManager {
         return compounds;
     }
 
+    
     /**
      * Method to add a compound to the database
      *
-     * @param compound    
+     * @param name
+     * @param area
+     * @param constructionYear
+     * @param maxCapacity
      * @return true if successfull, else false
      */
-    public boolean addCompound(Compound compound) {
+    public boolean addCompound(String name, double area, int constructionYear, int maxCapacity) {
 
-        String query = "INSERT INTO Compound(Name,Area,ConstructionYear,MaxCapacity) VALUES"
-                + "('" + compound.getName() + 
-                "'," + compound.getArea() + 
-                "," + compound.getConstructionYear() + 
-                "," + compound.getMaxCapacity() + ")";
+        String query = "INSERT INTO Compound(Name,Area,ConstructionYear,MaxCapacity) VALUES('" + name + "'," + area + "," + constructionYear + "," + maxCapacity + ")";
 
         //String query = "INSERT INTO Compound(Name,Area,ConstructionYear,MaxCapacity) VALUES('Eisbärengehege',500,2002,23);";
         boolean retVal = connectionHandler.manipulateDB(query);
@@ -67,20 +67,48 @@ public class CompoundManager {
     /**
      * Method to update the values of a compound.
      *
-     * @param compound  
+     * @param ID
+     * @param name
+     * @param area
+     * @param constructionYear
+     * @param maxCapacity
      * @return true if successful, else false
      */
-    public boolean updateCompound(Compound compound) {
+    public boolean updateCompound(int ID, String name, double area, int constructionYear, int maxCapacity) {
 
-        //TODO CHECK FOR DUPLICATE NAMES 
+        //Get the old name of the current compound
+        String queryOldName = "SELECT Name FROM Compound WHERE ID =" + ID;
         
+            String oldName = " ";
+            ResultSet resultSet = connectionHandler.performQuery(queryOldName);
+            if (resultSet != null) {
+
+                try {
+                    if (resultSet.next()) {
+                        oldName = resultSet.getString("Name");
+                    }
+
+                } catch (SQLException ex) {
+                    System.err.println("SQL Exception");
+                    System.out.println(ex.getMessage());
+                }
+            }
+        
+        
+               if (!oldName.equals(name)) {
+                if (this.compoundExists(name)) {
+                    return false;
+                }
+            }
+          
+            
         StringBuilder querySB = new StringBuilder();
         querySB.append("UPDATE Compound")
-                .append(" SET Name = ").append("'").append(compound.getName()).append("',")
-                .append("Area = ").append(compound.getArea()).append(", ")
-                .append("ConstructionYear = ").append(compound.getConstructionYear()).append(", ")
-                .append("MaxCapacity = ").append(compound.getMaxCapacity())
-                .append(" WHERE ID = ").append(compound.getId());
+                .append(" SET Name = ").append("'").append(name).append("',")
+                .append("Area = ").append(area).append(", ")
+                .append("ConstructionYear = ").append(constructionYear).append(", ")
+                .append("MaxCapacity = ").append(maxCapacity)
+                .append(" WHERE ID = ").append(ID);
 
         String query = querySB.toString();
         System.out.println(query);

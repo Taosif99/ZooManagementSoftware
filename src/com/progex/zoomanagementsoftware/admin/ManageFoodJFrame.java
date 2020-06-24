@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
@@ -16,9 +11,7 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-/**
- *
- */
+
 public class ManageFoodJFrame extends javax.swing.JFrame {
 
     /**
@@ -837,7 +830,6 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
     private Mode mode;
     private LinkedList<Food> foods;
     private LinkedHashMap<String, String> lastSearchMap;
-    private String unit;
     private FoodManager foodManager;
 
 }

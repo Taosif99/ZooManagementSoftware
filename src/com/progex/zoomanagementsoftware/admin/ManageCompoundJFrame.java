@@ -1,4 +1,3 @@
-
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
@@ -12,10 +11,7 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-/**
- *
- *
- */
+
 public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     /**
@@ -59,14 +55,10 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     private void viewCompounds(LinkedList<Compound> compounds) {
 
         methods.clearTable((DefaultTableModel) jTableCompoundData.getModel());
-
-        /*For example loading all existing Compounds*/
-        //LinkedList<Compound> compounds = zooManager.getCompounds();
         DefaultTableModel model = (DefaultTableModel) jTableCompoundData.getModel();
         Object[] row = new Object[6]; // Spalten
 
         for (Compound compound : compounds) {
-            //Hier bekommt man die Spalten der Zeile
             row[0] = compound.getId();
             row[1] = compound.getName();
             row[2] = compound.getArea();
@@ -433,9 +425,9 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                     }
 
                     
-                    Compound newCompound = new Compound(area, constructionYear, maxCapacity, compoundName);
+                   
                     
-                    if (compoundManager.addCompound(newCompound)) {
+                    if (compoundManager.addCompound(compoundName, area, constructionYear, maxCapacity)) {
 
                         JOptionPane.showMessageDialog(null, "Gehege konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                         cleanFields();
@@ -496,7 +488,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         String name = jTextFieldCompoundName.getText().trim();
         String constructionYear = jTextFieldConstructionYear.getText().trim();
         String maxCapacity = jTextFieldMaxCapacity.getText().trim();
-        String area = jTextFieldArea.getText().trim();
+        String area = methods.removeComma(jTextFieldArea.getText().trim());
         String ID = jTextFieldID.getText().trim();
 
         LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
@@ -545,10 +537,10 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (decision == 0) {
                     
-                    Compound newCompound = new Compound(ID,area, constructionYear, maxCapacity, compoundName);
+                  
                     
                     
-                    if (compoundManager.updateCompound(newCompound)) {
+                    if (compoundManager.updateCompound(ID, compoundName, area, constructionYear, maxCapacity)) {
 
                         JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                         cleanFields();
@@ -559,7 +551,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                         }
                     } else {
 
-                        //Falls Fehler beim Updaten
+                        
                         JOptionPane.showMessageDialog(null, "Gehege konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
                 }
@@ -589,15 +581,14 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
             if (textFieldsVerified) {
 
-                //Nachfragen ob er sich sicher ist, hier if Abfrage mache
-                //TODO Cancel auf deutsch
+               
                 int decision = JOptionPane.showConfirmDialog(null,
                         "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
                 if (decision == 0) {
                     if (compoundManager.deleteCompound(ID)) {
-                        //Falls Löschen erfolgreich
+                      
                         JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                         cleanFields();
 
@@ -607,7 +598,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                             viewCompounds(lastSearchedCompounds);
                         }
                     } else {
-                        //Falls Fehler beim Löschen
+                        
                         JOptionPane.showMessageDialog(null, "Gehege konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
                 }
@@ -657,7 +648,9 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         zooManager.getUserManager().logout();
     }//GEN-LAST:event_formWindowClosing
 
-  
+    /**
+     * Method to disable/enable buttons/labels depending on operation selection.
+     */
     private void updateButtonsAndLabels() {
 
         System.out.println("Compound Mode");

@@ -65,15 +65,11 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         Object[] row = new Object[6]; // Spalten
 
         for (Animal animal : animals) {
-            //Hier bekommt man die Spalten der Zeile
             row[0] = animal.getId();
             row[1] = animal.getName();
             row[2] = animal.getSex();
-            row[3] = animal.getBirthday();
-            //DIE LINE IST NOCH HÄSSLICH
             row[4] = methods.descriptionToString(animal.getSpecies().getDescription());
             row[5] = animal.getCompound().getName();
-            //Hier wird es Hinzugefuegt
             model.addRow(row);
         }
 

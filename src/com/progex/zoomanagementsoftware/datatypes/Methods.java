@@ -357,7 +357,20 @@ public class Methods {
         return pattern.matcher(email).matches(); 
     } 
    
-   
+     /**
+      * Method to remove ".0" from a number
+      * @param doubleStr
+      * @return 
+      */
+     public String removeComma(String doubleStr){
+         
+         if(doubleStr.endsWith(".0")){
+             return doubleStr.substring(0, doubleStr.length()-3);
+         }
+         return doubleStr;
+     }
+     
+     
    
    //Mustapha end 
    
