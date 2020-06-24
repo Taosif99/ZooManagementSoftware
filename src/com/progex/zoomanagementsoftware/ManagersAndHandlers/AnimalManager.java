@@ -233,7 +233,7 @@ public class AnimalManager {
                     Methods methods = new Methods();
                     Description description = methods.stringToDescription(descriptionStr);
 
-                    Species species = new Species(-1, null, description);
+                    Species species = new Species(-1, description);
                     //Creating corresponding object,-1 used as undefined value
                     Compound compound = new Compound(-1, -1, -1, -1, -1, compoundName);
                     Animal animal = new Animal(animalID, animalName, birthday, sex, compound, species);

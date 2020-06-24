@@ -704,7 +704,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                     JOptionPane.showConfirmDialog(null, "Wollen Sie die Adresse wirklich einfügen?\n"
                                             + "Straße: " + street + "\n"
                                             + "PLZ: " + zip + "\n"
-                                            + "Stadt: " + city, "Überprüfen",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                                            + "Stadt: " + city, "Adresse nicht in Datenbank vorhanden",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                                 }
                                 if (userManager.addUser(userTypeStr, salutationStr, firstname, lastname,
                                         street, zip, city, country, phonenumber,

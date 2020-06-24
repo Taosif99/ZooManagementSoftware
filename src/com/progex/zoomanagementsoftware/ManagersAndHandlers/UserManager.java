@@ -108,7 +108,7 @@ public class UserManager {
                         break;
                     case "Zookeeper":
 
-                        Zookeeper zookeeper = new Zookeeper(null, shift, username, firstname, lastname, email, phoneNumber, id, salutation, birthday, hashedPassword, address, lastLogDate);
+                        Zookeeper zookeeper = new Zookeeper(shift, username, firstname, lastname, email, phoneNumber, id, salutation, birthday, hashedPassword, address, lastLogDate);
                         users.add(zookeeper);
 
                         break;
@@ -518,13 +518,7 @@ public class UserManager {
                     return admin;
                 }
                 if (type.equals("Zookeeper")) {
-                    Zookeeper zookeeper = new Zookeeper(null, null, userName, firstName, null, null, null, 0, null, null, null, null, lastLogDate);
-
-                    System.out.println("--------USERMANAGER-----"
-                            + "username" + username
-                            + "firstName" + firstName
-                            + "" + type
-                            + "" + lastLogDate);
+                    Zookeeper zookeeper = new Zookeeper(null, userName, firstName, null, null, null, 0, null, null, null, null, lastLogDate);
                     return zookeeper;
 
                 } else {
