@@ -750,7 +750,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Bitte ein Tier anklicken für die Suche", "Suchen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, "Bitte ein Tier anklicken für die Suche!", "Suchen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
         }
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
