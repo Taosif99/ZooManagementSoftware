@@ -16,12 +16,7 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-/**
- *
- *
- *
- * @author Ouchen
- */
+
 public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     /**
@@ -640,8 +635,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     boolean feedingOrderTimesOk = methods.isFeedingTimesGreater(startFeedingTime, endFeedingTime);
                     FoodManager foodManager = zooManager.getFoodManager();
                     boolean foodExists = foodManager.checkFoodExists(foodName, -1);
-                    if (amount <= 0) {
-                        throw new IllegalArgumentException("Amount must be greater zero");
+                    if (amount < 0) {
+                        throw new IllegalArgumentException("Amount must be greater or equal zero");
                     }
                     if (jRadioButtonG.isSelected()) {
                         amount /= 1000;
@@ -661,10 +656,10 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                             }
                         } else {
-                            JOptionPane.showMessageDialog(null, "Bitte geben Sie die Fütterungszeiten im Format yyyy-MM-dd HH:mm an!", "Falsches Format für Fütterungszeiten", JOptionPane.CANCEL_OPTION);
+                            JOptionPane.showMessageDialog(null, "Falsches Format für Fütterungszeiten!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht eingefügt werden!", "Futter existiert nicht!", JOptionPane.CANCEL_OPTION);
+                        JOptionPane.showMessageDialog(null, "Futter existiert nicht!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
                 }
             } catch (NumberFormatException numberFormatException) {
@@ -696,7 +691,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jRadioButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAddActionPerformed
-        cleanFields();
+
         updateButtonsAndLabels();
     }//GEN-LAST:event_jRadioButtonAddActionPerformed
 
@@ -721,13 +716,14 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             String amountStr = "";
             double amount = -1;
             try {
-                amount = Double.parseDouble(jTextFieldAmountFood.getText().trim());
+                amountStr = methods.removeComma(jTextFieldAmountFood.getText().trim());
+                amount = Double.parseDouble(amountStr);
 
                 if (jRadioButtonG.isSelected()) {
                     amount *= 1000;
                 }
             } catch (NumberFormatException numberFormatException) {
-                //Bei der Suche akzeptiert
+                
                 System.err.println("NumberFormatException");
                 System.out.println(numberFormatException.getMessage());
 
@@ -783,8 +779,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     FoodManager foodManager = zooManager.getFoodManager();
                     boolean foodExists = foodManager.checkFoodExists(foodName, -1);
                     boolean feedingOrderTimesOk = methods.isFeedingTimesGreater(startFeedingTime, endFeedingTime);
-                    if (amount <= 0) {
-                        throw new IllegalArgumentException("Amount must be greater zero");
+                    if (amount < 0) {
+                        throw new IllegalArgumentException("Amount must be greater or equal zero");
                     }
                     //Check if gramm is selected
                     if (jRadioButtonG.isSelected()) {
@@ -814,10 +810,10 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                                 }
                             }
                         } else {
-                            JOptionPane.showMessageDialog(null, "Bitte geben Sie die Fütterungszeiten im Format yyyy-MM-dd HH:mm an!", "Falsches Format für Fütterungszeiten", JOptionPane.CANCEL_OPTION);
+                            JOptionPane.showMessageDialog(null, "Falsches Format für Fütterungszeiten!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht geupdatet werden!", "Futter existiert nicht", JOptionPane.CANCEL_OPTION);
+                        JOptionPane.showMessageDialog(null, "Futter existiert nicht!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
                 }
             }
@@ -849,8 +845,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
 
-        //Beim Löschen reicht nur die IDs aus,die man durch anklicken
-        //erhält   
+    
         int rowIndex = jTableFoodToAnimalData.getSelectedRow();
         TableModel model = jTableFoodToAnimalData.getModel();
         String foodIDKey = model.getValueAt(rowIndex, 1).toString();
@@ -955,9 +950,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         zooManager.getUserManager().logout();
     }//GEN-LAST:event_formWindowClosing
 
-    /**
-     * Method to disable/enable buttons/labels depending on operation selection.
-     */
+
     private void updateButtonsAndLabels() {
 
         System.out.println("FoodToAnimal Mode");

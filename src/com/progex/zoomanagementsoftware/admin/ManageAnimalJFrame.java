@@ -1,4 +1,3 @@
-
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.AnimalManager;
@@ -17,7 +16,7 @@ import javax.swing.table.TableModel;
 
 /**
  *
- * @author Ouchen
+ * 
  */
 public class ManageAnimalJFrame extends javax.swing.JFrame {
 
@@ -43,8 +42,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
     private void myInitComponents() {
         updateButtonsAndLabels();
-        //LinkedList <Animal> allAnimals = zooManager.getAnimals();
-        //viewAnimals(allAnimals);
         UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
         UIManager.put("OptionPane.noButtonText", "Nein");
         UIManager.put("OptionPane.okButtonText", "OK");
@@ -68,15 +65,11 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         Object[] row = new Object[6]; // Spalten
 
         for (Animal animal : animals) {
-            //Hier bekommt man die Spalten der Zeile
             row[0] = animal.getId();
             row[1] = animal.getName();
             row[2] = animal.getSex();
-            row[3] = animal.getBirthday();
-            //DIE LINE IST NOCH HÄSSLICH
             row[4] = methods.descriptionToString(animal.getSpecies().getDescription());
             row[5] = animal.getCompound().getName();
-            //Hier wird es Hinzugefuegt
             model.addRow(row);
         }
 
@@ -464,6 +457,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
             if (compoundNameExists) {
                 if (dateFormatCorrect) {
+                    
+                    
                     if (animalManager.addAnimal(animalName, compoundName, date, sex, species)) {
                         //Falls Einfügen erfolgreichr
                         JOptionPane.showMessageDialog(null, "Tier konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
@@ -474,20 +469,17 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Tier konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Bitte Geburtstsag im format yyyy-MM-dd eintragen !", "Falsches Datumformat", JOptionPane.CANCEL_OPTION);
+                    JOptionPane.showMessageDialog(null, "Falsches Datumformat!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Tier konnte nicht eingefügt werden!", "Gehege existiert nicht", JOptionPane.CANCEL_OPTION);
+                JOptionPane.showMessageDialog(null, "Gehege existiert nicht!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
             }
-
         }
-
     }//GEN-LAST:event_jButtonAddAnimalActionPerformed
 
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
 
         goBackFrame.setVisible(true);
-        //Close frame
         this.dispose();
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
@@ -605,19 +597,18 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                             }
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Bitte Geburtstag im Format yyyy-MM-dd eintragen!", "Falsches Datumformat", JOptionPane.CANCEL_OPTION);
+                        JOptionPane.showMessageDialog(null, "Bitte Geburtstag im Format yyyy-MM-dd eintragen!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Tier konnte nicht geupdated werden!", "Gehege existiert nicht", JOptionPane.CANCEL_OPTION);
+                    JOptionPane.showMessageDialog(null, "Gehege existiert nicht!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                 }
             } catch (NumberFormatException numberFormatException) {
 
                 System.err.println("NumberFormatException");
                 System.out.println(numberFormatException.getMessage());
-                JOptionPane.showMessageDialog(null, "Tier konnte nicht geupdated werden!", "ID Feld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
+                JOptionPane.showMessageDialog(null, "ID Feld falsch ausgefüllt!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
             }
         }
-
     }//GEN-LAST:event_jButtonUpdateAnimalActionPerformed
 
     private void jButtonDeleteAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteAnimalActionPerformed
@@ -631,33 +622,25 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             if (textFieldsVerified) {
 
                 //Nachfragen ob er sich sicher ist, hier if Abfrage mache
-                //TODO Cancel auf deutsch
                 int decision = JOptionPane.showConfirmDialog(null,
                         "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (decision == 0) {
                     if (animalManager.deleteAnimal(ID)) {
-                        //Falls Löschen erfolgreich, pfeil wäre besser
                         JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                         cleanFields();
-
+                        
                         //Update table if old search exist
                         if (lastSearchMap != null) {
                             lastSearchedAnimals = animalManager.searchAnimals(lastSearchMap);
                             viewAnimals(lastSearchedAnimals);
-
                         }
-
                     } else {
                         //Falls Fehler beim Löschen
                         JOptionPane.showMessageDialog(null, "Tier konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-
                     }
-
                 }
-
             }
-
         } catch (NumberFormatException numberFormatException) {
 
             System.err.println("NumberFormatException");
@@ -665,21 +648,19 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ID Feld falsch ausgefüllt!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
 
         }
-
     }//GEN-LAST:event_jButtonDeleteAnimalActionPerformed
 
     private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
 
-        //System.out.println(mode); //Debug
         //Get the mode
         switch (mode) {
 
             case add:
-                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken!", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
                 break;
 
             case update:
-                JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Tieres ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Tieres ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten!", "Updaten", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case delete:
                 JOptionPane.showMessageDialog(null, "Bitte die ID des zu löschenden Tieres ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
@@ -689,7 +670,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
     /**
      * This Method makes it possible to update the fields, depending which row
-     * is clicked
+     * is clicked.
      *
      * @param evt
      */
@@ -709,8 +690,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             jComboBoxSpecies.setSelectedItem(species);
             jTextFieldCompound.setText(model.getValueAt(rowIndex, 5).toString());
         }
-
-
     }//GEN-LAST:event_jTableAnimalDataMouseClicked
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -718,16 +697,10 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         zooManager.getUserManager().logout();
     }//GEN-LAST:event_formWindowClosing
 
-    /**
-     * Method to disable/enable buttons and labels depending on operation
-     * selection.
-     *
-     */
     private void updateButtonsAndLabels() {
 
-
         System.out.println("Animal Mode");
-
+        
         if (jRadioButtonAdd.isSelected()) {
             System.out.println("    Add mode");
             jButtonAddAnimal.setEnabled(true);

@@ -9,8 +9,7 @@ import java.util.LinkedList;
 
 
 /**
- *Class which handles the compounds in our program.
- * @author Ouchen
+ * Class which handles the compounds in our program.
  */
 public class CompoundManager {
 
@@ -41,6 +40,7 @@ public class CompoundManager {
         return compounds;
     }
 
+    
     /**
      * Method to add a compound to the database
      *
@@ -76,6 +76,32 @@ public class CompoundManager {
      */
     public boolean updateCompound(int ID, String name, double area, int constructionYear, int maxCapacity) {
 
+        //Get the old name of the current compound
+        String queryOldName = "SELECT Name FROM Compound WHERE ID =" + ID;
+        
+            String oldName = " ";
+            ResultSet resultSet = connectionHandler.performQuery(queryOldName);
+            if (resultSet != null) {
+
+                try {
+                    if (resultSet.next()) {
+                        oldName = resultSet.getString("Name");
+                    }
+
+                } catch (SQLException ex) {
+                    System.err.println("SQL Exception");
+                    System.out.println(ex.getMessage());
+                }
+            }
+        
+        
+               if (!oldName.equals(name)) {
+                if (this.compoundExists(name)) {
+                    return false;
+                }
+            }
+          
+            
         StringBuilder querySB = new StringBuilder();
         querySB.append("UPDATE Compound")
                 .append(" SET Name = ").append("'").append(name).append("',")
@@ -168,13 +194,13 @@ public class CompoundManager {
     }
 
     /**
-     * Method to check if a compound with the given name already exists
+     * Method to check if a compound with the given name already exists.
      * @param compoundName
      * @return true if compound with this name is found, else false 
      */
     public boolean compoundExists(String compoundName){
     
-        
+        System.err.println("häh");
           try {
               String query = "SELECT Name FROM Compound WHERE Name = '" +compoundName + "'";
               ResultSet resultSet = connectionHandler.performQuery(query);
@@ -182,7 +208,7 @@ public class CompoundManager {
               if (resultSet == null) return false;
               
               if (resultSet.next()){
-                  
+                  System.err.println("Compound exists#############");
                   return true;
                   
               } else return false;

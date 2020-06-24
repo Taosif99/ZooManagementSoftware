@@ -10,8 +10,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 /**
- *This class serves as main interface to our zoo management software.
- * @author Ouchen
+ * This class serves as main interface to our zoo management software.
  */
 public class ZooManager {
 

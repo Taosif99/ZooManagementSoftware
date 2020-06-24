@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.progex.zoomanagementsoftware.ManagersAndHandlers;
 
 import com.progex.zoomanagementsoftware.datatypes.ZookeeperToAnimalR;
@@ -12,8 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 /**
- *
- * @author taosi
+ * Class which handles the the zookeeper to animal relation in our program.
  */
 public class ZookeeperToAnimalManager {
     

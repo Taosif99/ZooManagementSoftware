@@ -108,7 +108,7 @@ public class UserManager {
                         break;
                     case "Zookeeper":
 
-                        Zookeeper zookeeper = new Zookeeper(null, shift, username, firstname, lastname, email, phoneNumber, id, salutation, birthday, hashedPassword, address, lastLogDate);
+                        Zookeeper zookeeper = new Zookeeper(shift, username, firstname, lastname, email, phoneNumber, id, salutation, birthday, hashedPassword, address, lastLogDate);
                         users.add(zookeeper);
 
                         break;
@@ -209,7 +209,15 @@ public class UserManager {
         }
     }
 
-    private boolean addAddress(String zip, String city, String country, String street) {
+    /**
+     * Method to add an address in the database.
+     * @param zip
+     * @param city
+     * @param country
+     * @param street
+     * @return true if operation was successful, else false
+     */
+    public boolean addAddress(String zip, String city, String country, String street) {
 
         String insertAddressQuery = "INSERT INTO Address (Zip, Street, Country, City)"
                 + "VALUES ('" + zip + "','" + street + "','" + country + "','" + city + "')";

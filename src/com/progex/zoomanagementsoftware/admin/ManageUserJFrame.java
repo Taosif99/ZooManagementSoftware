@@ -1,4 +1,3 @@
-
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
@@ -17,10 +16,7 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-/**
- *
- * @author Ouchen
- */
+
 public class ManageUserJFrame extends javax.swing.JFrame {
 
     /**
@@ -28,6 +24,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
      *
      * @param goBackFrame The frame which will appear when the go back button is
      * used
+     * @param zooManager The zooManager of the current programm session which
+     * serves as interface
      */
     public ManageUserJFrame(JFrame goBackFrame, ZooManager zooManager) {
         initComponents();
@@ -704,7 +702,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                     JOptionPane.showConfirmDialog(null, "Wollen Sie die Adresse wirklich einfügen?\n"
                                             + "Straße: " + street + "\n"
                                             + "PLZ: " + zip + "\n"
-                                            + "Stadt: " + city, "Überprüfen",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                                            + "Stadt: " + city, "Adresse nicht in der Datenbank vorhanden", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                                 }
                                 if (userManager.addUser(userTypeStr, salutationStr, firstname, lastname,
                                         street, zip, city, country, phonenumber,
@@ -716,7 +714,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                     JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                                 }
                             } else {
-                                JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht eingefügt werden!", "Benutzername bereits vergeben", JOptionPane.CANCEL_OPTION);
+                                JOptionPane.showMessageDialog(null, "Benutzername bereits vergeben!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                             }
                         } catch (IllegalArgumentException illegalArgumentException) {
 
@@ -740,16 +738,16 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
         String firstname = jTextFieldFirstname.getText().trim();
         String lastname = jTextFieldLastname.getText().trim();
-        String street = jTextFieldStreet.getText().trim();//
-        String zip = jTextFieldZIP.getText().trim();//
-        String city = jTextFieldCity.getText().trim(); //
+        String street = jTextFieldStreet.getText().trim();
+        String zip = jTextFieldZIP.getText().trim();
+        String city = jTextFieldCity.getText().trim(); 
         String country = jTextFieldCountry.getText().trim();
         String phonenumber = jTextFieldPhoneNumber.getText().trim();
         String birthday = jTextFieldBirthday.getText().trim();
         String username = jTextFieldUsername.getText().trim();
         String email = jTextFieldEMail.getText().trim();
         String salutationStr = jComboBoxSalutation.getSelectedItem().toString();
-        String userID = jTextFieldID.getText().trim(); //TODO PARSE ID AS INTEGER
+        String userID = jTextFieldID.getText().trim(); 
 
         String shiftStr = getGermanShiftString();
 
@@ -774,6 +772,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         columnNameToValue.put("Zip", zip);
         columnNameToValue.put("Street", street);
         columnNameToValue.put("Country", country);
+        columnNameToValue.put("Shift", shiftStr);
         String userType;
         if (this.userType == mode.admin) {
             userType = "Admin";
@@ -797,19 +796,19 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         switch (mode) {
 
             case add:
-                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken!", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case update:
 
                 switch (userType) {
 
                     case admin:
-                        JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Admins ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Admins ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten!", "Updaten", JOptionPane.INFORMATION_MESSAGE);
                         break;
 
                     case zookeeper:
 
-                        JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Tierpfleger/-in ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Bitte die Daten des zu updatenden Tierpfleger/-in ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten!", "Updaten", JOptionPane.INFORMATION_MESSAGE);
                         break;
                 }
 
@@ -856,16 +855,15 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
             if (textFieldsVerified) {
 
-                
                 int decision = JOptionPane.showConfirmDialog(null,
                         "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (decision == 0) {
                     if (userManager.deleteUser(ID)) {
-                        
+
                         JOptionPane.showMessageDialog(null, "Nutzer/-in wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                         if (lastSearchMap != null) {
-                           lastSearchedUsers = userManager.searchUsers(lastSearchMap);
+                            lastSearchedUsers = userManager.searchUsers(lastSearchMap);
                             viewUsers(lastSearchedUsers);
                         }
                         cleanFields();
@@ -910,7 +908,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             if (!password.isBlank() && !confirmedPassword.isBlank()) {
 
                 int passwordDescision = JOptionPane.showConfirmDialog(null,
-                        "Wollen Sie wirklich das Passwort ändern? ", "Bestätigung",
+                        "Wollen Sie wirklich das Passwort ändern?", "Bestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (passwordDescision == 0) {
                     changePassword = true;
@@ -962,18 +960,28 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
                         }
                         if ((!changePassword || (password.length() >= 8))) {
-                            if (userManager.updateUser(id, userTypeStr, salutationStr, firstname,
-                                    lastname, street, zip, city, country,
-                                    phonenumber, birthday, shiftStr, username, email, password, changePassword)) {
-                                JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich geupdatet werden!", "Updaten erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                                cleanFields();
+                            if (userManager.searchAddressId(zip, street, city) == -1) {
+                                JOptionPane.showConfirmDialog(null, "Wollen Sie die Adresse wirklich einfügen?\n"
+                                        + "Straße: " + street + "\n"
+                                        + "PLZ: " + zip + "\n"
+                                        + "Stadt: " + city, "Adresse nicht in der Datenbank vorhanden", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                                if (userManager.addAddress(zip, city, country, street)) {
+                                    if (userManager.updateUser(id, userTypeStr, salutationStr, firstname,
+                                            lastname, street, zip, city, country,
+                                            phonenumber, birthday, shiftStr, username, email, password, changePassword)) {
+                                        JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich geupdatet werden!", "Updaten erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+                                        cleanFields();
 
-                                if (lastSearchMap != null) {
-                                    lastSearchedUsers = userManager.searchUsers(lastSearchMap);
-                                    viewUsers(lastSearchedUsers);
+                                        if (lastSearchMap != null) {
+                                            lastSearchedUsers = userManager.searchUsers(lastSearchMap);
+                                            viewUsers(lastSearchedUsers);
+                                        }
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                                    }
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Adresse konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                                 }
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "Passwort muss mindestens 8 Zeichen haben!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -1048,7 +1056,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         System.out.append("LOGOUT");
         zooManager.getUserManager().logout();
     }//GEN-LAST:event_formWindowClosing
-
 
     private String updateButtonsAndLabels() {
 

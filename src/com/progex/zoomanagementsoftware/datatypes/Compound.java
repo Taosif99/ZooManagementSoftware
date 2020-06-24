@@ -19,6 +19,15 @@ public class Compound {
 
     private String name;
 
+    /**
+     * Standard constructor to model a compound dataset.
+     * @param id
+     * @param area
+     * @param constructionYear
+     * @param maxCapacity
+     * @param currentCapacity
+     * @param name 
+     */
     public Compound(int id, double area, int constructionYear, int maxCapacity, int currentCapacity, String name) {
         this.id = id;
         this.area = area;
@@ -27,7 +36,7 @@ public class Compound {
         this.currentCapacity = currentCapacity;
         this.name = name;
     }
-
+        
     public int getId() {
         return id;
     }

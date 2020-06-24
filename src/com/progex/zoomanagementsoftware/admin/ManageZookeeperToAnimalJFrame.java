@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
@@ -21,7 +16,7 @@ import javax.swing.table.TableModel;
 
 /**
  *
- * @author taosi
+ *
  */
 public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
@@ -30,6 +25,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
      *
      * @param goBackFrame The frame which will appear when the go back button is
      * used
+     * @param zooManager The zooManager of the current programm session which serves as interface
      */
     public ManageZookeeperToAnimalJFrame(JFrame goBackFrame, ZooManager zooManager) {
 
@@ -42,7 +38,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         myInitComponents();
     }
 
-    public void myInitComponents() {
+    private void myInitComponents() {
 
         updateButtonsAndLabels();
         methods.showTimeAndDate(jLabelShowDateTime);
@@ -376,7 +372,6 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
 
         goBackFrame.setVisible(true);
-        //Close frame
         this.dispose();
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
@@ -407,7 +402,6 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
 
         try {
-            //Brauche ich für NumberFormatException
             int exceptionUserId;
             String userId;
             if (!jTextFieldUserID.getText().isBlank()) {
@@ -421,13 +415,13 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             String lastname = jTextFieldZookeeperLastName.getText();
             String animalName = jTextFieldAnimalName.getText();
 
-            columnNameToValue = new LinkedHashMap<String, String>();
-            columnNameToValue.put("UserID", userId);
-            columnNameToValue.put("firstname", firstname);
-            columnNameToValue.put("lastname", lastname);
-            columnNameToValue.put("animalName", animalName);
+            lastSearchMap = new LinkedHashMap<String, String>();
+            lastSearchMap.put("UserID", userId);
+            lastSearchMap.put("firstname", firstname);
+            lastSearchMap.put("lastname", lastname);
+            lastSearchMap.put("animalName", animalName);
 
-            records = zookeeperToAnimalManager.searchZookeeperToAnimal(columnNameToValue);
+            records = zookeeperToAnimalManager.searchZookeeperToAnimal(lastSearchMap);
 
             if (records.isEmpty()) {
                 methods.clearTable((DefaultTableModel) jTableTakesCareData.getModel());
@@ -453,7 +447,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             if (jTextFieldUserID.getText().isBlank()) {
                 JOptionPane.showMessageDialog(null, "BenutzerID fehlt!", "Textfeld ohne Inhalt", JOptionPane.CANCEL_OPTION);
             } else {
-                //Wenn BenutzerID und Tiername nciht fehlen
+                //Wenn BenutzerID und Tiername nicht fehlen
                 if (methods.verifyTextFields(textFields)) {
 
                     int zookeeperID = Integer.parseInt(jTextFieldUserID.getText());
@@ -470,8 +464,8 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                             if (zookeeperToAnimalManager.checkZookeeperToAnimalExists(animalName, zookeeperID)) {
                                 //Löschen erfolgreich
                                 if (zookeeperToAnimalManager.deleteZookeeperToAnimal(zookeeperToAnimalManager.getAnimalIds(animalName), zookeeperID)) {
-                                    if (columnNameToValue != null) {
-                                        records = zookeeperToAnimalManager.searchZookeeperToAnimal(columnNameToValue);
+                                    if (lastSearchMap != null) {
+                                        records = zookeeperToAnimalManager.searchZookeeperToAnimal(lastSearchMap);
                                         viewRelationTable(); // um die Tabelle zu aktualiseren
                                     }
                                     JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
@@ -537,9 +531,9 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                     } else {
                         //if(zookeeper schon eine Fütterung um diese Uhrzeit hat
                         if (zookeeperToAnimalManager.addZookeeperToAnimal(animalIds, selectedZookeeperID)) {
-                            if (columnNameToValue != null) {
-                                records = zookeeperToAnimalManager.searchZookeeperToAnimal(columnNameToValue);
-                                viewRelationTable(); // um die Tabelle zu aktualiseren
+                            if (lastSearchMap != null) {
+                                records = zookeeperToAnimalManager.searchZookeeperToAnimal(lastSearchMap);
+                                viewRelationTable(); // Um die Tabelle zu aktualiseren
                             }
                             JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                             clearTextFields();
@@ -555,6 +549,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButtonAddFoodActionPerformed
+    
     private void fillZookeeperTable(DefaultTableModel model) {
 
         model = (DefaultTableModel) jTableZookeeperData.getModel();
@@ -588,13 +583,12 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             String firstname = jTextFieldZookeepeFirstName.getText().trim();;
             String lastname = jTextFieldZookeeperLastName.getText().trim();
 
-            //System.out.println(firstname + " " + lastname);
-            columnNameToValue = new LinkedHashMap<String, String>();
-            columnNameToValue.put("firstName", firstname);
-            columnNameToValue.put("lastName", lastname);
-            columnNameToValue.put("type", "Zookeeper");
+            lastSearchMap = new LinkedHashMap<String, String>();
+            lastSearchMap.put("firstName", firstname);
+            lastSearchMap.put("lastName", lastname);
+            lastSearchMap.put("type", "Zookeeper");
 
-            zookeepers = zooManager.getUserManager().searchUsers(columnNameToValue);
+            zookeepers = zooManager.getUserManager().searchUsers(lastSearchMap);
 
             if (zookeepers.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
@@ -620,12 +614,12 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         jTextFieldZookeepeFirstName.setText(firstName);
         jTextFieldZookeeperLastName.setText(lastName);
 
-        columnNameToValue = new LinkedHashMap<String, String>();
-        columnNameToValue.put("UserID", selectedZookeeperID);
-        columnNameToValue.put("firstname", firstName);
-        columnNameToValue.put("lastname", lastName);
+        lastSearchMap = new LinkedHashMap<String, String>();
+        lastSearchMap.put("UserID", selectedZookeeperID);
+        lastSearchMap.put("firstname", firstName);
+        lastSearchMap.put("lastname", lastName);
 
-        records = zookeeperToAnimalManager.searchZookeeperToAnimal(columnNameToValue);
+        records = zookeeperToAnimalManager.searchZookeeperToAnimal(lastSearchMap);
 
         if (records.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
@@ -667,10 +661,6 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         zooManager.getUserManager().logout();
     }//GEN-LAST:event_formWindowClosing
 
-    /**
-     * Method to disable/enable buttons and labels depending on operation
-     * selection.
-     */
     private void updateButtonsAndLabels() {
 
         if (jRadioButtonAdd.isSelected()) {
@@ -778,6 +768,6 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     private String selectedZookeeperID;
     private Mode mode;
     private LinkedList<ZookeeperToAnimalR> records;
-    private LinkedHashMap<String, String> columnNameToValue;
+    private LinkedHashMap<String, String> lastSearchMap;
     private ZookeeperToAnimalManager zookeeperToAnimalManager;
 }
