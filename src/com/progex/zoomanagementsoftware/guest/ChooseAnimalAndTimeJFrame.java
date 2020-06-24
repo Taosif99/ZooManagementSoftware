@@ -19,20 +19,19 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Oli
+ * @author Oliver Hindahl
  */
 public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form nimalAndTimeJFrame
+     * Creates new form ChooseAnimalAndTimeJFrame
      */
     public ChooseAnimalAndTimeJFrame(JFrame goBackFrame, ZooManager zooManager) {
 
         initComponents();
         myInitComponents();
         
-        //s
-
+        
         this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
         this.guestModeManager = zooManager.getGuestModeManager();
@@ -43,12 +42,9 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
     }
 
-    public ChooseAnimalAndTimeJFrame() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     /* Individual initialization*/
-    public void myInitComponents() {
+    private void myInitComponents() {
         
         Toolkit tk = Toolkit.getDefaultToolkit();
         int x = (int) tk.getScreenSize().getWidth();
@@ -93,8 +89,8 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
             anames[i + 1] = animals.get(i);
 
         }
-        DefaultComboBoxModel dm = new DefaultComboBoxModel(anames);
-        jComboBoxName.setModel(dm);
+        DefaultComboBoxModel defaultTableModel = new DefaultComboBoxModel(anames);
+        jComboBoxName.setModel(defaultTableModel);
 
     }
 
@@ -114,8 +110,8 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                 atimes[i + 1] = times.get(i);
 
             }
-            DefaultComboBoxModel dm = new DefaultComboBoxModel(atimes);
-            jComboTime.setModel(dm);
+            DefaultComboBoxModel defaultTableModel = new DefaultComboBoxModel(atimes);
+            jComboTime.setModel(defaultTableModel);
             
             
                 
@@ -260,7 +256,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxNameActionPerformed
-        // TODO add your handling code here:
+        
         //Search button visible or not
         String animal = jComboBoxName.getSelectedItem().toString();
         String feedingTime = jComboTime.getSelectedItem().toString();
@@ -284,8 +280,8 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                     timesArr[i+1] = times.get(i);
                 }
 
-                DefaultComboBoxModel dm = new DefaultComboBoxModel(timesArr);
-                jComboTime.setModel(dm);
+                DefaultComboBoxModel defaultTableModel = new DefaultComboBoxModel(timesArr);
+                jComboTime.setModel(defaultTableModel);
 
          
 
@@ -299,7 +295,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxNameActionPerformed
 
     private void jComboTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboTimeActionPerformed
-        // TODO add your handling code here:
+        //Search button visible or not
         String animal = jComboBoxName.getSelectedItem().toString();
         String feedingTime = jComboTime.getSelectedItem().toString();
         
@@ -311,15 +307,15 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboTimeActionPerformed
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-        // TODO add your handling code here:
+        
         goBackFrame.setVisible(true);
         //Close frame
         this.dispose();
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
-        // TODO add your handling code here:
-                                                     
+       
+                                                  
 
         String animal = jComboBoxName.getSelectedItem().toString();
         System.out.println(animal);
@@ -377,7 +373,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
             JFrame thisFrame = this;
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new ChooseBoth(thisFrame, zooManager, (String) jComboBoxName.getSelectedItem(), (String) jComboTime.getSelectedItem()).setVisible(true);
+                    new ChooseBothJFrame(thisFrame, zooManager, (String) jComboBoxName.getSelectedItem(), (String) jComboTime.getSelectedItem()).setVisible(true);
                 }
             });
             
