@@ -202,7 +202,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         });
 
         attentionJLabel.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
-        attentionJLabel.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -251,9 +250,9 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(attentionJLabel)
                 .addGap(10, 10, 10)
-                .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonAllFeedingTime1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                .addComponent(jButtonAllFeedingTime1, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                 .addGap(44, 44, 44))
         );
 
