@@ -511,7 +511,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
         try {
 
-            //boolean textFieldsVerified = verifyTextFields();
+            
             JTextField textFields[] = {
                 jTextFieldArea,
                 jTextFieldCompoundName,

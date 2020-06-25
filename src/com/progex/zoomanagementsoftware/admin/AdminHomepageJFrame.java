@@ -9,10 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- *
- */
+
 public class AdminHomepageJFrame extends javax.swing.JFrame {
 
    /**
@@ -39,7 +36,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         
         try{
         User loggedInUser = userManager.getLoggedInUser();
-        //TODO LOGIN SO VERÄNDERN DASS MAN AUCH DEN NACHNAMEN BEKOMMEN KANN !
+        
         jLabelWelcomeAdmin.setText("Hallo " + loggedInUser.getFirstname());
         }
         
