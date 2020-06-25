@@ -642,6 +642,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldPhoneNumber">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Bitte Telefonnumer ohne Sonderzeichen eingeben z.B. 014576123"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelBirthday">
       <Properties>

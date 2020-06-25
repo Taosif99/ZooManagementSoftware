@@ -16,7 +16,6 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-
 public class ManageUserJFrame extends javax.swing.JFrame {
 
     /**
@@ -107,7 +106,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     //TODO CHANGE DATABASE
     private String getGermanShiftString() {
 
-        if (userType.equals("Zookeeper")) {
+        if (userType.equals(Mode.zookeeper)) {
             String shiftStr = jComboBoxShift.getSelectedItem().toString();
 
             /*Nachteil, da shift auf englisch in der DB ist*/
@@ -361,6 +360,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
         jLabelPhoneNumber.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelPhoneNumber.setText("Telefonnummer");
+
+        jTextFieldPhoneNumber.setToolTipText("Bitte Telefonnumer ohne Sonderzeichen eingeben z.B. 014576123");
 
         jLabelBirthday.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelBirthday.setText("Geburtstag");
@@ -740,14 +741,14 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         String lastname = jTextFieldLastname.getText().trim();
         String street = jTextFieldStreet.getText().trim();
         String zip = jTextFieldZIP.getText().trim();
-        String city = jTextFieldCity.getText().trim(); 
+        String city = jTextFieldCity.getText().trim();
         String country = jTextFieldCountry.getText().trim();
         String phonenumber = jTextFieldPhoneNumber.getText().trim();
         String birthday = jTextFieldBirthday.getText().trim();
         String username = jTextFieldUsername.getText().trim();
         String email = jTextFieldEMail.getText().trim();
         String salutationStr = jComboBoxSalutation.getSelectedItem().toString();
-        String userID = jTextFieldID.getText().trim(); 
+        String userID = jTextFieldID.getText().trim();
 
         String shiftStr = getGermanShiftString();
 
@@ -761,7 +762,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         columnNameToValue.put("Address.ID", addressId); //TODO FILTER OUT -1
         columnNameToValue.put("FirstName", firstname);
         columnNameToValue.put("LastName", lastname);
-        columnNameToValue.put("Coutry", country); //macht country sinn???
+        columnNameToValue.put("Country", country); //macht country sinn???
         columnNameToValue.put("PhoneNumber", phonenumber);
         columnNameToValue.put("Birthday", birthday);
         columnNameToValue.put("UserName", username);
@@ -773,19 +774,17 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         columnNameToValue.put("Street", street);
         columnNameToValue.put("Country", country);
         columnNameToValue.put("Shift", shiftStr);
-        String userType;
-        
-        User user = null;
-        
-        if (this.userType == mode.admin) {
-            userType = "Admin";
+        String tempUserType;
+
+        if (jRadioButtonAdmin.isSelected()) {
+            tempUserType = "Admin";
         } else {
-            userType = "Zookeeper";
+            tempUserType = "Zookeeper";
         }
-        columnNameToValue.put("Type", userType);
+        columnNameToValue.put("Type", tempUserType);
         lastSearchMap = columnNameToValue;
         LinkedList<User> users = userManager.searchUsers(columnNameToValue);
-        if (users.isEmpty()) {
+        if (users.isEmpty() || users == null) {
             methods.clearTable((DefaultTableModel) jTableUserData.getModel());
             JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -850,18 +849,19 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
     private void jButtonDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteUserActionPerformed
 
-        JTextField textFields[] = {jTextFieldID};
-        boolean textFieldsVerified = methods.verifyTextFields(textFields);
-
         try {
             int ID = Integer.parseInt(jTextFieldID.getText());
 
-            if (textFieldsVerified) {
-
-                int decision = JOptionPane.showConfirmDialog(null,
-                        "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
-                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (decision == 0) {
+            int decision = JOptionPane.showConfirmDialog(null,
+                    "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (decision == 0) {
+                LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
+                columnNameToValue.put("User.ID", String.valueOf(ID));
+                //Überpüfen ob die ID existiert
+                if (userManager.searchUsers(columnNameToValue).isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Nutzer/-in existiert nicht!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                } else {
                     if (userManager.deleteUser(ID)) {
 
                         JOptionPane.showMessageDialog(null, "Nutzer/-in wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
@@ -876,7 +876,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                     }
                 }
             }
-
         } catch (NumberFormatException numberFormatException) {
 
             System.err.println("NumberFormatException");
@@ -960,31 +959,27 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                         //If user is a zookeeper
                         if (userTypeStr.equals("Zookeeper")) {
                             shiftStr = getGermanShiftString();
-
                         }
                         if ((!changePassword || (password.length() >= 8))) {
+                            //System.err.println("City: " + city + "             Zip: " + zip + "              Street: " + street);
                             if (userManager.searchAddressId(zip, street, city) == -1) {
                                 JOptionPane.showConfirmDialog(null, "Wollen Sie die Adresse wirklich einfügen?\n"
                                         + "Straße: " + street + "\n"
                                         + "PLZ: " + zip + "\n"
                                         + "Stadt: " + city, "Adresse nicht in der Datenbank vorhanden", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                                if (userManager.addAddress(zip, city, country, street)) {
-                                    if (userManager.updateUser(id, userTypeStr, salutationStr, firstname,
-                                            lastname, street, zip, city, country,
-                                            phonenumber, birthday, shiftStr, username, email, password, changePassword)) {
-                                        JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich geupdatet werden!", "Updaten erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                                        cleanFields();
+                            }
+                            if (userManager.updateUser(id, userTypeStr, salutationStr, firstname,
+                                    lastname, street, zip, city, country,
+                                    phonenumber, birthday, shiftStr, username, email, password, changePassword)) {
+                                JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich geupdatet werden!", "Updaten erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+                                cleanFields();
 
-                                        if (lastSearchMap != null) {
-                                            lastSearchedUsers = userManager.searchUsers(lastSearchMap);
-                                            viewUsers(lastSearchedUsers);
-                                        }
-                                    } else {
-                                        JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-                                    }
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Adresse konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                                if (lastSearchMap != null) {
+                                    lastSearchedUsers = userManager.searchUsers(lastSearchMap);
+                                    viewUsers(lastSearchedUsers);
                                 }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Nutzer/-in konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "Passwort muss mindestens 8 Zeichen haben!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -1082,8 +1077,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jLabelSearch.setEnabled(false);
                 jButtonSearch.setEnabled(false);
 
-             
-
             } else if (jRadioButtonUpdate.isSelected()) {
                 System.out.println("    Update mode");
                 mode = Mode.update;
@@ -1094,8 +1087,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jLabelID.setEnabled(true);
                 jLabelSearch.setEnabled(true);
                 jButtonSearch.setEnabled(true);
-
-             
 
             } else if (jRadioButtonDelete.isSelected()) {
 
@@ -1109,7 +1100,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jLabelSearch.setEnabled(true);
                 jButtonSearch.setEnabled(true);
 
-            
             }
         } else {
 
@@ -1142,8 +1132,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jLabelID.setEnabled(true);
                 jLabelSearch.setEnabled(true);
                 jButtonSearch.setEnabled(true);
-
-                
 
             } else if (jRadioButtonDelete.isSelected()) {
                 mode = Mode.delete;
