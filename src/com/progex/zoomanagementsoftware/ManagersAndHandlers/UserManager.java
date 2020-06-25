@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  * @(#) UserManager.java
@@ -581,38 +582,37 @@ public class UserManager {
 
         try {
             // set query
-            String query = "SELECT Fütterungszeit,Tier,Futter,MengeInKG,Abstellraumnummer,Gehege,diff_min "
-                    + "FROM (SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount AS MengeInKG, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName as UserName, timestampdiff(MINUTE,current_timestamp(),eats.StartFeedingTime) as diff_min "
+            String query = 
+                    "SELECT case when diffMin<0 then 'Abgelaufen' else diffMin end as InMinuten,Tier,Futter,MengeGR as MengeinGramm,Abstellraumnummer,Gehege  "
+                    + "FROM "
+                    + "(SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount * 1000 AS MengeGR, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName,TIMEDIFF(CONVERT(eats.StartFeedingTime, time), current_time()) as diffMin, CONVERT(eats.StartFeedingTime, time) as Uhrzeit "
                     + "FROM eats "
-                    + "INNER JOIN "
-                    + "food "
-                    + "ON eats.FoodID = food.ID "
-                    + "INNER JOIN "
-                    + "animal "
-                    + "ON eats.AnimalID = animal.ID "
-                    + "INNER JOIN "
-                    + "takescare "
-                    + "ON eats.AnimalID = takescare.AnimalID "
-                    + "INNER JOIN "
-                    + "user "
-                    + "ON takescare.UserID = user.ID "
-                    + "INNER JOIN "
-                    + "compound "
-                    + "ON compound.ID = animal.CompoundID) AS joinedTable "
-                    + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" "
-                    + "ORDER BY joinedTable.Fütterungszeit DESC "
-                    + "LIMIT 1";
+                    + "INNER JOIN food ON eats.FoodID = food.ID "
+                    + "INNER JOIN animal ON eats.AnimalID = animal.ID "
+                    + "INNER JOIN takescare ON eats.AnimalID = takescare.AnimalID "
+                    + "INNER JOIN user ON takescare.UserID = user.ID "
+                    + "INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable "
+                    + "WHERE joinedTable.UserName = \""+loggedInUser.getUsername()+"\" and joinedTable.FütterungsZeit > current_date() "
+                    + "ORDER BY case when diffMin<0 then 1 else 0 end,diffMin "
+                    + "LIMIT 2";
+            
+            
 
             ResultSet resultSet = connectionHandler.performQuery(query);
+            
+
 
             // init variables to catch from resultset
+            ArrayList<ZookeeperInfo> zookeeperInfolist = new ArrayList<>();
             String tiername = "";
             String futter = "";
             double menge = 0;
             String abstellRaum = "";
             String gehege = "";
-            int feedingTimeInMinutes = -1;
-
+            Timestamp feedingTimeInMinutes = null;
+            ZookeeperInfo zookeeperInfo = null;
+            
+            
             // set variables from resultset
             if (resultSet.next()) {
                 tiername = resultSet.getString(2);
@@ -620,12 +620,25 @@ public class UserManager {
                 menge = Double.parseDouble(resultSet.getString(4));
                 abstellRaum = resultSet.getString(5);
                 gehege = resultSet.getString(6);
-                feedingTimeInMinutes = resultSet.getInt(7);
-
+                feedingTimeInMinutes = resultSet.getTimestamp(1);
+                zookeeperInfo = new ZookeeperInfo(feedingTimeInMinutes, gehege, tiername, futter, abstellRaum, menge);
+                zookeeperInfolist.add(zookeeperInfo);
+            
             }
+            
+            for (int i = 0; i < zookeeperInfolist.size(); i++) {
+                System.out.println("TIME:"+zookeeperInfolist.get(i).getFeedingTime());  
+            }
+ 
+            if(checkIfSameTime(resultSet)){
+                zookeeperInfo.setIsMultipleFeeding(true);
+            }else{
+                zookeeperInfo.setIsMultipleFeeding(false);
+            }
+ 
+            System.out.println("COUNT"+checkIfSameTime(resultSet));
 
             // create FeedingInfo based on Database Information and return it
-            ZookeeperInfo zookeeperInfo = new ZookeeperInfo(feedingTimeInMinutes, gehege, tiername, futter, abstellRaum, menge);
             return zookeeperInfo;
         } catch (SQLException ex) {
             System.err.println("SQL EXCEPTION");
@@ -634,6 +647,31 @@ public class UserManager {
 
         return null;
     }
+    
+    public boolean checkIfSameTime(ResultSet rs1){
+        
+        
+        try {
+            String time1 = rs1.getString("InMinuten");
+            rs1.last();
+            String time2 = rs1.getString("InMinuten");
+            
+            System.out.println("TIME1"+time1);
+            System.out.println("TIME2"+time2);
+            
+            if(time1.equals(time2)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
+
 
     /**
      * This Methods returns a resultset of all Feeding Informations for a user
@@ -696,15 +734,16 @@ public class UserManager {
      *
      * @return the next feeding time in minutes
      */
-    public int getNextFeedingInfoInMinutes() {
-
-        if (getNextFeedingInfo().getFeedingTime() >= 0) {
-            return getNextFeedingInfo().getFeedingTime();
-        } else {
-            return -1;
-
-        }
-
+    public String getNextFeedingInfoInProperFormat() {
+ 
+        Methods methods = new Methods();
+        
+        String unformattedTime = getNextFeedingInfo().getFeedingTime().toString();
+        
+        String formattedTime = methods.cutTimeNextFeeding(unformattedTime);
+        
+        return formattedTime;
+        
     }
 
     //Khalid end

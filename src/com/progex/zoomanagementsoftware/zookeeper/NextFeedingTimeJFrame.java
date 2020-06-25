@@ -5,6 +5,7 @@ import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import com.progex.zoomanagementsoftware.datatypes.ZookeeperInfo;
 import java.awt.Toolkit;
+import java.sql.Timestamp;
 import javax.swing.JFrame;
 
 /**
@@ -47,16 +48,19 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         String storageRoom = zookeeperInfo.getStorageRoomNumber();
         double amount = zookeeperInfo.getAmountFood();
         String compound = zookeeperInfo.getCompoundName();
-        int nextFeedingTimeInMinutes = userManager.getNextFeedingInfoInMinutes();
+        String nextFeedingTimeInMinutes = userManager.getNextFeedingInfoInProperFormat();
         
         // If nextfeedingInfo has valid minute time then display it        
-        if(nextFeedingTimeInMinutes != -1 ){
-            nextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung in : "+nextFeedingTimeInMinutes+" Minuten");
+        if(nextFeedingTimeInMinutes != null ){
+            nextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung in (HH:MM) : "+nextFeedingTimeInMinutes);
             futter.setText("Futter: "+food);
             abstellraumnummer.setText("Abstellraumnummer: "+storageRoom);
             futtermenge.setText("Menge: "+amount+" Kilogramm");
             gehege.setText("Gehege: "+compound);
             tierName.setText("Tier: "+animalName);
+            if(zookeeperInfo.isIsMultipleFeeding()){
+            attentionLabel.setText("Achtung, mehrere Fütterungen gleichzeitig!");                
+            }
         }
         // else dont display it, instead display that there are no feedings anymore.
         else{
@@ -138,6 +142,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         tierName = new javax.swing.JLabel();
         gehege = new javax.swing.JLabel();
         nextFeedingTimeTakesPlaceIn = new javax.swing.JLabel();
+        attentionLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nächste Fütterung");
@@ -205,20 +210,20 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
             .addGroup(jPanelNextFeedingTimeInfoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelNextFeedingTimeInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tierName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+                    .addComponent(gehege, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tierName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
                     .addComponent(nextFeedingTimeTakesPlaceIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(gehege, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
-                    .addComponent(abstellraumnummer, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
-                    .addComponent(futtermenge, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
-                    .addComponent(futter, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE))
+                    .addComponent(abstellraumnummer, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+                    .addComponent(futtermenge, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+                    .addComponent(futter, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelNextFeedingTimeInfoLayout.setVerticalGroup(
             jPanelNextFeedingTimeInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelNextFeedingTimeInfoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(nextFeedingTimeTakesPlaceIn)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(futter, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(abstellraumnummer, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -231,22 +236,30 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        attentionLabel.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        attentionLabel.setForeground(new java.awt.Color(255, 0, 0));
+        attentionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonGoBack)
                         .addGap(18, 18, 18)
                         .addComponent(jLabelTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonLogout))
-                    .addComponent(jPanelNextFeedingTimeInfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanelNextFeedingTimeInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(attentionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,11 +269,13 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
                     .addComponent(jButtonGoBack)
                     .addComponent(jButtonLogout)
                     .addComponent(jLabelTime))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jPanelNextFeedingTimeInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(attentionLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -360,6 +375,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel abstellraumnummer;
+    private javax.swing.JLabel attentionLabel;
     private javax.swing.JLabel futter;
     private javax.swing.JLabel futtermenge;
     private javax.swing.JLabel gehege;

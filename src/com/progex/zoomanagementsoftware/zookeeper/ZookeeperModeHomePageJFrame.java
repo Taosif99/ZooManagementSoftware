@@ -5,6 +5,8 @@ import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import com.progex.zoomanagementsoftware.datatypes.User;
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -32,12 +34,40 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         setNameLabel();
         // set lastlogdate from user
         setLastLogDate();
+        
+        //
+        keepUpdatingLastLog();
 
         // Display next feeding time
         setNextFeedingTimeInfo();
 
     }
 
+    
+    private void keepUpdatingLastLog(){
+        
+        
+        new Thread(new Runnable() {
+             @Override
+             public void run() {
+                 
+                 while (true) {                     
+                     
+                     try {
+                         userManager.updateLastLogDateFromUser();
+                         Thread.sleep(100);
+                     } catch (InterruptedException ex) {
+                         Logger.getLogger(ZookeeperModeHomePageJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                     }
+                     
+                 }
+                 
+                 
+             }
+        }).start();        
+        
+    }
+    
     /**
      * this methods gets from the zoomangager the nextfeedingtime and is displayed accordingly.
      * 
@@ -45,11 +75,19 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
      */
     private void setNextFeedingTimeInfo()  {
 
+
+        String formattedTime = userManager.getNextFeedingInfoInProperFormat();
         
-        if(userManager.getNextFeedingInfo().getFeedingTime() >= 0){
-        nächsteFütterungIn.setText("Nächste Fütterung in : " + userManager.getNextFeedingInfo().getFeedingTime() + " Minuten");
-        
+        if(userManager.getNextFeedingInfo().getFeedingTime() != null && !userManager.getNextFeedingInfo().isIsMultipleFeeding()){
+        nächsteFütterungIn.setText("Nächste Fütterung in (HH:MM) : " + formattedTime);
         }
+        if(userManager.getNextFeedingInfo().getFeedingTime() != null && userManager.getNextFeedingInfo().isIsMultipleFeeding()){
+            
+        nächsteFütterungIn.setText("Nächste Fütterung in (HH:MM) : " + formattedTime);            
+        attentionJLabel.setText("<html><font color=red>Achtung! Es finden mehrere Fütterungen gleichzeitig statt!</font></html>" + "fds");
+        
+        
+        }        
         else{
         nächsteFütterungIn.setText("Keine Fütterung mehr heute!");
             
@@ -115,6 +153,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         jButtonLogout = new javax.swing.JButton();
         zookeeperName = new javax.swing.JLabel();
         jButtonNextFeedingTime = new javax.swing.JButton();
+        attentionJLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tierpfleger HomePage");
@@ -162,6 +201,9 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
             }
         });
 
+        attentionJLabel.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        attentionJLabel.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,11 +220,12 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
                         .addComponent(jLabeDate, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                         .addComponent(jButtonLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonAllFeedingTime1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(nächsteFütterungIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(attentionJLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonAllFeedingTime1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nächsteFütterungIn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(6, 6, 6)))
                 .addContainerGap())
         );
@@ -203,12 +246,14 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
                         .addComponent(jButtonLogout)))
                 .addGap(25, 25, 25)
                 .addComponent(zookeeperName)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nächsteFütterungIn)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(attentionJLabel)
+                .addGap(10, 10, 10)
                 .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonAllFeedingTime1, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                .addComponent(jButtonAllFeedingTime1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                 .addGap(44, 44, 44))
         );
 
@@ -292,7 +337,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -304,6 +348,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel attentionJLabel;
     private javax.swing.JButton jButtonAllFeedingTime1;
     private javax.swing.JButton jButtonLogout;
     private javax.swing.JButton jButtonNextFeedingTime;
