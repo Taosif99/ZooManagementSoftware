@@ -774,6 +774,9 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         columnNameToValue.put("Country", country);
         columnNameToValue.put("Shift", shiftStr);
         String userType;
+        
+        User user = null;
+        
         if (this.userType == mode.admin) {
             userType = "Admin";
         } else {
@@ -1057,7 +1060,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         zooManager.getUserManager().logout();
     }//GEN-LAST:event_formWindowClosing
 
-    private String updateButtonsAndLabels() {
+    private void updateButtonsAndLabels() {
 
         if (jRadioButtonAdmin.isSelected()) {
             System.out.println("Admin Mode");
@@ -1079,12 +1082,11 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jLabelSearch.setEnabled(false);
                 jButtonSearch.setEnabled(false);
 
-                return "Add admin";
+             
 
             } else if (jRadioButtonUpdate.isSelected()) {
                 System.out.println("    Update mode");
                 mode = Mode.update;
-                //mode = "Update";
                 jButtonAddUser.setEnabled(false);
                 jButtonUpdateUser.setEnabled(true);
                 jButtonDeleteUser.setEnabled(false);
@@ -1093,13 +1095,12 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jLabelSearch.setEnabled(true);
                 jButtonSearch.setEnabled(true);
 
-                return "Update admin";
+             
 
             } else if (jRadioButtonDelete.isSelected()) {
 
                 System.out.println("    Delete mode");
-                mode = mode.delete;
-                //mode = "Delete";
+                mode = Mode.delete;
                 jButtonAddUser.setEnabled(false);
                 jButtonUpdateUser.setEnabled(false);
                 jButtonDeleteUser.setEnabled(true);
@@ -1108,7 +1109,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jLabelSearch.setEnabled(true);
                 jButtonSearch.setEnabled(true);
 
-                return "Delete admin";
+            
             }
         } else {
 
@@ -1129,12 +1130,9 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jLabelID.setEnabled(false);
                 jLabelSearch.setEnabled(false);
                 jButtonSearch.setEnabled(false);
-                //mode = "Add";
                 mode = Mode.add;
-                return "Add zookeeper";
             } else if (jRadioButtonUpdate.isSelected()) {
                 System.out.println("    Update mode");
-                //mode = "Update";
                 mode = Mode.update;
                 jButtonAnimalsToZookeeper.setEnabled(true);
                 jButtonAddUser.setEnabled(false);
@@ -1145,10 +1143,9 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jLabelSearch.setEnabled(true);
                 jButtonSearch.setEnabled(true);
 
-                return "Update zookeeper";
+                
 
             } else if (jRadioButtonDelete.isSelected()) {
-                //mode = "delete";
                 mode = Mode.delete;
                 System.out.println("    Delete mode");
                 jButtonAnimalsToZookeeper.setEnabled(false);
@@ -1160,10 +1157,9 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jLabelSearch.setEnabled(true);
                 jButtonSearch.setEnabled(true);
 
-                return "Delete zookeeper";
             }
         }
-        return null;
+
     }
 
     /**
