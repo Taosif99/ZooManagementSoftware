@@ -3,7 +3,9 @@ package com.progex.zoomanagementsoftware.admin;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Address;
+import com.progex.zoomanagementsoftware.datatypes.Admin;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import com.progex.zoomanagementsoftware.datatypes.Salutation;
 import com.progex.zoomanagementsoftware.datatypes.Shift;
 import com.progex.zoomanagementsoftware.datatypes.User;
 import com.progex.zoomanagementsoftware.datatypes.Zookeeper;
@@ -15,6 +17,9 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.sql.Timestamp;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class ManageUserJFrame extends javax.swing.JFrame {
 
@@ -664,6 +669,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             String password = jPasswordFieldEnteredPW.getText();
             String confirmedPassword = jPasswordFieldConfirm.getText();
             String shiftStr = "None";
+            Shift shift;
+            Salutation salutation;
 
             //No only white spaces and no empty password
             if (!password.isBlank() && password.equals(confirmedPassword)) {
@@ -674,8 +681,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 String zip = jTextFieldZIP.getText();
                 String city = jTextFieldCity.getText();
                 String country = jTextFieldCountry.getText();
-                String phonenumber = jTextFieldPhoneNumber.getText();
-                String birthday = jTextFieldBirthday.getText();
+                String phoneNumber = jTextFieldPhoneNumber.getText();
+                String birthdayStr = jTextFieldBirthday.getText();
                 String username = jTextFieldUsername.getText();
                 String email = jTextFieldEMail.getText();
 
@@ -685,7 +692,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                     //Check password length
                     if (!(password.length() < 8)) {
                         try {
-                            if (!methods.isValidDateString(birthday)) {
+                            if (!methods.isValidDateString(birthdayStr)) {
                                 throw new IllegalArgumentException();
                             }
                             String userTypeStr;
@@ -705,9 +712,13 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                             + "PLZ: " + zip + "\n"
                                             + "Stadt: " + city, "Adresse nicht in der Datenbank vorhanden", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                                 }
-                                if (userManager.addUser(userTypeStr, salutationStr, firstname, lastname,
-                                        street, zip, city, country, phonenumber,
-                                        birthday, shiftStr, username, email, password)) {
+                                shift = methods.stringToShift(shiftStr);
+                                salutation = methods.stringToSalutation(salutationStr);
+                                Address tempAddress = new Address(street, country, zip, city);
+                                Date birthday = Date.valueOf(birthdayStr);
+                                User tempUser = new User(username, firstname, lastname, email, phoneNumber, salutation, birthday, password, tempAddress);
+
+                                if (userManager.addUser(tempUser, shiftStr, userTypeStr)) {
 
                                     JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                                     cleanFields();
@@ -895,7 +906,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             jTextFieldUsername, jTextFieldEMail};
 
         boolean textFieldsVerified = methods.verifyTextFields(textFields);
-
+        Shift shift;
+        Salutation salutation;
         if (textFieldsVerified) {
 
             String salutationStr = jComboBoxSalutation.getSelectedItem().toString();
@@ -935,15 +947,15 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                     String zip = jTextFieldZIP.getText();
                     String city = jTextFieldCity.getText();
                     String country = jTextFieldCountry.getText();
-                    String phonenumber = jTextFieldPhoneNumber.getText();
-                    String birthday = jTextFieldBirthday.getText();
+                    String phoneNumber = jTextFieldPhoneNumber.getText();
+                    String birthdayStr = jTextFieldBirthday.getText();
                     String username = jTextFieldUsername.getText();
                     String email = jTextFieldEMail.getText();
 
                     boolean validEmail = methods.isValidEmail(email);
                     if (validEmail) {
 
-                        if (!methods.isValidDateString(birthday)) {
+                        if (!methods.isValidDateString(birthdayStr)) {
                             throw new IllegalArgumentException();
                         }
 
@@ -968,9 +980,14 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                         + "PLZ: " + zip + "\n"
                                         + "Stadt: " + city, "Adresse nicht in der Datenbank vorhanden", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                             }
-                            if (userManager.updateUser(id, userTypeStr, salutationStr, firstname,
-                                    lastname, street, zip, city, country,
-                                    phonenumber, birthday, shiftStr, username, email, password, changePassword)) {
+
+                            shift = methods.stringToShift(shiftStr);
+                            salutation = methods.stringToSalutation(salutationStr);
+                            Address tempAddress = new Address(street, country, zip, city);
+                            Date birthday = Date.valueOf(birthdayStr);
+                            User tempUser = new User(username, firstname, lastname, email, phoneNumber, salutation, birthday, password, tempAddress);
+
+                            if (userManager.updateUser(id, tempUser, shiftStr, userTypeStr, changePassword)) {
                                 JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich geupdatet werden!", "Updaten erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                                 cleanFields();
 

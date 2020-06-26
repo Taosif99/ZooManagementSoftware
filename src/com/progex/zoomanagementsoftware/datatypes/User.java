@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 /**
  * Class which is used to model a generic user in our zoo management software.
  */
-public abstract class User {
+public class User {
 
     private String username;
 
@@ -43,6 +43,19 @@ public abstract class User {
         this.hashedPassword = hashedPassword;
         this.address = address;
         this.lastLogDate = lastLogDate;
+    }
+    
+    public User(String username, String firstname, String lastname, String email, String phoneNumber, Salutation salutation, Date birthday, String hashedPassword, Address address) {
+
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.salutation = salutation;
+        this.birthday = birthday;
+        this.hashedPassword = hashedPassword;
+        this.address = address;
     }
 
     public String getUsername() {

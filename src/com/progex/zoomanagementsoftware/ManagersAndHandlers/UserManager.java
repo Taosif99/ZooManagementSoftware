@@ -127,56 +127,43 @@ public class UserManager {
     /**
      * Method to add an user in the database.
      *
-     * @param type
-     * @param salutation
-     * @param firstname
-     * @param lastname
-     * @param street
-     * @param zip
-     * @param city
-     * @param country
-     * @param phoneNumber
-     * @param birthday
-     * @param shift
-     * @param username
-     * @param email
-     * @param password
+     * @param shift 
+     * @param user 
+     * @param userType 
      * @return true if operation was successful, else false
      */
-    public boolean addUser(String type, String salutation, String firstname,
-            String lastname, String street, String zip, String city,
-            String country, String phoneNumber, String birthday, String shift,
-            String username, String email, String password) {
-
+    public boolean addUser(User user, String shift, String userType){
         //Get the address with street,zip,city --> I guess country not requird
-        int addressId = searchAddressId(zip, street, city);
+        int addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity());
 
         boolean retVal;
 
         MD5Hash hasher = new MD5Hash();
 
-        String hashedPassword = hasher.hashString(password);
+        String hashedPassword = hasher.hashString(user.getHashedPassword());
         if (addressId == -1) {
-            retVal = addAddress(zip, city, country, street);
+            retVal = addAddress(user.getAddress().getZip(), user.getAddress().getCity(), user.getAddress().getCountry(), user.getAddress().getStreet());
             //Falls die Adresse nicht eingefügt werden konnte
             if (retVal == false) {
                 return retVal;
             }
         }
+        Methods methods = new Methods();
+        String salutation = methods.salutationToString(user.getSalutation());
         //Know the user can be added 
         String insertUserQuery = "INSERT INTO User (UserName,FirstName,LastName,PhoneNumber,"
                 + "Birthday,Email,Salutation,HashedPassword,"
-                + "AddressID,Type,Shift,LastLogDate) \n"
-                + "VALUES ('" + username + "',"
-                + "'" + firstname + "',"
-                + "'" + lastname + "',"
-                + "'" + phoneNumber + "',"
-                + "'" + birthday + "',"
-                + "'" + email + "',"
+                + "AddressID,Type,Shift,LastLogDate)\n"
+                + "VALUES ('" + user.getUsername() + "',"
+                + "'" + user.getFirstname() + "',"
+                + "'" + user.getLastname() + "',"
+                + "'" + user.getPhoneNumber() + "',"
+                + "'" + user.getBirthday().toString() + "',"
+                + "'" + user.getEmail() + "',"
                 + "'" + salutation + "',"
                 + "'" + hashedPassword + "',"
                 + addressId + ","
-                + "'" + type + "',"
+                + "'" + userType + "',"
                 + "'" + shift + "',"
                 + "'1998-01-01 00:00:00')"; //Using zeros as initial log date -> does not work
 
@@ -257,15 +244,12 @@ public class UserManager {
      * @param changePassword
      * @return true if operation is sucessful, else false
      */
-    public boolean updateUser(int id, String type, String salutation, String firstname,
-            String lastname, String street, String zip, String city,
-            String country, String phoneNumber, String birthday, String shift,
-            String username, String email, String password, boolean changePassword) {
+    public boolean updateUser(int id, User user, String shift, String userType, boolean changePassword) {
 
         MD5Hash hasher = new MD5Hash();
-        String hashedPassword = hasher.hashString(password);
+        String hashedPassword = hasher.hashString(user.getHashedPassword());
 
-        int addressId = searchAddressId(zip, street, city);
+        int addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity());
         //Check if username changed and if yes, check if new username already used     
         String oldUsername = " ";
         String userNameQuery = "SELECT UserName FROM USER WHERE ID = " + id;
@@ -285,31 +269,34 @@ public class UserManager {
             }
         }
 
-        if (!oldUsername.equals(username)) {
-            if (this.usernameExists(username)) {
+        if (!oldUsername.equals(user.getUsername())) {
+            if (this.usernameExists(user.getUsername())) {
                 return false;
             }
         }
 
         if (addressId == -1) {
-            retVal = addAddress(zip, city, country, street);
-            addressId = searchAddressId(zip, street, city);
+            retVal = addAddress(user.getAddress().getZip(), user.getAddress().getCity(), user.getAddress().getCountry(), user.getAddress().getStreet());
+            addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity());
             if(retVal == false)
                 return retVal;
         }
-
+        
+        Methods methods = new Methods();
+        String salutation = methods.salutationToString(user.getSalutation());
+        
         String query = "UPDATE User\n"
-                    + "SET UserName = '" + username + "',\n"
-                    + "FirstName = '" + firstname + "',\n"
-                    + "LastName = '" + lastname + "',\n"
-                    + "PhoneNumber = '" + phoneNumber + "',\n"
-                    + "Birthday = '" + birthday + "',\n"
-                    + "Email = '" + email + "',\n"
-                    + "Salutation= '" + salutation + "',\n"
+                    + "SET UserName = '" + user.getUsername() + "',\n"
+                    + "FirstName = '" + user.getFirstname() + "',\n"
+                    + "LastName = '" + user.getLastname() + "',\n"
+                    + "PhoneNumber = '" + user.getLastname() + "',\n"
+                    + "Birthday = '" + user.getBirthday().toString() + "',\n"
+                    + "Email = '" + user.getEmail() + "',\n"
+                    + "Salutation = '" + salutation + "',\n"
                     //+ "HashedPassword = '" + hashedPassword + "',\n"
                     + "AddressID = " + addressId + ",\n";
 
-        if (type.equals("Admin")) {
+        if (userType.equals("Admin")) {
             query = query
                     + "Type = 'Admin',\n"
                     + "Shift = 'None'\n";

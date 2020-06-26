@@ -1,4 +1,3 @@
-
 package com.progex.zoomanagementsoftware.ManagersAndHandlers;
 
 import com.progex.zoomanagementsoftware.datatypes.Compound;
@@ -7,25 +6,19 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
-
 /**
  * Class which handles the compounds in our program.
  */
 public class CompoundManager {
 
- 
-    
-      private ConnectionHandler connectionHandler;
-      private ZooManager zooManager;
-    
-    
-    
+    private ConnectionHandler connectionHandler;
+    private ZooManager zooManager;
+
     public CompoundManager(ConnectionHandler connectionHandler, ZooManager zooManager) {
         this.connectionHandler = connectionHandler;
         this.zooManager = zooManager;
     }
-    
-    
+
     /*Start compound methods*/
     /**
      * Method which access the compounds which are stored in the database
@@ -40,7 +33,6 @@ public class CompoundManager {
         return compounds;
     }
 
-    
     /**
      * Method to add a compound to the database
      *
@@ -78,30 +70,28 @@ public class CompoundManager {
 
         //Get the old name of the current compound
         String queryOldName = "SELECT Name FROM Compound WHERE ID =" + ID;
-        
-            String oldName = " ";
-            ResultSet resultSet = connectionHandler.performQuery(queryOldName);
-            if (resultSet != null) {
 
-                try {
-                    if (resultSet.next()) {
-                        oldName = resultSet.getString("Name");
-                    }
+        String oldName = " ";
+        ResultSet resultSet = connectionHandler.performQuery(queryOldName);
+        if (resultSet != null) {
 
-                } catch (SQLException ex) {
-                    System.err.println("SQL Exception");
-                    System.out.println(ex.getMessage());
+            try {
+                if (resultSet.next()) {
+                    oldName = resultSet.getString("Name");
                 }
+
+            } catch (SQLException ex) {
+                System.err.println("SQL Exception");
+                System.out.println(ex.getMessage());
             }
-        
-        
-               if (!oldName.equals(name)) {
-                if (this.compoundExists(name)) {
-                    return false;
-                }
+        }
+
+        if (!oldName.equals(name)) {
+            if (this.compoundExists(name)) {
+                return false;
             }
-          
-            
+        }
+
         StringBuilder querySB = new StringBuilder();
         querySB.append("UPDATE Compound")
                 .append(" SET Name = ").append("'").append(name).append("',")
@@ -195,30 +185,35 @@ public class CompoundManager {
 
     /**
      * Method to check if a compound with the given name already exists.
+     *
      * @param compoundName
-     * @return true if compound with this name is found, else false 
+     * @return true if compound with this name is found, else false
      */
-    public boolean compoundExists(String compoundName){
-    
+    public boolean compoundExists(String compoundName) {
+
         System.err.println("häh");
-          try {
-              String query = "SELECT Name FROM Compound WHERE Name = '" +compoundName + "'";
-              ResultSet resultSet = connectionHandler.performQuery(query);
-              
-              if (resultSet == null) return false;
-              
-              if (resultSet.next()){
-                  System.err.println("Compound exists#############");
-                  return true;
-                  
-              } else return false;
-          } catch (SQLException ex) {
-              System.err.println("SQL EXCEPTION");
-              System.out.println(ex.getMessage());
-              
-          }
-          return false;
+        try {
+            String query = "SELECT Name FROM Compound WHERE Name = '" + compoundName + "'";
+            ResultSet resultSet = connectionHandler.performQuery(query);
+
+            if (resultSet == null) {
+                return false;
+            }
+
+            if (resultSet.next()) {
+                System.err.println("Compound exists#############");
+                return true;
+
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            System.err.println("SQL EXCEPTION");
+            System.out.println(ex.getMessage());
+
+        }
+        return false;
     }
-    
+
     /*End Compund Methods*/
 }
