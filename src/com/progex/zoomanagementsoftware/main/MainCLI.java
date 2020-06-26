@@ -25,9 +25,5 @@ public class MainCLI { //Main command line interface
          String dbName = "zoo";
         
         ConnectionHandler connectionHandler = new ConnectionHandler(url,dbName,username,password);
-        connectionHandler.test();
-    
-    
-    }
-    
+    } 
 }

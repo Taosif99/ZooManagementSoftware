@@ -144,6 +144,7 @@ public class UserManager {
         String hashedPassword = hasher.hashString(user.getHashedPassword());
         if (addressId == -1) {
             retVal = addAddress(user.getAddress().getZip(), user.getAddress().getCity(), user.getAddress().getCountry(), user.getAddress().getStreet());
+            addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity());
             //Falls die Adresse nicht eingefügt werden konnte
             if (retVal == false) {
                 return retVal;
@@ -228,21 +229,10 @@ public class UserManager {
      * Method to update an user in the database.
      *
      * @param id
-     * @param type
-     * @param salutation
-     * @param firstname
-     * @param lastname
-     * @param street
-     * @param zip
-     * @param city
-     * @param country
-     * @param phoneNumber
-     * @param birthday
-     * @param shift
-     * @param username
-     * @param email
-     * @param password
      * @param changePassword
+     * @param shift 
+     * @param user 
+     * @param userType 
      * @return true if operation is sucessful, else false
      */
     public boolean updateUser(int id, User user, String shift, String userType, boolean changePassword) {

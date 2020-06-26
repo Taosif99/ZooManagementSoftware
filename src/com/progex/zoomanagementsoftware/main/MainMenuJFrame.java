@@ -5,10 +5,6 @@ import com.progex.zoomanagementsoftware.guest.ChooseAnimalAndTimeJFrame;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
-/**
- *
- *
- */
 public class MainMenuJFrame extends javax.swing.JFrame {
 
     /**
@@ -22,7 +18,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         will be passed to the corresponding frames*/
         String url = "jdbc:mysql://localhost/";
         String username = "root";
-        String password = "AbuKungFu707-";
+        String password = "0000";
         String dbName = "zoo";
 
         zooManager = new ZooManager(url, dbName, username, password);
@@ -131,11 +127,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    /**
-     * Method to show the Map of the Zoo
-     *
-     * @param evt
-     */
+
     private void jButtonShowMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonShowMapActionPerformed
 
         //Set Main Menue to not visible
@@ -164,11 +156,6 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jButtonGuestFeedingTimeActionPerformed
 
-
-    /**
-     *  This Methods opens the loginframe.
-     * @param evt 
-     */
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
 
         JFrame thisFrame = this;

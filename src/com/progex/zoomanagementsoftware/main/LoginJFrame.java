@@ -1,4 +1,5 @@
 package com.progex.zoomanagementsoftware.main;
+
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.admin.AdminHomepageJFrame;
@@ -8,14 +9,11 @@ import com.progex.zoomanagementsoftware.datatypes.Zookeeper;
 import com.progex.zoomanagementsoftware.hashing.MD5Hash;
 import com.progex.zoomanagementsoftware.zookeeper.ZookeeperModeHomePageJFrame;
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 
-
-
-/**
- *
- * @author khali
- */
 public class LoginJFrame extends javax.swing.JFrame {
 
     /**
@@ -24,7 +22,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     public LoginJFrame(JFrame goBackMainMenuJFrame, ZooManager zooManager) {
 
         initComponents();
-
+        myInitComponents();
         // Set previous JFrame to make it visible/invisible
         this.mainMenuJFrame = goBackMainMenuJFrame;
         // Set zooManager to call Methods and stuff
@@ -32,7 +30,19 @@ public class LoginJFrame extends javax.swing.JFrame {
         this.userManager = zooManager.getUserManager();
         // Set LoginJFrame in middle of screen when opened
         this.setLocationRelativeTo(null);
+    }
 
+    private void myInitComponents() {
+        
+        //Submission with enter button
+        KeyListener pressEnterListener = new KeyAdapter() {
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    jButtonLogin.doClick();
+                }
+            }
+        };
+        jPasswordFieldPassword.addKeyListener(pressEnterListener);
     }
 
     /**
@@ -152,59 +162,58 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     /**
      * login Button pressed.
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
 
-            // Get username from input field
-            String username = jTextFieldUsername.getText();
+        // Get username from input field
+        String username = jTextFieldUsername.getText();
 
-            // Get password from input field and hash it
-            MD5Hash hasher = new MD5Hash();
-            String hashedPw = hasher.hashString(new String(jPasswordFieldPassword.getPassword()));
+        // Get password from input field and hash it
+        MD5Hash hasher = new MD5Hash();
+        String hashedPw = hasher.hashString(new String(jPasswordFieldPassword.getPassword()));
 
-            // Check if username and password match data in database and if user is zookeepr 
-            
-            User user = userManager.login(username, hashedPw);
-            
-            if(user instanceof Admin){
-                
-                userManager.setLoggedInUser(user);
-                
-                //                //Open admin window here
-                /* Create and display Admin Homepage form */
-                // Open AdminHomePage when Login successful and pass zooManager reference
-                java.awt.EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                        new AdminHomepageJFrame(mainMenuJFrame,zooManager).setVisible(true);
-                    }
-                });
+        // Check if username and password match data in database and if user is zookeepr 
+        User user = userManager.login(username, hashedPw);
 
-                mainMenuJFrame.setVisible(false);
-                this.dispose();                
-                
-            }
-            if(user instanceof Zookeeper){
+        if (user instanceof Admin) {
 
-                userManager.setLoggedInUser(user);
-                
-                // Open ZookeeperHomePage when Login successful and pass zooManager reference
-                java.awt.EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                        
-                            new ZookeeperModeHomePageJFrame(mainMenuJFrame, zooManager).setVisible(true);
-                        
-                    }
-                });                
-                
-                //Make main menue invisible
-                mainMenuJFrame.setVisible(false);
-                this.dispose();                
-            }
-            else{
-                jLabelLoginError.setText("Anmeldedaten nicht korrekt!");
-                jLabelLoginError.setForeground(Color.RED);                
-            }
+            userManager.setLoggedInUser(user);
+
+            //                //Open admin window here
+            /* Create and display Admin Homepage form */
+            // Open AdminHomePage when Login successful and pass zooManager reference
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new AdminHomepageJFrame(mainMenuJFrame, zooManager).setVisible(true);
+                }
+            });
+
+            mainMenuJFrame.setVisible(false);
+            this.dispose();
+
+        }
+        if (user instanceof Zookeeper) {
+
+            userManager.setLoggedInUser(user);
+
+            // Open ZookeeperHomePage when Login successful and pass zooManager reference
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+
+                    new ZookeeperModeHomePageJFrame(mainMenuJFrame, zooManager).setVisible(true);
+
+                }
+            });
+
+            //Make main menue invisible
+            mainMenuJFrame.setVisible(false);
+            this.dispose();
+        } else {
+            jLabelLoginError.setText("Anmeldedaten nicht korrekt!");
+            jLabelLoginError.setForeground(Color.RED);
+        }
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
     /**
