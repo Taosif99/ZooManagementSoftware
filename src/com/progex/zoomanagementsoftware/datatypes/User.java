@@ -44,7 +44,7 @@ public class User {
         this.address = address;
         this.lastLogDate = lastLogDate;
     }
-    
+
     public User(String username, String firstname, String lastname, String email, String phoneNumber, Salutation salutation, Date birthday, String hashedPassword, Address address) {
 
         this.username = username;
@@ -56,6 +56,13 @@ public class User {
         this.birthday = birthday;
         this.hashedPassword = hashedPassword;
         this.address = address;
+    }
+
+    public User(String username, String firstname, Timestamp lastlogdate) {
+
+        this.username = username;
+        this.firstname = firstname;
+        this.lastLogDate = lastlogdate;
     }
 
     public String getUsername() {
