@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  * @(#) UserManager.java
@@ -127,12 +128,12 @@ public class UserManager {
     /**
      * Method to add an user in the database.
      *
-     * @param shift 
-     * @param user 
-     * @param userType 
+     * @param shift
+     * @param user
+     * @param userType
      * @return true if operation was successful, else false
      */
-    public boolean addUser(User user, String shift, String userType){
+    public boolean addUser(User user, String shift, String userType) {
         //Get the address with street,zip,city --> I guess country not requird
         int addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity());
 
@@ -206,7 +207,7 @@ public class UserManager {
                 + "WHERE Zip = '" + zip + "'"
                 + " AND Street = '" + street + "'"
                 + " AND City = '" + city + "'";
-        
+
         ResultSet addressResultSet = connectionHandler.performQuery(addressQuery);
         if (addressResultSet == null) {
             return addressId; //Message ? 
@@ -278,23 +279,24 @@ public class UserManager {
         if (addressId == -1) {
             retVal = addAddress(user.getAddress().getZip(), user.getAddress().getCity(), user.getAddress().getCountry(), user.getAddress().getStreet());
             addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity());
-            if(retVal == false)
+            if (retVal == false) {
                 return retVal;
+            }
         }
-        
+
         Methods methods = new Methods();
         String salutation = methods.salutationToString(user.getSalutation());
-        
+
         String query = "UPDATE User\n"
-                    + "SET UserName = '" + user.getUsername() + "',\n"
-                    + "FirstName = '" + user.getFirstname() + "',\n"
-                    + "LastName = '" + user.getLastname() + "',\n"
-                    + "PhoneNumber = '" + user.getLastname() + "',\n"
-                    + "Birthday = '" + user.getBirthday().toString() + "',\n"
-                    + "Email = '" + user.getEmail() + "',\n"
-                    + "Salutation = '" + salutation + "',\n"
-                    //+ "HashedPassword = '" + hashedPassword + "',\n"
-                    + "AddressID = " + addressId + ",\n";
+                + "SET UserName = '" + user.getUsername() + "',\n"
+                + "FirstName = '" + user.getFirstname() + "',\n"
+                + "LastName = '" + user.getLastname() + "',\n"
+                + "PhoneNumber = '" + user.getLastname() + "',\n"
+                + "Birthday = '" + user.getBirthday().toString() + "',\n"
+                + "Email = '" + user.getEmail() + "',\n"
+                + "Salutation = '" + salutation + "',\n"
+                //+ "HashedPassword = '" + hashedPassword + "',\n"
+                + "AddressID = " + addressId + ",\n";
 
         if (userType.equals("Admin")) {
             query = query
@@ -449,21 +451,19 @@ public class UserManager {
                 lastLogDate = resultSet.getTimestamp(4);
 
                 if (type.equals("Admin")) {
-
-                    Admin admin = new Admin(userName, firstName, null, null, null, 0, null, null, null, null, lastLogDate);
+                    Admin admin = new Admin(userName, firstName, lastLogDate);
                     return admin;
                 }
                 if (type.equals("Zookeeper")) {
-                    Zookeeper zookeeper = new Zookeeper(null, userName, firstName, null, null, null, 0, null, null, null, null, lastLogDate);
+                    Zookeeper zookeeper = new Zookeeper(userName, firstName, lastLogDate);
                     return zookeeper;
-
                 } else {
                     return null;
                 }
 
             }
         } catch (SQLException ex) {
-            System.err.println("SQL Exception");
+            System.err.println("SQL EXCEPTION");
             System.out.println(ex.getMessage());
         }
 
@@ -501,47 +501,41 @@ public class UserManager {
 
     /**
      * TODO RETURN COMMENT WAS FALLS ES WELCHE GIBT DIE ZU GLEICHEN ZEIT HABEN
-     * Get NextFeedingInfo Object to display a zookeepers next feeding time
+     * Get NextFeedingInfo Object to display a zookeepers next feeding time.
      *
      * @return ZookeeperInfo that shows all important information for the next
-     * feeding info for the zookeeper
+     * feeding info for the zookeeper.
      *
      */
     public ZookeeperInfo getNextFeedingInfo() {
 
         try {
             // set query
-            String query = "SELECT Fütterungszeit,Tier,Futter,MengeInKG,Abstellraumnummer,Gehege,diff_min "
-                    + "FROM (SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount AS MengeInKG, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName as UserName, timestampdiff(MINUTE,current_timestamp(),eats.StartFeedingTime) as diff_min "
+            String query
+                    = "SELECT case when diffMin<0 then 'Abgelaufen' else diffMin end as InMinuten,Tier,Futter,MengeGR as MengeinGramm,Abstellraumnummer,Gehege  "
+                    + "FROM "
+                    + "(SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount * 1000 AS MengeGR, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName,TIMEDIFF(CONVERT(eats.StartFeedingTime, time), current_time()) as diffMin, CONVERT(eats.StartFeedingTime, time) as Uhrzeit "
                     + "FROM eats "
-                    + "INNER JOIN "
-                    + "food "
-                    + "ON eats.FoodID = food.ID "
-                    + "INNER JOIN "
-                    + "animal "
-                    + "ON eats.AnimalID = animal.ID "
-                    + "INNER JOIN "
-                    + "takescare "
-                    + "ON eats.AnimalID = takescare.AnimalID "
-                    + "INNER JOIN "
-                    + "user "
-                    + "ON takescare.UserID = user.ID "
-                    + "INNER JOIN "
-                    + "compound "
-                    + "ON compound.ID = animal.CompoundID) AS joinedTable "
-                    + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" "
-                    + "ORDER BY joinedTable.Fütterungszeit DESC "
-                    + "LIMIT 1";
+                    + "INNER JOIN food ON eats.FoodID = food.ID "
+                    + "INNER JOIN animal ON eats.AnimalID = animal.ID "
+                    + "INNER JOIN takescare ON eats.AnimalID = takescare.AnimalID "
+                    + "INNER JOIN user ON takescare.UserID = user.ID "
+                    + "INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable "
+                    + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and joinedTable.FütterungsZeit > current_date() "
+                    + "ORDER BY case when diffMin<0 then 1 else 0 end,diffMin "
+                    + "LIMIT 2";
 
             ResultSet resultSet = connectionHandler.performQuery(query);
 
             // init variables to catch from resultset
+            ArrayList<ZookeeperInfo> zookeeperInfolist = new ArrayList<>();
             String tiername = "";
             String futter = "";
             double menge = 0;
             String abstellRaum = "";
             String gehege = "";
-            int feedingTimeInMinutes = -1;
+            Timestamp feedingTimeInMinutes = null;
+            ZookeeperInfo zookeeperInfo = null;
 
             // set variables from resultset
             if (resultSet.next()) {
@@ -550,28 +544,54 @@ public class UserManager {
                 menge = Double.parseDouble(resultSet.getString(4));
                 abstellRaum = resultSet.getString(5);
                 gehege = resultSet.getString(6);
-                feedingTimeInMinutes = resultSet.getInt(7);
+                feedingTimeInMinutes = resultSet.getTimestamp(1);
+                zookeeperInfo = new ZookeeperInfo(feedingTimeInMinutes, gehege, tiername, futter, abstellRaum, menge);
+                zookeeperInfolist.add(zookeeperInfo);
 
             }
 
-            System.out.println("------------DEBUG----------- \n"
-                    + "Username: " + loggedInUser.getUsername()
-                    + "Tiername: " + tiername
-                    + "Futter: " + futter
-                    + "Menge: " + menge
-                    + "Abstellraum: " + abstellRaum
-                    + "Gehege: " + gehege
-                    + "FeedingTimeInMinutes: " + feedingTimeInMinutes);
+            for (int i = 0; i < zookeeperInfolist.size(); i++) {
+                System.out.println("TIME:" + zookeeperInfolist.get(i).getFeedingTime());
+            }
+
+            if (checkIfSameTime(resultSet)) {
+                zookeeperInfo.setIsMultipleFeeding(true);
+            } else {
+                zookeeperInfo.setIsMultipleFeeding(false);
+            }
+
+            System.out.println("COUNT" + checkIfSameTime(resultSet));
 
             // create FeedingInfo based on Database Information and return it
-            ZookeeperInfo zookeeperInfo = new ZookeeperInfo(feedingTimeInMinutes, gehege, tiername, futter, abstellRaum, menge);
             return zookeeperInfo;
         } catch (SQLException ex) {
-            System.err.println("SQL Exception");
+            System.err.println("SQL EXCEPTION");
             System.out.println(ex.getMessage());
         }
 
         return null;
+    }
+
+    public boolean checkIfSameTime(ResultSet rs1) {
+
+        try {
+            String time1 = rs1.getString("InMinuten");
+            rs1.last();
+            String time2 = rs1.getString("InMinuten");
+
+            System.out.println("TIME1" + time1);
+            System.out.println("TIME2" + time2);
+
+            if (time1.equals(time2)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
     }
 
     /**
@@ -583,18 +603,6 @@ public class UserManager {
      */
     public ResultSet getAllFeedingTimeInKG() {
 
-//        String query = "SELECT Tier,Futter,MengeKG,Abstellraumnummer,Gehege,Uhrzeit,\n" +
-//"case when diffMin<0 then 'Abgelaufen' else diffMin end as \"Findet statt in HH:MM:SS\"\n" +
-//"FROM \n" +
-//"	(SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount AS MengeKG, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName,TIMEDIFF(CONVERT(eats.StartFeedingTime, time), current_time()) as diffMin, CONVERT(eats.StartFeedingTime, time) as Uhrzeit \n" +
-//"	FROM eats \n" +
-//"		INNER JOIN food ON eats.FoodID = food.ID \n" +
-//"        INNER JOIN animal ON eats.AnimalID = animal.ID \n" +
-//"        INNER  JOIN takescare ON eats.AnimalID = takescare.AnimalID \n" +
-//"        INNER JOIN user ON takescare.UserID = user.ID \n" +
-//"        INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable \n" +
-//"	WHERE joinedTable.UserName = \"schäfernooa\" and joinedTable.FütterungsZeit > current_date() \n" +
-//"    ORDER BY case when diffMin<0 then 1 else 0 end,diffMin";
         String query
                 = "SELECT Uhrzeit, case when diffMin<0 then 'Abgelaufen' else diffMin end as \"Findet statt in HH:MM:SS\", Tier,Futter,MengeKG as \"Menge in Kilogramm\",Abstellraumnummer,Gehege "
                 + "FROM "
@@ -614,32 +622,13 @@ public class UserManager {
 
     /**
      * This Methods returns a resultset of all Feeding Informations for a user
-     * -> amount is in Gramm resultset is later used to populate the jtable
+     * -> amount is in Gramm resultset is later used to populate the jtable.
      *
      * @return ResultSet witth allfeedingtimes to populate the resultset in
-     * another method
+     * another method.
      */
     public ResultSet getAllFeedingTimeInGramm() {
 
-//        String query = "SELECT CONVERT(Fütterungszeit, time) as Uhrzeit,Tier,Futter,MengeGramm,Abstellraumnummer,Gehege FROM (SELECT eats.StartFeedingTime AS Fütterungszeit, animal.AnimalName AS Tier ,food.Name AS Futter, eats.Amount * 1000 AS MengeGramm, food.StorageRoomNumber AS Abstellraumnummer, compound.Name AS Gehege, user.UserName "
-//                + "FROM eats "
-//                + "INNER JOIN "
-//                + "food "
-//                + "ON eats.FoodID = food.ID "
-//                + "INNER JOIN "
-//                + "animal "
-//                + "ON eats.AnimalID = animal.ID "
-//                + "INNER JOIN "
-//                + "takescare "
-//                + "ON eats.AnimalID = takescare.AnimalID "
-//                + "INNER JOIN "
-//                + "user "
-//                + "ON takescare.UserID = user.ID "
-//                + "INNER JOIN "
-//                + "compound "
-//                + "ON animal.CompoundID = compound.ID) "
-//                + "AS joinedTable WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and joinedTable.FütterungsZeit > current_date() "
-//                + "ORDER BY fütterungszeit desc";
         String query
                 = "SELECT Uhrzeit,case when diffMin<0 then 'Abgelaufen' else diffMin end as \"Findet statt in HH:MM:SS\",Tier,Futter,MengeGR as \"Menge in Gramm\",Abstellraumnummer,Gehege "
                 + "FROM "
@@ -658,18 +647,19 @@ public class UserManager {
     }
 
     /**
-     * Return minutes until next feeding time for zookeeper
+     * Return minutes until next feeding time for zookeeper.
      *
      * @return the next feeding time in minutes
      */
-    public int getNextFeedingInfoInMinutes() {
+    public String getNextFeedingInfoInProperFormat() {
 
-        if (getNextFeedingInfo().getFeedingTime() >= 0) {
-            return getNextFeedingInfo().getFeedingTime();
-        } else {
-            return -1;
+        Methods methods = new Methods();
 
-        }
+        String unformattedTime = getNextFeedingInfo().getFeedingTime().toString();
+
+        String formattedTime = methods.cutTimeNextFeeding(unformattedTime);
+
+        return formattedTime;
 
     }
 
