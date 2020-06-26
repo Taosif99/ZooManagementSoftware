@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 public class Zookeeper extends User
 {
     //TODO find adequate data structure
-	//private Animal animalList; //FALLS NICHT GEBRAUCHT ENTFERNEN !!!
+	private Animal animalList; //FALLS NICHT GEBRAUCHT ENTFERNEN !!!
 	
 	private Shift shift;
 
@@ -20,14 +20,17 @@ public class Zookeeper extends User
         this.shift = shift;
     }
 
-    /*
+    public Zookeeper(String username, String firstname, Timestamp lastLogDate) {
+        super(username, firstname, lastLogDate);
+    }    
+
     public Animal getAnimalList() {
         return animalList;
     }
 
     public void setAnimalList(Animal animalList) {
         this.animalList = animalList;
-    }*/
+    }
 
     public Shift getShift() {
         return shift;
