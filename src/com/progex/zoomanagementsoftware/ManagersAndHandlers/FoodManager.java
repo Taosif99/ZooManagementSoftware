@@ -153,6 +153,29 @@ public class FoodManager {
      */
     public boolean updateFood(int storageRoomNumber, double stock, String name, int id) {
 
+        String queryOldName = "SELECT Name FROM Food WHERE Id = " + id;
+        
+        String oldName = " ";
+        ResultSet resultSet = connectionHandler.performQuery(queryOldName);
+        if (resultSet != null) {
+
+            try {
+                if (resultSet.next()) {
+                    oldName = resultSet.getString("Name");
+                }
+
+            } catch (SQLException ex) {
+                System.err.println("SQL Exception");
+                System.out.println(ex.getMessage());
+            }
+        }
+        
+        if (!oldName.equals(name)) {
+            if (this.checkFoodExists(name,-1)) {
+                return false;
+            }
+        }
+
         String query = "UPDATE food SET storageRoomNumber = " + storageRoomNumber + ", stock = " + stock
                 + ", name = '" + name + "' WHERE id = " + id;
 
