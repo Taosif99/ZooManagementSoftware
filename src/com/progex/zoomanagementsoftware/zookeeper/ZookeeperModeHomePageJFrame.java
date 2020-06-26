@@ -76,8 +76,8 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     private void setNextFeedingTimeInfo()  {
 
 
+    if(userManager.getNextFeedingInfo() != null){
         String formattedTime = userManager.getNextFeedingInfoInProperFormat();
-        
         if(userManager.getNextFeedingInfo().getFeedingTime() != null && !userManager.getNextFeedingInfo().isIsMultipleFeeding()){
         nächsteFütterungIn.setText("Nächste Fütterung in (HH:MM) : " + formattedTime);
         }
@@ -85,13 +85,12 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
             
         nächsteFütterungIn.setText("Nächste Fütterung in (HH:MM) : " + formattedTime);            
         attentionJLabel.setText("<html><font color=red>Achtung! Es finden mehrere Fütterungen gleichzeitig statt!</font></html>" + "fds");
-        
-        
         }        
-        else{
+    }
+    else{
         nächsteFütterungIn.setText("Keine Fütterung mehr heute!");
-            
-        }
+        
+    }
     }
 
     /**

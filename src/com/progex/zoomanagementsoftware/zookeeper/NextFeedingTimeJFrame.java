@@ -39,41 +39,47 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
     /**
      * Method is used to display feedingInfo. Method gets all information from zooManager.
      */
-    public void setFeedingInfo()  {
+    public void setFeedingInfo() {
 
         ZookeeperInfo zookeeperInfo = userManager.getNextFeedingInfo();
-        
-        String food = zookeeperInfo.getFoodName();
-        String animalName = zookeeperInfo.getAnimalName();
-        String storageRoom = zookeeperInfo.getStorageRoomNumber();
-        double amount = zookeeperInfo.getAmountFood();
-        String compound = zookeeperInfo.getCompoundName();
-        String nextFeedingTimeInMinutes = userManager.getNextFeedingInfoInProperFormat();
-        
-        // If nextfeedingInfo has valid minute time then display it        
-        if(nextFeedingTimeInMinutes != null ){
-            nextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung in (HH:MM) : "+nextFeedingTimeInMinutes);
-            futter.setText("Futter: "+food);
-            abstellraumnummer.setText("Abstellraumnummer: "+storageRoom);
-            futtermenge.setText("Menge: "+amount+" Kilogramm");
-            gehege.setText("Gehege: "+compound);
-            tierName.setText("Tier: "+animalName);
-            if(zookeeperInfo.isIsMultipleFeeding()){
-            attentionLabel.setText("Achtung, mehrere Fütterungen gleichzeitig!");                
-            }
-        }
-        // else dont display it, instead display that there are no feedings anymore.
-        else{
-            nextFeedingTimeTakesPlaceIn.setText("Keine Fütterung für heute mehr");
-            futter.setText("");
-            abstellraumnummer.setText("");
-            futtermenge.setText("");
-            gehege.setText("");
-            tierName.setText("");       
-        
 
+        if (zookeeperInfo != null) {
+            String food = zookeeperInfo.getFoodName();
+            String animalName = zookeeperInfo.getAnimalName();
+            String storageRoom = zookeeperInfo.getStorageRoomNumber();
+            double amount = zookeeperInfo.getAmountFood();
+            String compound = zookeeperInfo.getCompoundName();
+            String nextFeedingTimeInMinutes = userManager.getNextFeedingInfoInProperFormat();
+
+            // If nextfeedingInfo has valid minute time then display it        
+            if (nextFeedingTimeInMinutes != null) {
+                nextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung in (HH:MM) : " + nextFeedingTimeInMinutes);
+                futter.setText("Futter: " + food);
+                abstellraumnummer.setText("Abstellraumnummer: " + storageRoom);
+                futtermenge.setText("Menge: " + amount + " Kilogramm");
+                gehege.setText("Gehege: " + compound);
+                tierName.setText("Tier: " + animalName);
+                if (zookeeperInfo.isIsMultipleFeeding()) {
+                    attentionLabel.setText("Achtung, mehrere Fütterungen gleichzeitig!");
+                }
+            } // else dont display it, instead display that there are no feedings anymore.
+            else {
+                setLabelsNoFeeding();
+            }
+        } else {
+            setLabelsNoFeeding();
+        }
     }
+
+    public void setLabelsNoFeeding() {
+        nextFeedingTimeTakesPlaceIn.setText("Keine Fütterung für heute mehr");
+        futter.setText("");
+        abstellraumnummer.setText("");
+        futtermenge.setText("");
+        gehege.setText("");
+        tierName.setText("");
     }
+
 
     
     

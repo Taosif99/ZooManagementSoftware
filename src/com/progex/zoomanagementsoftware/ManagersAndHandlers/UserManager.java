@@ -511,7 +511,7 @@ public class UserManager {
                     + "INNER JOIN takescare ON eats.AnimalID = takescare.AnimalID "
                     + "INNER JOIN user ON takescare.UserID = user.ID "
                     + "INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable "
-                    + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and joinedTable.FütterungsZeit > current_date() "
+                    + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" "
                     + "ORDER BY case when diffMin<0 then 1 else 0 end,diffMin "
                     + "LIMIT 2";
 
@@ -544,12 +544,13 @@ public class UserManager {
                 System.out.println("TIME:" + zookeeperInfolist.get(i).getFeedingTime());
             }
 
-            if (checkIfSameTime(resultSet)) {
+            if(zookeeperInfo!=null){
+            if(checkIfSameTime(resultSet)){
                 zookeeperInfo.setIsMultipleFeeding(true);
-            } else {
+            }else{
                 zookeeperInfo.setIsMultipleFeeding(false);
             }
-
+            }
             System.out.println("COUNT" + checkIfSameTime(resultSet));
 
             // create FeedingInfo based on Database Information and return it
@@ -603,7 +604,7 @@ public class UserManager {
                 + "INNER  JOIN takescare ON eats.AnimalID = takescare.AnimalID "
                 + "INNER JOIN user ON takescare.UserID = user.ID "
                 + "INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable "
-                + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and joinedTable.FütterungsZeit > current_date() "
+                + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" "
                 + "ORDER BY case when diffMin<0 then 1 else 0 end,diffMin";
 
         return connectionHandler.performQuery(query);
@@ -629,7 +630,7 @@ public class UserManager {
                 + "INNER  JOIN takescare ON eats.AnimalID = takescare.AnimalID "
                 + "INNER JOIN user ON takescare.UserID = user.ID "
                 + "INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable "
-                + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and joinedTable.FütterungsZeit > current_date() "
+                + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" "
                 + "ORDER BY case when diffMin<0 then 1 else 0 end,diffMin";
 
         return connectionHandler.performQuery(query);
