@@ -55,7 +55,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
                      
                      try {
                          userManager.updateLastLogDateFromUser();
-                         Thread.sleep(100);
+                         Thread.sleep(3000);
                      } catch (InterruptedException ex) {
                          Logger.getLogger(ZookeeperModeHomePageJFrame.class.getName()).log(Level.SEVERE, null, ex);
                      }
