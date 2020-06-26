@@ -44,6 +44,14 @@ public abstract class User {
         this.address = address;
         this.lastLogDate = lastLogDate;
     }
+    
+    public User(String username, String firstname, Timestamp lastlogdate){
+        
+        this.username = username;
+        this.firstname = firstname;
+        this.lastLogDate = lastlogdate;
+        
+    }
 
     public String getUsername() {
         return username;

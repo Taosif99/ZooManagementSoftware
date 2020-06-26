@@ -390,4 +390,16 @@ public class Methods {
    
    //Taosif end
    
+    
+    // Khalid start
+    
+    public String cutTimeNextFeeding(String time){
+        
+        String formattedTime = time.substring(10, 16);
+        
+        return formattedTime;
+        
+        
+    }
+    
 }

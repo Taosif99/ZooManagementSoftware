@@ -1,4 +1,5 @@
 package com.progex.zoomanagementsoftware.datatypes;
+import java.sql.Timestamp;
 
 /**
  * Class which is used to mode zookeeper information in our zoo management software.
@@ -6,7 +7,7 @@ package com.progex.zoomanagementsoftware.datatypes;
 
 public class ZookeeperInfo
 {
-	private int nextFeedingTimeInMinutes;
+	private Timestamp nextFeedingTimeInMinutes;
 	
 	private String compoundName;
 	
@@ -17,8 +18,10 @@ public class ZookeeperInfo
 	private String storageRoomNumber;
 	
 	private double amountFood;
+        
+        private boolean isMultipleFeeding;
 
-    public ZookeeperInfo(int feedingTime, String compoundName, String animalName, String foodName, String storageRoomNumber, double amountFood) {
+    public ZookeeperInfo(Timestamp feedingTime, String compoundName, String animalName, String foodName, String storageRoomNumber, double amountFood) {
         
         this.nextFeedingTimeInMinutes = feedingTime;
         this.compoundName = compoundName;
@@ -28,11 +31,21 @@ public class ZookeeperInfo
         this.amountFood = amountFood;
     }
 
-    public int getFeedingTime() {
+    public Timestamp getFeedingTime() {
         return nextFeedingTimeInMinutes;
     }
 
-    public void setFeedingTime(int feedingTime) {
+    public boolean isIsMultipleFeeding() {
+        return isMultipleFeeding;
+    }
+
+    public void setIsMultipleFeeding(boolean isMultipleFeeding) {
+        this.isMultipleFeeding = isMultipleFeeding;
+    }
+    
+    
+
+    public void setFeedingTime(Timestamp feedingTime) {
         this.nextFeedingTimeInMinutes = feedingTime;
     }
 

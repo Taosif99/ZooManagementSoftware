@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.progex.zoomanagementsoftware.zookeeper;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
@@ -55,7 +50,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
         setSize(x, y);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
+        //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc).
         if (x == 1920 && y == 1080) {
 
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 18));
@@ -70,7 +65,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     }
 
     /**
-     * populate the jtable by getting the resultSet from zooManager and populating it with a lib
+     * populate the jtable by getting the resultSet from zooManager and populating it with a lib.
      */
     private void populateTableInKG() {
         jTableAlleFütterungen.setModel(DbUtils.resultSetToTableModel(userManager.getAllFeedingTimeInKG()));
@@ -78,7 +73,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
 
     
     /**
-     * populate the jtable by getting the resultSet from zooManager and populating it with a lib
+     * populate the jtable by getting the resultSet from zooManager and populating it with a lib.
      */
     private void populateTableInGramm() {
 
@@ -113,11 +108,6 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
 
         jButtonLogout.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jButtonLogout.setText("Logout");
-        jButtonLogout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonLogoutMouseClicked(evt);
-            }
-        });
         jButtonLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLogoutActionPerformed(evt);
@@ -126,11 +116,6 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
 
         jButtonNextFeedingTime.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButtonNextFeedingTime.setText("Nächste Fütterung anzeigen");
-        jButtonNextFeedingTime.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonNextFeedingTimeMouseClicked(evt);
-            }
-        });
         jButtonNextFeedingTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNextFeedingTimeActionPerformed(evt);
@@ -176,11 +161,6 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
 
         jButtonGoBack.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jButtonGoBack.setText("Zurück");
-        jButtonGoBack.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonGoBackMouseClicked(evt);
-            }
-        });
         jButtonGoBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGoBackActionPerformed(evt);
@@ -272,14 +252,8 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
       
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
-    private void jButtonGoBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGoBackMouseClicked
-    }//GEN-LAST:event_jButtonGoBackMouseClicked
-
-    private void jButtonNextFeedingTimeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeMouseClicked
-    }//GEN-LAST:event_jButtonNextFeedingTimeMouseClicked
-
     /**
-     *  When pressing Radiobutton "Menge in Kilogramm"
+     *  When pressing Radiobutton "Menge in Kilogramm".
      * @param evt 
      */
     private void jRadioButtonAmountOfFoodInKiloGrammActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAmountOfFoodInKiloGrammActionPerformed
@@ -288,7 +262,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonAmountOfFoodInKiloGrammActionPerformed
 
     /**
-     * When pressing "Logout" Button
+     * When pressing "Logout" Button.
      * @param evt 
      */
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
@@ -298,11 +272,8 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 
-    private void jButtonLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLogoutMouseClicked
-    }//GEN-LAST:event_jButtonLogoutMouseClicked
-
     /**
-     * When pressing Button "Näcshste Fütterung anzeigen"
+     * When pressing Button "Näcshste Fütterung anzeigen".
      * @param evt 
      */
     private void jButtonNextFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeActionPerformed
@@ -328,7 +299,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNextFeedingTimeActionPerformed
 
     /**
-     *  Pressing Radiobutton "Menge in gramm anzeigen"
+     *  Pressing Radiobutton "Menge in gramm anzeigen".
      * @param evt 
      */
     private void jRadioButtonAmountOfFoodInGrammActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAmountOfFoodInGrammActionPerformed
