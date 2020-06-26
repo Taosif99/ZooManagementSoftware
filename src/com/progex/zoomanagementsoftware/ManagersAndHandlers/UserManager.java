@@ -23,11 +23,16 @@ public class UserManager {
 
     private ZooManager zooManager; //Knows the reference to its owner, probably todo: rethink structcure
 
+    private Thread updateLastLogThread;
+    
+    private boolean stopThread = false;
+
     /*Removed loggedInUser TODO DIAGRAM*/
     public UserManager(ConnectionHandler connectionHandler, ZooManager zooManager) {
         this.loggedInUser = null;
         this.connectionHandler = connectionHandler;
         this.zooManager = zooManager;
+        updateLastLogThread = new Thread();
     }
 
     public User getLoggedInUser() {
@@ -230,9 +235,9 @@ public class UserManager {
      *
      * @param id
      * @param changePassword
-     * @param shift 
-     * @param user 
-     * @param userType 
+     * @param shift
+     * @param user
+     * @param userType
      * @return true if operation is sucessful, else false
      */
     public boolean updateUser(int id, User user, String shift, String userType, boolean changePassword) {
@@ -422,7 +427,7 @@ public class UserManager {
 
         try {
             // set query
-            String query = "SELECT username, firstname, user.Type, lastlogdate FROM USER WHERE username = \"" + username + "\"";
+            String query = "SELECT username, firstname, user.Type, lastlogdate,hashedPassword FROM USER WHERE username = \"" + username + "\"";
             // perform query
             ResultSet resultSet = connectionHandler.performQuery(query);
 
@@ -431,6 +436,7 @@ public class UserManager {
             String userName = "";
             Timestamp lastLogDate = null;
             String type = "";
+            String hashedPass = "";
 
             // catch results from query and save in variables
             if (resultSet.next()) {
@@ -439,14 +445,20 @@ public class UserManager {
                 firstName = resultSet.getString(2);
                 type = resultSet.getString(3);
                 lastLogDate = resultSet.getTimestamp(4);
+                hashedPass = resultSet.getString(5);
 
-                if (type.equals("Admin")) {
-                    Admin admin = new Admin(userName, firstName, lastLogDate);
-                    return admin;
-                }
-                if (type.equals("Zookeeper")) {
-                    Zookeeper zookeeper = new Zookeeper(userName, firstName, lastLogDate);
-                    return zookeeper;
+                if (userName.equals(username) && hashedPass.equals(hashedPassword)) {
+
+                    if (type.equals("Admin")) {
+                        Admin admin = new Admin(userName, firstName, lastLogDate);
+                        startUpdateThread();
+                        return admin;
+                    }
+                    if (type.equals("Zookeeper")) {
+                        Zookeeper zookeeper = new Zookeeper(userName, firstName, lastLogDate);
+                        startUpdateThread();
+                        return zookeeper;
+                    }
                 } else {
                     return null;
                 }
@@ -458,6 +470,26 @@ public class UserManager {
         }
 
         return null;
+
+    }
+
+    private void startUpdateThread() {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (stopThread == false) {
+                    try {
+                        updateLastLogDateFromUser();
+                        Thread.sleep(300);
+                        System.out.println("UPDATE LASTLOGDATE SUCCESSFULLY");
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+
+            }
+        }).start();
 
     }
 
@@ -484,8 +516,9 @@ public class UserManager {
      *
      */
     public void logout() {
-
         updateLastLogDateFromUser();
+        stopThread = true;
+        System.out.println("THEAD STOPPED");
         loggedInUser = null;
     }
 
@@ -544,12 +577,12 @@ public class UserManager {
                 System.out.println("TIME:" + zookeeperInfolist.get(i).getFeedingTime());
             }
 
-            if(zookeeperInfo!=null){
-            if(checkIfSameTime(resultSet)){
-                zookeeperInfo.setIsMultipleFeeding(true);
-            }else{
-                zookeeperInfo.setIsMultipleFeeding(false);
-            }
+            if (zookeeperInfo != null && resultSet.next()) {
+                if (checkIfSameTime(resultSet)) {
+                    zookeeperInfo.setIsMultipleFeeding(true);
+                } else {
+                    zookeeperInfo.setIsMultipleFeeding(false);
+                }
             }
             System.out.println("COUNT" + checkIfSameTime(resultSet));
 
@@ -566,23 +599,27 @@ public class UserManager {
     public boolean checkIfSameTime(ResultSet rs1) {
 
         try {
-            String time1 = rs1.getString("InMinuten");
-            rs1.last();
-            String time2 = rs1.getString("InMinuten");
-
-            System.out.println("TIME1" + time1);
-            System.out.println("TIME2" + time2);
-
-            if (time1.equals(time2)) {
-                return true;
-            } else {
-                return false;
+            if (rs1.next()) {
+                
+                String time1 = rs1.getString("InMinuten");
+                rs1.last();
+                String time2 = rs1.getString("InMinuten");
+                
+                System.out.println("TIME1" + time1);
+                System.out.println("TIME2" + time2);
+                
+                if (time1.equals(time2)) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return false;
+        
     }
 
     /**

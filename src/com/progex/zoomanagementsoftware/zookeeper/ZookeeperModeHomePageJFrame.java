@@ -35,8 +35,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         // set lastlogdate from user
         setLastLogDate();
         
-        //
-        keepUpdatingLastLog();
+
 
         // Display next feeding time
         setNextFeedingTimeInfo();
@@ -44,29 +43,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     }
 
     
-    private void keepUpdatingLastLog(){
-        
-        
-        new Thread(new Runnable() {
-             @Override
-             public void run() {
-                 
-                 while (true) {                     
-                     
-                     try {
-                         userManager.updateLastLogDateFromUser();
-                         Thread.sleep(3000);
-                     } catch (InterruptedException ex) {
-                         Logger.getLogger(ZookeeperModeHomePageJFrame.class.getName()).log(Level.SEVERE, null, ex);
-                     }
-                     
-                 }
-                 
-                 
-             }
-        }).start();        
-        
-    }
     
     /**
      * this methods gets from the zoomangager the nextfeedingtime and is displayed accordingly.
