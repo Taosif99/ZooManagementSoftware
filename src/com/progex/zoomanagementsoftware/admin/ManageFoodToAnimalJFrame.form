@@ -676,9 +676,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="g"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonGActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -720,9 +717,6 @@
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="kg"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonKgTableActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButtonGTable">
           <Properties>
@@ -731,9 +725,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="g"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonGTableActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelAmountUnitTable">
           <Properties>

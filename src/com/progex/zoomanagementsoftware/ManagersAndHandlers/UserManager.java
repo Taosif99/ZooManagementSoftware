@@ -482,7 +482,9 @@ public class UserManager {
                     try {
                         updateLastLogDateFromUser();
                         Thread.sleep(300);
-                        System.out.println("UPDATE LASTLOGDATE SUCCESSFULLY");
+         
+                        System.out.println("UPDATE LASTLOGDATE SUCCESSFULLY" );
+                        System.out.println(Thread.currentThread().getId());
                     } catch (InterruptedException ex) {
                         Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
                     }

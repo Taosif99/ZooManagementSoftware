@@ -39,7 +39,8 @@ public class FoodToAnimalManager {
                 + "FoodID,Eats.StartFeedingTime,Eats.EndFeedingTime,Eats.Amount\n"
                 + "FROM Eats\n"
                 + "INNER JOIN Food ON  Food.ID = Eats.FoodID\n"
-                + "WHERE AnimalID = " + animalID;
+                + "WHERE AnimalID = " + animalID
+                + " ORDER BY Eats.StartFeedingTime ASC";
 
         System.out.println(query);
         ResultSet resultSet = connectionHandler.performQuery(query);
