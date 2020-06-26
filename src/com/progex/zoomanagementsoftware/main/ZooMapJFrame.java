@@ -46,16 +46,19 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         setSize(x,y);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
-        //https://www.baeldung.com/java-images
+      	
+        
+       String filePath = ZooMapJFrame.class.getResource("ZooMap2.PNG").toString().substring(5);
+      //System.out.println(filePath);
         BufferedImage img = null;
         //Hier werte testen...
         int scaledWidth = 1000;
         int scaledHeight = 400;
         
         try {
-            //TODO LOAD PICTURE DYNAMICALLY and ordentlicher machen
-            img = ImageIO.read(new File("C:\\Users\\Ouchen\\Documents\\NetBeansProjects\\ZooManagementSoftware\\src\\com\\progex\\zoomanagementsoftware\\main\\ZooMap2.PNG"));
             
+            
+            img = ImageIO.read(new File(filePath));
              BufferedImage outputImage = new BufferedImage(scaledWidth,
              scaledHeight, img.getType());
            
@@ -71,10 +74,6 @@ public class ZooMapJFrame extends javax.swing.JFrame {
             Logger.getLogger(ZooMapJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-              
-        
-    
-    
     }
     
     
