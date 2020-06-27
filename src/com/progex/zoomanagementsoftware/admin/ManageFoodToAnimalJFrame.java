@@ -1,4 +1,3 @@
-
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.AnimalManager;
@@ -16,15 +15,15 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-
 public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ManageFoodToAnimalJFrame.
-     * 
+     *
      * @param goBackFrame The frame which will appear when the go back button is
      * used
-     * @param zooManager  The zooManager of the current Programm session which serves as interface
+     * @param zooManager The zooManager of the current Programm session which
+     * serves as interface
      */
     public ManageFoodToAnimalJFrame(JFrame goBackFrame, ZooManager zooManager) {
 
@@ -38,7 +37,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         myInitComponents();
     }
 
-   private void myInitComponents() {
+    private void myInitComponents() {
         updateButtonsAndLabels();
         UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
         UIManager.put("OptionPane.noButtonText", "Nein");
@@ -63,7 +62,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             row[0] = animal.getId();
             row[1] = animal.getName();
             row[2] = animal.getBirthday();
-            row[3] = animal.getSex(); 
+            row[3] = animal.getSex();
             //DIE LINE IST NOCH HÄSSLICH
             row[4] = methods.descriptionToString(animal.getSpecies().getDescription());
             row[5] = animal.getCompound().getName();
@@ -71,7 +70,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         }
     }
 
-  
     private void viewRelationTable(LinkedList<FoodToAnimalR> records) {
 
         DefaultTableModel tableRelationModel = (DefaultTableModel) jTableFoodToAnimalData.getModel();
@@ -161,6 +159,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         jRadioButtonKgTable = new javax.swing.JRadioButton();
         jRadioButtonGTable = new javax.swing.JRadioButton();
         jLabelAmountUnitTable = new javax.swing.JLabel();
+        jLabelClickedAnimal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Futter-Tier-Beziehung verwalten");
@@ -461,6 +460,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     .addComponent(jLabelAmountUnitTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
+        jLabelClickedAnimal.setText("Kein Tier ausgewählt!");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -482,7 +483,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                                                     .addGap(176, 176, 176)
                                                     .addComponent(jTextFieldAnimalName, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jButtonSearchAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(jButtonSearchAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabelClickedAnimal, javax.swing.GroupLayout.Alignment.LEADING)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(3, 3, 3)
@@ -552,7 +554,9 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(23, Short.MAX_VALUE)
                 .addComponent(jButtonGoBack)
-                .addGap(35, 35, 35)
+                .addGap(3, 3, 3)
+                .addComponent(jLabelClickedAnimal)
+                .addGap(18, 18, 18)
                 .addComponent(jPanelOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -719,7 +723,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     amount *= 1000;
                 }
             } catch (NumberFormatException numberFormatException) {
-                
+
                 System.err.println("NumberFormatException");
                 System.out.println(numberFormatException.getMessage());
 
@@ -796,7 +800,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                                 if (foodToAnimalManager.updateFoodToAnimal(selectedAnimalID, foodName, startFeedingTime, endFeedingTime, amount, keys)) {
                                     int animalID = Integer.parseInt(selectedAnimalID);
                                     LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
-                                    lastClickRecords = records; 
+                                    lastClickRecords = records;
                                     viewRelationTable(records);
                                     JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                                     /*Hier macht es Sinn nach dem updaten die Felder zu leeren*/
@@ -814,8 +818,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Futter existiert nicht!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
                 }
-            }
-            catch (NumberFormatException numberFormatException) {
+            } catch (NumberFormatException numberFormatException) {
 
                 System.err.println("NumberFormatException");
                 System.out.println(numberFormatException.getMessage());
@@ -843,7 +846,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
 
-    
+        try{
+        
         int rowIndex = jTableFoodToAnimalData.getSelectedRow();
         TableModel model = jTableFoodToAnimalData.getModel();
         String foodIDKey = model.getValueAt(rowIndex, 1).toString();
@@ -853,20 +857,32 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (decision == 0) {
-            if (foodToAnimalManager.deleteFoodToAnimal(foodIDKey, selectedAnimalID, startFeedingTimeKey)) {
-                JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                int animalID = Integer.parseInt(selectedAnimalID);
-                LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
-                lastClickRecords = records;
-                viewRelationTable(records);
-                jTextFieldFood.setText("");
-                jTextFieldStartFeedingTime.setText("");
-                jTextFieldEndFeedingTime.setText("");
-                jTextFieldAmountFood.setText("");
-            } else {
-                JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+
+            
+                if (foodToAnimalManager.deleteFoodToAnimal(foodIDKey, selectedAnimalID, startFeedingTimeKey)) {
+                    JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+                    int animalID = Integer.parseInt(selectedAnimalID);
+                    LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
+                    lastClickRecords = records;
+                    viewRelationTable(records);
+                    jTextFieldFood.setText("");
+                    jTextFieldStartFeedingTime.setText("");
+                    jTextFieldEndFeedingTime.setText("");
+                    jTextFieldAmountFood.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                }
+        }   
+        
+        
+    }
+        catch (ArrayIndexOutOfBoundsException arrOutOfBounds) {
+                System.err.println("No food relation selected");
+                System.out.println(arrOutOfBounds.getMessage());
+                JOptionPane.showMessageDialog(null, "Bitte Datensatz in der rechten Tabelle auswählen!", "Kein Datensatz ausgewählt", JOptionPane.CANCEL_OPTION);
             }
-        }
+        
+        
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
@@ -893,6 +909,9 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         //Update the animalId when selected
         selectedAnimalID = animalModel.getValueAt(animalRowIndex, 0).toString();
 
+        //Display selectedAnimalD
+        jLabelClickedAnimal.setText("Ausgewählte TierID: " + selectedAnimalID);
+
         int animalID = Integer.parseInt(selectedAnimalID);
         LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
         lastClickRecords = records;
@@ -912,15 +931,42 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         jTextFieldStartFeedingTime.setText(startFeedingTime);
         jTextFieldDateTimeID.setText(startFeedingTime);
         jTextFieldEndFeedingTime.setText(endFeedingTime);
+        
+        
+        
+        //4 Cases
+        
+        //1 and 2, if animalTable is g and relation Table is g
+        //or if both tables are kg
+        
+        if ((jRadioButtonG.isSelected() && jRadioButtonGTable.isSelected())
+             || jRadioButtonKg.isSelected() && jRadioButtonKgTable.isSelected()
+           )
         jTextFieldAmountFood.setText(model.getValueAt(rowIndex, 5).toString());
 
+        //3 case if textField is Kg and Table is g
+        else if(jRadioButtonG.isSelected() && jRadioButtonKgTable.isSelected()){
+        
+            double value = (double) model.getValueAt(rowIndex, 5);
+            value*= 1000;
+            jTextFieldAmountFood.setText(String.valueOf(value));
+        }
+        
+        //4 case if textField is g and Table is Kg
+        else if(jRadioButtonKg.isSelected() && jRadioButtonGTable.isSelected()){
+         double value = (double) model.getValueAt(rowIndex, 5);
+         value/= 1000;
+         jTextFieldAmountFood.setText(String.valueOf(value));
+        }
 
     }//GEN-LAST:event_jTableFoodToAnimalDataMouseClicked
 
     private void jButtonSearchAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchAnimalActionPerformed
-
+        cleanFields();
+        selectedAnimalID = null;
+        jLabelClickedAnimal.setText("Kein Tier ausgewählt!");
         jTextFieldAnimalName.setText(jTextFieldAnimalName.getText().trim());
-
+        methods.clearTable((DefaultTableModel)jTableFoodToAnimalData.getModel()); //jTable
         LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
         String animalName = jTextFieldAnimalName.getText();
         columnNameToValue.put("AnimalName", animalName);
@@ -935,17 +981,16 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jRadioButtonKgTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonKgTableActionPerformed
-        if (lastClickRecords != null && (!lastClickRecords.isEmpty())){
+        if (lastClickRecords != null && (!lastClickRecords.isEmpty())) {
             viewRelationTable(lastClickRecords);
         }
     }//GEN-LAST:event_jRadioButtonKgTableActionPerformed
 
     private void jRadioButtonGTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonGTableActionPerformed
-           if (lastClickRecords != null && (!lastClickRecords.isEmpty())){
+        if (lastClickRecords != null && (!lastClickRecords.isEmpty())) {
             viewRelationTable(lastClickRecords);
         }
     }//GEN-LAST:event_jRadioButtonGTableActionPerformed
-
 
     private void updateButtonsAndLabels() {
 
@@ -958,13 +1003,12 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             jButtonDelete.setEnabled(false);
             jLabelSearch.setEnabled(false);
             jButtonSearch.setEnabled(false);
-            
+
             jTextFieldFoodID.setText("");
             jTextFieldAnimalID.setText("");
-            jTextFieldStartFeedingTime.setText("");
-            
+            jTextFieldDateTimeID.setText("");
+
             mode = Mode.add;
-            
 
         } else if (jRadioButtonUpdate.isSelected()) {
             System.out.println("    Update mode");
@@ -1049,6 +1093,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelAmountUnitTable;
     private javax.swing.JLabel jLabelAnimalID;
     private javax.swing.JLabel jLabelAnimalName;
+    private javax.swing.JLabel jLabelClickedAnimal;
     private javax.swing.JLabel jLabelDateTimeID;
     private javax.swing.JLabel jLabelEndFeedingTime;
     private javax.swing.JLabel jLabelFood;
