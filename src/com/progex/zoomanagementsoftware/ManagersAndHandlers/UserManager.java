@@ -32,7 +32,7 @@ public class UserManager {
         this.loggedInUser = null;
         this.connectionHandler = connectionHandler;
         this.zooManager = zooManager;
-        updateLastLogThread = new Thread();
+        updateLastLogThread = null;
     }
 
     public User getLoggedInUser() {
@@ -451,14 +451,25 @@ public class UserManager {
 
                     if (type.equals("Admin")) {
                         Admin admin = new Admin(userName, firstName, lastLogDate);
-                        startUpdateThread();
+                        if (updateLastLogThread == null) {
+                            startUpdateThread();
+                        } else {
+                            updateLastLogThread.resume();
+                        }
+
                         return admin;
                     }
                     if (type.equals("Zookeeper")) {
                         Zookeeper zookeeper = new Zookeeper(userName, firstName, lastLogDate);
-                        startUpdateThread();
+
+                        if (updateLastLogThread == null) {
+                            startUpdateThread();
+                        } else {
+                            updateLastLogThread.resume();
+                        }
                         return zookeeper;
                     }
+
                 } else {
                     return null;
                 }
@@ -475,15 +486,15 @@ public class UserManager {
 
     private void startUpdateThread() {
 
-        new Thread(new Runnable() {
+        updateLastLogThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (stopThread == false) {
                     try {
                         updateLastLogDateFromUser();
                         Thread.sleep(300);
-         
-                        System.out.println("UPDATE LASTLOGDATE SUCCESSFULLY" );
+
+                        System.out.println("UPDATE LASTLOGDATE SUCCESSFULLY");
                         System.out.println(Thread.currentThread().getId());
                     } catch (InterruptedException ex) {
                         Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -491,7 +502,9 @@ public class UserManager {
                 }
 
             }
-        }).start();
+        });
+
+        updateLastLogThread.start();
 
     }
 
@@ -520,6 +533,7 @@ public class UserManager {
     public void logout() {
         updateLastLogDateFromUser();
         stopThread = true;
+        updateLastLogThread.suspend();
         System.out.println("THEAD STOPPED");
         loggedInUser = null;
     }
@@ -599,10 +613,12 @@ public class UserManager {
     }
 
     /**
-     * Method compares the time of the two first rows and checks if they are identical.
+     * Method compares the time of the two first rows and checks if they are
+     * identical.
+     *
      * @param rs1
      * @return boolean result
-     * @throws SQLException 
+     * @throws SQLException
      */
     public boolean checkIfSameTime(ResultSet rs1) throws SQLException {
 
@@ -612,12 +628,12 @@ public class UserManager {
 
         System.out.println("-----");
         System.out.println("Compare:");
-        System.out.println("Row"+temp.getRow()+ ": " + temp.getString("InMinuten"));
+        System.out.println("Row" + temp.getRow() + ": " + temp.getString("InMinuten"));
         String timee1 = temp.getString("InMinuten");
 
         System.out.println("With");
         temp.last();
-        System.out.println("Row"+temp.getRow()+ ": " + temp.getString("InMinuten"));
+        System.out.println("Row" + temp.getRow() + ": " + temp.getString("InMinuten"));
         System.out.println("-----");
         String timee2 = temp.getString("InMinuten");
 
@@ -629,8 +645,6 @@ public class UserManager {
             System.out.println("NOT SAME");
             return false;
         }
-
-
 
     }
 
