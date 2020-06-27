@@ -6,8 +6,6 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -65,7 +63,8 @@ public class ZooMapJFrame extends javax.swing.JFrame {
        ImageIcon icon = new ImageIcon(outputImage);      
        imageLabel.setIcon(icon);
         } catch (IOException ex) {
-            Logger.getLogger(ZooMapJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("IO Exception");
+            System.out.println(ex.getMessage());
         }
         
     }
