@@ -37,12 +37,12 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         
       	
         
-       String filePath = ZooMapJFrame.class.getResource("ZooMap2.PNG").toString().substring(5);
+       String filePath = ZooMapJFrame.class.getResource("ZooMap.jpg").toString().substring(5);
       //System.out.println(filePath);
         BufferedImage img = null;
         //Hier werte testen...
-        int scaledWidth = 1000;
-        int scaledHeight = 400;
+        int scaledWidth = x/2;
+        int scaledHeight = y/2;
         
         try {
             
@@ -89,7 +89,7 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabelShowDateTime.setText("TIME  and Date");
         jLabelShowDateTime.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
@@ -110,35 +110,31 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabelLegend)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButtonBack)))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabelLegend))
+                .addGap(40, 478, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(300, Short.MAX_VALUE)
+                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                .addContainerGap(300, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonBack)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelShowDateTime)
-                .addGap(40, 40, 40))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(132, 132, 132)
-                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                .addGap(433, 433, 433))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabelShowDateTime))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButtonBack)))
-                .addGap(57, 57, 57)
-                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonBack)
+                    .addComponent(jLabelShowDateTime))
+                .addGap(63, 63, 63)
+                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                 .addGap(121, 121, 121)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
