@@ -24,7 +24,7 @@ public class UserManager {
     private ZooManager zooManager; //Knows the reference to its owner, probably todo: rethink structcure
 
     private Thread updateLastLogThread;
-    
+
     private boolean stopThread = false;
 
     /*Removed loggedInUser TODO DIAGRAM*/
@@ -598,30 +598,40 @@ public class UserManager {
         return null;
     }
 
-    public boolean checkIfSameTime(ResultSet rs1) {
+    /**
+     * Method compares the time of the two first rows and checks if they are identical.
+     * @param rs1
+     * @return boolean result
+     * @throws SQLException 
+     */
+    public boolean checkIfSameTime(ResultSet rs1) throws SQLException {
 
-        try {
-            if (rs1.next()) {
-                
-                String time1 = rs1.getString("InMinuten");
-                rs1.last();
-                String time2 = rs1.getString("InMinuten");
-                
-                System.out.println("TIME1" + time1);
-                System.out.println("TIME2" + time2);
-                
-                if (time1.equals(time2)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
+        rs1.beforeFirst();
+        rs1.next();
+        ResultSet temp = rs1;
+
+        System.out.println("-----");
+        System.out.println("Compare:");
+        System.out.println("Row"+temp.getRow()+ ": " + temp.getString("InMinuten"));
+        String timee1 = temp.getString("InMinuten");
+
+        System.out.println("With");
+        temp.last();
+        System.out.println("Row"+temp.getRow()+ ": " + temp.getString("InMinuten"));
+        System.out.println("-----");
+        String timee2 = temp.getString("InMinuten");
+
+        if (timee1.equals(timee2)) {
+            System.out.println("IS SAME");
+            return true;
+            //return true;
+        } else {
+            System.out.println("NOT SAME");
+            return false;
         }
 
-        return false;
-        
+
+
     }
 
     /**
