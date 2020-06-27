@@ -398,11 +398,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
         buttonGroupAmountUnit.add(jRadioButtonG);
         jRadioButtonG.setText("g");
-        jRadioButtonG.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonGActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanelAmountUnitLayout = new javax.swing.GroupLayout(jPanelAmountUnit);
         jPanelAmountUnit.setLayout(jPanelAmountUnitLayout);
@@ -426,19 +421,9 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         buttonGroupUnitTable.add(jRadioButtonKgTable);
         jRadioButtonKgTable.setSelected(true);
         jRadioButtonKgTable.setText("kg");
-        jRadioButtonKgTable.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonKgTableActionPerformed(evt);
-            }
-        });
 
         buttonGroupUnitTable.add(jRadioButtonGTable);
         jRadioButtonGTable.setText("g");
-        jRadioButtonGTable.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonGTableActionPerformed(evt);
-            }
-        });
 
         jLabelAmountUnitTable.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelAmountUnitTable.setText("Mengeneinheit:");
@@ -887,10 +872,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonHelpActionPerformed
 
-    private void jRadioButtonGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonGActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonGActionPerformed
-
     private void jTableAnimalDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAnimalDataMouseClicked
 
         int animalRowIndex = jTableAnimalData.getSelectedRow();
@@ -920,18 +901,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jTableFoodToAnimalDataMouseClicked
-
-    private void jRadioButtonGTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonGTableActionPerformed
-        int animalID = Integer.parseInt(selectedAnimalID);
-        LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
-        viewRelationTable(records);
-    }//GEN-LAST:event_jRadioButtonGTableActionPerformed
-
-    private void jRadioButtonKgTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonKgTableActionPerformed
-        int animalID = Integer.parseInt(selectedAnimalID);
-        LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
-        viewRelationTable(records);
-    }//GEN-LAST:event_jRadioButtonKgTableActionPerformed
 
     private void jButtonSearchAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchAnimalActionPerformed
 

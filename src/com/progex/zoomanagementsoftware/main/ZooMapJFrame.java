@@ -6,17 +6,12 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 
-/**
- *
- * 
- */
+
 public class ZooMapJFrame extends javax.swing.JFrame {
 
     /**
@@ -33,29 +28,26 @@ public class ZooMapJFrame extends javax.swing.JFrame {
   
     
     private void myInitComponents(){
-    
-    
-        //Done in netbeans window
-        //this.setUndecorated(true);
-        //this.setAlwaysOnTop(true);
-        //this.setResizable(false);
-       // this.setVisible(true);
+
         Toolkit tk = Toolkit.getDefaultToolkit();
         int x =(int)tk.getScreenSize().getWidth();
         int y =(int)tk.getScreenSize().getHeight();
         setSize(x,y);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
-        //https://www.baeldung.com/java-images
+      	
+        
+       String filePath = ZooMapJFrame.class.getResource("ZooMap2.PNG").toString().substring(5);
+      //System.out.println(filePath);
         BufferedImage img = null;
         //Hier werte testen...
         int scaledWidth = 1000;
         int scaledHeight = 400;
         
         try {
-            //TODO LOAD PICTURE DYNAMICALLY and ordentlicher machen
-            img = ImageIO.read(new File("C:\\Users\\Ouchen\\Documents\\NetBeansProjects\\ZooManagementSoftware\\src\\com\\progex\\zoomanagementsoftware\\main\\ZooMap2.PNG"));
             
+            
+            img = ImageIO.read(new File(filePath));
              BufferedImage outputImage = new BufferedImage(scaledWidth,
              scaledHeight, img.getType());
            
@@ -68,13 +60,10 @@ public class ZooMapJFrame extends javax.swing.JFrame {
        ImageIcon icon = new ImageIcon(outputImage);      
        imageLabel.setIcon(icon);
         } catch (IOException ex) {
-            Logger.getLogger(ZooMapJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("IO Exception");
+            System.out.println(ex.getMessage());
         }
         
-              
-        
-    
-    
     }
     
     
