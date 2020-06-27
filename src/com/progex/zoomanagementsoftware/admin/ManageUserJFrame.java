@@ -239,6 +239,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jScrollPaneUserData.setViewportView(jTableUserData);
         if (jTableUserData.getColumnModel().getColumnCount() > 0) {
             jTableUserData.getColumnModel().getColumn(3).setPreferredWidth(180);
+            jTableUserData.getColumnModel().getColumn(6).setPreferredWidth(180);
             jTableUserData.getColumnModel().getColumn(8).setPreferredWidth(180);
             jTableUserData.getColumnModel().getColumn(10).setPreferredWidth(180);
             jTableUserData.getColumnModel().getColumn(11).setPreferredWidth(180);
@@ -906,7 +907,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             jTextFieldUsername, jTextFieldEMail};
 
         boolean textFieldsVerified = methods.verifyTextFields(textFields);
-        Shift shift;
         Salutation salutation;
         if (textFieldsVerified) {
 
@@ -981,7 +981,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                         + "Stadt: " + city, "Adresse nicht in der Datenbank vorhanden", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                             }
 
-                            shift = methods.stringToShift(shiftStr);
+                   
                             salutation = methods.stringToSalutation(salutationStr);
                             Address tempAddress = new Address(street, country, zip, city);
                             Date birthday = Date.valueOf(birthdayStr);
@@ -1044,7 +1044,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
     private void jTableUserDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUserDataMouseClicked
 
-        // TODO CHECK MODE !!!
+   
         int rowIndex = jTableUserData.getSelectedRow();
         TableModel model = jTableUserData.getModel();
 
@@ -1090,9 +1090,9 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jButtonDeleteUser.setEnabled(false);
                 jTextFieldID.setEnabled(false);
                 jLabelID.setEnabled(false);
-                jLabelID.setEnabled(false);
                 jLabelSearch.setEnabled(false);
                 jButtonSearch.setEnabled(false);
+                jTextFieldID.setText("");
 
             } else if (jRadioButtonUpdate.isSelected()) {
                 System.out.println("    Update mode");
@@ -1134,9 +1134,9 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 jButtonDeleteUser.setEnabled(false);
                 jTextFieldID.setEnabled(false);
                 jLabelID.setEnabled(false);
-                jLabelID.setEnabled(false);
                 jLabelSearch.setEnabled(false);
                 jButtonSearch.setEnabled(false);
+                jTextFieldID.setText("");
                 mode = Mode.add;
             } else if (jRadioButtonUpdate.isSelected()) {
                 System.out.println("    Update mode");

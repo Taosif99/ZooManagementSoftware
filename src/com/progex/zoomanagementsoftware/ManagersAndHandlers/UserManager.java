@@ -286,7 +286,7 @@ public class UserManager {
                 + "SET UserName = '" + user.getUsername() + "',\n"
                 + "FirstName = '" + user.getFirstname() + "',\n"
                 + "LastName = '" + user.getLastname() + "',\n"
-                + "PhoneNumber = '" + user.getLastname() + "',\n"
+                + "PhoneNumber = '" + user.getPhoneNumber() + "',\n"
                 + "Birthday = '" + user.getBirthday().toString() + "',\n"
                 + "Email = '" + user.getEmail() + "',\n"
                 + "Salutation = '" + salutation + "',\n"

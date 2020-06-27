@@ -469,7 +469,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                                         viewRelationTable(); // um die Tabelle zu aktualiseren
                                     }
                                     JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                                    clearTextFields();
+                                    jTextFieldAnimalName.setText("");
                                 } else {
                                     JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                                 }
@@ -536,7 +536,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                                 viewRelationTable(); // Um die Tabelle zu aktualiseren
                             }
                             JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                            clearTextFields();
+                            jTextFieldAnimalName.setText("");
                         } else {
                             JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                         }
@@ -621,9 +621,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
         records = zookeeperToAnimalManager.searchZookeeperToAnimal(lastSearchMap);
 
-        if (records.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
-        } else {
+        if (!records.isEmpty()) {
             viewRelationTable();
         }
 

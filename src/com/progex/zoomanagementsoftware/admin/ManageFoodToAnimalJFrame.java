@@ -421,9 +421,19 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         buttonGroupUnitTable.add(jRadioButtonKgTable);
         jRadioButtonKgTable.setSelected(true);
         jRadioButtonKgTable.setText("kg");
+        jRadioButtonKgTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonKgTableActionPerformed(evt);
+            }
+        });
 
         buttonGroupUnitTable.add(jRadioButtonGTable);
         jRadioButtonGTable.setText("g");
+        jRadioButtonGTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonGTableActionPerformed(evt);
+            }
+        });
 
         jLabelAmountUnitTable.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelAmountUnitTable.setText("Mengeneinheit:");
@@ -635,6 +645,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                                 int animalID = Integer.parseInt(selectedAnimalID);
                                 LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
+                                lastClickRecords = records;
                                 viewRelationTable(records);
                                 cleanFields();
                             } else {
@@ -731,6 +742,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 methods.clearTable((DefaultTableModel) jTableFoodToAnimalData.getModel());
                 JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
             } else {
+                lastClickRecords = records;
                 viewRelationTable(records);
             }
 
@@ -784,6 +796,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                                 if (foodToAnimalManager.updateFoodToAnimal(selectedAnimalID, foodName, startFeedingTime, endFeedingTime, amount, keys)) {
                                     int animalID = Integer.parseInt(selectedAnimalID);
                                     LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
+                                    lastClickRecords = records; 
                                     viewRelationTable(records);
                                     JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                                     /*Hier macht es Sinn nach dem updaten die Felder zu leeren*/
@@ -844,6 +857,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                 int animalID = Integer.parseInt(selectedAnimalID);
                 LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
+                lastClickRecords = records;
                 viewRelationTable(records);
                 jTextFieldFood.setText("");
                 jTextFieldStartFeedingTime.setText("");
@@ -881,6 +895,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
         int animalID = Integer.parseInt(selectedAnimalID);
         LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
+        lastClickRecords = records;
         viewRelationTable(records);
     }//GEN-LAST:event_jTableAnimalDataMouseClicked
 
@@ -919,6 +934,18 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         zooManager.getUserManager().logout();
     }//GEN-LAST:event_formWindowClosing
 
+    private void jRadioButtonKgTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonKgTableActionPerformed
+        if (lastClickRecords != null && (!lastClickRecords.isEmpty())){
+            viewRelationTable(lastClickRecords);
+        }
+    }//GEN-LAST:event_jRadioButtonKgTableActionPerformed
+
+    private void jRadioButtonGTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonGTableActionPerformed
+           if (lastClickRecords != null && (!lastClickRecords.isEmpty())){
+            viewRelationTable(lastClickRecords);
+        }
+    }//GEN-LAST:event_jRadioButtonGTableActionPerformed
+
 
     private void updateButtonsAndLabels() {
 
@@ -931,6 +958,11 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             jButtonDelete.setEnabled(false);
             jLabelSearch.setEnabled(false);
             jButtonSearch.setEnabled(false);
+            
+            jTextFieldFoodID.setText("");
+            jTextFieldAnimalID.setText("");
+            jTextFieldStartFeedingTime.setText("");
+            
             mode = Mode.add;
             
 
@@ -1056,4 +1088,5 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     private FoodToAnimalManager foodToAnimalManager;
     private Methods methods;
     private String selectedAnimalID;
+    private LinkedList<FoodToAnimalR> lastClickRecords;
 }

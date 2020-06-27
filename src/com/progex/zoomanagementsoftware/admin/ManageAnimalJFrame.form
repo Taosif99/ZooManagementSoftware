@@ -207,7 +207,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldSex">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="W f&#xfc;r weiblich, M f&#xfc;r m&#xe4;nnlich"/>
+        <Property name="toolTipText" type="java.lang.String" value="W f&#xfc;r weiblich, M f&#xfc;r m&#xe4;nnlich, U f&#xfc;r undefeniert"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldCompound">

@@ -35,6 +35,8 @@ public class Methods {
      */
     public void showTimeAndDate(JLabel jLabelShowDateTime) {
 
+        
+      
         Date date = new Date();
         SimpleDateFormat s = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         String dateAndTime = s.format(date);
@@ -42,9 +44,9 @@ public class Methods {
         String dateTime = dateAndTime.substring(11, 16);
         //System.out.println(dateAndTime); //Debug
         jLabelShowDateTime.setText("Zeit: " + dateTime + " Datum: " + dateString);
-
-        //Each Minute get current Time 60000 
-        new Timer(60000, new ActionListener() {
+        
+        //Each Second get current Time (1000ms) 
+        new Timer(1000, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -65,6 +65,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             row[0] = animal.getId();
             row[1] = animal.getName();
             row[2] = animal.getSex();
+            row[3] = animal.getBirthday();
             row[4] = methods.descriptionToString(animal.getSpecies().getDescription());
             row[5] = animal.getCompound().getName();
             model.addRow(row);
@@ -136,7 +137,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         jLabelSpecies.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelSpecies.setText("Spezies");
 
-        jTextFieldSex.setToolTipText("W für weiblich, M für männlich");
+        jTextFieldSex.setToolTipText("W für weiblich, M für männlich, U für undefeniert");
 
         jTextFieldDateOfBirth.setToolTipText("Format: yyyy-MM-dd");
 
