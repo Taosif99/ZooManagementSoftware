@@ -54,7 +54,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
   
     private void viewCompounds(LinkedList<Compound> compounds) {
 
-        methods.clearTable((DefaultTableModel) jTableCompoundData.getModel());
+        methods.clearTable(jTableCompoundData);
         DefaultTableModel model = (DefaultTableModel) jTableCompoundData.getModel();
         Object[] row = new Object[6]; // Spalten
 
@@ -501,7 +501,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
         LinkedList<Compound> compounds = compoundManager.searchCompounds(columnNameToValue);
         if (compounds.isEmpty()) {
-            methods.clearTable((DefaultTableModel) jTableCompoundData.getModel());
+            methods.clearTable(jTableCompoundData);
             JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
         } else
             viewCompounds(compounds);
@@ -666,7 +666,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(false);
 
             mode = Mode.add;
-            methods.clearTable((DefaultTableModel) jTableCompoundData.getModel());
+            methods.clearTable(jTableCompoundData);
         } else if (jRadioButtonUpdate.isSelected()) {
             System.out.println("    Update mode");
             jButtonAddCompound.setEnabled(false);

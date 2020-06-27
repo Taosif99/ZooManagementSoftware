@@ -743,7 +743,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
             LinkedList<FoodToAnimalR> records = foodToAnimalManager.searchFoodToAnimal(columnValueMap);
             if (records.isEmpty()) {
-                methods.clearTable((DefaultTableModel) jTableFoodToAnimalData.getModel());
+                methods.clearTable(jTableFoodToAnimalData);
                 JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 lastClickRecords = records;
@@ -966,7 +966,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         selectedAnimalID = null;
         jLabelClickedAnimal.setText("Kein Tier ausgewählt!");
         jTextFieldAnimalName.setText(jTextFieldAnimalName.getText().trim());
-        methods.clearTable((DefaultTableModel)jTableFoodToAnimalData.getModel()); //jTable
+        methods.clearTable(jTableFoodToAnimalData); //jTable
         LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
         String animalName = jTextFieldAnimalName.getText();
         columnNameToValue.put("AnimalName", animalName);

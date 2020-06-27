@@ -57,7 +57,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
  
     private void viewAnimals(LinkedList<Animal> animals) {
 
-        methods.clearTable((DefaultTableModel) jTableAnimalData.getModel());
+        methods.clearTable(jTableAnimalData);
         DefaultTableModel model = (DefaultTableModel) jTableAnimalData.getModel();
         Object[] row = new Object[6]; // Spalten
 
@@ -696,7 +696,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             jButtonAssignFeedingTimes.setEnabled(true);
             jButtonAssignZookeeper.setEnabled(true);
             mode = Mode.add;
-            methods.clearTable((DefaultTableModel) jTableAnimalData.getModel());
+            methods.clearTable(jTableAnimalData);
 
         } else if (jRadioButtonUpdate.isSelected()) {
             System.out.println("    Update mode");

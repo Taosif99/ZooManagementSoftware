@@ -395,7 +395,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
     private void viewRelationTable() {
 
-        methods.clearTable((DefaultTableModel) jTableTakesCareData.getModel());
+        methods.clearTable(jTableTakesCareData);
 
         fillRelationTable((DefaultTableModel) jTableTakesCareData.getModel());
     }
@@ -442,7 +442,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             records = zookeeperToAnimalManager.searchZookeeperToAnimal(lastSearchMap);
 
             if (records.isEmpty()) {
-                methods.clearTable((DefaultTableModel) jTableTakesCareData.getModel());
+                methods.clearTable(jTableTakesCareData);
                 JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 viewRelationTable();
@@ -450,7 +450,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            methods.clearTable((DefaultTableModel) jTableTakesCareData.getModel());
+            methods.clearTable(jTableTakesCareData);
             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
         }
     }//GEN-LAST:event_jButtonSearchActionPerformed
@@ -587,7 +587,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
     private void viewZookeepers() {
 
-        methods.clearTable((DefaultTableModel) jTableZookeeperData.getModel());
+        methods.clearTable(jTableZookeeperData);
 
         fillZookeeperTable((DefaultTableModel) jTableZookeeperData.getModel());
     }

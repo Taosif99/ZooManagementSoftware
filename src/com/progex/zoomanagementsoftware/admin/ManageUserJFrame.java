@@ -3,7 +3,6 @@ package com.progex.zoomanagementsoftware.admin;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Address;
-import com.progex.zoomanagementsoftware.datatypes.Admin;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import com.progex.zoomanagementsoftware.datatypes.Salutation;
 import com.progex.zoomanagementsoftware.datatypes.Shift;
@@ -17,9 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import java.sql.Timestamp;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 public class ManageUserJFrame extends javax.swing.JFrame {
 
@@ -797,7 +794,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         lastSearchMap = columnNameToValue;
         LinkedList<User> users = userManager.searchUsers(columnNameToValue);
         if (users.isEmpty() || users == null) {
-            methods.clearTable((DefaultTableModel) jTableUserData.getModel());
+            methods.clearTable(jTableUserData);
             JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
         } else {
             viewUsers(users);
@@ -1084,7 +1081,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             if (jRadioButtonAdd.isSelected()) {
                 System.out.println("    Add mode");
                 mode = Mode.add;
-                methods.clearTable((DefaultTableModel) jTableUserData.getModel());
+                methods.clearTable(jTableUserData);
                 jButtonAddUser.setEnabled(true);
                 jButtonUpdateUser.setEnabled(false);
                 jButtonDeleteUser.setEnabled(false);
@@ -1127,7 +1124,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             userType = Mode.zookeeper;
             if (jRadioButtonAdd.isSelected()) {
                 System.out.println("    Add mode");
-                methods.clearTable((DefaultTableModel) jTableUserData.getModel());
+                methods.clearTable(jTableUserData);
                 jButtonAnimalsToZookeeper.setEnabled(true);
                 jButtonAddUser.setEnabled(true);
                 jButtonUpdateUser.setEnabled(false);

@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 //For email checking
 import java.util.regex.Pattern; 
+import javax.swing.JTable;
 
 /**
  *
@@ -28,7 +29,7 @@ public class Methods {
     //Mustapha start
     
     /**
-     * Method which changes time every 60 seconds.
+     * Method which changes time every second.
      *
      * @param jLabelShowDateTime The label in which current time and date shall
      * be shown
@@ -380,13 +381,14 @@ public class Methods {
    //Taosif start
    
        /**
-     * This method is used to remove all data from a table.
+     * This method is used to remove all data from a Jtable.
      * @param table
      */
-    public void clearTable(DefaultTableModel table)
-    {     
-        while (table.getRowCount() > 0) {
-            table.removeRow(0);
+    public void clearTable(JTable table)
+    {  
+        DefaultTableModel defaultTableModel = (DefaultTableModel) table.getModel();
+        while (defaultTableModel.getRowCount() > 0) {
+            defaultTableModel.removeRow(0);
         }
     }
    

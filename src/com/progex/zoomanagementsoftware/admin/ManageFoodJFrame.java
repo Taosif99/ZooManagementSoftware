@@ -508,7 +508,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
     private void viewFoods(int i) {
 
-        methods.clearTable((DefaultTableModel) jTableFoodData.getModel());
+        methods.clearTable(jTableFoodData);
 
         fillTable((DefaultTableModel) jTableFoodData.getModel(), i);
     }
@@ -554,7 +554,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            methods.clearTable((DefaultTableModel) jTableFoodData.getModel());
+            methods.clearTable(jTableFoodData);
             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
 
         }
@@ -567,7 +567,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         foods = foodManager.searchFoods(getJTextFieldInput());
 
         if (foods.isEmpty()) {
-            methods.clearTable((DefaultTableModel) jTableFoodData.getModel());
+            methods.clearTable(jTableFoodData);
             JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
         } else {
             if (jRadioButtonGrammTable.isSelected()) {
@@ -698,7 +698,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         if (jRadioButtonAdd.isSelected()) {
 
             System.out.println("    Add mode");
-            methods.clearTable((DefaultTableModel) jTableFoodData.getModel());
+            methods.clearTable(jTableFoodData);
             jButtonAddFood.setEnabled(true);
             jButtonUpdateFood.setEnabled(false);
             jButtonDeleteFood.setEnabled(false);
