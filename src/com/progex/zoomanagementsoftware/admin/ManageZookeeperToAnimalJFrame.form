@@ -88,6 +88,10 @@
                               <Component id="jLabelZookeeperID" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jTextFieldUserID" min="-2" pref="36" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="jLabelFoodID" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jTextFieldFoodID" min="-2" pref="36" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="0" groupAlignment="0" attributes="0">
                               <Component id="jScrollTakesCareTable" alignment="1" min="-2" pref="516" max="-2" attributes="0"/>
@@ -150,6 +154,8 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabelZookeeperID" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldUserID" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelFoodID" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldFoodID" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollTakesCareTable" min="-2" pref="399" max="-2" attributes="0"/>
@@ -459,6 +465,19 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonHelpActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelFoodID">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Calibri" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="FutterID"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextFieldFoodID">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

@@ -25,7 +25,8 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
      *
      * @param goBackFrame The frame which will appear when the go back button is
      * used
-     * @param zooManager The zooManager of the current programm session which serves as interface
+     * @param zooManager The zooManager of the current programm session which
+     * serves as interface
      */
     public ManageZookeeperToAnimalJFrame(JFrame goBackFrame, ZooManager zooManager) {
 
@@ -40,12 +41,16 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
     private void myInitComponents() {
 
+        jTextFieldUserID.setEnabled(false);
+        jLabelZookeeperID.setEnabled(false);
+        jTextFieldFoodID.setEnabled(false);
+        jLabelFoodID.setEnabled(false);
         updateButtonsAndLabels();
         methods.showTimeAndDate(jLabelShowDateTime);
-         UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
-         UIManager.put("OptionPane.noButtonText", "Nein");
-         UIManager.put("OptionPane.okButtonText", "OK");
-         UIManager.put("OptionPane.yesButtonText", "Ja");
+        UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
+        UIManager.put("OptionPane.noButtonText", "Nein");
+        UIManager.put("OptionPane.okButtonText", "OK");
+        UIManager.put("OptionPane.yesButtonText", "Ja");
     }
 
     /**
@@ -82,6 +87,8 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         jLabelZookeeperID = new javax.swing.JLabel();
         jTextFieldUserID = new javax.swing.JTextField();
         jButtonHelp = new javax.swing.JButton();
+        jLabelFoodID = new javax.swing.JLabel();
+        jTextFieldFoodID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tierpfleger/-in zu Tier Zuweisung verwalten");
@@ -248,6 +255,11 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabelFoodID.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelFoodID.setText("FutterID");
+
+        jTextFieldFoodID.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -296,7 +308,11 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelZookeeperID)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextFieldUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabelFoodID)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldFoodID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jScrollTakesCareTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jButtonSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -345,7 +361,9 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelZookeeperID)
-                            .addComponent(jTextFieldUserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldUserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelFoodID)
+                            .addComponent(jTextFieldFoodID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollTakesCareTable, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)
@@ -549,7 +567,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButtonAddFoodActionPerformed
-    
+
     private void fillZookeeperTable(DefaultTableModel model) {
 
         model = (DefaultTableModel) jTableZookeeperData.getModel();
@@ -631,13 +649,11 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableZookeeperDataMouseClicked
 
     private void jTextFieldUserIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUserIDActionPerformed
-        selectedZookeeperID = jTextFieldUserID.getText();
-        System.out.println(selectedZookeeperID);
+        //selectedZookeeperID = jTextFieldUserID.getText();
     }//GEN-LAST:event_jTextFieldUserIDActionPerformed
 
     private void jTextFieldUserIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldUserIDKeyTyped
-        selectedZookeeperID = jTextFieldUserID.getText();
-        //System.out.println(jTextFieldUserID.getText() + "     id");
+        //selectedZookeeperID = jTextFieldUserID.getText();
     }//GEN-LAST:event_jTextFieldUserIDKeyTyped
 
     private void jTableTakesCareDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTakesCareDataMouseClicked
@@ -646,9 +662,11 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         TableModel takesCareModel = jTableTakesCareData.getModel();
 
         selectedZookeeperID = takesCareModel.getValueAt(takesCareRowIndex, 0).toString();
-
+        jTextFieldUserID.setText(selectedZookeeperID);
         String animalName = takesCareModel.getValueAt(takesCareRowIndex, 4).toString();
         jTextFieldAnimalName.setText(animalName);
+        String foodId = takesCareModel.getValueAt(takesCareRowIndex, 3).toString();
+        jTextFieldFoodID.setText(foodId);
 
         if (mode != Mode.add)
             jTextFieldUserID.setText(selectedZookeeperID);
@@ -666,9 +684,8 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             System.out.println("    Add mode");
             jButtonAddFood.setEnabled(true);
             jButtonDeleteFood.setEnabled(false);
-            jTextFieldUserID.setEnabled(false);
             jTextFieldUserID.setText("");
-            jLabelZookeeperID.setEnabled(false);
+            jTextFieldFoodID.setText("");
             jLabelSearch.setEnabled(false);
             jButtonSearch.setEnabled(false);
             mode = Mode.add;
@@ -679,8 +696,6 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
             jButtonAddFood.setEnabled(false);
             jButtonDeleteFood.setEnabled(true);
-            jTextFieldUserID.setEnabled(true);
-            jLabelZookeeperID.setEnabled(true);
             jLabelSearch.setEnabled(true);
             jButtonSearch.setEnabled(true);
             mode = Mode.delete;
@@ -740,6 +755,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtonSearchZookeeper;
     private javax.swing.JLabel jLabelAskAnimalName;
+    private javax.swing.JLabel jLabelFoodID;
     private javax.swing.JLabel jLabelOperation;
     private javax.swing.JLabel jLabelSearch;
     private javax.swing.JLabel jLabelSelectZookeeper;
@@ -754,6 +770,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JTable jTableTakesCareData;
     private javax.swing.JTable jTableZookeeperData;
     private javax.swing.JTextField jTextFieldAnimalName;
+    private javax.swing.JTextField jTextFieldFoodID;
     private javax.swing.JTextField jTextFieldUserID;
     private javax.swing.JTextField jTextFieldZookeepeFirstName;
     private javax.swing.JTextField jTextFieldZookeeperLastName;
