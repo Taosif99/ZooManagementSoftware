@@ -14,6 +14,12 @@ import java.util.ArrayList;
 
 /**
  * @(#) UserManager.java
+ * Class is used to manage all related functions regarding the user. Beneath the functionalites are the 
+ * Login/Logout, Show all feeding times information, show next feeding time information, update the lastlogdate
+ * of a user
+ * 
+ * TODO: ADD FUNCTIONALITIES FROM ADMINMODE
+ * 
  */
 public class UserManager {
 
@@ -451,22 +457,15 @@ public class UserManager {
 
                     if (type.equals("Admin")) {
                         Admin admin = new Admin(userName, firstName, lastLogDate);
-                        if (updateLastLogThread == null) {
-                            startUpdateThread();
-                        } else {
-                            updateLastLogThread.resume();
-                        }
+
+                        startUpdateThread();
 
                         return admin;
                     }
                     if (type.equals("Zookeeper")) {
                         Zookeeper zookeeper = new Zookeeper(userName, firstName, lastLogDate);
 
-                        if (updateLastLogThread == null) {
-                            startUpdateThread();
-                        } else {
-                            updateLastLogThread.resume();
-                        }
+                        startUpdateThread();
                         return zookeeper;
                     }
 
@@ -484,20 +483,28 @@ public class UserManager {
 
     }
 
+    /**
+     * Start a thread that keeps updating the lastlogdate every 30 seconds
+     */
     private void startUpdateThread() {
 
         updateLastLogThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (stopThread == false) {
+                while (true && loggedInUser != null) {
+                    System.out.println("THREAD COUNT: "+java.lang.Thread.activeCount());
+
                     try {
                         updateLastLogDateFromUser();
-                        Thread.sleep(300);
+                        Thread.sleep(100);
 
+                        System.out.println(""+loggedInUser.getUsername());
                         System.out.println("UPDATE LASTLOGDATE SUCCESSFULLY");
                         System.out.println(Thread.currentThread().getId());
                     } catch (InterruptedException ex) {
                         Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
+                        Thread.currentThread().interrupt(); // restore interrupted status
+
                     }
                 }
 
@@ -533,7 +540,7 @@ public class UserManager {
     public void logout() {
         updateLastLogDateFromUser();
         stopThread = true;
-        updateLastLogThread.suspend();
+        updateLastLogThread.interrupt();
         System.out.println("THEAD STOPPED");
         loggedInUser = null;
     }

@@ -5,6 +5,7 @@ import com.progex.zoomanagementsoftware.guest.ChooseAnimalAndTimeJFrame;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
+
 public class MainMenuJFrame extends javax.swing.JFrame {
 
     /**
@@ -18,7 +19,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         will be passed to the corresponding frames*/
         String url = "jdbc:mysql://localhost/";
         String username = "root";
-        String password = "0000";
+        String password = "AbuKungFu707-";
         String dbName = "zoo";
 
         zooManager = new ZooManager(url, dbName, username, password);
