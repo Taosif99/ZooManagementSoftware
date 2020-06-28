@@ -446,13 +446,13 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
         } catch (NumberFormatException numberFormatException) {
 
-            System.err.println("NumberFormatException");
+            System.err.println("NumberFormatException in addCompound Button");
             System.out.println(numberFormatException.getMessage());
             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
 
         } catch (IllegalArgumentException illegalArgumentEcxeption) {
 
-            System.err.println("IllegalArgumentException");
+            System.err.println("IllegalArgumentException in addCompound Button");
             System.out.println(illegalArgumentEcxeption.getMessage());
             JOptionPane.showMessageDialog(null, "Werte kleiner 0 nicht erlaubt!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
 
@@ -557,13 +557,13 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (NumberFormatException numberFormatException) {
-            System.err.println("NumberFormatException");
+            System.err.println("NumberFormatException in UpdateCompound Button");
             System.out.println(numberFormatException.getMessage());
             JOptionPane.showMessageDialog(null, "Gehege konnte nicht geupdatet werden!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
 
         } catch (IllegalArgumentException illegalArgumentEcxeption) {
 
-            System.err.println("IllegalArgumentException");
+            System.err.println("IllegalArgumentException in UpdateCompound Button");
             System.out.println(illegalArgumentEcxeption.getMessage());
             JOptionPane.showMessageDialog(null, "Werte kleiner 0 nicht erlaubt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
 
@@ -605,7 +605,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
             }
         } catch (NumberFormatException numberFormatException) {
 
-            System.err.println("NumberFormatException");
+            System.err.println("NumberFormatException in DeleteCompound Button");
             System.out.println(numberFormatException.getMessage());
             JOptionPane.showMessageDialog(null, "ID Feld falsch ausgefüllt!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
         }

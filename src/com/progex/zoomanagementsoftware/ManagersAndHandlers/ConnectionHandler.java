@@ -166,7 +166,7 @@ public class ConnectionHandler {
 
         } catch (SQLException e) {
 
-            System.err.println("SQL ERROR");
+            System.err.println("SQL ERROR in performQuery()");
             System.out.println(e.getMessage());
  
         }

@@ -663,7 +663,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     }
                 }
             } catch (NumberFormatException numberFormatException) {
-                System.err.println("NumberFormatException");
+                System.err.println("NumberFormatException in AddFoodToAnimal Button");
                 System.out.println(numberFormatException.getMessage());
                 JOptionPane.showMessageDialog(null, "Im Menge Textfeld darf nur eine Zahl stehen!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
             } catch (IllegalArgumentException illegalArgumentException) {
@@ -724,7 +724,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 }
             } catch (NumberFormatException numberFormatException) {
 
-                System.err.println("NumberFormatException");
+                System.err.println("NumberFormatException in SearchFoodToAnimal Button");
                 System.out.println(numberFormatException.getMessage());
 
             }
@@ -820,7 +820,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 }
             } catch (NumberFormatException numberFormatException) {
 
-                System.err.println("NumberFormatException");
+                System.err.println("NumberFormatException in UpdateFoodToAnimal Button");
                 System.out.println(numberFormatException.getMessage());
                 JOptionPane.showMessageDialog(null, "Im Menge Textfeld darf nur eine Zahl stehen!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
             } catch (IllegalArgumentException illegalArgumentException) {

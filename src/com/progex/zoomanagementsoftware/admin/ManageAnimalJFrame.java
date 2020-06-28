@@ -588,7 +588,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 }
             } catch (NumberFormatException numberFormatException) {
 
-                System.err.println("NumberFormatException");
+                System.err.println("NumberFormatException in UpdateAnimal Button");
                 System.out.println(numberFormatException.getMessage());
                 JOptionPane.showMessageDialog(null, "ID Feld falsch ausgefüllt!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
             }
@@ -626,7 +626,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             }
         } catch (NumberFormatException numberFormatException) {
 
-            System.err.println("NumberFormatException");
+            System.err.println("NumberFormatException in DeleteAnimal Button");
             System.out.println(numberFormatException.getMessage());
             JOptionPane.showMessageDialog(null, "ID Feld falsch ausgefüllt!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
 
