@@ -35,6 +35,9 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         // set lastlogdate from user
         setLastLogDate();
         
+                // display date properly
+        Methods methods = new Methods();
+        methods.showTimeAndDate(dateLabel);
 
 
         // Display next feeding time
@@ -129,6 +132,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         zookeeperName = new javax.swing.JLabel();
         jButtonNextFeedingTime = new javax.swing.JButton();
         attentionJLabel = new javax.swing.JLabel();
+        dateLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tierpfleger HomePage");
@@ -178,6 +182,10 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
 
         attentionJLabel.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
 
+        dateLabel.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        dateLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        dateLabel.setText("X");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -189,10 +197,12 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(letzteAnmeldung)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelLastLoginTime, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(183, 183, 183)
+                        .addComponent(jLabelLastLoginTime, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
                         .addComponent(jLabeDate, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -211,7 +221,8 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
                         .addGap(13, 13, 13)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(letzteAnmeldung)
-                            .addComponent(jLabelLastLoginTime)))
+                            .addComponent(jLabelLastLoginTime)
+                            .addComponent(dateLabel)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jLabeDate, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -323,6 +334,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel attentionJLabel;
+    private javax.swing.JLabel dateLabel;
     private javax.swing.JButton jButtonAllFeedingTime1;
     private javax.swing.JButton jButtonLogout;
     private javax.swing.JButton jButtonNextFeedingTime;
