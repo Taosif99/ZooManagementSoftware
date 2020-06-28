@@ -2,15 +2,14 @@
 package com.progex.zoomanagementsoftware.ManagersAndHandlers;
 
 
-import java.sql.SQLException;
+
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  * This class serves as main interface to our zoo management software.
