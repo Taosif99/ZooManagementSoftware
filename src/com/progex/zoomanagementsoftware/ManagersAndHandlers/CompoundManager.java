@@ -89,7 +89,7 @@ public class CompoundManager {
                 }
 
             } catch (SQLException ex) {
-                System.err.println("SQL Exception");
+                System.err.println("SQL Exception in updateCompound()");
                 System.out.println(ex.getMessage());
             }
         }
@@ -183,7 +183,7 @@ public class CompoundManager {
                     compounds.add(newCompound);
                 }
             } catch (SQLException e) {
-                System.err.println("SQL exception");
+                System.err.println("SQL Exception in createCompounds()");
                 System.out.println(e.getMessage());
 
             }

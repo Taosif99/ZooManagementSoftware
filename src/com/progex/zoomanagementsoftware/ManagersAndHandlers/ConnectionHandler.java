@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.Date;
 import java.sql.SQLException;
 
 /**
@@ -119,10 +118,10 @@ public class ConnectionHandler {
             resultSet = statement.executeQuery(query);
 
 
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
 
-            System.err.println("SQL ERROR in performQuery()");
-            System.out.println(e.getMessage());
+            System.err.println("SQL Exception in performQuery()");
+            System.out.println(ex.getMessage());
  
         }
     
@@ -146,10 +145,10 @@ public class ConnectionHandler {
                     return true;
            }
        }catch(Exception ex){
-           ex.printStackTrace();
+             System.err.println("SQL Exception in manipulateDB()");
+            System.out.println(ex.getMessage());
        }
     
        return false;
     }
-    
 }
