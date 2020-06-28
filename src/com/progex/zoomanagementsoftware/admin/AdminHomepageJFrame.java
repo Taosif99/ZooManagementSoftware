@@ -333,8 +333,6 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private void jButtonManageUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageUserActionPerformed
 
-        //Set Main Menue to not visible
-        this.setVisible(false);
 
         JFrame thisFrame = this;
         /* Create and display the JFrame MangeUser*/
@@ -362,7 +360,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private void jButtonManageFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageFoodActionPerformed
 
-        this.setVisible(false);
+     
 
         JFrame thisFrame = this;
         /* Create and display the JFrame ManageFood*/
@@ -387,7 +385,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private void jButtonManageTakesCareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageTakesCareActionPerformed
 
-        this.setVisible(false);
+     
         JFrame thisFrame = this;
         /* Create and display the JFrame MangeZookeeperToAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -422,7 +420,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private void jButtonManageEatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageEatsActionPerformed
 
-        this.setVisible(false);
+   
 
         JFrame thisFrame = this;
         /* Create and display the JFrame ManageFoodToAnimal*/

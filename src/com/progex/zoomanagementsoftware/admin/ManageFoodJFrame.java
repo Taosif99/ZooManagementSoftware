@@ -381,7 +381,6 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
 
         goBackFrame.setVisible(true);
-        //Close frame
         this.dispose();
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 

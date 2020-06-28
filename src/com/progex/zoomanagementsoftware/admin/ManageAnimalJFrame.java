@@ -50,7 +50,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         jTextFieldAnimalName.setText("");
         jTextFieldCompound.setText("");
         jTextFieldDateOfBirth.setText("");
-        jTextFieldSex.setText("");
         jTextFieldID.setText("");
     }
 
@@ -89,7 +88,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         jLabelCompound = new javax.swing.JLabel();
         jLabelSpecies = new javax.swing.JLabel();
         jTextFieldAnimalName = new javax.swing.JTextField();
-        jTextFieldSex = new javax.swing.JTextField();
         jTextFieldCompound = new javax.swing.JTextField();
         jTextFieldDateOfBirth = new javax.swing.JTextField();
         jComboBoxSpecies = new javax.swing.JComboBox<>();
@@ -112,6 +110,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         jLabelSearch = new javax.swing.JLabel();
         jButtonAssignFeedingTimes = new javax.swing.JButton();
         jButtonAssignZookeeper = new javax.swing.JButton();
+        jComboBoxSex = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tier verwalten");
@@ -136,8 +135,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
         jLabelSpecies.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelSpecies.setText("Spezies");
-
-        jTextFieldSex.setToolTipText("W für weiblich, M für männlich, U für undefeniert");
 
         jTextFieldDateOfBirth.setToolTipText("Format: yyyy-MM-dd");
 
@@ -312,6 +309,9 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             }
         });
 
+        jComboBoxSex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "W", "U" }));
+        jComboBoxSex.setToolTipText("W für weiblich, M für männlich, U für undefeniert");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -344,14 +344,14 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                                     .addComponent(jButtonAssignFeedingTimes, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButtonAssignZookeeper, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jPanelOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(162, 162, 162)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextFieldSex, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldAnimalName, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldDateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jPanelOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextFieldDateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxSex, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -379,7 +379,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelSex)
-                    .addComponent(jTextFieldSex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxSex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelDateOfBirth)
@@ -427,7 +427,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         jTextFieldID.setText("");
 
         JTextField textFields[] = {jTextFieldAnimalName, jTextFieldCompound,
-            jTextFieldDateOfBirth, jTextFieldSex};
+            jTextFieldDateOfBirth};
 
         boolean textFieldsVerified = methods.verifyTextFields(textFields);
 
@@ -436,7 +436,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             String animalName = jTextFieldAnimalName.getText();
             String compoundName = jTextFieldCompound.getText();
             String date = jTextFieldDateOfBirth.getText();
-            String sex = jTextFieldSex.getText();
+            String sex = jComboBoxSex.getSelectedItem().toString();
             String species = jComboBoxSpecies.getSelectedItem().toString();
 
             boolean dateFormatCorrect = methods.isValidDateString(date);
@@ -492,7 +492,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         String animalName = jTextFieldAnimalName.getText().trim();
         String compoundName = jTextFieldCompound.getText().trim();
         String birthday = jTextFieldDateOfBirth.getText().trim();
-        String sex = jTextFieldSex.getText().trim();
+        String sex = jComboBoxSex.getSelectedItem().toString();
         String species = jComboBoxSpecies.getSelectedItem().toString();
         String ID = jTextFieldID.getText().trim();
 
@@ -546,7 +546,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             jTextFieldAnimalName,
             jTextFieldCompound,
             jTextFieldDateOfBirth,
-            jTextFieldSex,
             jTextFieldID};
 
         boolean textFieldsVerified = methods.verifyTextFields(textFields);
@@ -556,7 +555,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             String animalName = jTextFieldAnimalName.getText();
             String compoundName = jTextFieldCompound.getText();
             String date = jTextFieldDateOfBirth.getText();
-            String sex = jTextFieldSex.getText();
+            String sex = jComboBoxSex.getSelectedItem().toString();
             String species = jComboBoxSpecies.getSelectedItem().toString();
             try {
                 int ID = Integer.parseInt(jTextFieldID.getText());
@@ -665,8 +664,9 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             TableModel model = jTableAnimalData.getModel();
             jTextFieldID.setText(model.getValueAt(rowIndex, 0).toString());
             jTextFieldAnimalName.setText(model.getValueAt(rowIndex, 1).toString());
-            jTextFieldSex.setText(model.getValueAt(rowIndex, 2).toString());
-
+            String sex = (model.getValueAt(rowIndex, 2).toString());
+            jComboBoxSex.setSelectedItem(sex);
+            
             jTextFieldDateOfBirth.setText(model.getValueAt(rowIndex, 3).toString());
 
             String species = model.getValueAt(rowIndex, 4).toString();
@@ -781,6 +781,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonHelp;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtonUpdateAnimal;
+    private javax.swing.JComboBox<String> jComboBoxSex;
     private javax.swing.JComboBox<String> jComboBoxSpecies;
     private javax.swing.JLabel jLabelAnimalName;
     private javax.swing.JLabel jLabelCompound;
@@ -801,7 +802,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldCompound;
     private javax.swing.JTextField jTextFieldDateOfBirth;
     private javax.swing.JTextField jTextFieldID;
-    private javax.swing.JTextField jTextFieldSex;
     // End of variables declaration//GEN-END:variables
 
     private javax.swing.JFrame goBackFrame;
