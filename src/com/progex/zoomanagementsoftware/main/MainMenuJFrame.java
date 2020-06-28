@@ -1,9 +1,15 @@
 package com.progex.zoomanagementsoftware.main;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
 import com.progex.zoomanagementsoftware.guest.ChooseAnimalAndTimeJFrame;
 import java.awt.Toolkit;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 
 public class MainMenuJFrame extends javax.swing.JFrame {
@@ -15,13 +21,43 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         initComponents();
         myInitComponents();
 
-        /*Init the our wrapper class, which will be used in the Program, which
-        will be passed to the corresponding frames*/
-        String url = "jdbc:mysql://localhost/";
+        String url ="jdbc:mysql://localhost/";
         String username = "root";
-        String password = "AbuKungFu707-";
+        String password = "0000";
         String dbName = "zoo";
-
+        //Using GSON API to get network parameters from file
+        
+         Path fileName = Path.of("NetworkParameters.json");
+         
+ 
+        try {
+               
+               String jsonString = Files.readString(fileName);
+               System.out.println(jsonString);
+               JsonObject jsonObject = new JsonParser().parse(jsonString).getAsJsonObject();
+            
+     
+               url = jsonObject.getAsJsonObject("parameters").get("url").getAsString();
+               username = jsonObject.getAsJsonObject("parameters").get("username").getAsString();
+               password = jsonObject.getAsJsonObject("parameters").get("password").getAsString();
+               dbName = jsonObject.getAsJsonObject("parameters").get("dbName").getAsString();
+               
+            /*
+               System.out.println("Using following parameters:");
+               System.out.println("url: " + url + " username: " + username + 
+                       " password: " + password + " dbname " + dbName);
+            */
+               JOptionPane.showMessageDialog(null, "Netwwerkkonfiguration erfolgreich geladen!", "Erfolgreiches Laden", JOptionPane.CANCEL_OPTION);
+        } catch (IOException ex) {
+            
+            System.out.println(ex.getMessage());
+            System.out.println("Using hardcoded standard instead of json file...");
+            JOptionPane.showMessageDialog(null, "Nutze standard Netzwerkparameter", "Keine Networkparameters.json gefunden!", JOptionPane.CANCEL_OPTION);
+            
+            
+        }
+        /*Init the our wrapper class, which will be used in the Program, which
+        will be passed to the corresponding frames*/   
         zooManager = new ZooManager(url, dbName, username, password);
 
     }

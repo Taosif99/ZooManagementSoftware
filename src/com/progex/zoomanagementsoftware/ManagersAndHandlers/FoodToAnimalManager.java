@@ -18,7 +18,12 @@ public class FoodToAnimalManager {
       private ZooManager zooManager;
 
       
-      
+     /**
+     * Creates an FoodToAnimalManager with corresponding 
+     * reference to connection and main interface handlers.
+     * @param connectionHandler
+     * @param zooManager 
+     */  
     public FoodToAnimalManager(ConnectionHandler connectionHandler, ZooManager zooManager) {
         this.connectionHandler = connectionHandler;
         this.zooManager = zooManager;

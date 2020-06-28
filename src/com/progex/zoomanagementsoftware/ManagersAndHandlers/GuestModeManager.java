@@ -14,6 +14,10 @@ public class GuestModeManager {
 
     private ConnectionHandler connectionHandler;
 
+    /**
+     * Creates a GuestModeManager with corresponding reference to connection handler.
+     * @param connectionHandler
+     */  
     public GuestModeManager(ConnectionHandler connectionHandler) {
         this.connectionHandler = connectionHandler;
 

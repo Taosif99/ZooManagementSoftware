@@ -15,6 +15,12 @@ public class FoodManager {
     private ConnectionHandler connectionHandler;
     private ZooManager zooManager;
 
+     /**
+     * Creates a FoodManager with corresponding 
+     * reference to connection and main interface handlers.
+     * @param connectionHandler
+     * @param zooManager 
+     */
     public FoodManager(ConnectionHandler connectionHandler, ZooManager zooManager) {
         this.connectionHandler = connectionHandler;
         this.zooManager = zooManager;

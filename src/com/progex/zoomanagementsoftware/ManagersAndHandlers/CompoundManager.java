@@ -14,6 +14,12 @@ public class CompoundManager {
     private ConnectionHandler connectionHandler;
     private ZooManager zooManager;
 
+    /**
+     * Creates a Compound manager with corresponding 
+     * reference to connection and main interface handlers.
+     * @param connectionHandler
+     * @param zooManager 
+     */
     public CompoundManager(ConnectionHandler connectionHandler, ZooManager zooManager) {
         this.connectionHandler = connectionHandler;
         this.zooManager = zooManager;

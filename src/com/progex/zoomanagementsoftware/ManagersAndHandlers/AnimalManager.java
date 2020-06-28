@@ -22,6 +22,12 @@ public class AnimalManager {
     private ZooManager zooManager;
     
 
+     /**
+     * Creates an AnimalManager manager with corresponding 
+     * reference to connection and main interface handlers.
+     * @param connectionHandler
+     * @param zooManager 
+     */
     public AnimalManager( ConnectionHandler connectionHandler,ZooManager zooManager) {
         
         this.connectionHandler = connectionHandler;

@@ -25,6 +25,13 @@ public class ConnectionHandler {
 
     private String password;
 
+    /**
+     * Create a connection handler with corresponding network parameters.
+     * @param url
+     * @param dbName
+     * @param username
+     * @param password 
+     */
     public ConnectionHandler(String url, String dbName, String username, String password) {
         this.url = url;
         this.dbName = dbName;

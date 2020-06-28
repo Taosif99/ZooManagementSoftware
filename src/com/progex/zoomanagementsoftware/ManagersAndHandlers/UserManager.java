@@ -7,18 +7,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.util.LinkedHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
- * @(#) UserManager.java
+ * 
  * Class is used to manage all related functions regarding the user. Beneath the functionalites are the 
  * Login/Logout, Show all feeding times information, show next feeding time information, update the lastlogdate
- * of a user
+ * of a user. Moreover this manager class provides functions to add, delete update from the DB and for
+ *getting users of the DB. 
  * 
- * TODO: ADD FUNCTIONALITIES FROM ADMINMODE
+ * 
+ * 
  * 
  */
 public class UserManager {
@@ -31,14 +31,17 @@ public class UserManager {
 
     private Thread updateLastLogThread;
 
-    private boolean stopThread = false;
 
-    /*Removed loggedInUser TODO DIAGRAM*/
+      /**
+     * Creates an UserManager manager with corresponding reference to connection and main interface.
+     * @param connectionHandler
+     * @param zooManager 
+     */
     public UserManager(ConnectionHandler connectionHandler, ZooManager zooManager) {
         this.loggedInUser = null;
         this.connectionHandler = connectionHandler;
         this.zooManager = zooManager;
-        updateLastLogThread = null;
+        this.updateLastLogThread = null;
     }
 
     public User getLoggedInUser() {
@@ -484,7 +487,7 @@ public class UserManager {
     }
 
     /**
-     * Start a thread that keeps updating the lastlogdate every 30 seconds
+     * Start a thread that keeps updating the lastlogdate every 30 seconds.
      */
     private void startUpdateThread() {
 
@@ -496,13 +499,14 @@ public class UserManager {
 
                     try {
                         updateLastLogDateFromUser();
-                        Thread.sleep(100);
+                        Thread.sleep(30000);
 
                         System.out.println(""+loggedInUser.getUsername());
                         System.out.println("UPDATE LASTLOGDATE SUCCESSFULLY");
                         System.out.println(Thread.currentThread().getId());
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println("Thread interrupted");
+                        System.out.println(ex.getMessage());
                         Thread.currentThread().interrupt(); // restore interrupted status
 
                     }
@@ -533,13 +537,12 @@ public class UserManager {
 
     /**
      * Logsout the user and resets the user, also updates the lastlogdate when
-     * logging out
+     * logging out.
      *
      *
      */
     public void logout() {
         updateLastLogDateFromUser();
-        stopThread = true;
         updateLastLogThread.interrupt();
         System.out.println("THEAD STOPPED");
         loggedInUser = null;
