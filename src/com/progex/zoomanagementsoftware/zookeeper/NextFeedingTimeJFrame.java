@@ -210,7 +210,6 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
 
         jLabelTime.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabelTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTime.setText("X");
 
         jButtonNextFeedingTime.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButtonNextFeedingTime.setText("Alle Fütterungen anzeigen");

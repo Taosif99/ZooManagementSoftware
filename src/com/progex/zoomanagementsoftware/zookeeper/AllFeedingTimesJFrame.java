@@ -147,7 +147,6 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
 
         jLabelTime.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabelTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTime.setText("X");
         jLabelTime.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabelTime.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {

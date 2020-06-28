@@ -570,7 +570,7 @@ public class UserManager {
                     + "INNER JOIN takescare ON eats.AnimalID = takescare.AnimalID "
                     + "INNER JOIN user ON takescare.UserID = user.ID "
                     + "INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable "
-                    + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" "
+                    + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and CONVERT(Fütterungszeit, date) = current_date() "
                     + "ORDER BY case when diffMin<0 then 1 else 0 end,diffMin "
                     + "LIMIT 2";
 
@@ -677,7 +677,7 @@ public class UserManager {
                 + "INNER  JOIN takescare ON eats.AnimalID = takescare.AnimalID "
                 + "INNER JOIN user ON takescare.UserID = user.ID "
                 + "INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable "
-                + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" "
+                + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and CONVERT(Fütterungszeit, date) = current_date() "
                 + "ORDER BY case when diffMin<0 then 1 else 0 end,diffMin";
 
         return connectionHandler.performQuery(query);
@@ -703,7 +703,7 @@ public class UserManager {
                 + "INNER  JOIN takescare ON eats.AnimalID = takescare.AnimalID "
                 + "INNER JOIN user ON takescare.UserID = user.ID "
                 + "INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable "
-                + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" "
+                + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and CONVERT(Fütterungszeit, date) = current_date() "
                 + "ORDER BY case when diffMin<0 then 1 else 0 end,diffMin";
 
         return connectionHandler.performQuery(query);
