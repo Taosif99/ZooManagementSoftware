@@ -646,6 +646,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         System.out.append("LOGOUT");
         zooManager.getUserManager().logout();
+        
     }//GEN-LAST:event_formWindowClosing
 
     /**

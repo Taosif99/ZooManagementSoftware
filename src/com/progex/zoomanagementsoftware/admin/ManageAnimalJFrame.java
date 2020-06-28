@@ -678,6 +678,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         System.out.append("LOGOUT");
         zooManager.getUserManager().logout();
+        
     }//GEN-LAST:event_formWindowClosing
 
     private void updateButtonsAndLabels() {
