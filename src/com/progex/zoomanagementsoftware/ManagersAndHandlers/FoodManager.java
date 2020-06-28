@@ -1,4 +1,3 @@
-
 package com.progex.zoomanagementsoftware.ManagersAndHandlers;
 
 import com.progex.zoomanagementsoftware.datatypes.Food;
@@ -15,17 +14,18 @@ public class FoodManager {
     private ConnectionHandler connectionHandler;
     private ZooManager zooManager;
 
-     /**
-     * Creates a FoodManager with corresponding 
-     * reference to connection and main interface handlers.
+    /**
+     * Creates a FoodManager with corresponding reference to connection and main
+     * interface handlers.
+     *
      * @param connectionHandler
-     * @param zooManager 
+     * @param zooManager
      */
     public FoodManager(ConnectionHandler connectionHandler, ZooManager zooManager) {
         this.connectionHandler = connectionHandler;
         this.zooManager = zooManager;
     }
-    
+
     //Methods concerning Food
     private LinkedList<Food> createFoods(ResultSet resultSet) {
         LinkedList<Food> foods = new LinkedList<Food>();
@@ -42,9 +42,9 @@ public class FoodManager {
                     foods.add(tempFood);
                 }
 
-            } catch (SQLException e) {
-                System.err.println("SQL exception");
-                System.out.println(e.getMessage());
+            } catch (SQLException sqlException) {
+                System.err.println("SQL Exception in createFoods()");
+                System.out.println(sqlException.getMessage());
             }
         }
         return foods;
@@ -120,10 +120,9 @@ public class FoodManager {
                 }
             }
 
-        } catch (SQLException e) {
-            System.err.println("SQL Exception");
-            System.out.print(e.getMessage());
-            e.printStackTrace();
+        } catch (SQLException sqlException) {
+            System.err.println("SQL Exception in checkFoodExists()");
+            System.out.print(sqlException.getMessage());
         }
 
         System.out.println(
@@ -160,7 +159,7 @@ public class FoodManager {
     public boolean updateFood(int storageRoomNumber, double stock, String name, int id) {
 
         String queryOldName = "SELECT Name FROM Food WHERE Id = " + id;
-        
+
         String oldName = " ";
         ResultSet resultSet = connectionHandler.performQuery(queryOldName);
         if (resultSet != null) {
@@ -170,14 +169,14 @@ public class FoodManager {
                     oldName = resultSet.getString("Name");
                 }
 
-            } catch (SQLException ex) {
-                System.err.println("SQL Exception");
-                System.out.println(ex.getMessage());
+            } catch (SQLException sqlException) {
+                System.err.println("SQL Exception in updateFood()");
+                System.out.print(sqlException.getMessage());
             }
         }
-        
+
         if (!oldName.equals(name)) {
-            if (this.checkFoodExists(name,-1)) {
+            if (this.checkFoodExists(name, -1)) {
                 return false;
             }
         }
