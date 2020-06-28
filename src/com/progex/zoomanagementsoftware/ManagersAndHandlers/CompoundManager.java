@@ -54,6 +54,8 @@ public class CompoundManager {
 
         //String query = "INSERT INTO Compound(Name,Area,ConstructionYear,MaxCapacity) VALUES('Eisbärengehege',500,2002,23);";
         boolean retVal = connectionHandler.manipulateDB(query);
+        
+        
         /*
         if (retVal){
         System.out.println("Einfügen erfolgreich") ;
@@ -197,7 +199,7 @@ public class CompoundManager {
      */
     public boolean compoundExists(String compoundName) {
 
-        System.err.println("häh");
+     
         try {
             String query = "SELECT Name FROM Compound WHERE Name = '" + compoundName + "'";
             ResultSet resultSet = connectionHandler.performQuery(query);
@@ -207,14 +209,14 @@ public class CompoundManager {
             }
 
             if (resultSet.next()) {
-                System.err.println("Compound exists#############");
+              
                 return true;
 
             } else {
                 return false;
             }
         } catch (SQLException ex) {
-            System.err.println("SQL EXCEPTION");
+            System.err.println("SQL Exception in CompoundExists()");
             System.out.println(ex.getMessage());
 
         }

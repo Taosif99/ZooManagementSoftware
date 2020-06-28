@@ -97,51 +97,6 @@ public class ConnectionHandler {
 
     }
 
-    /**
-     * Simple method to perfrom a querry and print results on the console Method
-     * imlemented for debug purposes and will be removed !!!
-     *
-     *
-     * Die Manager Klassen werden die connection von dieser Klasse erhalten und
-     * je nach dem was gesucht ist passende Objekte erstellen mit code, der wie
-     * unten sein kann. Die referenzen zu den Objekten werden der Fenter/Frame
-     * Klasse zurückgegeben
-     *
-     */
-    public void test() {
-
-        /*For example print all datasets from animal*/
-        String query = "SELECT * FROM  animal ";
-        Statement statement;
-        ResultSet resultSet;
-
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-
-                int animalID = resultSet.getInt("ID");
-                int compoundID = resultSet.getInt("CompoundID");
-                int speciesID = resultSet.getInt("SpeciesID");
-                String animalName = resultSet.getString("AnimalName");
-                Date birthday = resultSet.getDate("Birthday");
-                String sex = resultSet.getString("Sex");
-
-                /**
-                 * In den Manager klassen kann dann hier ein Objekt (wie eine
-                 * Liste) erstellt werden, die dann zurückgegeben wird
-                 */
-                System.out.println("AnimalID: " + animalID + " CompoundID: " + compoundID + " SpeciesID: " + speciesID + " AnimalName: " + animalName + " Birthday: " + birthday.toString() + " Sex: " + sex);
-
-            }
-        } catch (SQLException e) {
-
-            System.err.println("SQL ERROR");
-            System.out.println(e.getMessage());
-        }
-
-    }
 
     public Connection getConnection() {
 
@@ -150,7 +105,7 @@ public class ConnectionHandler {
     
     
     /**
-     * Method to get the result set of a database querry
+     * Method to get the result set of a database querry.
      * @param query
      * @return The result set, null if something goes wrong
      */
@@ -176,13 +131,13 @@ public class ConnectionHandler {
     
     
     /**
-     * Method to fulfill insert,update and delete operations
+     * Method to fulfill insert,update and delete operations.
      * @param query
      * @return true if manipulation successful, else false 
      */
     public boolean manipulateDB(String query){
     
-       //Connection connec = getConnection();
+       
        Statement statement;
        try{
            statement = connection.createStatement();

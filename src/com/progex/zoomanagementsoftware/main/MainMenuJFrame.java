@@ -42,17 +42,13 @@ public class MainMenuJFrame extends javax.swing.JFrame {
                password = jsonObject.getAsJsonObject("parameters").get("password").getAsString();
                dbName = jsonObject.getAsJsonObject("parameters").get("dbName").getAsString();
                
-            /*
-               System.out.println("Using following parameters:");
-               System.out.println("url: " + url + " username: " + username + 
-                       " password: " + password + " dbname " + dbName);
-            */
-               JOptionPane.showMessageDialog(null, "Netwwerkkonfiguration erfolgreich geladen!", "Erfolgreiches Laden", JOptionPane.CANCEL_OPTION);
+         
+               JOptionPane.showMessageDialog(null, "Netwwerkkonfiguration erfolgreich geladen!", "Erfolgreiches Laden", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             
             System.out.println(ex.getMessage());
             System.out.println("Using hardcoded standard instead of json file...");
-            JOptionPane.showMessageDialog(null, "Nutze standard Netzwerkparameter", "Keine Networkparameters.json gefunden!", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, "Nutze Standard-Netzwerkparameter", "Keine Networkparameters.json gefunden!", JOptionPane.CANCEL_OPTION);
             
             
         }
