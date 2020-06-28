@@ -101,7 +101,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
         } catch (NumberFormatException numberFormatException) {
 
-            System.err.println("NumberFormatException");
+            System.err.println("NumberFormatException in viewAdmins() of AdminHomePageJFrame");
             System.out.println(numberFormatException.getMessage());
         }
         return false;

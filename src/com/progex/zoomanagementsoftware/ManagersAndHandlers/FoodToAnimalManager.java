@@ -93,9 +93,9 @@ public class FoodToAnimalManager {
             return retVal;
         } catch (SQLException ex) {
 
-            System.err.println("SQL Exception");
+            System.err.println("SQL Exception in addFoodToAnimal()");
             System.out.println(ex.getMessage());
-            ex.printStackTrace();
+            
         }
 
         return false;
@@ -151,7 +151,7 @@ public class FoodToAnimalManager {
 
         } catch (SQLException ex) {
 
-            System.err.println("SQL Exception");
+            System.err.println("SQL Exception in updateFoodToAnimal()");
             System.out.println(ex.getMessage());
         }
 
@@ -233,7 +233,7 @@ public class FoodToAnimalManager {
             }
 
         } catch (SQLException e) {
-            System.err.println("SQL exception");
+            System.err.println("SQL Exception createFoodToAnimal()");
             System.out.println(e.getMessage());
 
         }

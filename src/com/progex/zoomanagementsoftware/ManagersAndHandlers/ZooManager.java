@@ -74,9 +74,9 @@ public class ZooManager {
         return foodManager;
     }
 
-    //Mustapha start
+
     /*Methods concerning Food to Animal relation end here*/
- /*Own reused methods*/
+    /*Own reused methods*/
     /**
      * https://www.geeksforgeeks.org/mysql-regular-expressions-regexp/ zum
      * Nachgucken Method which constructs a search query using the parameters
@@ -132,18 +132,10 @@ public class ZooManager {
 
         } catch (NoSuchElementException noSuchElementException) {
 
-            System.err.println("LinkedHashMap value empty or null");
+            System.err.println("LinkedHashMap value empty or null, handled Exception in generateSearchQuery()");
             System.out.println(noSuchElementException.getMessage());
             return null;
         }
     }
-    
-    
-
-    
-    
-    //Mustapha end
-
- 
-
+   
 }
