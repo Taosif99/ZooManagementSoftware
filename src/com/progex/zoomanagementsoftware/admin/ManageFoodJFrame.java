@@ -11,7 +11,6 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-
 public class ManageFoodJFrame extends javax.swing.JFrame {
 
     /**
@@ -19,7 +18,8 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
      *
      * @param goBackFrame The frame which will appear when the go back button is
      * used
-     * @param zooManager The zooManager of the current programm session which serves as interface
+     * @param zooManager The zooManager of the current programm session which
+     * serves as interface
      */
     public ManageFoodJFrame(JFrame goBackFrame, ZooManager zooManager) {
 
@@ -467,7 +467,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                     } else {
                         if (foodManager.deleteFood(ID)) {
                             JOptionPane.showMessageDialog(null, "Futter wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                            if (lastSearchMap!= null) {
+                            if (lastSearchMap != null) {
                                 if (jRadioButtonKgTable.isSelected()) {
                                     foods = foodManager.searchFoods(lastSearchMap);
                                     viewFoods(1);
@@ -675,13 +675,31 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         String foodID = foodModel.getValueAt(foodRowIndex, 0).toString();
         String foodName = foodModel.getValueAt(foodRowIndex, 1).toString();
         String storageRoomNumber = foodModel.getValueAt(foodRowIndex, 2).toString();
-        String stock = foodModel.getValueAt(foodRowIndex, 3).toString();
+        //String stock = foodModel.getValueAt(foodRowIndex, 3).toString();
 
         if (mode == Mode.delete || mode == Mode.update) {
             jTextFieldFoodName.setText(foodName);
             jTextFieldID.setText(foodID);
-            jTextFieldStock.setText(stock);
             jTextFieldStorageRoomNumber.setText(storageRoomNumber);
+            //4 Cases
+
+            //1 and 2, if animalTable is g and relation Table is g
+            //or if both tables are kg
+            if ((jRadioButtonGramm.isSelected() && jRadioButtonGrammTable.isSelected())
+                    || jRadioButtonKg.isSelected() && jRadioButtonKgTable.isSelected()) {
+                jTextFieldStock.setText(foodModel.getValueAt(foodRowIndex, 3).toString());
+            } //3 case if textField is Kg and Table is g
+            else if (jRadioButtonGramm.isSelected() && jRadioButtonKgTable.isSelected()) {
+
+                double value = (double) foodModel.getValueAt(foodRowIndex, 3);
+                value *= 1000;
+                jTextFieldStock.setText(String.valueOf(value));
+            } //4 case if textField is g and Table is Kg
+            else if (jRadioButtonKg.isSelected() && jRadioButtonGrammTable.isSelected()) {
+                double value = (double) foodModel.getValueAt(foodRowIndex, 3);
+                value /= 1000;
+                jTextFieldStock.setText(String.valueOf(value));
+            }
         }
     }//GEN-LAST:event_jTableFoodDataMouseClicked
 

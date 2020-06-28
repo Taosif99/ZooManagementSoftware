@@ -41,10 +41,9 @@ public class ZookeeperToAnimalManager {
                     //System.out.println(resultSet.getInt("id"));
                 }
             }
-        } catch (SQLException e) {
-            System.err.println("SQL Exception");
-            System.out.print(e.getMessage());
-            e.printStackTrace();
+        } catch (SQLException sqlException) {
+            System.err.println("SQL Exception in getAnimalIds()");
+            System.out.print(sqlException.getMessage());
         }
         return animalIds;
     }
@@ -102,10 +101,9 @@ public class ZookeeperToAnimalManager {
                 ZookeeperToAnimalR record = new ZookeeperToAnimalR(userId, firstname, lastname, animalId, animalName);
                 records.add(record);
             }
-        } catch (SQLException e) {
-            System.err.println("SQL Exception");
-            System.out.print(e.getMessage());
-            e.printStackTrace();
+        } catch (SQLException sqlException) {
+            System.err.println("SQL Exception in createZookeeperToAnimal()");
+            System.out.print(sqlException.getMessage());
         }
         return records;
     }
@@ -180,11 +178,10 @@ public class ZookeeperToAnimalManager {
                     }
                 }
             }
-        } catch (SQLException e) {
+        } catch (SQLException sqlException) {
 
-            System.err.println("SQL Exception");
-            System.out.print(e.getMessage());
-            e.printStackTrace();
+            System.err.println("SQL Exception in checkZookeeperToAnimalExists()");
+            System.out.print(sqlException.getMessage());
         }
         return false;
     }

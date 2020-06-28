@@ -199,7 +199,7 @@ public class Methods {
             case mrs:
                 return "Frau";
             case diverse:
-                return "divers";
+                return "Divers";
             default:
                 return "";
         }

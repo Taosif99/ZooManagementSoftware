@@ -214,6 +214,9 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             }
         });
         jScrollZookeeperTable.setViewportView(jTableZookeeperData);
+        if (jTableZookeeperData.getColumnModel().getColumnCount() > 0) {
+            jTableZookeeperData.getColumnModel().getColumn(1).setPreferredWidth(40);
+        }
 
         jLabelAskAnimalName.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelAskAnimalName.setText("Bitte Tiernamen eingeben");

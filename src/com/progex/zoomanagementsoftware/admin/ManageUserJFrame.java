@@ -667,7 +667,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             String password = jPasswordFieldEnteredPW.getText();
             String confirmedPassword = jPasswordFieldConfirm.getText();
             String shiftStr = "None";
-            Shift shift;
             Salutation salutation;
 
             //No only white spaces and no empty password
@@ -710,14 +709,12 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                             + "PLZ: " + zip + "\n"
                                             + "Stadt: " + city, "Adresse nicht in der Datenbank vorhanden", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                                 }
-                                shift = methods.stringToShift(shiftStr);
                                 salutation = methods.stringToSalutation(salutationStr);
                                 Address tempAddress = new Address(street, country, zip, city);
                                 Date birthday = Date.valueOf(birthdayStr);
                                 User tempUser = new User(username, firstname, lastname, email, phoneNumber, salutation, birthday, password, tempAddress);
 
                                 if (userManager.addUser(tempUser, shiftStr, userTypeStr)) {
-
                                     JOptionPane.showMessageDialog(null, "Nutzer/-in konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                                     cleanFields();
                                 } else {
