@@ -453,10 +453,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldUserID">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldUserIDActionPerformed"/>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldUserIDKeyTyped"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonHelp">
       <Properties>

@@ -237,17 +237,6 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         jLabelZookeeperID.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelZookeeperID.setText("BenutzerID");
 
-        jTextFieldUserID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldUserIDActionPerformed(evt);
-            }
-        });
-        jTextFieldUserID.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldUserIDKeyTyped(evt);
-            }
-        });
-
         jButtonHelp.setText("Hilfe");
         jButtonHelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -647,14 +636,6 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             jTextFieldUserID.setText(selectedZookeeperID);
         }
     }//GEN-LAST:event_jTableZookeeperDataMouseClicked
-
-    private void jTextFieldUserIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUserIDActionPerformed
-        //selectedZookeeperID = jTextFieldUserID.getText();
-    }//GEN-LAST:event_jTextFieldUserIDActionPerformed
-
-    private void jTextFieldUserIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldUserIDKeyTyped
-        //selectedZookeeperID = jTextFieldUserID.getText();
-    }//GEN-LAST:event_jTextFieldUserIDKeyTyped
 
     private void jTableTakesCareDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTakesCareDataMouseClicked
 
