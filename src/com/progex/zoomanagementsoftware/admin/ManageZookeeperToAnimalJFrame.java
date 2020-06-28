@@ -437,8 +437,9 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                 viewRelationTable();
             }
 
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+        } catch (NumberFormatException numberFormatException) {
+            System.err.println("NumberFormatException in jButtonSearchActionPerformed()");
+            System.out.println(numberFormatException.getMessage());
             methods.clearTable(jTableTakesCareData);
             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
         }
@@ -487,8 +488,9 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                     }
                 }
             }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+        } catch (NumberFormatException numberFormatException) {
+            System.err.println("NumberFormatException in jButtonDeleteFoodActionPerformed()");
+            System.out.println(numberFormatException.getMessage());
             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
         }
     }//GEN-LAST:event_jButtonDeleteFoodActionPerformed
@@ -550,9 +552,9 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                     }
                 }
             }
-        } catch (NumberFormatException e) {
-            System.out.print(e.getMessage());
-            e.printStackTrace();
+        } catch (NumberFormatException numberFormatException) {
+            System.err.println("NumberFormatException in jButtonAddFoodActionPerformed()");
+            System.out.println(numberFormatException.getMessage());
         }
 
     }//GEN-LAST:event_jButtonAddFoodActionPerformed
@@ -603,8 +605,9 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                 viewZookeepers();
             }
 
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+        } catch (NumberFormatException numberFormatException) {
+            System.err.println("NumberFormatException in jButtonSearchZookeeperActionPerformed()");
+            System.out.println(numberFormatException.getMessage());
             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
         }
     }//GEN-LAST:event_jButtonSearchZookeeperActionPerformed

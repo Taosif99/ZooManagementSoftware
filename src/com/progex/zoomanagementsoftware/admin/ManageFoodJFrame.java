@@ -443,8 +443,9 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                     }
                 }
             }
-        } catch (NumberFormatException n) {
-            n.printStackTrace();
+        } catch (NumberFormatException numberFormatException) {
+            System.err.println("NumberFormatException in jButtonUpdateFoodActionPerformed");
+            System.out.println(numberFormatException.getMessage());
             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
         }
 
@@ -482,10 +483,11 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                     }
                 }
             }
-        } catch (NumberFormatException n) {
+        } catch (NumberFormatException numberFormatException) {
 
             if (!jTextFieldID.getText().isBlank()) {
-                n.printStackTrace();
+                System.err.println("NumberFormatException in jButtonDeleteFoodActionPerformed");
+                System.out.println(numberFormatException.getMessage());
                 JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
             }
         }
@@ -552,8 +554,9 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             lastSearchMap.put("Stock", stock);
             lastSearchMap.put("Name", foodName);
 
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+        } catch (NumberFormatException numberFormatException) {
+            System.err.println("NumberFormatException in getJTextFieldInput()");
+            System.out.println(numberFormatException.getMessage());
             methods.clearTable(jTableFoodData);
             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
 
@@ -653,9 +656,9 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Das Futter existiert bereits in der Datenbank!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                 }
             }
-        } catch (NumberFormatException e) {
-
-            e.printStackTrace();
+        } catch (NumberFormatException numberFormatException) {
+            System.err.println("NumberFormatException in jButtonAddFoodActionPerformed");
+            System.out.println(numberFormatException.getMessage());
             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt.", JOptionPane.CANCEL_OPTION);
         }
     }//GEN-LAST:event_jButtonAddFoodActionPerformed

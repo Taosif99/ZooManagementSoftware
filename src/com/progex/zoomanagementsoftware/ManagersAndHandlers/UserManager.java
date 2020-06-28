@@ -130,10 +130,9 @@ public class UserManager {
                 }
             }
 
-        } catch (SQLException e) {
-            System.err.println("SQL exception");
-            System.out.println(e.getMessage());
-
+        } catch (SQLException sqlException) {
+            System.err.println("SQL Exception in createUsers()");
+            System.out.print(sqlException.getMessage());
         }
         return users;
     }
@@ -230,9 +229,9 @@ public class UserManager {
         try {
             addressResultSet.next();
             addressId = addressResultSet.getInt("ID");
-        } catch (SQLException ex) {
-            System.err.println("SQL Exception");
-            System.out.println(ex.getMessage());
+        } catch (SQLException sqlException) {
+            System.err.println("SQL Exception in searchAddressId()");
+            System.out.println(sqlException.getMessage());
             return -1;
         }
         return addressId;
@@ -268,9 +267,9 @@ public class UserManager {
                     oldUsername = resultSet.getString("UserName");
                 }
 
-            } catch (SQLException ex) {
-                System.err.println("SQL Exception");
-                System.out.println(ex.getMessage());
+            } catch (SQLException sqlException) {
+                System.err.println("SQL Exception in updateUser()");
+                System.out.println(sqlException.getMessage());
             }
         }
 
@@ -414,16 +413,14 @@ public class UserManager {
                 retVal = true;
             }
 
-        } catch (SQLException ex) {
-            System.err.println("SQL Exception");
-            System.out.println(ex.getMessage());
+        } catch (SQLException sqlException) {
+            System.err.println("SQL Exception in usernameExists()");
+            System.out.println(sqlException.getMessage());
         }
 
         return retVal;
     }
 
-    //Khalid start 
-    //
     /**
      * Method returns a user after checking if the given username and hashed
      * password match.
@@ -477,9 +474,9 @@ public class UserManager {
                 }
 
             }
-        } catch (SQLException ex) {
-            System.err.println("SQL EXCEPTION");
-            System.out.println(ex.getMessage());
+        } catch (SQLException sqlException) {
+            System.err.println("SQL Exception in login()");
+            System.out.print(sqlException.getMessage());
         }
 
         return null;
