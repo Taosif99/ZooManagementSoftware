@@ -9,7 +9,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Benutzer Verwalten"/>
+    <Property name="title" type="java.lang.String" value="Benutzer verwalten"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -53,8 +53,9 @@
                                   <Component id="jLabelCountry" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabelPhoneNumber" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabelSalutation" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonClear" min="-2" pref="154" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="jComboBoxSalutation" min="-2" max="-2" attributes="0"/>
@@ -111,7 +112,7 @@
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Group type="102" attributes="0">
-                                                      <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
+                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                           <Component id="jComboBoxShift" min="-2" pref="91" max="-2" attributes="0"/>
                                                           <Component id="jTextFieldBirthday" pref="141" max="32767" attributes="0"/>
@@ -192,7 +193,7 @@
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanelOperation" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -263,13 +264,16 @@
                   <Component id="jLabelPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jButtonAddUser" min="-2" pref="35" max="-2" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButtonAddUser" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="jButtonClear" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jButtonUpdateUser" min="-2" pref="37" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jButtonDeleteUser" min="-2" pref="37" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -795,6 +799,14 @@
     <Component class="javax.swing.JPasswordField" name="jPasswordFieldEnteredPW">
     </Component>
     <Component class="javax.swing.JPasswordField" name="jPasswordFieldConfirm">
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonClear">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Alle Felder leeren"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonClearActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

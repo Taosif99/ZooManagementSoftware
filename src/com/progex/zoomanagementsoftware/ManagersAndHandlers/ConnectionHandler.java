@@ -7,11 +7,9 @@ import java.sql.Statement;
 import java.sql.SQLException;
 
 /**
- * Class which is used to handle the connection and basic database operations
- * in our database.
- * @author Ouchen
+ * Class which is used to handle the connection and basic database operations in
+ * our database.
  */
-
 public class ConnectionHandler {
 
     private Connection connection;
@@ -26,10 +24,11 @@ public class ConnectionHandler {
 
     /**
      * Create a connection handler with corresponding network parameters.
+     *
      * @param url
      * @param dbName
      * @param username
-     * @param password 
+     * @param password
      */
     public ConnectionHandler(String url, String dbName, String username, String password) {
         this.url = url;
@@ -76,40 +75,34 @@ public class ConnectionHandler {
     private void connect() {
 
         try {
-            
+
             //Class.forName("com.mysql.cj.jdbc.Driver");
-             Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             //System.out.println("Successfully connected!");
-            //Bei mir klappt nur das, probiert mal beide versionen
             //connection = DriverManager.getConnection(url + dbName + "?characterEncoding=latin1", username, password); //Connector 5...
             //connection = DriverManager.getConnection(url +  dbName+ "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC" , username, password); //Connector 8...
             //For utf 8 
-         connection = DriverManager.getConnection(url + dbName + "?characterEncoding=utf-8", username, password);
-        
-        
-        
-        } catch (Exception e) {
+            connection = DriverManager.getConnection(url + dbName + "?characterEncoding=utf-8", username, password);
 
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             System.err.println("Connection failed");
         }
-
     }
-
 
     public Connection getConnection() {
 
         return connection;
     }
-    
-    
+
     /**
      * Method to get the result set of a database querry.
+     *
      * @param query
      * @return The result set, null if something goes wrong
      */
-    public ResultSet performQuery(String query){
-    
+    public ResultSet performQuery(String query) {
+
         Statement statement;
         ResultSet resultSet = null;
 
@@ -117,38 +110,35 @@ public class ConnectionHandler {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
 
-
         } catch (SQLException ex) {
 
             System.err.println("SQL Exception in performQuery()");
             System.out.println(ex.getMessage());
- 
+
         }
-    
-            return resultSet;
+
+        return resultSet;
     }
-    
-    
+
     /**
      * Method to fulfill insert,update and delete operations.
+     *
      * @param query
-     * @return true if manipulation successful, else false 
+     * @return true if manipulation successful, else false
      */
-    public boolean manipulateDB(String query){
-    
-       
-       Statement statement;
-       try{
-           statement = connection.createStatement();
-           if((statement.executeUpdate(query)) == 1)
-           {
-                    return true;
-           }
-       }catch(Exception ex){
-             System.err.println("SQL Exception in manipulateDB()");
+    public boolean manipulateDB(String query) {
+
+        Statement statement;
+        try {
+            statement = connection.createStatement();
+            if ((statement.executeUpdate(query)) == 1) {
+                return true;
+            }
+        } catch (Exception ex) {
+            System.err.println("SQL Exception in manipulateDB()");
             System.out.println(ex.getMessage());
-       }
-    
-       return false;
+        }
+
+        return false;
     }
 }

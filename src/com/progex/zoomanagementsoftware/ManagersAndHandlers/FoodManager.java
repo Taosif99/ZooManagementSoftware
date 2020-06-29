@@ -26,7 +26,6 @@ public class FoodManager {
         this.zooManager = zooManager;
     }
 
-    //Methods concerning Food
     private LinkedList<Food> createFoods(ResultSet resultSet) {
         LinkedList<Food> foods = new LinkedList<Food>();
         if (resultSet != null) {
@@ -119,14 +118,10 @@ public class FoodManager {
                     }
                 }
             }
-
         } catch (SQLException sqlException) {
             System.err.println("SQL Exception in checkFoodExists()");
             System.out.print(sqlException.getMessage());
         }
-
-        System.out.println(
-                "false");
 
         return false;
     }
@@ -137,7 +132,7 @@ public class FoodManager {
      * @param storageRoomNumber
      * @param stock
      * @param name
-     * @return If the operation was successfull
+     * @return If the operation was successfull true, else false
      */
     public boolean addFood(int storageRoomNumber, double stock, String name) {
 
@@ -154,7 +149,7 @@ public class FoodManager {
      * @param stock
      * @param name
      * @param id
-     * @return If the operation was successfull
+     * @return If the operation was successfull true, else false
      */
     public boolean updateFood(int storageRoomNumber, double stock, String name, int id) {
 
@@ -168,7 +163,6 @@ public class FoodManager {
                 if (resultSet.next()) {
                     oldName = resultSet.getString("Name");
                 }
-
             } catch (SQLException sqlException) {
                 System.err.println("SQL Exception in updateFood()");
                 System.out.print(sqlException.getMessage());
@@ -195,7 +189,7 @@ public class FoodManager {
      * This method is used to delete food from the database.
      *
      * @param id
-     * @return If the operation was successfull
+     * @return If the operation was successfull true, else false
      */
     public boolean deleteFood(int id) {
 

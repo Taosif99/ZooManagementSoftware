@@ -1,4 +1,3 @@
-
 package com.progex.zoomanagementsoftware.ManagersAndHandlers;
 
 import com.progex.zoomanagementsoftware.datatypes.Animal;
@@ -17,11 +16,9 @@ import java.util.LinkedList;
  */
 public class AnimalManager {
     
-    
     private ConnectionHandler connectionHandler;
     private ZooManager zooManager;
     
-
      /**
      * Creates an AnimalManager manager with corresponding 
      * reference to connection and main interface handlers.
@@ -32,11 +29,8 @@ public class AnimalManager {
         
         this.connectionHandler = connectionHandler;
         this.zooManager = zooManager;
-        
     }
     
-    
-    /*Methods concerning Managing Animal start here*/
     /**
      * Method to get the required values of the admin view.
      *
@@ -57,7 +51,7 @@ public class AnimalManager {
     }
 
     /**
-     * Method to add an Animal to the database.
+     * Method to add an animal to the database.
      *
      * @param animalName
      * @param compoundName
@@ -98,23 +92,18 @@ public class AnimalManager {
 
             boolean retVal = connectionHandler.manipulateDB(query);
 
-            /*
-        if (retVal){
-        System.out.println("Einfügen erfolgreich") ;
-        }else System.out.println("Einfügen misslungen");*/
             return retVal;
         } catch (SQLException ex) {
 
             System.err.println("SQL Exception");
             System.out.println(ex.getMessage());
-            ex.printStackTrace();
         }
 
         return false;
     }
 
     /**
-     * Method to update an Animal in the database.
+     * Method to update an animal in the database.
      *
      * @param ID
      * @param animalName
@@ -165,14 +154,13 @@ public class AnimalManager {
 
             System.err.println("SQL Exception");
             System.out.println(ex.getMessage());
-            ex.printStackTrace();
         }
 
         return false;
     }
 
     /**
-     * Method which has been implemented to delete an Animal from the database.
+     * Method which has been implemented to delete an animal from the database.
      *
      * @param ID
      * @return true if delete operation is successful, else false
@@ -189,13 +177,13 @@ public class AnimalManager {
      *
      * @param columnValueMap A mapping of entity attributes and corresponding
      * values
-     * @return A LinkedList which contains the searhed animal objects
+     * @return A LinkedList which contains the searched animal objects
      */
     public LinkedList<Animal> searchAnimals(LinkedHashMap<String, String> columnValueMap) {
 
         LinkedList<Animal> animals = null;
 
-        String begin = "SELECT Animal.ID,Animal.AnimalName,Animal.Sex,Animal.Birthday,Species.Description,Compound.Name as CompoundName\n"
+        String begin = "SELECT Animal.ID,Animal.AnimalName,Animal.Sex,Animal.Birthday,Species.Description,Compound.Name AS CompoundName\n"
                 + "FROM Animal\n"
                 + "INNER JOIN  Compound ON Animal.CompoundID = Compound.ID \n"
                 + "INNER JOIN Species ON Animal.speciesID = Species.ID WHERE";
@@ -213,12 +201,11 @@ public class AnimalManager {
     }
 
     /**
-     * *
-     * Method which has been implemented to create an Animal datastructure from
+     * Method which has been implemented to create an animal data structure from
      * a resultSet which has all requiered attributes.
      *
      * @param resultSet
-     * @return A LinkedList of Animal objects depending of the result set
+     * @return A LinkedList of animal objects depending of the result set
      */
     private LinkedList<Animal> createAnimals(ResultSet resultSet) {
 
@@ -247,11 +234,8 @@ public class AnimalManager {
             } catch (SQLException e) {
                 System.err.println("SQL exception");
                 System.out.println(e.getMessage());
-
             }
         }
         return animals;
     }
-
-    /*Methods concerning animal end here*/
 }

@@ -313,7 +313,7 @@ public class UserManager {
 
             query = query
                     + "Type = 'Zookeeper',\n"
-                    + "Shift = '" + shift + "',\n";
+                    + "Shift = '" + shift + "'\n";
         }
 
         if (changePassword) {

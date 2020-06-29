@@ -25,9 +25,8 @@ public class CompoundManager {
         this.zooManager = zooManager;
     }
 
-    /*Start compound methods*/
     /**
-     * Method which access the compounds which are stored in the database
+     * Method which access the compounds which are stored in the database.
      *
      * @return A LinkedList of Compound objects
      */
@@ -40,7 +39,7 @@ public class CompoundManager {
     }
 
     /**
-     * Method to add a compound to the database
+     * Method to add a compound to the database.
      *
      * @param name
      * @param area
@@ -52,15 +51,8 @@ public class CompoundManager {
 
         String query = "INSERT INTO Compound(Name,Area,ConstructionYear,MaxCapacity) VALUES('" + name + "'," + area + "," + constructionYear + "," + maxCapacity + ")";
 
-        //String query = "INSERT INTO Compound(Name,Area,ConstructionYear,MaxCapacity) VALUES('Eisbärengehege',500,2002,23);";
         boolean retVal = connectionHandler.manipulateDB(query);
-        
-        
-        /*
-        if (retVal){
-        System.out.println("Einfügen erfolgreich") ;
-        }else System.out.println("Einfügen misslungen");
-         */
+
         return retVal;
     }
 
@@ -118,7 +110,7 @@ public class CompoundManager {
      * Method to delete a compound from the database.
      *
      * @param ID
-     * @return true if successful,else false
+     * @return true if successful, else false
      */
     public boolean deleteCompound(int ID) {
 
@@ -148,7 +140,7 @@ public class CompoundManager {
     }
 
     /**
-     * Method which has been implemented to create a compound datastructure from
+     * Method which has been implemented to create a compound data structure from
      * a resultSet which has all requiered attributes.
      *
      * @param resultSet
@@ -177,7 +169,6 @@ public class CompoundManager {
                     ResultSet currentCapacityResult = connectionHandler.performQuery(queryToGetCurrentCapacity);
                     currentCapacityResult.next();
                     int currentCapacity = currentCapacityResult.getInt("CurrentCapacity");
-                    //System.out.println("Gehegename:" + name + "ConstrYear" + year);
 
                     Compound newCompound = new Compound(ID, area, year, maxCapacity, currentCapacity, name);
                     compounds.add(newCompound);
@@ -185,7 +176,6 @@ public class CompoundManager {
             } catch (SQLException e) {
                 System.err.println("SQL Exception in createCompounds()");
                 System.out.println(e.getMessage());
-
             }
         }
         return compounds;
@@ -199,7 +189,6 @@ public class CompoundManager {
      */
     public boolean compoundExists(String compoundName) {
 
-     
         try {
             String query = "SELECT Name FROM Compound WHERE Name = '" + compoundName + "'";
             ResultSet resultSet = connectionHandler.performQuery(query);
@@ -216,12 +205,10 @@ public class CompoundManager {
                 return false;
             }
         } catch (SQLException ex) {
-            System.err.println("SQL Exception in CompoundExists()");
+            System.err.println("SQL Exception in compoundExists()");
             System.out.println(ex.getMessage());
 
         }
         return false;
     }
-
-    /*End Compund Methods*/
 }
