@@ -629,7 +629,6 @@ public class UserManager {
      *
      * @param rs1
      * @return boolean result
-     * @throws SQLException
      */
     public boolean checkIfSameTime(ResultSet rs1) {
 
