@@ -9,17 +9,20 @@ import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * 
- * Class is used to manage all related functions regarding the user. Beneath the functionalites are the 
- * Login/Logout, Show all feeding times information, show next feeding time information, update the lastlogdate
- * of a user. Moreover this manager class provides functions to add, delete update from the DB and for
- *getting users of the DB. 
- * 
- * 
- * 
- * 
+ *
+ * Class is used to manage all related functions regarding the user. Beneath the
+ * functionalites are the Login/Logout, Show all feeding times information, show
+ * next feeding time information, update the lastlogdate of a user. Moreover
+ * this manager class provides functions to add, delete update from the DB and
+ * for getting users of the DB.
+ *
+ *
+ *
+ *
  */
 public class UserManager {
 
@@ -31,11 +34,12 @@ public class UserManager {
 
     private Thread updateLastLogThread;
 
-
-      /**
-     * Creates an UserManager manager with corresponding reference to connection and main interface.
+    /**
+     * Creates an UserManager manager with corresponding reference to connection
+     * and main interface.
+     *
      * @param connectionHandler
-     * @param zooManager 
+     * @param zooManager
      */
     public UserManager(ConnectionHandler connectionHandler, ZooManager zooManager) {
         this.loggedInUser = null;
@@ -492,17 +496,17 @@ public class UserManager {
             @Override
             public void run() {
                 while (true && loggedInUser != null) {
-                    System.out.println("THREAD COUNT: "+java.lang.Thread.activeCount());
+                    System.out.println("THREAD COUNT: " + java.lang.Thread.activeCount());
 
                     try {
                         updateLastLogDateFromUser();
                         Thread.sleep(30000);
 
-                        System.out.println(""+loggedInUser.getUsername());
+                        System.out.println("" + loggedInUser.getUsername());
                         System.out.println("UPDATE LASTLOGDATE SUCCESSFULLY");
                         System.out.println(Thread.currentThread().getId());
                     } catch (InterruptedException ex) {
-                        System.out.println("Thread interrupted");
+                        System.err.println("Thread Interuppted");
                         System.out.println(ex.getMessage());
                         Thread.currentThread().interrupt(); // restore interrupted status
 
@@ -612,7 +616,7 @@ public class UserManager {
             // create FeedingInfo based on Database Information and return it
             return zookeeperInfo;
         } catch (SQLException ex) {
-            System.err.println("SQL EXCEPTION");
+            System.err.println("Fehler beim ausgeben der nächsten Fütterung");
             System.out.println(ex.getMessage());
         }
 
@@ -627,32 +631,38 @@ public class UserManager {
      * @return boolean result
      * @throws SQLException
      */
-    public boolean checkIfSameTime(ResultSet rs1) throws SQLException {
+    public boolean checkIfSameTime(ResultSet rs1) {
 
-        rs1.beforeFirst();
-        rs1.next();
-        ResultSet temp = rs1;
+        try {
+            rs1.beforeFirst();
+            rs1.next();
+            ResultSet temp = rs1;
 
-        System.out.println("-----");
-        System.out.println("Compare:");
-        System.out.println("Row" + temp.getRow() + ": " + temp.getString("InMinuten"));
-        String timee1 = temp.getString("InMinuten");
+            System.out.println("-----");
+            System.out.println("Compare:");
+            System.out.println("Row" + temp.getRow() + ": " + temp.getString("InMinuten"));
+            String timee1 = temp.getString("InMinuten");
 
-        System.out.println("With");
-        temp.last();
-        System.out.println("Row" + temp.getRow() + ": " + temp.getString("InMinuten"));
-        System.out.println("-----");
-        String timee2 = temp.getString("InMinuten");
+            System.out.println("With");
+            temp.last();
+            System.out.println("Row" + temp.getRow() + ": " + temp.getString("InMinuten"));
+            System.out.println("-----");
+            String timee2 = temp.getString("InMinuten");
 
-        if (timee1.equals(timee2)) {
-            System.out.println("IS SAME");
-            return true;
-            //return true;
-        } else {
-            System.out.println("NOT SAME");
-            return false;
+            if (timee1.equals(timee2)) {
+                System.out.println("IS SAME");
+                return true;
+                //return true;
+            } else {
+                System.out.println("NOT SAME");
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Fehler beim berechnen von gleichzeitigen Fütterungen");
         }
 
+        return false;
     }
 
     /**

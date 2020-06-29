@@ -143,7 +143,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         letzteAnmeldung.setText("Letze Anmeldung: ");
 
         jLabelLastLoginTime.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        jLabelLastLoginTime.setText("X");
 
         nächsteFütterungIn.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         nächsteFütterungIn.setText("Nächste Fütterung in: ");
@@ -184,7 +183,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
 
         dateLabel.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         dateLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        dateLabel.setText("X");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
