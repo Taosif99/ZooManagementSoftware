@@ -42,7 +42,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
                dbName = jsonObject.getAsJsonObject("parameters").get("dbName").getAsString();
                
          
-               JOptionPane.showMessageDialog(null, "Netwwerkkonfiguration erfolgreich geladen!", "Erfolgreiches Laden", JOptionPane.INFORMATION_MESSAGE);
+               JOptionPane.showMessageDialog(null, "Netwerkkonfiguration erfolgreich geladen!", "Erfolgreiches Laden", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             
             System.out.println(ex.getMessage());
