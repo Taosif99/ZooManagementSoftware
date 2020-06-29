@@ -579,23 +579,23 @@ public class UserManager {
 
             // init variables to catch from resultset
             ArrayList<ZookeeperInfo> zookeeperInfolist = new ArrayList<>();
-            String tiername = "";
-            String futter = "";
-            double menge = 0;
-            String abstellRaum = "";
-            String gehege = "";
+            String animalName = "";
+            String food = "";
+            double amount = 0;
+            String storageRoom = "";
+            String compound = "";
             Timestamp feedingTimeInMinutes = null;
             ZookeeperInfo zookeeperInfo = null;
 
             // set variables from resultset
             if (resultSet.next()) {
-                tiername = resultSet.getString(2);
-                futter = resultSet.getString(3);
-                menge = Double.parseDouble(resultSet.getString(4));
-                abstellRaum = resultSet.getString(5);
-                gehege = resultSet.getString(6);
+                animalName = resultSet.getString(2);
+                food = resultSet.getString(3);
+                amount = Double.parseDouble(resultSet.getString(4));
+                storageRoom = resultSet.getString(5);
+                compound = resultSet.getString(6);
                 feedingTimeInMinutes = resultSet.getTimestamp(1);
-                zookeeperInfo = new ZookeeperInfo(feedingTimeInMinutes, gehege, tiername, futter, abstellRaum, menge);
+                zookeeperInfo = new ZookeeperInfo(feedingTimeInMinutes, compound, animalName, food, storageRoom, amount);
                 zookeeperInfolist.add(zookeeperInfo);
 
             }
