@@ -487,9 +487,9 @@ public class UserManager {
 
     }
 
-    /**
-     * Start a thread that keeps updating the lastlogdate every 30 seconds.
-     */
+    
+    //Start a thread that keeps updating the lastlogdate every 30 seconds.
+
     private void startUpdateThread() {
 
         updateLastLogThread = new Thread(new Runnable() {
