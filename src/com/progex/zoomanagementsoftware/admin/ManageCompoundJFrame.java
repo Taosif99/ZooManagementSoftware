@@ -19,7 +19,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
      *
      * @param goBackFrame The frame which will appear when the go back button is
      * used
-     * @param zooManager The zooManager of the current Programm session which serves as interface
+     * @param zooManager The zooManager of the current programm session which serves as interface
      */
     public ManageCompoundJFrame(JFrame goBackFrame, ZooManager zooManager) {
         initComponents();

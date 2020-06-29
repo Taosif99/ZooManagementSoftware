@@ -186,9 +186,10 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jButtonAnimalsToZookeeper = new javax.swing.JButton();
         jPasswordFieldEnteredPW = new javax.swing.JPasswordField();
         jPasswordFieldConfirm = new javax.swing.JPasswordField();
+        jButtonClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Benutzer Verwalten");
+        setTitle("Benutzer verwalten");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -436,6 +437,13 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButtonClear.setText("Alle Felder leeren");
+        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -457,8 +465,9 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                     .addComponent(jLabelCity)
                                     .addComponent(jLabelCountry)
                                     .addComponent(jLabelPhoneNumber)
-                                    .addComponent(jLabelSalutation))
-                                .addGap(20, 20, 20)
+                                    .addComponent(jLabelSalutation)
+                                    .addComponent(jButtonClear, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jComboBoxSalutation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -503,7 +512,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(layout.createSequentialGroup()
-                                                        .addGap(0, 1, Short.MAX_VALUE)
+                                                        .addGap(0, 0, Short.MAX_VALUE)
                                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                             .addComponent(jComboBoxShift, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                             .addComponent(jTextFieldBirthday, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
@@ -559,7 +568,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                     .addComponent(jButtonAnimalsToZookeeper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -617,13 +626,15 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPhoneNumber)
                     .addComponent(jTextFieldPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonClear))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonUpdateUser, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonDeleteUser, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -1066,6 +1077,10 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         zooManager.getUserManager().logout();
     }//GEN-LAST:event_formWindowClosing
 
+    private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
+            cleanFields();
+    }//GEN-LAST:event_jButtonClearActionPerformed
+
     private void updateButtonsAndLabels() {
 
         if (jRadioButtonAdmin.isSelected()) {
@@ -1207,6 +1222,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroupUserType;
     private javax.swing.JButton jButtonAddUser;
     private javax.swing.JButton jButtonAnimalsToZookeeper;
+    private javax.swing.JButton jButtonClear;
     private javax.swing.JButton jButtonDeleteUser;
     private javax.swing.JButton jButtonGoBack;
     private javax.swing.JButton jButtonHelp;

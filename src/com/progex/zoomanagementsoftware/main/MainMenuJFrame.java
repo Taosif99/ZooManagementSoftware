@@ -33,7 +33,6 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         try {
                
                String jsonString = Files.readString(fileName);
-               System.out.println(jsonString);
                JsonObject jsonObject = new JsonParser().parse(jsonString).getAsJsonObject();
             
      
@@ -48,7 +47,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
             
             System.out.println(ex.getMessage());
             System.out.println("Using hardcoded standard instead of json file...");
-            JOptionPane.showMessageDialog(null, "Nutze Standard-Netzwerkparameter", "Keine Networkparameters.json gefunden!", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, "Nutze Standard-Netzwerkparameter", "Keine NetworkParameters.json gefunden!", JOptionPane.CANCEL_OPTION);
             
             
         }
