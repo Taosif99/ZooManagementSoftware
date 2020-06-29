@@ -80,7 +80,7 @@ public class GuestModeManager {
                 }
 
             } catch (SQLException e) {
-                System.err.println("SQL exception");
+                System.err.println("SQL Error in the database ");
                 System.out.println(e.getMessage());
             }
         }
@@ -111,7 +111,7 @@ public class GuestModeManager {
 
                 }
             } catch (SQLException e) {
-                System.err.println("SQL exception");
+                System.err.println("SQL Error in the database ");
                 System.out.println(e.getMessage());
             }
         }
@@ -156,10 +156,10 @@ public class GuestModeManager {
 
                 }
             } catch (SQLException e) {
-                System.err.println("SQL exception");
+                System.err.println("SQL Error in the database");
                 System.out.println(e.getMessage());
             } catch (ParseException ex) {
-                System.err.println("ParseException");
+                System.err.println("Error with parsing (resultTimes)");
                 System.out.println(ex.getMessage());
             }
 
@@ -197,7 +197,7 @@ public class GuestModeManager {
                 }
 
             } catch (SQLException e) {
-                System.err.println("SQL exception");
+                System.err.println("SQL Error in the database");
                 System.out.println(e.getMessage());
             }
         }
@@ -234,7 +234,7 @@ public class GuestModeManager {
                 }
 
             } catch (SQLException e) {
-                System.err.println("SQL exception");
+                System.err.println("SQL Error in the database");
                 System.out.println(e.getMessage());
             }
         }
@@ -286,10 +286,10 @@ public class GuestModeManager {
                 }
 
             } catch (SQLException e) {
-                System.err.println("SQL exception");
+                System.err.println("SQL Error in the database");
                 System.out.println(e.getMessage());
             } catch (ParseException ex) {
-                System.err.println("ParseException");
+                System.err.println("Error with parsing (resultFeeding)");
                 System.out.println(ex.getMessage());
             }
 

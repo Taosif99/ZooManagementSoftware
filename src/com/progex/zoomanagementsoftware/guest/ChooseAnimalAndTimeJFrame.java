@@ -348,7 +348,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                     this.setVisible(false);
                 }
             } catch (ParseException ex) {
-                System.err.println("ParseException");
+                System.err.println("Error : problem with getAnimalFeedingInfos (Guestmode)");
                 System.out.println(ex.getMessage());
             }
 

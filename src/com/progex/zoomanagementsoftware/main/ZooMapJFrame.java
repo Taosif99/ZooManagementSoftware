@@ -41,8 +41,8 @@ public class ZooMapJFrame extends javax.swing.JFrame {
       //System.out.println(filePath);
         BufferedImage img = null;
         //Hier werte testen...
-        int scaledWidth = x/2;
-        int scaledHeight = y/2;
+        int scaledWidth = x;
+        int scaledHeight = y;
         
         try {
             
