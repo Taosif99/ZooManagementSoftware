@@ -248,7 +248,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         });
 
         jLabelFoodID.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabelFoodID.setText("FutterID");
+        jLabelFoodID.setText("TierID");
 
         jTextFieldFoodID.setToolTipText("");
 

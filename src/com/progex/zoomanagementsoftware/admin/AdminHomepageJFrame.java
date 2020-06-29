@@ -333,7 +333,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private void jButtonManageUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageUserActionPerformed
 
-
+        this.setVisible(false); 
         JFrame thisFrame = this;
         /* Create and display the JFrame MangeUser*/
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -361,7 +361,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     private void jButtonManageFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageFoodActionPerformed
 
      
-
+        this.setVisible(false); 
         JFrame thisFrame = this;
         /* Create and display the JFrame ManageFood*/
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -373,7 +373,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private void jButtonManageCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageCompoundActionPerformed
 
-        //this.setVisible(false);
+        this.setVisible(false);
         JFrame thisFrame = this;
         /* Create and display the JFrame ManageCompound*/
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -385,7 +385,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private void jButtonManageTakesCareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageTakesCareActionPerformed
 
-     
+        this.setVisible(false); 
         JFrame thisFrame = this;
         /* Create and display the JFrame MangeZookeeperToAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -421,7 +421,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     private void jButtonManageEatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageEatsActionPerformed
 
    
-
+        this.setVisible(false); 
         JFrame thisFrame = this;
         /* Create and display the JFrame ManageFoodToAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
