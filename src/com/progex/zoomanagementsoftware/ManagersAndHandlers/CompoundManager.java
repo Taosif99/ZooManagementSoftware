@@ -233,7 +233,9 @@ public class CompoundManager {
             if(currentCapacity>0) return false;
             
         } catch (SQLException ex) {
-            Logger.getLogger(CompoundManager.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("SQL Exception in isEmpty()");
+            System.out.println(ex.getMessage());
+
         }
      return true;
     }

@@ -735,12 +735,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 
                 
                 
-            } catch (NumberFormatException numberFormatException) {
-
-                System.err.println("NumberFormatException in SearchFoodToAnimal Button");
-                System.out.println(numberFormatException.getMessage());
-
-            }
+          
 
         
 
@@ -761,6 +756,14 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 viewRelationTable(records);
             }
 
+            //
+            } catch (NumberFormatException numberFormatException) {
+
+                System.err.println("NumberFormatException in SearchFoodToAnimal Button");
+                System.out.println(numberFormatException.getMessage());
+                methods.clearTable(jTableFoodToAnimalData);
+            }  
+              
         } else {
             JOptionPane.showMessageDialog(null, "Bitte ein Tier anklicken für die Suche!", "Suchen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
         }
