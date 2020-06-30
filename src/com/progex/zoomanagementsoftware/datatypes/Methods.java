@@ -361,26 +361,22 @@ public class Methods {
     } 
    
      /**
-      * Method to remove ".0" from a number
+      * Method to remove ".0" from a number.
       * @param doubleStr
-      * @return 
+      * @return The string without .0 ,else the unchanged string
       */
      public String removeComma(String doubleStr){
          
+         
          if(doubleStr.endsWith(".0")){
-             return doubleStr.substring(0, doubleStr.length()-3);
+             String returnStr = doubleStr.substring(0, doubleStr.length()-2);    
+             return returnStr;
          }
          return doubleStr;
      }
      
-     
-   
-   //Mustapha end 
-   
-   
-   //Taosif start
-   
-       /**
+
+      /**
      * This method is used to remove all data from a Jtable.
      * @param table
      */
@@ -392,17 +388,16 @@ public class Methods {
         }
     }
    
-   //Taosif end
-   
-    
-    // Khalid start
-    
+
+    /**
+     * TODO
+     * @param time
+     * @return 
+     */
     public String cutTimeNextFeeding(String time){
         
-        String formattedTime = time.substring(10, 16);
-        
+        String formattedTime = time.substring(10, 16);        
         return formattedTime;
-        
         
     }
     

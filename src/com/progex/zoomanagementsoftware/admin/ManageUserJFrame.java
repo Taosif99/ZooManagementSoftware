@@ -49,7 +49,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
     private void viewUsers(LinkedList<User> users) {
 
-        cleanTable();
+        methods.clearTable(jTableUserData);
         DefaultTableModel model = (DefaultTableModel) jTableUserData.getModel();
         Object[] row = new Object[13]; // Spalten
 
@@ -77,14 +77,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             row[12] = address.getCountry();
 
             model.addRow(row);
-        }
-    }
-
-    private void cleanTable() {
-
-        DefaultTableModel tableModel = (DefaultTableModel) jTableUserData.getModel();
-        while (tableModel.getRowCount() > 0) {
-            tableModel.removeRow(0);
         }
     }
 
@@ -124,6 +116,10 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             }
         }
         return "None";
+    }
+
+    private boolean containsOnlyNumbers(String phoneNumber) {
+        return phoneNumber.matches("[0-9]+");
     }
 
     /**
@@ -672,9 +668,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         if (textFieldsVerified) {
 
             String salutationStr = jComboBoxSalutation.getSelectedItem().toString();
-            //TODO CHAR ARRAY FOR SECURITY
-            //char password[] = jPasswordFieldEnteredPW.getPassword();
-            //char confirmedPassword[] = jPasswordFieldConfirm.getPassword();
             String password = jPasswordFieldEnteredPW.getText();
             String confirmedPassword = jPasswordFieldConfirm.getText();
             String shiftStr = "None";
@@ -697,12 +690,17 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 boolean validEmail = methods.isValidEmail(email);
 
                 if (validEmail) {
-                    //Check password length
+
                     if (!(password.length() < 8)) {
                         try {
                             if (!methods.isValidDateString(birthdayStr)) {
-                                throw new IllegalArgumentException();
+                                throw new IllegalArgumentException("invalidDate");
                             }
+
+                            if (!containsOnlyNumbers(phoneNumber)) {
+                                throw new IllegalArgumentException("invalidPhoneNumber");
+                            }
+
                             String userTypeStr;
                             if (userType == Mode.zookeeper) {
                                 userTypeStr = "Zookeeper";
@@ -723,6 +721,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                 salutation = methods.stringToSalutation(salutationStr);
                                 Address tempAddress = new Address(street, country, zip, city);
                                 Date birthday = Date.valueOf(birthdayStr);
+
                                 User tempUser = new User(username, firstname, lastname, email, phoneNumber, salutation, birthday, password, tempAddress);
 
                                 if (userManager.addUser(tempUser, shiftStr, userTypeStr)) {
@@ -736,9 +735,20 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                             }
                         } catch (IllegalArgumentException illegalArgumentException) {
 
+                            String message = illegalArgumentException.getMessage();
                             System.err.println("Illegal Argument in jButtonAddUserActionPerformed()");
-                            System.out.println(illegalArgumentException.getMessage());
-                            JOptionPane.showMessageDialog(null, "Falsches Datumformat!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                            
+                            if (message.equals("invalidDate")) {   
+                                System.out.println(message);
+                                JOptionPane.showMessageDialog(null, "Falsches Datumformat!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                            }
+
+                            if (message.equals("invalidPhoneNumber")) {
+                                System.out.println(message);
+                                JOptionPane.showMessageDialog(null, "Keine Sonderzeichen in der Telefonnummer erlaubt!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+
+                            }
+
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Passwort muss mindestens 8 Zeichen haben!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -961,7 +971,11 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                     if (validEmail) {
 
                         if (!methods.isValidDateString(birthdayStr)) {
-                            throw new IllegalArgumentException();
+                            throw new IllegalArgumentException("invalidDate");
+                        }
+
+                        if (!containsOnlyNumbers(phoneNumber)) {
+                            throw new IllegalArgumentException("invalidPhoneNumber");
                         }
 
                         String userTypeStr;
@@ -986,7 +1000,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                         + "Stadt: " + city, "Adresse nicht in der Datenbank vorhanden", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                             }
 
-                   
                             salutation = methods.stringToSalutation(salutationStr);
                             Address tempAddress = new Address(street, country, zip, city);
                             Date birthday = Date.valueOf(birthdayStr);
@@ -1025,8 +1038,13 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
                 if (message.equals("passwords not identical")) {
                     JOptionPane.showMessageDialog(null, "Passwörter sind nicht identisch!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-                } else {
+                } else if(message.equals("invalidDate")) {
                     JOptionPane.showMessageDialog(null, "Bitte Geburtstag im Format yyyy-MM-dd eintragen!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                } else if (message.equals("invalidPhoneNumber")){
+                    
+                  System.out.println(message);
+                  JOptionPane.showMessageDialog(null, "Keine Sonderzeichen in der Telefonnummer erlaubt!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                
                 }
             }
         }
@@ -1049,7 +1067,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
     private void jTableUserDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUserDataMouseClicked
 
-   
         int rowIndex = jTableUserData.getSelectedRow();
         TableModel model = jTableUserData.getModel();
 
@@ -1078,7 +1095,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
-            cleanFields();
+        cleanFields();
     }//GEN-LAST:event_jButtonClearActionPerformed
 
     private void updateButtonsAndLabels() {

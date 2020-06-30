@@ -106,6 +106,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     }
 
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -716,12 +718,23 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             String amountStr = "";
             double amount = -1;
             try {
-                amountStr = methods.removeComma(jTextFieldAmountFood.getText().trim());
-                amount = Double.parseDouble(amountStr);
-
+                
+                if (!jTextFieldAmountFood.getText().isBlank())
+                 amount = Double.parseDouble(jTextFieldAmountFood.getText().trim());
+                
+                 if (amount >= 0) {             
+                
                 if (jRadioButtonG.isSelected()) {
-                    amount *= 1000;
+                    amount /= 1000;
+                  
                 }
+                 
+                amountStr = methods.removeComma(String.valueOf(amount));
+                   
+                 }
+                
+                
+                
             } catch (NumberFormatException numberFormatException) {
 
                 System.err.println("NumberFormatException in SearchFoodToAnimal Button");
@@ -729,9 +742,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
             }
 
-            if (amount >= 0) {
-                amountStr = String.valueOf(amount);
-            }
+        
 
             LinkedHashMap<String, String> columnValueMap = new LinkedHashMap<String, String>();
 
@@ -911,7 +922,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
         //Display selectedAnimalD
         jLabelClickedAnimal.setText("Ausgewählte TierID: " + selectedAnimalID);
-
+        jTextFieldAnimalName.setText(animalModel.getValueAt(animalRowIndex, 1).toString());
+        
         int animalID = Integer.parseInt(selectedAnimalID);
         LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
         lastClickRecords = records;
@@ -931,8 +943,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         jTextFieldStartFeedingTime.setText(startFeedingTime);
         jTextFieldDateTimeID.setText(startFeedingTime);
         jTextFieldEndFeedingTime.setText(endFeedingTime);
-        
-        
         
         //4 Cases
         
