@@ -545,7 +545,7 @@ public class UserManager {
     public void logout() {
         updateLastLogDateFromUser();
         updateLastLogThread.interrupt();
-        System.out.println("THEAD STOPPED");
+        System.out.println("THREAD STOPPED");
         loggedInUser = null;
     }
 
