@@ -572,7 +572,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     private void jButtonDeleteCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteCompoundActionPerformed
 
-        //Beim Löschen reicht nur die ID aus
+        
         JTextField textFields[] = {jTextFieldID};
         boolean textFieldsVerified = methods.verifyTextFields(textFields);
 
@@ -586,6 +586,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                         "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
+                if (compoundManager.isEmpty(ID)){
                 if (decision == 0) {
                     if (compoundManager.deleteCompound(ID)) {
                       
@@ -601,6 +602,12 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                         
                         JOptionPane.showMessageDialog(null, "Gehege konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
+                }
+                
+            } else {
+                
+                JOptionPane.showMessageDialog(null, "Gehege in dem Tiere leben kann nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                
                 }
             }
         } catch (NumberFormatException numberFormatException) {

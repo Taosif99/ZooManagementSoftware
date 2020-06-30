@@ -18,6 +18,9 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ZooKeeperModeLogin
+     * @param zooManager The zooManager of the current Programm session which serves as interface
+     * @param goBackMainMenuJFrame The frame which will appear when the logout back button is
+     * used
      */
     public LoginJFrame(JFrame goBackMainMenuJFrame, ZooManager zooManager) {
 
