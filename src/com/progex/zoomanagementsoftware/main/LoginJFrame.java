@@ -36,6 +36,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         
         //Submission with enter button
         KeyListener pressEnterListener = new KeyAdapter() {
+            @Override
             public void keyPressed(KeyEvent evt) {
                 if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
                     jButtonLogin.doClick();
