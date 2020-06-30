@@ -628,7 +628,8 @@ public class UserManager {
      * identical.
      *
      * @param rs1
-     * @return boolean result
+     * @return a boolean that indicates the result of this method. The result 
+     * indicates wether the ResultSet contains multiple feeding (true) or not (false) - depending on this the result is returned.
      */
     public boolean checkIfSameTime(ResultSet rs1) {
 
