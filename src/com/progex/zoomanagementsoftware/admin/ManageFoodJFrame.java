@@ -540,8 +540,19 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             double exceptionStock;
             String stock;
             if (!jTextFieldStock.getText().isBlank()) {
-                stock = methods.removeComma(jTextFieldStock.getText().trim());
-                exceptionStock = Double.parseDouble(jTextFieldStock.getText());
+
+                exceptionStock = Double.parseDouble(jTextFieldStock.getText().trim());
+                System.out.println("RadioButton selected: " + jRadioButtonGramm.isSelected());
+                if (jRadioButtonGramm.isSelected()) {
+                    exceptionStock = exceptionStock / 1000;
+                    System.out.println(exceptionStock);
+                }
+
+                stock = Double.toString(exceptionStock);
+                if (stock.endsWith(".0")) {
+                    stock = methods.removeComma(stock);
+                }
+                System.out.println(stock);
             } else {
                 stock = "";
             }
@@ -552,6 +563,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             lastSearchMap.put("StorageRoomNumber", storageRoomNumber);
             lastSearchMap.put("Stock", stock);
             lastSearchMap.put("Name", foodName);
+            return lastSearchMap;
 
         } catch (NumberFormatException numberFormatException) {
             System.err.println("NumberFormatException in getJTextFieldInput()");
@@ -560,23 +572,32 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
 
         }
-
-        return lastSearchMap;
+        return null; //Wenn Zahlenfeld falsch ausgefüllt wurde
     }
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
 
-        foods = foodManager.searchFoods(getJTextFieldInput());
+        LinkedHashMap<String, String> columnToValue = getJTextFieldInput();
+        if (columnToValue != null) {
+            foods = foodManager.searchFoods(columnToValue);
+        }
 
-        if (foods.isEmpty()) {
-            methods.clearTable(jTableFoodData);
-            JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            if (jRadioButtonGrammTable.isSelected()) {
-                viewFoods(1000);
-            } else if (jRadioButtonKgTable.isSelected()) {
-                viewFoods(1);
+        try {
+            if (foods.isEmpty() || columnToValue == null) {
+                methods.clearTable(jTableFoodData);
+                if(foods.isEmpty())
+                    JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                if (jRadioButtonGrammTable.isSelected()) {
+                    viewFoods(1000);
+                } else if (jRadioButtonKgTable.isSelected()) {
+                    viewFoods(1);
+                }
             }
+         }catch (NullPointerException nullPointerException) {
+            //Wenn man Zahlenfeld falsch ausfüllt hat und dadurch columnToValue null ist
+            System.err.println("NullPointerException in jButtonSearchActionPerformed()");
+            System.out.println(nullPointerException.getMessage());
         }
     }//GEN-LAST:event_jButtonSearchActionPerformed
 

@@ -43,8 +43,8 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
         jTextFieldUserID.setEnabled(false);
         jLabelZookeeperID.setEnabled(false);
-        jTextFieldFoodID.setEnabled(false);
-        jLabelFoodID.setEnabled(false);
+        jTextFieldAnimalID.setEnabled(false);
+        jLabelAnimalID.setEnabled(false);
         updateButtonsAndLabels();
         methods.showTimeAndDate(jLabelShowDateTime);
         UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
@@ -82,13 +82,13 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         jTableZookeeperData = new javax.swing.JTable();
         jLabelAskAnimalName = new javax.swing.JLabel();
         jTextFieldAnimalName = new javax.swing.JTextField();
-        jButtonAddFood = new javax.swing.JButton();
-        jButtonDeleteFood = new javax.swing.JButton();
+        jButtonAddTakesCare = new javax.swing.JButton();
+        jButtonDeleteTakesCare = new javax.swing.JButton();
         jLabelZookeeperID = new javax.swing.JLabel();
         jTextFieldUserID = new javax.swing.JTextField();
         jButtonHelp = new javax.swing.JButton();
-        jLabelFoodID = new javax.swing.JLabel();
-        jTextFieldFoodID = new javax.swing.JTextField();
+        jLabelAnimalID = new javax.swing.JLabel();
+        jTextFieldAnimalID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tierpfleger/-in zu Tier Zuweisung verwalten");
@@ -221,19 +221,19 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         jLabelAskAnimalName.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelAskAnimalName.setText("Bitte Tiernamen eingeben");
 
-        jButtonAddFood.setText("Hinzufügen");
-        jButtonAddFood.setPreferredSize(new java.awt.Dimension(73, 23));
-        jButtonAddFood.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAddTakesCare.setText("Hinzufügen");
+        jButtonAddTakesCare.setPreferredSize(new java.awt.Dimension(73, 23));
+        jButtonAddTakesCare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAddFoodActionPerformed(evt);
+                jButtonAddTakesCareActionPerformed(evt);
             }
         });
 
-        jButtonDeleteFood.setText("Löschen");
-        jButtonDeleteFood.setPreferredSize(new java.awt.Dimension(73, 23));
-        jButtonDeleteFood.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDeleteTakesCare.setText("Löschen");
+        jButtonDeleteTakesCare.setPreferredSize(new java.awt.Dimension(73, 23));
+        jButtonDeleteTakesCare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDeleteFoodActionPerformed(evt);
+                jButtonDeleteTakesCareActionPerformed(evt);
             }
         });
 
@@ -247,10 +247,10 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabelFoodID.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabelFoodID.setText("TierID");
+        jLabelAnimalID.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelAnimalID.setText("TierID");
 
-        jTextFieldFoodID.setToolTipText("");
+        jTextFieldAnimalID.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -279,13 +279,13 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                                 .addComponent(jLabelAskAnimalName)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextFieldAnimalName, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButtonAddFood, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonAddTakesCare, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelOperation)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonHelp))
                             .addComponent(jRadioButtonAdd)
-                            .addComponent(jButtonDeleteFood, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButtonDeleteTakesCare, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(137, 137, 137))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -302,9 +302,9 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextFieldUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32)
-                                .addComponent(jLabelFoodID)
+                                .addComponent(jLabelAnimalID)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldFoodID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextFieldAnimalID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jScrollTakesCareTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jButtonSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -347,15 +347,15 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                             .addComponent(jLabelAskAnimalName)
                             .addComponent(jTextFieldAnimalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonAddFood, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonAddTakesCare, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonDeleteFood, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonDeleteTakesCare, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelZookeeperID)
                             .addComponent(jTextFieldUserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelFoodID)
-                            .addComponent(jTextFieldFoodID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelAnimalID)
+                            .addComponent(jTextFieldAnimalID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollTakesCareTable, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)
@@ -448,7 +448,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
-    private void jButtonDeleteFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteFoodActionPerformed
+    private void jButtonDeleteTakesCareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteTakesCareActionPerformed
 
         try {
 
@@ -481,6 +481,8 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                                     }
                                     JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                                     jTextFieldAnimalName.setText("");
+                                    jTextFieldAnimalID.setText("");
+                                    jTextFieldUserID.setText("");
                                 } else {
                                     JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                                 }
@@ -496,7 +498,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             System.out.println(numberFormatException.getMessage());
             JOptionPane.showMessageDialog(null, "Zahlenfeld wurde falsch ausgefüllt!", "Zahlenfeld falsch ausgefüllt", JOptionPane.CANCEL_OPTION);
         }
-    }//GEN-LAST:event_jButtonDeleteFoodActionPerformed
+    }//GEN-LAST:event_jButtonDeleteTakesCareActionPerformed
 
     private void jButtonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHelpActionPerformed
 
@@ -504,11 +506,11 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         switch (mode) {
 
             case add:
-                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken!", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
                 break;
 
             case delete:
-                JOptionPane.showMessageDialog(null, "Bitte die ID des Benutzers und den Tiernamen ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Bitte einen Datensatz in der rechten Tabelle anklicken um zu löschen!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
                 break;
         }
     }//GEN-LAST:event_jButtonHelpActionPerformed
@@ -521,7 +523,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         selectedZookeeperID = null;
     }
 
-    private void jButtonAddFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddFoodActionPerformed
+    private void jButtonAddTakesCareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddTakesCareActionPerformed
 
         JTextField textFields[] = {jTextFieldAnimalName, jTextFieldZookeepeFirstName, jTextFieldZookeeperLastName};
 
@@ -531,17 +533,16 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
                 String animalName = jTextFieldAnimalName.getText();
 
                 if (selectedZookeeperID == null) {
-                    JOptionPane.showMessageDialog(null, "Bitte Tierpfleger/-in auswählen in der Tabelle!", "Einfügen fehlgeschlagen", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Bitte Tierpfleger/-in auswählen in der Tabelle!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                 }
 
                 if (zookeeperToAnimalManager.checkZookeeperToAnimalExists(animalName, Integer.parseInt(selectedZookeeperID))) {
-                    JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung existiert bereits!", "Einfügen fehlgeschlagen", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung existiert bereits!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                 } else {
                     LinkedList<Integer> animalIds = zookeeperToAnimalManager.getAnimalIds(animalName);
                     if (animalIds.isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Tiername wurde nicht gefunden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     } else {
-                        //if(zookeeper schon eine Fütterung um diese Uhrzeit hat
                         if (zookeeperToAnimalManager.addZookeeperToAnimal(animalIds, selectedZookeeperID)) {
                             if (lastSearchMap != null) {
                                 records = zookeeperToAnimalManager.searchZookeeperToAnimal(lastSearchMap);
@@ -560,7 +561,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
             System.out.println(numberFormatException.getMessage());
         }
 
-    }//GEN-LAST:event_jButtonAddFoodActionPerformed
+    }//GEN-LAST:event_jButtonAddTakesCareActionPerformed
 
     private void fillZookeeperTable(DefaultTableModel model) {
 
@@ -617,6 +618,8 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
     private void jTableZookeeperDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableZookeeperDataMouseClicked
 
+        jTextFieldUserID.setText("");
+        jTextFieldAnimalID.setText("");
         int zookeeperRowIndex = jTableZookeeperData.getSelectedRow();
         TableModel zookeeperModel = jTableZookeeperData.getModel();
 
@@ -653,7 +656,7 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         String animalName = takesCareModel.getValueAt(takesCareRowIndex, 4).toString();
         jTextFieldAnimalName.setText(animalName);
         String foodId = takesCareModel.getValueAt(takesCareRowIndex, 3).toString();
-        jTextFieldFoodID.setText(foodId);
+        jTextFieldAnimalID.setText(foodId);
 
         if (mode != Mode.add)
             jTextFieldUserID.setText(selectedZookeeperID);
@@ -669,10 +672,10 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         if (jRadioButtonAdd.isSelected()) {
 
             System.out.println("    Add mode");
-            jButtonAddFood.setEnabled(true);
-            jButtonDeleteFood.setEnabled(false);
+            jButtonAddTakesCare.setEnabled(true);
+            jButtonDeleteTakesCare.setEnabled(false);
             jTextFieldUserID.setText("");
-            jTextFieldFoodID.setText("");
+            jTextFieldAnimalID.setText("");
             jLabelSearch.setEnabled(false);
             jButtonSearch.setEnabled(false);
             mode = Mode.add;
@@ -681,8 +684,8 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
             System.out.println("    Delete mode");
 
-            jButtonAddFood.setEnabled(false);
-            jButtonDeleteFood.setEnabled(true);
+            jButtonAddTakesCare.setEnabled(false);
+            jButtonDeleteTakesCare.setEnabled(true);
             jLabelSearch.setEnabled(true);
             jButtonSearch.setEnabled(true);
             mode = Mode.delete;
@@ -735,14 +738,14 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupOperation;
-    private javax.swing.JButton jButtonAddFood;
-    private javax.swing.JButton jButtonDeleteFood;
+    private javax.swing.JButton jButtonAddTakesCare;
+    private javax.swing.JButton jButtonDeleteTakesCare;
     private javax.swing.JButton jButtonGoBack;
     private javax.swing.JButton jButtonHelp;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtonSearchZookeeper;
+    private javax.swing.JLabel jLabelAnimalID;
     private javax.swing.JLabel jLabelAskAnimalName;
-    private javax.swing.JLabel jLabelFoodID;
     private javax.swing.JLabel jLabelOperation;
     private javax.swing.JLabel jLabelSearch;
     private javax.swing.JLabel jLabelSelectZookeeper;
@@ -756,8 +759,8 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollZookeeperTable;
     private javax.swing.JTable jTableTakesCareData;
     private javax.swing.JTable jTableZookeeperData;
+    private javax.swing.JTextField jTextFieldAnimalID;
     private javax.swing.JTextField jTextFieldAnimalName;
-    private javax.swing.JTextField jTextFieldFoodID;
     private javax.swing.JTextField jTextFieldUserID;
     private javax.swing.JTextField jTextFieldZookeepeFirstName;
     private javax.swing.JTextField jTextFieldZookeeperLastName;
