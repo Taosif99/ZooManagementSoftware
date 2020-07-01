@@ -78,8 +78,8 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     
         if (!connected){
         
-         JOptionPane.showMessageDialog(null, "Konnte keine Verbindung zu Datenbank aufbauen! "
-                 + "Bitte Netzwerkkonfiguration ,Netzwerkverbindung überprüfen und Programm neu starten. "
+         JOptionPane.showMessageDialog(null, "Es konnte keine Verbindung zur Datenbank aufgebaut werden! "
+                 + "Bitte Netzwerkkonfiguration, Netzwerkverbindung überprüfen und Programm neu starten. "
                 , "Keine Verbindung", JOptionPane.ERROR_MESSAGE);
         
          System.exit(-1); //Abnormal termination
