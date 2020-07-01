@@ -549,10 +549,8 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                 }
 
                 stock = Double.toString(exceptionStock);
-                if (stock.endsWith(".0")) {
-                    stock = methods.removeComma(stock);
-                }
-                System.out.println(stock);
+
+                stock = methods.removeComma(stock);
             } else {
                 stock = "";
             }
@@ -585,8 +583,9 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         try {
             if (foods.isEmpty() || columnToValue == null) {
                 methods.clearTable(jTableFoodData);
-                if(foods.isEmpty())
+                if (foods.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
+                }
             } else {
                 if (jRadioButtonGrammTable.isSelected()) {
                     viewFoods(1000);
@@ -594,7 +593,7 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                     viewFoods(1);
                 }
             }
-         }catch (NullPointerException nullPointerException) {
+        } catch (NullPointerException nullPointerException) {
             //Wenn man Zahlenfeld falsch ausfüllt hat und dadurch columnToValue null ist
             System.err.println("NullPointerException in jButtonSearchActionPerformed()");
             System.out.println(nullPointerException.getMessage());
