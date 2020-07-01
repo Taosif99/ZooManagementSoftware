@@ -74,6 +74,11 @@ public class ZooManager {
         return foodManager;
     }
 
+    public ConnectionHandler getConnectionHandler(){
+        return connectionHandler;
+    }
+    
+    
 
     /*Methods concerning Food to Animal relation end here*/
     /*Own reused methods*/

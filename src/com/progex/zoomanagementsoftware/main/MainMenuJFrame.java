@@ -176,7 +176,13 @@ public class MainMenuJFrame extends javax.swing.JFrame {
 
     private void jButtonGuestFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuestFeedingTimeActionPerformed
 
-        //Set Main Menue to not visible
+        
+          //Connect to database
+        ConnectionHandler connectionHandler = zooManager.getConnectionHandler();
+        connectionHandler.connect();
+
+
+         //Set Main Menue to not visible
         this.setVisible(false);
 
         JFrame thisFrame = this;

@@ -1,5 +1,6 @@
 package com.progex.zoomanagementsoftware.main;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ConnectionHandler;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.admin.AdminHomepageJFrame;
@@ -178,6 +179,11 @@ public class LoginJFrame extends javax.swing.JFrame {
         MD5Hash hasher = new MD5Hash();
         String hashedPw = hasher.hashString(new String(jPasswordFieldPassword.getPassword()));
 
+        
+        //Connect to database
+        //ConnectionHandler connectionHandler = userManager.getConnectionHandler();
+        //connectionHandler.connect();
+        
         // Check if username and password match data in database and if user is zookeepr 
         User user = userManager.login(username, hashedPw);
 
