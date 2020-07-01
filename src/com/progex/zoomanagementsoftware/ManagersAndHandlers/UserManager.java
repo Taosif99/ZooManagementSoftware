@@ -440,21 +440,18 @@ public class UserManager {
         try {
 
             connectionHandler.connect();
-         
+
             //Set query
             String query = "SELECT username, firstname, user.Type, lastlogdate,hashedPassword FROM USER WHERE username = ? ";
-            
-            
+
             //Get connection
             Connection connection = connectionHandler.getConnection();
-            
+
             //Use prepared statement to avoid a possible sql injection attack 
             PreparedStatement login = connection.prepareStatement(query);
             login.setString(1, username);
             ResultSet resultSet = login.executeQuery();
-            
-            
-            
+
             // set variable to catch result from query
             String firstName = "";
             String userName = "";
@@ -507,17 +504,11 @@ public class UserManager {
             @Override
             public void run() {
                 while (true && loggedInUser != null) {
-                    System.out.println("THREAD COUNT: " + java.lang.Thread.activeCount());
-
                     try {
                         updateLastLogDateFromUser();
                         Thread.sleep(30000);
-
-                        System.out.println("" + loggedInUser.getUsername());
-                        System.out.println("UPDATE LASTLOGDATE SUCCESSFULLY");
-                        System.out.println(Thread.currentThread().getId());
                     } catch (InterruptedException ex) {
-                        System.err.println("Thread Interuppted - Error in method startUpdateThread()");
+                        System.err.println("Thread Interuppted - Exception in startUpdateThread()");
                         System.out.println(ex.getMessage());
                         Thread.currentThread().interrupt(); // restore interrupted status
                     }
@@ -561,11 +552,11 @@ public class UserManager {
     }
 
     /**
-     * TODO RETURN COMMENT WAS FALLS ES WELCHE GIBT DIE ZU GLEICHEN ZEIT HABEN
+     * 
      * Get NextFeedingInfo Object to display a zookeepers next feeding time.
      *
      * @return ZookeeperInfo that shows all important information for the next
-     * feeding info for the zookeeper.
+     * feeding info for the zookeeper
      *
      */
     public ZookeeperInfo getNextFeedingInfo() {
@@ -582,37 +573,27 @@ public class UserManager {
                     + "INNER JOIN takescare ON eats.AnimalID = takescare.AnimalID "
                     + "INNER JOIN user ON takescare.UserID = user.ID "
                     + "INNER JOIN compound ON animal.CompoundID = compound.ID) AS joinedTable "
-                    + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and CONVERT(Fütterungszeit, date) = current_date() "
+                    + "WHERE joinedTable.UserName = \"" + loggedInUser.getUsername() + "\" and CONVERT(Fütterungszeit, date) = current_date() and diffMin > 0 "
                     + "ORDER BY case when diffMin<0 then 1 else 0 end,diffMin "
                     + "LIMIT 2";
 
             ResultSet resultSet = connectionHandler.performQuery(query);
 
-            // init variables to catch from resultset
-            ArrayList<ZookeeperInfo> zookeeperInfolist = new ArrayList<>();
-            String animalName = "";
-            String food = "";
-            double amount = 0;
-            String storageRoom = "";
-            String compound = "";
-            Timestamp feedingTimeInMinutes = null;
+
             ZookeeperInfo zookeeperInfo = null;
 
             // set variables from resultset
             if (resultSet.next()) {
-                animalName = resultSet.getString(2);
-                food = resultSet.getString(3);
-                amount = Double.parseDouble(resultSet.getString(4));
-                storageRoom = resultSet.getString(5);
-                compound = resultSet.getString(6);
-                feedingTimeInMinutes = resultSet.getTimestamp(1);
-                zookeeperInfo = new ZookeeperInfo(feedingTimeInMinutes, compound, animalName, food, storageRoom, amount);
-                zookeeperInfolist.add(zookeeperInfo);
 
-            }
 
-            for (int i = 0; i < zookeeperInfolist.size(); i++) {
-                System.out.println("TIME:" + zookeeperInfolist.get(i).getFeedingTime());
+                String animalName = resultSet.getString(2);
+                String food = resultSet.getString(3);
+                double amount = Double.parseDouble(resultSet.getString(4));
+                String storageRoomNumber = resultSet.getString(5);
+                String compound = resultSet.getString(6);
+                Timestamp feedingTimeInMinutes = resultSet.getTimestamp(1);
+                zookeeperInfo = new ZookeeperInfo(feedingTimeInMinutes, compound, animalName, food, storageRoomNumber, amount);
+
             }
 
             if (zookeeperInfo != null && resultSet.next()) {
@@ -622,12 +603,11 @@ public class UserManager {
                     zookeeperInfo.setIsMultipleFeeding(false);
                 }
             }
-            System.out.println("COUNT" + checkIfSameTime(resultSet));
 
             // create FeedingInfo based on Database Information and return it
             return zookeeperInfo;
         } catch (SQLException ex) {
-            System.err.println("SQL Error in method getNextFeedingInfo() ");
+            System.err.println("SQL Exception in getNextFeedingInfo() ");
             System.out.println(ex.getMessage());
         }
 
@@ -638,44 +618,29 @@ public class UserManager {
      * Method compares the time of the two first rows and checks if they are
      * identical.
      *
-     * @param rs1
+     * @param multipleFeedingTimeResultSet
      * @return a boolean that indicates the result of this method. The result
      * indicates wether the ResultSet contains multiple feeding (true) or not
      * (false) - depending on this the result is returned.
      */
-    public boolean checkIfSameTime(ResultSet rs1) {
-
+    public boolean checkIfSameTime(ResultSet multipleFeedingTimeResultSet) {
 
         try {
-            rs1.first();
-            if (rs1.next()) {
-                rs1.beforeFirst();
-                rs1.next();
-                ResultSet temp = rs1;
+            multipleFeedingTimeResultSet.first();
+            if (multipleFeedingTimeResultSet.next()) {
+                multipleFeedingTimeResultSet.beforeFirst();
+                multipleFeedingTimeResultSet.next();
+                ResultSet temp = multipleFeedingTimeResultSet;
+                String time1 = temp.getString("InMinuten");
 
-                System.out.println("-----");
-                System.out.println("Compare:");
-                System.out.println("Row" + temp.getRow() + ": " + temp.getString("InMinuten"));
-                String timee1 = temp.getString("InMinuten");
-
-                System.out.println("With");
                 temp.last();
-                System.out.println("Row" + temp.getRow() + ": " + temp.getString("InMinuten"));
-                System.out.println("-----");
-                String timee2 = temp.getString("InMinuten");
+                String time2 = temp.getString("InMinuten");
 
-                if (timee1.equals(timee2)) {
-                    System.out.println("IS SAME");
-                    return true;
-                    //return true;
-                } else {
-                    System.out.println("NOT SAME");
-                    return false;
-                }
+                return time1.equals(time2);
             }
             return false;
         } catch (SQLException ex) {
-            System.err.println("SQL Error in method checkIfSameTime()");
+            System.err.println("SQL Exception in checkIfSameTime()");
             System.out.println(ex.getMessage());
         }
         return false;
