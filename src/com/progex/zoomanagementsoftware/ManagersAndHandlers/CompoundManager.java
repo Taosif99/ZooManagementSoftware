@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
+
 /**
  * Class which handles the compounds in our program.
  */
@@ -211,4 +212,31 @@ public class CompoundManager {
         }
         return false;
     }
+    
+    
+    /**
+     * Method to check if animals live in a compound or not.
+     * @param CompoundId
+     * @return true if atleast one animal lives in the compound, else false
+     */
+    public boolean isEmpty(int CompoundId){
+    
+    
+           String compoundID = Integer.toString(CompoundId);
+           String queryToGetCurrentCapacity = "SELECT COUNT(CompoundID) as CurrentCapacity FROM Animal WHERE CompoundID = " + compoundID;
+           ResultSet currentCapacityResult = connectionHandler.performQuery(queryToGetCurrentCapacity);
+           
+        try {
+            currentCapacityResult.next();
+            int currentCapacity = currentCapacityResult.getInt("CurrentCapacity");
+            if(currentCapacity>0) return false;
+            
+        } catch (SQLException ex) {
+            System.err.println("SQL Exception in isEmpty()");
+            System.out.println(ex.getMessage());
+
+        }
+     return true;
+    }
+    
 }

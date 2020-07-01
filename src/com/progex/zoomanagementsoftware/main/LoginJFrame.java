@@ -1,5 +1,6 @@
 package com.progex.zoomanagementsoftware.main;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ConnectionHandler;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.admin.AdminHomepageJFrame;
@@ -18,6 +19,9 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ZooKeeperModeLogin
+     * @param zooManager The zooManager of the current Programm session which serves as interface
+     * @param goBackMainMenuJFrame The frame which will appear when the logout back button is
+     * used
      */
     public LoginJFrame(JFrame goBackMainMenuJFrame, ZooManager zooManager) {
 
@@ -36,6 +40,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         
         //Submission with enter button
         KeyListener pressEnterListener = new KeyAdapter() {
+            @Override
             public void keyPressed(KeyEvent evt) {
                 if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
                     jButtonLogin.doClick();
@@ -174,6 +179,11 @@ public class LoginJFrame extends javax.swing.JFrame {
         MD5Hash hasher = new MD5Hash();
         String hashedPw = hasher.hashString(new String(jPasswordFieldPassword.getPassword()));
 
+        
+        //Connect to database
+        //ConnectionHandler connectionHandler = userManager.getConnectionHandler();
+        //connectionHandler.connect();
+        
         // Check if username and password match data in database and if user is zookeepr 
         User user = userManager.login(username, hashedPw);
 

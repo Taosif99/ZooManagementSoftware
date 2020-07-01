@@ -106,6 +106,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     }
 
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -317,7 +319,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         });
         jScrollPaneFoodToAnimalTable.setViewportView(jTableFoodToAnimalData);
         if (jTableFoodToAnimalData.getColumnModel().getColumnCount() > 0) {
-            jTableFoodToAnimalData.getColumnModel().getColumn(0).setPreferredWidth(140);
+            jTableFoodToAnimalData.getColumnModel().getColumn(0).setPreferredWidth(180);
             jTableFoodToAnimalData.getColumnModel().getColumn(1).setPreferredWidth(150);
             jTableFoodToAnimalData.getColumnModel().getColumn(3).setPreferredWidth(300);
             jTableFoodToAnimalData.getColumnModel().getColumn(4).setPreferredWidth(300);
@@ -716,22 +718,26 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             String amountStr = "";
             double amount = -1;
             try {
-                amountStr = methods.removeComma(jTextFieldAmountFood.getText().trim());
-                amount = Double.parseDouble(amountStr);
-
+                
+                if (!jTextFieldAmountFood.getText().isBlank())
+                 amount = Double.parseDouble(jTextFieldAmountFood.getText().trim());
+                
+                 if (amount >= 0) {             
+                
                 if (jRadioButtonG.isSelected()) {
-                    amount *= 1000;
+                    amount /= 1000;
+                  
                 }
-            } catch (NumberFormatException numberFormatException) {
+                 
+                amountStr = methods.removeComma(String.valueOf(amount));
+                   
+                 }
+                
+                
+                
+          
 
-                System.err.println("NumberFormatException in SearchFoodToAnimal Button");
-                System.out.println(numberFormatException.getMessage());
-
-            }
-
-            if (amount >= 0) {
-                amountStr = String.valueOf(amount);
-            }
+        
 
             LinkedHashMap<String, String> columnValueMap = new LinkedHashMap<String, String>();
 
@@ -750,6 +756,23 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 viewRelationTable(records);
             }
 
+            //
+            } catch (NumberFormatException numberFormatException) {
+
+                System.err.println("NumberFormatException in SearchFoodToAnimal Button");
+                 JOptionPane.showMessageDialog(null, "Bitte eine gültige Menge angeben!", "Suchen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                System.out.println(numberFormatException.getMessage());
+                methods.clearTable(jTableFoodToAnimalData);
+                if (selectedAnimalID != null){
+                    LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(Integer.valueOf(selectedAnimalID));
+                    lastClickRecords = records;
+                    viewRelationTable(records);
+                }
+                
+                
+                
+            }  
+              
         } else {
             JOptionPane.showMessageDialog(null, "Bitte ein Tier anklicken für die Suche!", "Suchen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
         }
@@ -890,14 +913,14 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         switch (mode) {
 
             case add:
-                JOptionPane.showMessageDialog(null, "Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Tier anklicken, Daten eingeben und auf Hinzufügen klicken", "Hinzufügen", JOptionPane.INFORMATION_MESSAGE);
                 break;
 
             case update:
-                JOptionPane.showMessageDialog(null, "Bitte die Daten der zu updatenden Futter-Tier-Beziehung ausfüllen oder den Datensatz in der Tabelle anklicken und bearbeiten! ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Den Datensatz in der Tabelle anklicken, bearbeiten und auf Updaten klicken ", "Updaten", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case delete:
-                JOptionPane.showMessageDialog(null, "Bitte die IDs und Startfütterungszeit der zu löschenden Futter-Tier-Beziehung ausfüllen oder den Datensatz in der Tabelle anklicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Den Datensatz in der rechten Tabelle anklicken und Löschen klicken!", "Löschen", JOptionPane.INFORMATION_MESSAGE);
                 break;
         }
     }//GEN-LAST:event_jButtonHelpActionPerformed
@@ -911,11 +934,20 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
         //Display selectedAnimalD
         jLabelClickedAnimal.setText("Ausgewählte TierID: " + selectedAnimalID);
-
+        jTextFieldAnimalName.setText(animalModel.getValueAt(animalRowIndex, 1).toString());
+        
         int animalID = Integer.parseInt(selectedAnimalID);
         LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
         lastClickRecords = records;
         viewRelationTable(records);
+        
+        jTextFieldDateTimeID.setText("");
+        jTextFieldFoodID.setText("");
+        jTextFieldAnimalID.setText("");
+        
+        
+        
+        
     }//GEN-LAST:event_jTableAnimalDataMouseClicked
 
     private void jTableFoodToAnimalDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFoodToAnimalDataMouseClicked
@@ -931,8 +963,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         jTextFieldStartFeedingTime.setText(startFeedingTime);
         jTextFieldDateTimeID.setText(startFeedingTime);
         jTextFieldEndFeedingTime.setText(endFeedingTime);
-        
-        
         
         //4 Cases
         

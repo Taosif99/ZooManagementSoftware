@@ -1,5 +1,7 @@
 package com.progex.zoomanagementsoftware.ManagersAndHandlers;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import com.progex.zoomanagementsoftware.datatypes.*;
 import com.progex.zoomanagementsoftware.hashing.MD5Hash;
 import java.util.LinkedList;
@@ -9,8 +11,7 @@ import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -184,7 +185,7 @@ public class UserManager {
                 + addressId + ","
                 + "'" + userType + "',"
                 + "'" + shift + "',"
-                + "'1998-01-01 00:00:00')"; //Using zeros as initial log date -> does not work
+                + "'1998-01-01 00:00:00')"; //Using zeros as initial log date 
 
         retVal = connectionHandler.manipulateDB(insertUserQuery);
         return retVal;
@@ -436,11 +437,23 @@ public class UserManager {
     public User login(String username, String hashedPassword) {
 
         try {
-            // set query
-            String query = "SELECT username, firstname, user.Type, lastlogdate,hashedPassword FROM USER WHERE username = \"" + username + "\"";
-            // perform query
-            ResultSet resultSet = connectionHandler.performQuery(query);
 
+            connectionHandler.connect();
+         
+            //Set query
+            String query = "SELECT username, firstname, user.Type, lastlogdate,hashedPassword FROM USER WHERE username = ? ";
+            
+            
+            //Get connection
+            Connection connection = connectionHandler.getConnection();
+            
+            //Use prepared statement to avoid a possible sql injection attack 
+            PreparedStatement login = connection.prepareStatement(query);
+            login.setString(1, username);
+            ResultSet resultSet = login.executeQuery();
+            
+            
+            
             // set variable to catch result from query
             String firstName = "";
             String userName = "";
@@ -473,8 +486,6 @@ public class UserManager {
                         return zookeeper;
                     }
 
-                } else {
-                    return null;
                 }
 
             }
@@ -483,13 +494,12 @@ public class UserManager {
             System.out.print(sqlException.getMessage());
         }
 
+        connectionHandler.disconnect(); //Disconnect if it was not successfull
         return null;
 
     }
 
-    /**
-     * Start a thread that keeps updating the lastlogdate every 30 seconds.
-     */
+    //Start a thread that keeps updating the lastlogdate every 30 seconds.
     private void startUpdateThread() {
 
         updateLastLogThread = new Thread(new Runnable() {
@@ -506,10 +516,9 @@ public class UserManager {
                         System.out.println("UPDATE LASTLOGDATE SUCCESSFULLY");
                         System.out.println(Thread.currentThread().getId());
                     } catch (InterruptedException ex) {
-                        System.err.println("Thread Interuppted");
+                        System.err.println("Thread Interuppted - InterruptException in method startUpdateThread()");
                         System.out.println(ex.getMessage());
                         Thread.currentThread().interrupt(); // restore interrupted status
-
                     }
                 }
 
@@ -545,8 +554,9 @@ public class UserManager {
     public void logout() {
         updateLastLogDateFromUser();
         updateLastLogThread.interrupt();
-        System.out.println("THEAD STOPPED");
+        System.out.println("THREAD STOPPED");
         loggedInUser = null;
+        connectionHandler.disconnect(); //Disconnect after logout
     }
 
     /**
@@ -579,23 +589,23 @@ public class UserManager {
 
             // init variables to catch from resultset
             ArrayList<ZookeeperInfo> zookeeperInfolist = new ArrayList<>();
-            String tiername = "";
-            String futter = "";
-            double menge = 0;
-            String abstellRaum = "";
-            String gehege = "";
+            String animalName = "";
+            String food = "";
+            double amount = 0;
+            String storageRoom = "";
+            String compound = "";
             Timestamp feedingTimeInMinutes = null;
             ZookeeperInfo zookeeperInfo = null;
 
             // set variables from resultset
             if (resultSet.next()) {
-                tiername = resultSet.getString(2);
-                futter = resultSet.getString(3);
-                menge = Double.parseDouble(resultSet.getString(4));
-                abstellRaum = resultSet.getString(5);
-                gehege = resultSet.getString(6);
+                animalName = resultSet.getString(2);
+                food = resultSet.getString(3);
+                amount = Double.parseDouble(resultSet.getString(4));
+                storageRoom = resultSet.getString(5);
+                compound = resultSet.getString(6);
                 feedingTimeInMinutes = resultSet.getTimestamp(1);
-                zookeeperInfo = new ZookeeperInfo(feedingTimeInMinutes, gehege, tiername, futter, abstellRaum, menge);
+                zookeeperInfo = new ZookeeperInfo(feedingTimeInMinutes, compound, animalName, food, storageRoom, amount);
                 zookeeperInfolist.add(zookeeperInfo);
 
             }
@@ -616,7 +626,7 @@ public class UserManager {
             // create FeedingInfo based on Database Information and return it
             return zookeeperInfo;
         } catch (SQLException ex) {
-            System.err.println("Fehler beim ausgeben der nächsten Fütterung");
+            System.err.println("SQL Error in method getNextFeedingInfo() ");
             System.out.println(ex.getMessage());
         }
 
@@ -628,40 +638,45 @@ public class UserManager {
      * identical.
      *
      * @param rs1
-     * @return boolean result
-     * @throws SQLException
+     * @return a boolean that indicates the result of this method. The result
+     * indicates wether the ResultSet contains multiple feeding (true) or not
+     * (false) - depending on this the result is returned.
      */
     public boolean checkIfSameTime(ResultSet rs1) {
 
+
         try {
-            rs1.beforeFirst();
-            rs1.next();
-            ResultSet temp = rs1;
+            rs1.first();
+            if (rs1.next()) {
+                rs1.beforeFirst();
+                rs1.next();
+                ResultSet temp = rs1;
 
-            System.out.println("-----");
-            System.out.println("Compare:");
-            System.out.println("Row" + temp.getRow() + ": " + temp.getString("InMinuten"));
-            String timee1 = temp.getString("InMinuten");
+                System.out.println("-----");
+                System.out.println("Compare:");
+                System.out.println("Row" + temp.getRow() + ": " + temp.getString("InMinuten"));
+                String timee1 = temp.getString("InMinuten");
 
-            System.out.println("With");
-            temp.last();
-            System.out.println("Row" + temp.getRow() + ": " + temp.getString("InMinuten"));
-            System.out.println("-----");
-            String timee2 = temp.getString("InMinuten");
+                System.out.println("With");
+                temp.last();
+                System.out.println("Row" + temp.getRow() + ": " + temp.getString("InMinuten"));
+                System.out.println("-----");
+                String timee2 = temp.getString("InMinuten");
 
-            if (timee1.equals(timee2)) {
-                System.out.println("IS SAME");
-                return true;
-                //return true;
-            } else {
-                System.out.println("NOT SAME");
-                return false;
+                if (timee1.equals(timee2)) {
+                    System.out.println("IS SAME");
+                    return true;
+                    //return true;
+                } else {
+                    System.out.println("NOT SAME");
+                    return false;
+                }
             }
+            return false;
         } catch (SQLException ex) {
-            Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println("Fehler beim berechnen von gleichzeitigen Fütterungen");
+            System.err.println("SQL Error in method checkIfSameTime()");
+            System.out.println(ex.getMessage());
         }
-
         return false;
     }
 
@@ -695,7 +710,7 @@ public class UserManager {
      * This Methods returns a resultset of all Feeding Informations for a user
      * -> amount is in Gramm resultset is later used to populate the jtable.
      *
-     * @return ResultSet witth allfeedingtimes to populate the resultset in
+     * @return ResultSet with allfeedingtimes to populate the resultset in
      * another method.
      */
     public ResultSet getAllFeedingTimeInGramm() {
@@ -733,6 +748,4 @@ public class UserManager {
         return formattedTime;
 
     }
-
-    //Khalid end
 }

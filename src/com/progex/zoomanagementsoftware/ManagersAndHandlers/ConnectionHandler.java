@@ -35,7 +35,7 @@ public class ConnectionHandler {
         this.dbName = dbName;
         this.username = username;
         this.password = password;
-        connect();
+       this.connection = null;
     }
 
     public String getUrl() {
@@ -66,13 +66,23 @@ public class ConnectionHandler {
         this.password = password;
     }
 
+   
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * Method which will connect to a given database depennding on the
      * attributes of the connection handler.
      *
-     * @return The connection to the database
+     * 
+     * @return true if connection can be established, else false
      */
-    private void connect() {
+   public boolean connect() {
 
         try {
 
@@ -83,13 +93,36 @@ public class ConnectionHandler {
             //connection = DriverManager.getConnection(url +  dbName+ "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC" , username, password); //Connector 8...
             //For utf 8 
             connection = DriverManager.getConnection(url + dbName + "?characterEncoding=utf-8", username, password);
-
-        } catch (Exception e) {
+            System.out.println("Connected to Database!");
+            return true;
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
             System.err.println("Connection failed");
         }
+        
+        return false;
     }
 
+   
+   /**
+    * Method which can be used to close the connection when it is not used.
+    */
+    public void disconnect(){
+   
+        try {
+            connection.close();
+            System.out.println("Disconnected from database !");
+        } catch (SQLException ex) {
+           System.err.println("SQL Exception in disconnect()");
+           System.out.println(ex.getMessage());
+        }
+    
+    }
+   
+    
+   
+   
+   
     public Connection getConnection() {
 
         return connection;
