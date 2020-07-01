@@ -242,7 +242,7 @@ public class UserManager {
         return addressId;
     }
 
-    //TODO COUNTRY WIRD GAR NICHT GEBRAUCHT ???
+
     /**
      * Method to update an user in the database.
      *
@@ -626,8 +626,9 @@ public class UserManager {
             // create FeedingInfo based on Database Information and return it
             return zookeeperInfo;
         } catch (SQLException ex) {
-            System.err.println("SQL Error in method getNextFeedingInfo() ");
+            System.err.println("SQL Exception in method getNextFeedingInfo() ");
             System.out.println(ex.getMessage());
+     
         }
 
         return null;
