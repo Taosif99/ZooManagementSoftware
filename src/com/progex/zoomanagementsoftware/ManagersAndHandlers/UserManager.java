@@ -185,7 +185,7 @@ public class UserManager {
                 + addressId + ","
                 + "'" + userType + "',"
                 + "'" + shift + "',"
-                + "'1998-01-01 00:00:00')"; //Using zeros as initial log date -> does not work
+                + "'1998-01-01 00:00:00')"; //Using zeros as initial log date 
 
         retVal = connectionHandler.manipulateDB(insertUserQuery);
         return retVal;
@@ -516,7 +516,7 @@ public class UserManager {
                         System.out.println("UPDATE LASTLOGDATE SUCCESSFULLY");
                         System.out.println(Thread.currentThread().getId());
                     } catch (InterruptedException ex) {
-                        System.err.println("Thread Interuppted - Error in method startUpdateThread()");
+                        System.err.println("Thread Interuppted - InterruptException in method startUpdateThread()");
                         System.out.println(ex.getMessage());
                         Thread.currentThread().interrupt(); // restore interrupted status
                     }
@@ -710,7 +710,7 @@ public class UserManager {
      * This Methods returns a resultset of all Feeding Informations for a user
      * -> amount is in Gramm resultset is later used to populate the jtable.
      *
-     * @return ResultSet witth allfeedingtimes to populate the resultset in
+     * @return ResultSet with allfeedingtimes to populate the resultset in
      * another method.
      */
     public ResultSet getAllFeedingTimeInGramm() {
