@@ -33,7 +33,7 @@ public class FoodManager {
             try {
                 while (resultSet.next()) {
                     int tempID = resultSet.getInt("ID");
-                    int tempStorageRoomNumber = resultSet.getInt("StorageRoomNumber");
+                    String tempStorageRoomNumber = resultSet.getString("StorageRoomNumber");
                     double tempStock = resultSet.getDouble("Stock");
                     String tempName = resultSet.getString("Name");
 
@@ -134,9 +134,9 @@ public class FoodManager {
      * @param name
      * @return If the operation was successfull true, else false
      */
-    public boolean addFood(int storageRoomNumber, double stock, String name) {
+    public boolean addFood(String storageRoomNumber, double stock, String name) {
 
-        String query = "INSERT INTO Food(StorageRoomNumber,Stock,Name) VALUES(" + storageRoomNumber + "," + stock + ",'" + name + "');";
+        String query = "INSERT INTO Food(StorageRoomNumber,Stock,Name) VALUES('" + storageRoomNumber + "'," + stock + ",'" + name + "');";
         System.out.println(query);
         boolean retVal = connectionHandler.manipulateDB(query);
         return retVal;
@@ -151,7 +151,7 @@ public class FoodManager {
      * @param id
      * @return If the operation was successfull true, else false
      */
-    public boolean updateFood(int storageRoomNumber, double stock, String name, int id) {
+    public boolean updateFood(String storageRoomNumber, double stock, String name, int id) {
 
         String queryOldName = "SELECT Name FROM Food WHERE Id = " + id;
 
@@ -175,7 +175,7 @@ public class FoodManager {
             }
         }
 
-        String query = "UPDATE food SET storageRoomNumber = " + storageRoomNumber + ", stock = " + stock
+        String query = "UPDATE food SET storageRoomNumber = '" + storageRoomNumber + "', stock = " + stock
                 + ", name = '" + name + "' WHERE id = " + id;
 
         System.out.println(query);

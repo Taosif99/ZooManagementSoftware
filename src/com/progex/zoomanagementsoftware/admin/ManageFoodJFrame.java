@@ -405,7 +405,8 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         try {
             JTextField textFields[] = {jTextFieldStorageRoomNumber, jTextFieldStock, jTextFieldFoodName, jTextFieldID};
             if (methods.verifyTextFields(textFields)) {
-                int storageRoomNumber = Integer.parseInt(jTextFieldStorageRoomNumber.getText());
+                //int storageRoomNumber = Integer.parseInt(jTextFieldStorageRoomNumber.getText());
+                 String storageRoomNumber = jTextFieldStorageRoomNumber.getText();
                 double stock;
                 if (jRadioButtonGramm.isSelected()) {
                     stock = Double.parseDouble(jTextFieldStock.getText()) / 1000;
@@ -528,15 +529,9 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
                 id = "";
             }
 
-            int exceptionStorageRoomNumber;
-            String storageRoomNumber;
-            if (!jTextFieldStorageRoomNumber.getText().isBlank()) {
-                storageRoomNumber = jTextFieldStorageRoomNumber.getText().trim();
-                exceptionStorageRoomNumber = Integer.parseInt(jTextFieldStorageRoomNumber.getText());
-            } else {
-                storageRoomNumber = "";
-            }
-
+            
+            String storageRoomNumber = jTextFieldStorageRoomNumber.getText().trim();
+            
             double exceptionStock;
             String stock;
             if (!jTextFieldStock.getText().isBlank()) {
@@ -648,7 +643,9 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
 
             if (textFieldsVerified) {
 
-                int storageRoomNumber = Integer.parseInt(jTextFieldStorageRoomNumber.getText());
+                //int storageRoomNumber = Integer.parseInt(jTextFieldStorageRoomNumber.getText());
+                String storageRoomNumber = jTextFieldStorageRoomNumber.getText();
+                
                 double stock;
                 if (jRadioButtonGramm.isSelected()) {
                     stock = Double.parseDouble(jTextFieldStock.getText()) / 1000;
@@ -820,8 +817,9 @@ public class ManageFoodJFrame extends javax.swing.JFrame {
         String password = "0000";
         String dbName = "zoo";
 
+        
         ZooManager zooManager = new ZooManager(url, dbName, username, password);
-
+        zooManager.getConnectionHandler().connect();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

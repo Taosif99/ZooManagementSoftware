@@ -11,9 +11,9 @@ public class Food
 	
 	private double stock;
 	
-	private int storageRoomNumber;
+	private String storageRoomNumber;
 
-    public Food(int id, String name, double stock, int storageRoomNumber) {
+    public Food(int id, String name, double stock, String storageRoomNumber) {
         
         this.id = id;
         this.name = name;
@@ -41,11 +41,11 @@ public class Food
         this.stock = stock;
     }
 
-    public int getStorageRoomNumber() {
+    public String getStorageRoomNumber() {
         return storageRoomNumber;
     }
 
-    public void setStorageRoomNumber(int storageRoomNumber) {
+    public void setStorageRoomNumber(String storageRoomNumber) {
         this.storageRoomNumber = storageRoomNumber;
     }	
 }
