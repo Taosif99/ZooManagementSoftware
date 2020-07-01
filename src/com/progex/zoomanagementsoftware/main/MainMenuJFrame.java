@@ -54,7 +54,9 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         /*Init the our wrapper class, which will be used in the Program, which
         will be passed to the corresponding frames*/   
         zooManager = new ZooManager(url, dbName, username, password);
-
+        checkConnection();
+        
+        
     }
 
     private void myInitComponents() {
@@ -63,10 +65,39 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         int y = (int) tk.getScreenSize().getHeight();
         setSize(x, y);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
         currentLoginJFrame = null;
     }
 
+    
+    
+    private void checkConnection(){
+    
+        
+        ConnectionHandler connectionHandler = zooManager.getConnectionHandler();
+        boolean connected = connectionHandler.connect();
+    
+        if (!connected){
+        
+         JOptionPane.showMessageDialog(null, "Konnte keine Verbindung zu Datenbank aufbauen! "
+                 + "Bitte Netzwerkkonfiguration ,Netzwerkverbindung überprüfen und Programm neu starten. "
+                , "Keine Verbindung", JOptionPane.ERROR_MESSAGE);
+        
+         System.exit(-1); //Abnormal termination
+        
+        } else{
+        
+            
+            connectionHandler.disconnect();
+        }
+    
+        
+        
+    }
+    
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -177,9 +208,11 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     private void jButtonGuestFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuestFeedingTimeActionPerformed
 
         
+       
+        
           //Connect to database
         ConnectionHandler connectionHandler = zooManager.getConnectionHandler();
-        connectionHandler.connect();
+        boolean connected = connectionHandler.connect();
 
 
          //Set Main Menue to not visible
