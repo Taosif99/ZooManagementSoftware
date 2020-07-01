@@ -167,7 +167,7 @@ public class ConnectionHandler {
             if ((statement.executeUpdate(query)) == 1) {
                 return true;
             }
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             System.err.println("SQL Exception in manipulateDB()");
             System.out.println(ex.getMessage());
         }
