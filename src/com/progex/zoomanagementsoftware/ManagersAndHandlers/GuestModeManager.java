@@ -27,14 +27,13 @@ public class GuestModeManager {
 
     /*If User choose a animal, this is the function for the table(compound,start/end feedingtime, food.*/
     /**
-     * Method to return FeedingInfo for ChooseAnimalJframe.
+     * Method to return FeedingInfo for ChooseAnimalAndTimeJframe.
      *
      * @param animal
      * @return LinkedList FeedingInfos with attributes :
      * compound,startFeedingTime,endFeedingTime,food or null
-     * @throws ParseException
      */
-    public LinkedList<FeedingInfo> getAnimalFeedingInfos(String animal) throws ParseException {
+    public LinkedList<FeedingInfo> getAnimalFeedingInfos(String animal)  {
 
         LinkedList<FeedingInfo> feedingInfos = new LinkedList<FeedingInfo>();
         String query = "Select compound.name as Gehege ,eats.StartFeedingTime, eats.EndFeedingTime,food.name as Essen "
@@ -81,10 +80,18 @@ public class GuestModeManager {
                     }
                 }
 
-            } catch (SQLException e) {
+            } catch (SQLException ex) {
                 System.err.println("SQL Error in the database in Function : connectionHandler.performQuery()");
-                System.out.println(e.getMessage());
+                System.out.println(ex.getMessage());
             }
+            
+            catch (ParseException parseException){
+                System.err.println("parseException in getAnimalFeedingInfos()");
+                System.out.println(parseException.getMessage());
+                
+            }
+            
+            
         }
 
         return feedingInfos;

@@ -328,7 +328,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         //choosed animal
         if (!animal.equals("Tier auswählen")&& feedingTime.equals("Zeit auswählen")) {
 
-            try {
+        
                 
                 LinkedList<FeedingInfo> feedingInfos = guestModeManager.getAnimalFeedingInfos(animal);
 
@@ -348,10 +348,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                     
                     this.setVisible(false);
                 }
-            } catch (ParseException ex) {
-                System.err.println("Error : problem with getAnimalFeedingInfos (Guestmode)");
-                System.out.println(ex.getMessage());
-            }
+             
 
         }
 
