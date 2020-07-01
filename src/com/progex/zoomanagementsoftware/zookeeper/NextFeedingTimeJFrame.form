@@ -82,7 +82,11 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="12" style="0"/>
         </Property>
+<<<<<<< HEAD
+        <Property name="text" type="java.lang.String" value="Zur&#xfc;ck zum Hauptmen&#xfc;"/>
+=======
         <Property name="text" type="java.lang.String" value="Zur&#xfc;ck zum Hauptmenü"/>
+>>>>>>> 5e2c19e8a879d0f993c439326e699f1525548a42
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGoBackActionPerformed"/>
