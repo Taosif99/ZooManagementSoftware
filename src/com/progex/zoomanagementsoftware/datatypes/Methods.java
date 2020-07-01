@@ -390,9 +390,9 @@ public class Methods {
    
 
     /**
-     * TODO
-     * @param time
-     * @return 
+     * Method gets a Time format in "YYYY-MM-DD HH:MM:SS.MS" and cuts it to "HH:MM"
+     * @param time 
+     * @return formatted String with format of HH:MM
      */
     public String cutTimeNextFeeding(String time){
         
