@@ -80,7 +80,7 @@ public class GuestModeManager {
                 }
 
             } catch (SQLException e) {
-                System.err.println("SQL Error in the database ");
+                System.err.println("SQL Error in the database in Function : connectionHandler.performQuery(query);");
                 System.out.println(e.getMessage());
             }
         }
@@ -96,10 +96,10 @@ public class GuestModeManager {
      *
      * @return LinkedList with animals or null
      */
-    public LinkedList<String> getAnimals() {
+    public LinkedList<String> getAnimalNames() {
 
         LinkedList<String> animals = new LinkedList<String>();
-        String query = "Select Distinct animalName from animal";
+        String query = "Select Distinct animalName from animal order by animalName ASC";
         ResultSet resultAnimals = connectionHandler.performQuery(query);
 
         if (resultAnimals != null) {
@@ -111,7 +111,7 @@ public class GuestModeManager {
 
                 }
             } catch (SQLException e) {
-                System.err.println("SQL Error in the database ");
+                System.err.println("SQL Error in the database. Function : connectionHandler.performQuery(query) ");
                 System.out.println(e.getMessage());
             }
         }
@@ -126,7 +126,7 @@ public class GuestModeManager {
      * @return LinkedList with all available times in database from today or null
      *
      */
-    public LinkedList<String> getTimes() {
+    public LinkedList<String> getAvailableFeedingTimes() {
         LinkedList<String> times = new LinkedList<String>();
         String query = "Select distinct startFeedingTime from eats order by startFeedingTime ASC";
         ResultSet resultTimes = connectionHandler.performQuery(query);
@@ -156,10 +156,10 @@ public class GuestModeManager {
 
                 }
             } catch (SQLException e) {
-                System.err.println("SQL Error in the database");
+                System.err.println("SQL Error in the database : connectionHandler.performQuery(query);");
                 System.out.println(e.getMessage());
             } catch (ParseException ex) {
-                System.err.println("Error with parsing (resultTimes)");
+                System.err.println("Error. Function parse(resultTimes.getString(\"startFeedingTime\")");
                 System.out.println(ex.getMessage());
             }
 
@@ -197,7 +197,7 @@ public class GuestModeManager {
                 }
 
             } catch (SQLException e) {
-                System.err.println("SQL Error in the database");
+                System.err.println("SQL Error in the database. Function :connectionHandler.performQuery(query);");
                 System.out.println(e.getMessage());
             }
         }
@@ -234,7 +234,7 @@ public class GuestModeManager {
                 }
 
             } catch (SQLException e) {
-                System.err.println("SQL Error in the database");
+                System.err.println("SQL Error in the database. Function : connectionHandler.performQuery(query);");
                 System.out.println(e.getMessage());
             }
         }
@@ -286,10 +286,10 @@ public class GuestModeManager {
                 }
 
             } catch (SQLException e) {
-                System.err.println("SQL Error in the database");
+                System.err.println("SQL Error in the database Function : connectionHandler.performQuery(query);");
                 System.out.println(e.getMessage());
             } catch (ParseException ex) {
-                System.err.println("Error with parsing (resultFeeding)");
+                System.err.println("Error. Function : parse(resultFeeding.getString(\"StartFeedingTime\"));");
                 System.out.println(ex.getMessage());
             }
 

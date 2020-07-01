@@ -11,8 +11,7 @@ import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -186,7 +185,7 @@ public class UserManager {
                 + addressId + ","
                 + "'" + userType + "',"
                 + "'" + shift + "',"
-                + "'1998-01-01 00:00:00')"; //Using zeros as initial log date -> does not work
+                + "'1998-01-01 00:00:00')"; //Using zeros as initial log date 
 
         retVal = connectionHandler.manipulateDB(insertUserQuery);
         return retVal;
@@ -508,7 +507,8 @@ public class UserManager {
                         updateLastLogDateFromUser();
                         Thread.sleep(30000);
                     } catch (InterruptedException ex) {
-                        System.err.println("Thread Interuppted - Exception in startUpdateThread()");
+
+                        System.err.println("Thread Interuppted - InterruptException in startUpdateThread()");
                         System.out.println(ex.getMessage());
                         Thread.currentThread().interrupt(); // restore interrupted status
                     }
@@ -676,7 +676,7 @@ public class UserManager {
      * This Methods returns a resultset of all Feeding Informations for a user
      * -> amount is in Gramm resultset is later used to populate the jtable.
      *
-     * @return ResultSet witth allfeedingtimes to populate the resultset in
+     * @return ResultSet with allfeedingtimes to populate the resultset in
      * another method.
      */
     public ResultSet getAllFeedingTimeInGramm() {

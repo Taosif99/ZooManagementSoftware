@@ -74,14 +74,15 @@ public class ConnectionHandler {
     
     
     
-    //TODO BOOLEAN
+    
     /**
      * Method which will connect to a given database depennding on the
      * attributes of the connection handler.
      *
      * 
+     * @return true if connection can be established, else false
      */
-   public void connect() {
+   public boolean connect() {
 
         try {
 
@@ -93,11 +94,13 @@ public class ConnectionHandler {
             //For utf 8 
             connection = DriverManager.getConnection(url + dbName + "?characterEncoding=utf-8", username, password);
             System.out.println("Connected to Database!");
-            
-        } catch (Exception e) {
+            return true;
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
             System.err.println("Connection failed");
         }
+        
+        return false;
     }
 
    

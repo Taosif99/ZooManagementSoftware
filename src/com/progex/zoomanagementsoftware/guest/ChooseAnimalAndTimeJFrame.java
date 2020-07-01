@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.progex.zoomanagementsoftware.guest;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ConnectionHandler;
@@ -12,7 +8,6 @@ import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import java.awt.Toolkit;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
@@ -82,7 +77,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     /*Fullfil Combobox with animals*/
     private void SetComboxAnimals() {
 
-        LinkedList<String> animals = guestModeManager.getAnimals();
+        LinkedList<String> animals = guestModeManager.getAnimalNames();
 
         String[] anames = new String[animals.size() + 1];
         anames[0] = "Tier auswählen";
@@ -102,7 +97,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
         LinkedList<String> times;
      
-            times = guestModeManager.getTimes();
+            times = guestModeManager.getAvailableFeedingTimes();
             
 
             String[] atimes = new String[times.size() + 1];
