@@ -18,6 +18,8 @@ public class Animal {
     private Compound compound;
 
     private Species species;
+    
+    private String visibleForGuest;
 
     
     /**
@@ -27,18 +29,27 @@ public class Animal {
      * @param birthday
      * @param sex
      * @param compound
-     * @param species 
+     * @param species
+     * @param visibleForGuest 
      */
-    public Animal(int id, String name, Date birthday, String sex, Compound compound, Species species) {
-
+    public Animal(int id, String name, Date birthday, String sex, Compound compound, Species species, String visibleForGuest) {
         this.id = id;
         this.name = name;
         this.birthday = birthday;
         this.sex = sex;
         this.compound = compound;
         this.species = species;
-
+        this.visibleForGuest = visibleForGuest;
     }
+
+    
+    
+
+
+
+
+    
+    
     
     public int getId() {
         return id;
@@ -84,4 +95,11 @@ public class Animal {
         this.species = species;
     }
 
+    public String getVisibleForGuest() {
+        return visibleForGuest;
+    }
+
+    public void setVisibleForGuest(String visibleForGuest) {
+        this.visibleForGuest = visibleForGuest;
+    }    
 }

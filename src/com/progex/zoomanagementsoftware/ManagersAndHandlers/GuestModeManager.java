@@ -15,16 +15,17 @@ public class GuestModeManager {
     private ConnectionHandler connectionHandler;
 
     /**
-     * Creates a GuestModeManager with corresponding reference to connection handler.
+     * Creates a GuestModeManager with corresponding reference to connection
+     * handler.
+     *
      * @param connectionHandler
-     */  
+     */
     public GuestModeManager(ConnectionHandler connectionHandler) {
         this.connectionHandler = connectionHandler;
 
     }
 
     /*If User choose a animal, this is the function for the table(compound,start/end feedingtime, food.*/
-
     /**
      * Method to return FeedingInfo for ChooseAnimalJframe.
      *
@@ -38,7 +39,8 @@ public class GuestModeManager {
         LinkedList<FeedingInfo> feedingInfos = new LinkedList<FeedingInfo>();
         String query = "Select compound.name as Gehege ,eats.StartFeedingTime, eats.EndFeedingTime,food.name as Essen "
                 + "FROM animal,eats,food,compound "
-                + "WHERE eats.AnimalID = animal.ID AND animal.animalname = '" + animal + "'AND eats.FoodID = food.ID AND animal.CompoundID = compound.ID Order by StartFeedingTime ASC";
+                + "WHERE eats.AnimalID = animal.ID AND animal.animalname = '" + animal + "'AND eats.FoodID = food.ID "
+                + "AND animal.CompoundID = compound.ID AND visibleForGuest = 'Ja' Order by StartFeedingTime ASC ";
         ResultSet resultFeeding = connectionHandler.performQuery(query);
 
         if (resultFeeding != null) {
@@ -80,7 +82,7 @@ public class GuestModeManager {
                 }
 
             } catch (SQLException e) {
-                System.err.println("SQL Error in the database in Function : connectionHandler.performQuery(query);");
+                System.err.println("SQL Error in the database in Function : connectionHandler.performQuery()");
                 System.out.println(e.getMessage());
             }
         }
@@ -90,7 +92,6 @@ public class GuestModeManager {
     }
 
     /*get all animals in db.*/
-
     /**
      * Method to return all distinct animals in a database.
      *
@@ -99,7 +100,7 @@ public class GuestModeManager {
     public LinkedList<String> getAnimalNames() {
 
         LinkedList<String> animals = new LinkedList<String>();
-        String query = "Select Distinct animalName from animal order by animalName ASC";
+        String query = "Select Distinct animalName from animal WHERE visibleForGuest = 'Ja' order by animalName ASC";
         ResultSet resultAnimals = connectionHandler.performQuery(query);
 
         if (resultAnimals != null) {
@@ -119,16 +120,22 @@ public class GuestModeManager {
 
     }
 
-    /*get all available feedingtimes.*/
     /**
      * Method to return all available times for ChooseAnimalAndTimeJFrame.
      *
-     * @return LinkedList with all available times in database from today or null
+     * @return LinkedList with all available times in database from today or
+     * null
      *
      */
     public LinkedList<String> getAvailableFeedingTimes() {
         LinkedList<String> times = new LinkedList<String>();
-        String query = "Select distinct startFeedingTime from eats order by startFeedingTime ASC";
+
+        String query = "Select distinct startFeedingTime from eats,animal "
+                + " WHERE eats.AnimalID = animal.ID  "
+                + " AND visibleForGuest = 'Ja' "
+                + " order by startFeedingTime ASC" ;
+        
+        
         ResultSet resultTimes = connectionHandler.performQuery(query);
 
         if (resultTimes != null) {
@@ -158,6 +165,7 @@ public class GuestModeManager {
             } catch (SQLException e) {
                 System.err.println("SQL Error in the database : connectionHandler.performQuery(query);");
                 System.out.println(e.getMessage());
+
             } catch (ParseException ex) {
                 System.err.println("Error. Function parse(resultTimes.getString(\"startFeedingTime\")");
                 System.out.println(ex.getMessage());
@@ -173,13 +181,17 @@ public class GuestModeManager {
      * Method to return TimefeedingInfo for ChooseTimeJFrame.
      *
      * @param feedingTime
-     * @return Linked List with FeedingInfos attributes : animal,compound,food or null
+     * @return Linked List with FeedingInfos attributes : animal,compound,food
+     * or null
      */
     public LinkedList<FeedingInfo> getTimeFeedingInfo(String feedingTime) {
 
         LinkedList<FeedingInfo> feedingInfos = new LinkedList<FeedingInfo>();
 
-        String query = "Select distinct animalName, compound.name as gehege,food.name as essen From animal,compound,food,eats WHERE eats.AnimalID = animal.ID AND eats.FoodID = food.ID AND animal.CompoundID = compound.ID AND eats.StartFeedingTime = '" + feedingTime + "'";//TODO
+        String query = "Select distinct animalName, compound.name as gehege,food.name as essen From animal,compound,food,eats"
+                + " WHERE eats.AnimalID = animal.ID AND eats.FoodID = food.ID AND animal.CompoundID = compound.ID "
+                + " AND visibleForGuest = 'Ja' "
+                + " AND eats.StartFeedingTime = '" + feedingTime + "'";
         ResultSet resultFeeding = connectionHandler.performQuery(query);
 
         if (resultFeeding != null) {
@@ -217,7 +229,13 @@ public class GuestModeManager {
     public LinkedList<FeedingInfo> getAnimalTimeFeedingInfo(String feedingTime, String animalName) {
 
         LinkedList<FeedingInfo> feedingInfos = new LinkedList<FeedingInfo>();
-        String query = "Select compound.name as gehege,food.name as essen FROM compound,food,eats,animal WHERE eats.AnimalID = animal.ID AND eats.FoodID = food.ID AND animal.CompoundID = compound.ID AND eats.StartFeedingTime = '" + feedingTime + " 'AND AnimalName = '" + animalName + "'";
+        String query = "Select compound.name as gehege,food.name as essen FROM compound,food,eats,animal"
+                + " WHERE eats.AnimalID = animal.ID "
+                + "AND eats.FoodID = food.ID "
+                + "AND animal.CompoundID = compound.ID "
+                + "AND visibleForGuest = 'Ja'"
+                + "AND eats.StartFeedingTime = '" + feedingTime + "' "
+                + "AND AnimalName = '" + animalName + "'";
         ResultSet resultFeeding = connectionHandler.performQuery(query);
 
         if (resultFeeding != null) {
@@ -253,7 +271,11 @@ public class GuestModeManager {
         LinkedList<String> feedingTimes = new LinkedList<String>();
         String query = "Select distinct eats.StartFeedingTime "
                 + "FROM animal,eats,food "
-                + "WHERE eats.AnimalID = animal.ID AND animal.animalname = '" + animal + "' AND eats.FoodID = food.ID Order by StartFeedingTime ASC;";
+                + "WHERE eats.AnimalID = animal.ID "
+                + "AND animal.animalname = '" + animal + "' "
+                + "AND eats.FoodID = food.ID "
+                + "AND visibleForGuest = 'Ja' "
+                + "Order by StartFeedingTime ASC;";
         ResultSet resultFeeding = connectionHandler.performQuery(query);
 
         if (resultFeeding != null) {

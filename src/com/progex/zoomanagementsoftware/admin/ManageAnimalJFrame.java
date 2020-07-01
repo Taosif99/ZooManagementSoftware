@@ -58,7 +58,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
         methods.clearTable(jTableAnimalData);
         DefaultTableModel model = (DefaultTableModel) jTableAnimalData.getModel();
-        Object[] row = new Object[6]; // Spalten
+        Object[] row = new Object[7]; // Spalten
 
         for (Animal animal : animals) {
             row[0] = animal.getId();
@@ -67,6 +67,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             row[3] = animal.getBirthday();
             row[4] = methods.descriptionToString(animal.getSpecies().getDescription());
             row[5] = animal.getCompound().getName();
+            row[6] = animal.getVisibleForGuest();
             model.addRow(row);
         }
 
@@ -111,6 +112,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         jButtonAssignFeedingTimes = new javax.swing.JButton();
         jButtonAssignZookeeper = new javax.swing.JButton();
         jComboBoxSex = new javax.swing.JComboBox<>();
+        jLabelVisibleForGuests = new javax.swing.JLabel();
+        jComboBoxVisibleForGuests = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tier verwalten");
@@ -244,6 +247,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
+        jScrollPaneAnimalTable.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPaneAnimalTable.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         jTableAnimalData.setModel(new javax.swing.table.DefaultTableModel(
@@ -251,11 +255,11 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Tiername", "Geschlecht", "Geburtsdatum", "Spezies", "Gehege"
+                "ID", "Tiername", "Geschlecht", "Geburtsdatum", "Spezies", "Gehege", "Sichtbar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -271,11 +275,12 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         });
         jScrollPaneAnimalTable.setViewportView(jTableAnimalData);
         if (jTableAnimalData.getColumnModel().getColumnCount() > 0) {
-            jTableAnimalData.getColumnModel().getColumn(1).setPreferredWidth(180);
-            jTableAnimalData.getColumnModel().getColumn(2).setPreferredWidth(120);
-            jTableAnimalData.getColumnModel().getColumn(3).setPreferredWidth(150);
-            jTableAnimalData.getColumnModel().getColumn(4).setPreferredWidth(170);
-            jTableAnimalData.getColumnModel().getColumn(5).setPreferredWidth(200);
+            jTableAnimalData.getColumnModel().getColumn(1).setPreferredWidth(300);
+            jTableAnimalData.getColumnModel().getColumn(2).setPreferredWidth(250);
+            jTableAnimalData.getColumnModel().getColumn(3).setPreferredWidth(300);
+            jTableAnimalData.getColumnModel().getColumn(4).setPreferredWidth(300);
+            jTableAnimalData.getColumnModel().getColumn(5).setPreferredWidth(400);
+            jTableAnimalData.getColumnModel().getColumn(6).setPreferredWidth(250);
         }
 
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -312,6 +317,11 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         jComboBoxSex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "W", "U" }));
         jComboBoxSex.setToolTipText("W für weiblich, M für männlich, U für undefeniert");
 
+        jLabelVisibleForGuests.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelVisibleForGuests.setText("Sichtbar für Gäste");
+
+        jComboBoxVisibleForGuests.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ja", "Nein" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -326,15 +336,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                             .addComponent(jLabelSex)
                             .addComponent(jLabelAnimalName)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelDateOfBirth)
-                                    .addComponent(jLabelSpecies)
-                                    .addComponent(jLabelCompound))
-                                .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldCompound, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                                    .addComponent(jComboBoxSpecies, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jButtonDeleteAnimal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButtonAddAnimal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -342,7 +343,20 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                                 .addGap(64, 64, 64)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButtonAssignFeedingTimes, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButtonAssignZookeeper, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jButtonAssignZookeeper, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelVisibleForGuests)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBoxVisibleForGuests, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelDateOfBirth)
+                                    .addComponent(jLabelSpecies)
+                                    .addComponent(jLabelCompound))
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldCompound, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                                    .addComponent(jComboBoxSpecies, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jPanelOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -353,18 +367,17 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jTextFieldAnimalName, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jTextFieldDateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                .addGap(124, 124, 124)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelID)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButtonSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabelSearch, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelSearch, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelShowDateTime))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,6 +408,10 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                     .addComponent(jTextFieldCompound, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelVisibleForGuests)
+                    .addComponent(jComboBoxVisibleForGuests, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAddAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonAssignFeedingTimes, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -403,7 +420,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                     .addComponent(jButtonAssignZookeeper, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonDeleteAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addGap(46, 46, 46))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabelShowDateTime)
                 .addGap(35, 35, 35)
@@ -412,7 +429,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                     .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPaneAnimalTable, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jLabelSearch)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -439,7 +456,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             String date = jTextFieldDateOfBirth.getText();
             String sex = jComboBoxSex.getSelectedItem().toString();
             String species = jComboBoxSpecies.getSelectedItem().toString();
-
+            String visibility = jComboBoxVisibleForGuests.getSelectedItem().toString();
+            
             boolean dateFormatCorrect = methods.isValidDateString(date);
             CompoundManager compoundManager = zooManager.getCompoundManager();
 
@@ -449,7 +467,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                 if (dateFormatCorrect) {
                     
                     
-                    if (animalManager.addAnimal(animalName, compoundName, date, sex, species)) {
+                    if (animalManager.addAnimal(animalName, compoundName, date, sex, species,visibility)) {
                         JOptionPane.showMessageDialog(null, "Tier konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                         cleanFields();
 
@@ -496,7 +514,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         String sex = jComboBoxSex.getSelectedItem().toString();
         String species = jComboBoxSpecies.getSelectedItem().toString();
         String ID = jTextFieldID.getText().trim();
-
+        String visibility = jComboBoxVisibleForGuests.getSelectedItem().toString();
+        
         LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
         columnNameToValue.put("Animal.ID", ID);
         columnNameToValue.put("AnimalName", animalName);
@@ -504,6 +523,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         columnNameToValue.put("Birthday", birthday);
         columnNameToValue.put("Description", species);
         columnNameToValue.put("Name", compoundName);
+        columnNameToValue.put("visibleForGuest",visibility);
 
         lastSearchMap = columnNameToValue;
 
@@ -558,6 +578,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             String date = jTextFieldDateOfBirth.getText();
             String sex = jComboBoxSex.getSelectedItem().toString();
             String species = jComboBoxSpecies.getSelectedItem().toString();
+            String visibility = jComboBoxVisibleForGuests.getSelectedItem().toString();
             try {
                 int ID = Integer.parseInt(jTextFieldID.getText());
 
@@ -568,7 +589,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                     if (dateFormatCorrect) {
                         int decision = JOptionPane.showConfirmDialog(null, "Wollen Sie den Datensatz wirklich ändern?", "Bestätigung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                         if (decision == 0) {
-                            if (animalManager.updateAnimal(ID, animalName, compoundName, date, sex, species)) {
+                            if (animalManager.updateAnimal(ID, animalName, compoundName, date, sex, species,visibility)) {
                                 JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                                 cleanFields();
                                 //Update table if old search exist
@@ -763,7 +784,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         String dbName = "zoo";
 
         ZooManager zooManager = new ZooManager(url, dbName, username, password);
-
+        zooManager.getConnectionHandler().connect();
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -784,6 +806,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonUpdateAnimal;
     private javax.swing.JComboBox<String> jComboBoxSex;
     private javax.swing.JComboBox<String> jComboBoxSpecies;
+    private javax.swing.JComboBox<String> jComboBoxVisibleForGuests;
     private javax.swing.JLabel jLabelAnimalName;
     private javax.swing.JLabel jLabelCompound;
     private javax.swing.JLabel jLabelDateOfBirth;
@@ -793,6 +816,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelSex;
     private javax.swing.JLabel jLabelShowDateTime;
     private javax.swing.JLabel jLabelSpecies;
+    private javax.swing.JLabel jLabelVisibleForGuests;
     private javax.swing.JPanel jPanelOperation;
     private javax.swing.JRadioButton jRadioButtonAdd;
     private javax.swing.JRadioButton jRadioButtonDelete;

@@ -58,9 +58,10 @@ public class AnimalManager {
      * @param birthday
      * @param sex
      * @param species
+     * @param visibility
      * @return true if successfull, else false
      */
-    public boolean addAnimal(String animalName, String compoundName, String birthday, String sex, String species) {
+    public boolean addAnimal(String animalName, String compoundName, String birthday, String sex, String species,String visibility) {
 
         try {
             /*Getting the CompoundID*/
@@ -83,10 +84,12 @@ public class AnimalManager {
 
             //Know the animal can be added to the database
             StringBuilder querySB = new StringBuilder();
-            querySB.append("INSERT INTO Animal(CompoundID,SpeciesID,AnimalName,Birthday,Sex) ")
+            querySB.append("INSERT INTO Animal(CompoundID,SpeciesID,AnimalName,Birthday,Sex,visibleForGuest) ")
                     .append("VALUES (").append(compoundID).append(",").append(speciesID)
                     .append(",").append("'").append(animalName).append("'").append(",")
-                    .append("'").append(birthday).append("'").append(",").append("'").append(sex).append("'").append(")");
+                    .append("'").append(birthday).append("'").append(",")
+                    .append("'").append(sex).append("' ,")
+                    .append(" '").append(visibility).append("')");
             String query = querySB.toString();
             System.out.println(query);
 
@@ -111,9 +114,10 @@ public class AnimalManager {
      * @param birthday
      * @param sex
      * @param species
+     * @param visibility
      * @return true if update operation successful,else false
      */
-    public boolean updateAnimal(int ID, String animalName, String compoundName, String birthday, String sex, String species) {
+    public boolean updateAnimal(int ID, String animalName, String compoundName, String birthday, String sex, String species,String visibility) {
 
         /*Get compoundID and species ID*/
         try {
@@ -142,7 +146,8 @@ public class AnimalManager {
                     .append("SpeciesID = ").append(speciesID).append(", ")
                     .append("AnimalName = ").append("'").append(animalName).append("'").append(", ")
                     .append("Birthday = ").append("'").append(birthday).append("'").append(",")
-                    .append("Sex = ").append("'").append(sex).append("' ")
+                    .append("Sex = ").append("'").append(sex).append("' ,")
+                    .append("visibleForGuest = '").append(visibility).append("'")
                     .append(" WHERE ID = ").append(ID);
 
             String query = querySB.toString();
@@ -152,7 +157,7 @@ public class AnimalManager {
 
         } catch (SQLException ex) {
 
-            System.err.println("SQL Exception");
+            System.err.println("SQL Exception in updateAnimal()");
             System.out.println(ex.getMessage());
         }
 
@@ -183,7 +188,7 @@ public class AnimalManager {
 
         LinkedList<Animal> animals = null;
 
-        String begin = "SELECT Animal.ID,Animal.AnimalName,Animal.Sex,Animal.Birthday,Species.Description,Compound.Name AS CompoundName\n"
+        String begin = "SELECT Animal.ID,Animal.AnimalName,Animal.Sex,Animal.Birthday,Species.Description,Compound.Name AS CompoundName,visibleForGuest\n"
                 + "FROM Animal\n"
                 + "INNER JOIN  Compound ON Animal.CompoundID = Compound.ID \n"
                 + "INNER JOIN Species ON Animal.speciesID = Species.ID WHERE";
@@ -221,18 +226,18 @@ public class AnimalManager {
                     Date birthday = resultSet.getDate("Birthday");
                     String descriptionStr = resultSet.getString("Description");
                     String compoundName = resultSet.getString("CompoundName");
-
+                    String visibility = resultSet.getString("visibleForGuest");
                     Methods methods = new Methods();
                     Description description = methods.stringToDescription(descriptionStr);
 
                     Species species = new Species(-1, description);
                     //Creating corresponding object,-1 used as undefined value
-                    Compound compound = new Compound(-1, -1, -1, -1, -1, compoundName);
-                    Animal animal = new Animal(animalID, animalName, birthday, sex, compound, species);
+                    Compound compound = new Compound(compoundName);
+                    Animal animal = new Animal(animalID, animalName, birthday, sex, compound, species,visibility);
                     animals.add(animal);
                 }
             } catch (SQLException e) {
-                System.err.println("SQL exception");
+                System.err.println("SQL Exception in createAnimals()");
                 System.out.println(e.getMessage());
             }
         }
