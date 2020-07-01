@@ -3,7 +3,7 @@
 "parameters": {
 	  "url" : "jdbc:mysql://localhost/",
       "username" : "root",
-      "password" : "AbuKungFu707-",
+      "password" : "0000",
       "dbName" : "zoo" 
 		}
 
