@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Class which is used to handle the connection and basic database operations in
@@ -37,7 +35,6 @@ public class ConnectionHandler {
         this.dbName = dbName;
         this.username = username;
         this.password = password;
-       // connect();
        this.connection = null;
     }
 

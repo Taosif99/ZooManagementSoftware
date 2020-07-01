@@ -1,5 +1,7 @@
 package com.progex.zoomanagementsoftware.ManagersAndHandlers;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import com.progex.zoomanagementsoftware.datatypes.*;
 import com.progex.zoomanagementsoftware.hashing.MD5Hash;
 import java.util.LinkedList;
@@ -438,12 +440,21 @@ public class UserManager {
         try {
 
             connectionHandler.connect();
-
-            // set query
-            String query = "SELECT username, firstname, user.Type, lastlogdate,hashedPassword FROM USER WHERE username = \"" + username + "\"";
-            // perform query
-            ResultSet resultSet = connectionHandler.performQuery(query);
-
+         
+            //Set query
+            String query = "SELECT username, firstname, user.Type, lastlogdate,hashedPassword FROM USER WHERE username = ? ";
+            
+            
+            //Get connection
+            Connection connection = connectionHandler.getConnection();
+            
+            //Use prepared statement to avoid a possible sql injection attack 
+            PreparedStatement login = connection.prepareStatement(query);
+            login.setString(1, username);
+            ResultSet resultSet = login.executeQuery();
+            
+            
+            
             // set variable to catch result from query
             String firstName = "";
             String userName = "";
