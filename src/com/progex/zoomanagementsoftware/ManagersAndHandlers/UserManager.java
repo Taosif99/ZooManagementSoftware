@@ -647,6 +647,7 @@ public class UserManager {
 
 
         try {
+            rs1.first();
             if (rs1.next()) {
                 rs1.beforeFirst();
                 rs1.next();
