@@ -319,7 +319,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         });
         jScrollPaneFoodToAnimalTable.setViewportView(jTableFoodToAnimalData);
         if (jTableFoodToAnimalData.getColumnModel().getColumnCount() > 0) {
-            jTableFoodToAnimalData.getColumnModel().getColumn(0).setPreferredWidth(140);
+            jTableFoodToAnimalData.getColumnModel().getColumn(0).setPreferredWidth(180);
             jTableFoodToAnimalData.getColumnModel().getColumn(1).setPreferredWidth(150);
             jTableFoodToAnimalData.getColumnModel().getColumn(3).setPreferredWidth(300);
             jTableFoodToAnimalData.getColumnModel().getColumn(4).setPreferredWidth(300);
