@@ -616,7 +616,7 @@ public class UserManager {
             // create FeedingInfo based on Database Information and return it
             return zookeeperInfo;
         } catch (SQLException ex) {
-            System.err.println("Fehler beim ausgeben der nächsten Fütterung");
+            System.err.println("SQL Error in method getNextFeedingInfo() ");
             System.out.println(ex.getMessage());
         }
 
@@ -659,7 +659,7 @@ public class UserManager {
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println("Fehler beim berechnen von gleichzeitigen Fütterungen");
+            System.err.println("Error in method checkIfSameTime()");
         }
 
         return false;
