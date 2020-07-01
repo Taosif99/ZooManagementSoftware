@@ -517,10 +517,9 @@ public class UserManager {
                         System.out.println("UPDATE LASTLOGDATE SUCCESSFULLY");
                         System.out.println(Thread.currentThread().getId());
                     } catch (InterruptedException ex) {
-                        System.err.println("Thread Interuppted");
+                        System.err.println("Thread Interuppted - Error in method startUpdateThread()");
                         System.out.println(ex.getMessage());
                         Thread.currentThread().interrupt(); // restore interrupted status
-
                     }
                 }
 
@@ -646,35 +645,38 @@ public class UserManager {
      */
     public boolean checkIfSameTime(ResultSet rs1) {
 
+
         try {
-            rs1.beforeFirst();
-            rs1.next();
-            ResultSet temp = rs1;
+            if (rs1.next()) {
+                rs1.beforeFirst();
+                rs1.next();
+                ResultSet temp = rs1;
 
-            System.out.println("-----");
-            System.out.println("Compare:");
-            System.out.println("Row" + temp.getRow() + ": " + temp.getString("InMinuten"));
-            String timee1 = temp.getString("InMinuten");
+                System.out.println("-----");
+                System.out.println("Compare:");
+                System.out.println("Row" + temp.getRow() + ": " + temp.getString("InMinuten"));
+                String timee1 = temp.getString("InMinuten");
 
-            System.out.println("With");
-            temp.last();
-            System.out.println("Row" + temp.getRow() + ": " + temp.getString("InMinuten"));
-            System.out.println("-----");
-            String timee2 = temp.getString("InMinuten");
+                System.out.println("With");
+                temp.last();
+                System.out.println("Row" + temp.getRow() + ": " + temp.getString("InMinuten"));
+                System.out.println("-----");
+                String timee2 = temp.getString("InMinuten");
 
-            if (timee1.equals(timee2)) {
-                System.out.println("IS SAME");
-                return true;
-                //return true;
-            } else {
-                System.out.println("NOT SAME");
-                return false;
+                if (timee1.equals(timee2)) {
+                    System.out.println("IS SAME");
+                    return true;
+                    //return true;
+                } else {
+                    System.out.println("NOT SAME");
+                    return false;
+                }
             }
+            return false;
         } catch (SQLException ex) {
-            Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println("Error in method checkIfSameTime()");
+            System.err.println("SQL Error in method checkIfSameTime()");
+            System.out.println(ex.getMessage());
         }
-
         return false;
     }
 
@@ -746,6 +748,4 @@ public class UserManager {
         return formattedTime;
 
     }
-
-    //Khalid end
 }
