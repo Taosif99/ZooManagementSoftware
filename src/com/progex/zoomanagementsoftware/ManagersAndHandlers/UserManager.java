@@ -436,6 +436,9 @@ public class UserManager {
     public User login(String username, String hashedPassword) {
 
         try {
+
+            connectionHandler.connect();
+
             // set query
             String query = "SELECT username, firstname, user.Type, lastlogdate,hashedPassword FROM USER WHERE username = \"" + username + "\"";
             // perform query
@@ -473,8 +476,6 @@ public class UserManager {
                         return zookeeper;
                     }
 
-                } else {
-                    return null;
                 }
 
             }
@@ -483,13 +484,12 @@ public class UserManager {
             System.out.print(sqlException.getMessage());
         }
 
+        connectionHandler.disconnect(); //Disconnect if it was not successfull
         return null;
 
     }
 
-    
     //Start a thread that keeps updating the lastlogdate every 30 seconds.
-
     private void startUpdateThread() {
 
         updateLastLogThread = new Thread(new Runnable() {
@@ -547,6 +547,7 @@ public class UserManager {
         updateLastLogThread.interrupt();
         System.out.println("THREAD STOPPED");
         loggedInUser = null;
+        connectionHandler.disconnect(); //Disconnect after logout
     }
 
     /**
@@ -628,8 +629,9 @@ public class UserManager {
      * identical.
      *
      * @param rs1
-     * @return a boolean that indicates the result of this method. The result 
-     * indicates wether the ResultSet contains multiple feeding (true) or not (false) - depending on this the result is returned.
+     * @return a boolean that indicates the result of this method. The result
+     * indicates wether the ResultSet contains multiple feeding (true) or not
+     * (false) - depending on this the result is returned.
      */
     public boolean checkIfSameTime(ResultSet rs1) {
 

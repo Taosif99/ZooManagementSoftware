@@ -5,6 +5,7 @@
  */
 package com.progex.zoomanagementsoftware.guest;
 
+import com.progex.zoomanagementsoftware.ManagersAndHandlers.ConnectionHandler;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.GuestModeManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
@@ -309,6 +310,11 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboTimeActionPerformed
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
+
+        //Close connection in the main menu
+         //Connect to database
+        ConnectionHandler connectionHandler = zooManager.getConnectionHandler();
+        connectionHandler.disconnect();
         
         goBackFrame.setVisible(true);
         //Close frame
