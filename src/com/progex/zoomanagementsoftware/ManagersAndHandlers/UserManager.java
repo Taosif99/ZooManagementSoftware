@@ -190,6 +190,28 @@ public class UserManager {
         return retVal;
     }
 
+    /**
+     * This method is used to get the country code.
+     * @param countryId
+     * @return country code or null if it doesnt exist
+     */
+    public String getCountryCode(int countryId){
+        
+        String query = "SELECT code FROM country WHERE id = " + countryId;
+        System.out.println(query);
+        
+        ResultSet resultSet = connectionHandler.performQuery(query);
+        try {
+            resultSet.next();
+            String countryCode = resultSet.getString("Code");
+            return countryCode;
+        } catch (SQLException sqlException) {
+            System.err.println("SQL Exception in getCountryId()");
+            System.out.println(sqlException.getMessage());
+        }
+        return null;
+    }
+    
     
     /**
      * This method is used to return the id of a country code.

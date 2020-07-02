@@ -74,7 +74,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             row[9] = address.getZip();
             row[10] = address.getStreet();
             row[11] = address.getCity();
-            row[12] = address.getCountryID();
+            int countryId = address.getCountryID();
+            row[12] = userManager.getCountryCode(countryId);
 
             model.addRow(row);
         }
@@ -789,7 +790,9 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         columnNameToValue.put("Address.ID", addressId); //TODO FILTER OUT -1
         columnNameToValue.put("FirstName", firstname);
         columnNameToValue.put("LastName", lastname);
-        columnNameToValue.put("CountryId", String.valueOf(countryId));
+        if(countryId != 0)
+            columnNameToValue.put("CountryId", String.valueOf(countryId));
+        
         columnNameToValue.put("PhoneNumber", phonenumber);
         columnNameToValue.put("Birthday", birthday);
         columnNameToValue.put("UserName", username);
