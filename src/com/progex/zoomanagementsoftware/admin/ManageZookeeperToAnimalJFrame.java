@@ -54,11 +54,11 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
         UIManager.put("OptionPane.noButtonText", "Nein");
         UIManager.put("OptionPane.okButtonText", "OK");
         UIManager.put("OptionPane.yesButtonText", "Ja");
-        
+
         AutoCompleteDecorator.decorate(jComboBoxAnimalName);
-        
-        ArrayList <String> animalNames = zooManager.getAnimalManager().loadAnimalNames();
-        
+
+        ArrayList<String> animalNames = zooManager.getAnimalManager().loadAnimalNames();
+
         jComboBoxAnimalName.setModel(new DefaultComboBoxModel<String>(animalNames.toArray(new String[0])));
     }
 
@@ -475,29 +475,25 @@ public class ManageZookeeperToAnimalJFrame extends javax.swing.JFrame {
 
                     int decision = JOptionPane.showConfirmDialog(null, "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (decision == 0) {
-                        //Ob Tiername existiert
-                        if (zookeeperToAnimalManager.getAnimalIds(animalName).isEmpty()) {
-                            JOptionPane.showMessageDialog(null, "Tiername wurde nicht gefunden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-                        } else {
 
-                            //Ob die Zuweisung existiert, wenn ja wird gelöscht, wenn nicht fehlermeldung
-                            if (zookeeperToAnimalManager.checkZookeeperToAnimalExists(animalName, zookeeperID)) {
-                                //Löschen erfolgreich
-                                if (zookeeperToAnimalManager.deleteZookeeperToAnimal(zookeeperToAnimalManager.getAnimalIds(animalName), zookeeperID)) {
-                                    if (lastSearchMap != null) {
-                                        records = zookeeperToAnimalManager.searchZookeeperToAnimal(lastSearchMap);
-                                        viewRelationTable(); // um die Tabelle zu aktualiseren
-                                    }
-                                    JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                                    jTextFieldAnimalID.setText("");
-                                    jTextFieldUserID.setText("");
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                        //Ob die Zuweisung existiert, wenn ja wird gelöscht, wenn nicht fehlermeldung
+                        if (zookeeperToAnimalManager.checkZookeeperToAnimalExists(animalName, zookeeperID)) {
+                            //Löschen erfolgreich
+                            if (zookeeperToAnimalManager.deleteZookeeperToAnimal(zookeeperToAnimalManager.getAnimalIds(animalName), zookeeperID)) {
+                                if (lastSearchMap != null) {
+                                    records = zookeeperToAnimalManager.searchZookeeperToAnimal(lastSearchMap);
+                                    viewRelationTable(); // um die Tabelle zu aktualiseren
                                 }
-                            } else { //Fehlermeldung wenn die Zuweisung nicht existiert
-                                JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte nicht gefunden werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+                                JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+                                jTextFieldAnimalID.setText("");
+                                jTextFieldUserID.setText("");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                             }
+                        } else { //Fehlermeldung wenn die Zuweisung nicht existiert
+                            JOptionPane.showMessageDialog(null, "Tierpfleger/-innen zu Tiere Zuweisung konnte nicht gefunden werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                         }
+
                     }
                 }
             }
