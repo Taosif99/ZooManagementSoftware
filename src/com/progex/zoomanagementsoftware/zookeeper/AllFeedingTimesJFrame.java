@@ -159,7 +159,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
         });
 
         jButtonGoBack.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        jButtonGoBack.setText("Zurück zum Hauptmenü");
+        jButtonGoBack.setText("Zurück");
         jButtonGoBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGoBackActionPerformed(evt);
