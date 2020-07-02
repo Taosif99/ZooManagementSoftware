@@ -68,7 +68,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jTextFieldCountry" min="-2" pref="141" max="-2" attributes="0"/>
+                                              <Component id="jTextFieldCountryCode" min="-2" pref="141" max="-2" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="jLabelConfirmPassword" min="-2" max="-2" attributes="0"/>
                                           </Group>
@@ -255,7 +255,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelCountryCode" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldCountry" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldCountryCode" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabelConfirmPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jPasswordFieldConfirm" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -632,7 +632,7 @@
         <Property name="text" type="java.lang.String" value="L&#xe4;nder Code"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldCountry">
+    <Component class="javax.swing.JTextField" name="jTextFieldCountryCode">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="DE f&#xfc;r Deutschland"/>
       </Properties>
