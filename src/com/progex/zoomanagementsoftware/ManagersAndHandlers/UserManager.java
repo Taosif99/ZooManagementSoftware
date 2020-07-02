@@ -409,7 +409,7 @@ public class UserManager {
 
         String begin = "SELECT User.ID,Type,Shift,Salutation,UserName,FirstName,LastName,\n"
                 + "PhoneNumber,Birthday,Email,Zip,Street,City,\n"
-                + "Country,LastLogDate,HashedPassword\n"
+                + "CountryID,LastLogDate,HashedPassword\n"
                 + "FROM User\n"
                 + "INNER JOIN Address ON User.AddressID = Address.ID WHERE ";
         String query = zooManager.generateSearchQuery(columnValueMap, begin);
