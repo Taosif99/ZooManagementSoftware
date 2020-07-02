@@ -732,7 +732,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         String dbName = "zoo";
 
         ZooManager zooManager = new ZooManager(url, dbName, username, password);
-
+        zooManager.getConnectionHandler().connect();
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
