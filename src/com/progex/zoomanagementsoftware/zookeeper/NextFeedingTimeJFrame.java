@@ -5,7 +5,6 @@ import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import com.progex.zoomanagementsoftware.datatypes.ZookeeperInfo;
 import java.awt.Toolkit;
-import java.sql.Timestamp;
 import javax.swing.JFrame;
 
 /**
@@ -353,7 +352,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
-        // TODO add your handling code here:
+        
         userManager.logout();
         mainMenuJFrame.setVisible(true);
         this.dispose();
@@ -366,7 +365,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void jButtonNextFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeActionPerformed
-        // TODO add your handling code here:
+       
 
         if (allFeedingTimeFrame != null) {
             allFeedingTimeFrame.setVisible(true);
@@ -394,7 +393,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
+       
                 
         setFeedingInfoInKiloGramm();
     }//GEN-LAST:event_jRadioButton1ActionPerformed
