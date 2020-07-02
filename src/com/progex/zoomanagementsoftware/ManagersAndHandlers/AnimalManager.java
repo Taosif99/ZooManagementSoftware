@@ -221,7 +221,7 @@ public class AnimalManager {
                 + "FROM Animal\n"
                 + "INNER JOIN  Compound ON Animal.CompoundID = Compound.ID \n"
                 + "INNER JOIN Species ON Animal.speciesID = Species.ID WHERE";
-        String query = zooManager.generateSearchQuery(columnValueMap, begin);
+        String query = zooManager.generateSearchQuery(columnValueMap, begin,"Animal.ID");
 
         if (query != null) {
             ResultSet resultSet = connectionHandler.performQuery(query);

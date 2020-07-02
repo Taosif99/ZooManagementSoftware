@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class AdminHomepageJFrame extends javax.swing.JFrame {
@@ -45,11 +46,18 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     }
 
-    private void fillTable(DefaultTableModel model) {
+    private void fillTable(JTable table) {
 
+        
+        
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        
         LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
         columnNameToValue.put("type", "Admin");
-        String limit = jTextFieldAmountAdmins.getText();
+        
+        String limit = jTextFieldAmountAdmins.getText().trim();
+        
+        
         LinkedList<User> users = zooManager.getUserManager().searchUsers(columnNameToValue, limit);
 
         //LinkedList<Admin> admins = userManager.getAdmins(Integer.parseInt(jTextFieldAmountAdmins.getText()));
@@ -77,13 +85,9 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private void viewAdmins() {
 
-        /*Clean the table*/
-        DefaultTableModel tableModel = (DefaultTableModel) jTableLastLoginAdminsData.getModel();
-        while (tableModel.getRowCount() > 0) {
-            tableModel.removeRow(0);
-        }
-
-        fillTable(tableModel);
+        Methods methods = new Methods();
+        methods.clearTable(jTableLastLoginAdminsData);
+        fillTable(jTableLastLoginAdminsData);
     }
 
     private boolean checkInput() {

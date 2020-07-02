@@ -530,14 +530,15 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         LinkedList<Animal> animals = animalManager.searchAnimals(columnNameToValue);
         if (!animals.isEmpty())
             viewAnimals(animals);
-        else
+        else{
             JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
+            methods.clearTable(jTableAnimalData);
+        }
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonAssignFeedingTimesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssignFeedingTimesActionPerformed
-        // GO TO FeedingTime FORM
+       
         this.setVisible(false);
-
         JFrame thisFrame = this;
         /* Create and display the JFrame FoodToAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {

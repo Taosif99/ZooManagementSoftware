@@ -91,7 +91,7 @@ public class ZooManager {
      * @param queryBegin
      * @return The query as String, null if no String can be built
      */
-    public String generateSearchQuery(LinkedHashMap<String, String> columnValueMap, String queryBegin) {
+    public String generateSearchQuery(LinkedHashMap<String, String> columnValueMap, String queryBegin, String orderByValue) {
 
         LinkedHashMap<String, String> nonEmptyColumnValueMap = new LinkedHashMap<String, String>();
 
@@ -132,6 +132,14 @@ public class ZooManager {
                 querySb.append(" AND ").append(columnName).append(" REGEXP '").append(value).append("'");
             }
 
+            if (orderByValue != null) {
+            
+            querySb.append(" ORDER BY ").append(orderByValue);
+            
+            
+            }
+            
+            
             System.out.println(querySb.toString());
             return querySb.toString();
 

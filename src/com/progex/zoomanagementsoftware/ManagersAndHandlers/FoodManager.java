@@ -93,7 +93,7 @@ public class FoodManager {
      */
     public LinkedList<Food> searchFoods(LinkedHashMap<String, String> columnValueMap) {
 
-        String query = zooManager.generateSearchQuery(columnValueMap, "SELECT id, storageRoomNumber, stock, name FROM food WHERE ");
+        String query = zooManager.generateSearchQuery(columnValueMap, "SELECT id, storageRoomNumber, stock, name FROM food WHERE ","id");
         LinkedList<Food> foods = null;
         if (query != null) {
             ResultSet resultSet = connectionHandler.performQuery(query);

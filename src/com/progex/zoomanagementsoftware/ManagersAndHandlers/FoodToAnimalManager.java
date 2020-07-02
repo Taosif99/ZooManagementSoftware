@@ -194,7 +194,7 @@ public class FoodToAnimalManager {
                 + "INNER JOIN Food ON  Food.ID = Eats.FoodID\n"
                 + "WHERE ";
         int animalID = Integer.parseInt(columnValueMap.get("AnimalID"));
-        String query = zooManager.generateSearchQuery(columnValueMap, begin);
+        String query = zooManager.generateSearchQuery(columnValueMap, begin, "StartFeedingTime");
         if (query != null) {
 
             ResultSet resultSet = connectionHandler.performQuery(query);

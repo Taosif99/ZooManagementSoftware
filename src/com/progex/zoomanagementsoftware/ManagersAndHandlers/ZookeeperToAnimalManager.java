@@ -121,7 +121,7 @@ public class ZookeeperToAnimalManager {
                 + "INNER JOIN user ON takescare.UserID = user.id\n"
                 + "INNER JOIN animal ON takescare.AnimalID = animal.ID WHERE ";
 
-        String query = zooManager.generateSearchQuery(columnValueMap, begin);
+        String query = zooManager.generateSearchQuery(columnValueMap, begin, "animal.ID");
         System.out.println(query);
         LinkedList<ZookeeperToAnimalR> records;
         if (query != null) {

@@ -129,7 +129,7 @@ public class CompoundManager {
      */
     public LinkedList<Compound> searchCompounds(LinkedHashMap<String, String> columnValueMap) {
 
-        String query = zooManager.generateSearchQuery(columnValueMap, "SELECT ID,Name,Area,ConstructionYear,MaxCapacity FROM compound WHERE ");
+        String query = zooManager.generateSearchQuery(columnValueMap, "SELECT ID,Name,Area,ConstructionYear,MaxCapacity FROM compound WHERE ", "ID");
         LinkedList<Compound> compounds = null;
         if (query != null) {
             ResultSet resultSet = connectionHandler.performQuery(query);

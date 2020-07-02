@@ -433,12 +433,12 @@ public class UserManager {
 
         String begin = "SELECT User.ID,Type,Shift,Salutation,UserName,FirstName,LastName,\n"
                 + "PhoneNumber,Birthday,Email,Zip,Street,City,\n"
-                + "Country,LastLogDate,HashedPassword\n"
+                + "CountryID,LastLogDate,HashedPassword\n"
                 + "FROM User\n"
                 + "INNER JOIN Address ON User.AddressID = Address.ID WHERE ";
-        String query = zooManager.generateSearchQuery(columnValueMap, begin);
+        String query = zooManager.generateSearchQuery(columnValueMap, begin,"LastLogDate DESC LIMIT " + limit);
 
-        query = query + " ORDER BY LastLogDate DESC LIMIT " + limit;
+       // query = query + " ORDER BY LastLogDate DESC LIMIT " + limit;
         System.out.println(query);
 
         LinkedList<User> users = null;
@@ -465,7 +465,7 @@ public class UserManager {
                 + "CountryID,LastLogDate,HashedPassword\n"
                 + "FROM User\n"
                 + "INNER JOIN Address ON User.AddressID = Address.ID WHERE ";
-        String query = zooManager.generateSearchQuery(columnValueMap, begin);
+        String query = zooManager.generateSearchQuery(columnValueMap, begin,"User.ID");
 
         System.out.println(query);
 
