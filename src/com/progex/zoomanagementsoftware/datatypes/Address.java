@@ -9,24 +9,24 @@ public class Address {
 
     private String street;
 
-    private String country;
+    private int countryID;
 
     private String zip;
 
     private String city;
 
-    public Address(int id, String street, String country, String zip, String city) {
+    public Address(int id, String street, int countryID, String zip, String city) {
           
         this.id = id;
         this.street = street;
-        this.country = country;
+        this.countryID = countryID;
         this.zip = zip;
         this.city = city;
     }
 
-    public Address(String street, String country, String zip, String city){
+    public Address(String street, int countryID, String zip, String city){
         this.street = street;
-        this.country = country;
+        this.countryID = countryID;
         this.zip = zip;
         this.city = city;
     }
@@ -43,12 +43,12 @@ public class Address {
         this.street = street;
     }
 
-    public String getCountry() {
-        return country;
+    public int getCountryID() {
+        return countryID;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCountryID(int countryID) {
+        this.countryID = countryID;
     }
 
     public String getZip() {

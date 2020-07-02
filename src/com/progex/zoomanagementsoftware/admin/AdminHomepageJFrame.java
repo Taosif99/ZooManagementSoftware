@@ -1,4 +1,3 @@
-
 package com.progex.zoomanagementsoftware.admin;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.*;
@@ -9,16 +8,17 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class AdminHomepageJFrame extends javax.swing.JFrame {
 
-   /**
-    * Creates new form AdminHomePageFramne.
-     * @param mainMenuJFrame The frame which will appear when the lpgout back button is
-     * used
-     * @param zooManager The zooManager of the current Programm session which serves as interface
-    */
-    public AdminHomepageJFrame(JFrame mainMenuJFrame,ZooManager zooManager) {
+    /**
+     * Creates new form AdminHomePageFramne.
+     *
+     * @param mainMenuJFrame The frame which will appear when the lpgout back
+     * button is used
+     * @param zooManager The zooManager of the current Programm session which
+     * serves as interface
+     */
+    public AdminHomepageJFrame(JFrame mainMenuJFrame, ZooManager zooManager) {
 
         this.zooManager = zooManager;
         this.userManager = zooManager.getUserManager();
@@ -31,22 +31,19 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private void myInitComponents() {
 
-   
         methods.showTimeAndDate(jLabelShowDateTime);
-        
-        try{
-        User loggedInUser = userManager.getLoggedInUser();
-        
-        jLabelWelcomeAdmin.setText("Hallo " + loggedInUser.getFirstname());
+
+        try {
+            User loggedInUser = userManager.getLoggedInUser();
+
+            jLabelWelcomeAdmin.setText("Hallo " + loggedInUser.getFirstname());
+        } catch (NullPointerException nullPointerException) {
+            System.out.println("DEBUG");
+
+            jLabelWelcomeAdmin.setText("Hallo Superuser !");
         }
-        
-        catch(NullPointerException nullPointerException){
-        System.out.println("DEBUG");
-        
-        jLabelWelcomeAdmin.setText("Hallo Superuser !");
-        }
-        
-        }
+
+    }
 
     private void fillTable(DefaultTableModel model) {
 
@@ -75,9 +72,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
             model.addRow(row);
         }
-        
-        
-        
+
     }
 
     private void viewAdmins() {
@@ -333,7 +328,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private void jButtonManageUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageUserActionPerformed
 
-        this.setVisible(false); 
+        this.setVisible(false);
         JFrame thisFrame = this;
         /* Create and display the JFrame MangeUser*/
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -360,8 +355,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private void jButtonManageFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageFoodActionPerformed
 
-     
-        this.setVisible(false); 
+        this.setVisible(false);
         JFrame thisFrame = this;
         /* Create and display the JFrame ManageFood*/
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -385,7 +379,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private void jButtonManageTakesCareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageTakesCareActionPerformed
 
-        this.setVisible(false); 
+        this.setVisible(false);
         JFrame thisFrame = this;
         /* Create and display the JFrame MangeZookeeperToAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -407,8 +401,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
 
-
-       userManager.logout();
+        userManager.logout();
         this.dispose();
         mainMenuJFrame.setVisible(true);
     }//GEN-LAST:event_jButtonLogoutActionPerformed
@@ -420,8 +413,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
 
     private void jButtonManageEatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonManageEatsActionPerformed
 
-   
-        this.setVisible(false); 
+        this.setVisible(false);
         JFrame thisFrame = this;
         /* Create and display the JFrame ManageFoodToAnimal*/
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -468,7 +460,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminHomepageJFrame(null,zooManager).setVisible(true);
+                new AdminHomepageJFrame(null, zooManager).setVisible(true);
             }
         });
     }

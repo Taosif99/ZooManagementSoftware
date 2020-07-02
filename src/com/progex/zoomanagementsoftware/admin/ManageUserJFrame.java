@@ -74,7 +74,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
             row[9] = address.getZip();
             row[10] = address.getStreet();
             row[11] = address.getCity();
-            row[12] = address.getCountry();
+            row[12] = address.getCountryID();
 
             model.addRow(row);
         }
@@ -159,7 +159,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jTextFieldZIP = new javax.swing.JTextField();
         jLabelCity = new javax.swing.JLabel();
         jTextFieldCity = new javax.swing.JTextField();
-        jLabelCountry = new javax.swing.JLabel();
+        jLabelCountryCode = new javax.swing.JLabel();
         jTextFieldCountry = new javax.swing.JTextField();
         jLabelPhoneNumber = new javax.swing.JLabel();
         jTextFieldPhoneNumber = new javax.swing.JTextField();
@@ -211,7 +211,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Shift", "Anrede", "Benutzername", "Vorname", "Nachname", "Telefonnummer", "Geburtstag", "E-Mail", "Plz", "Straße", "Stadt", "Land"
+                "ID", "Shift", "Anrede", "Benutzername", "Vorname", "Nachname", "Telefonnummer", "Geburtstag", "E-Mail", "Plz", "Straße", "Stadt", "Land Code"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -353,8 +353,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jLabelCity.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelCity.setText("Stadt");
 
-        jLabelCountry.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabelCountry.setText("Land");
+        jLabelCountryCode.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelCountryCode.setText("Länder Code");
 
         jTextFieldCountry.setToolTipText("DE für Deutschland");
 
@@ -459,7 +459,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                     .addComponent(jLabelStreet)
                                     .addComponent(jLabelZIP)
                                     .addComponent(jLabelCity)
-                                    .addComponent(jLabelCountry)
+                                    .addComponent(jLabelCountryCode)
                                     .addComponent(jLabelPhoneNumber)
                                     .addComponent(jLabelSalutation)
                                     .addComponent(jButtonClear, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -614,7 +614,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                     .addComponent(jPasswordFieldEnteredPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelCountry)
+                    .addComponent(jLabelCountryCode)
                     .addComponent(jTextFieldCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelConfirmPassword)
                     .addComponent(jPasswordFieldConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -681,12 +681,13 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 String street = jTextFieldStreet.getText();
                 String zip = jTextFieldZIP.getText();
                 String city = jTextFieldCity.getText();
-                String country = jTextFieldCountry.getText();
+                String countryCode = jTextFieldCountry.getText(); //Die Sachen aus der Combobox laden
                 String phoneNumber = jTextFieldPhoneNumber.getText();
                 String birthdayStr = jTextFieldBirthday.getText();
                 String username = jTextFieldUsername.getText();
                 String email = jTextFieldEMail.getText();
-
+                int countryId = userManager.getCountryId(countryCode);
+                
                 boolean validEmail = methods.isValidEmail(email);
 
                 if (validEmail) {
@@ -712,14 +713,14 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                             }
                             if (!userManager.usernameExists(username)) {
 
-                                if (userManager.searchAddressId(zip, street, city) == -1) {
+                                if (userManager.searchAddressId(zip, street, city, countryId) == -1) {
                                     JOptionPane.showConfirmDialog(null, "Wollen Sie die Adresse wirklich einfügen?\n"
                                             + "Straße: " + street + "\n"
                                             + "PLZ: " + zip + "\n"
                                             + "Stadt: " + city, "Adresse nicht in der Datenbank vorhanden", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                                 }
                                 salutation = methods.stringToSalutation(salutationStr);
-                                Address tempAddress = new Address(street, country, zip, city);
+                                Address tempAddress = new Address(street, countryId, zip, city);
                                 Date birthday = Date.valueOf(birthdayStr);
 
                                 User tempUser = new User(username, firstname, lastname, email, phoneNumber, salutation, birthday, password, tempAddress);
@@ -746,9 +747,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                             if (message.equals("invalidPhoneNumber")) {
                                 System.out.println(message);
                                 JOptionPane.showMessageDialog(null, "Keine Sonderzeichen in der Telefonnummer erlaubt!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-
                             }
-
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Passwort muss mindestens 8 Zeichen haben!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
@@ -769,17 +768,18 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         String street = jTextFieldStreet.getText().trim();
         String zip = jTextFieldZIP.getText().trim();
         String city = jTextFieldCity.getText().trim();
-        String country = jTextFieldCountry.getText().trim();
+        String countryCode = jTextFieldCountry.getText().trim();
         String phonenumber = jTextFieldPhoneNumber.getText().trim();
         String birthday = jTextFieldBirthday.getText().trim();
         String username = jTextFieldUsername.getText().trim();
         String email = jTextFieldEMail.getText().trim();
         String salutationStr = jComboBoxSalutation.getSelectedItem().toString();
         String userID = jTextFieldID.getText().trim();
-
+        int countryId = userManager.getCountryId(countryCode);
+        
         String shiftStr = getGermanShiftString();
 
-        int addressIdInt = userManager.searchAddressId(zip, street, city);
+        int addressIdInt = userManager.searchAddressId(zip, street, city, countryId);
         String addressId = "";
         if (addressIdInt != -1) {
             addressId = String.valueOf(addressIdInt);
@@ -789,7 +789,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         columnNameToValue.put("Address.ID", addressId); //TODO FILTER OUT -1
         columnNameToValue.put("FirstName", firstname);
         columnNameToValue.put("LastName", lastname);
-        columnNameToValue.put("Country", country); //macht country sinn???
+        columnNameToValue.put("CountryId", String.valueOf(countryId));
         columnNameToValue.put("PhoneNumber", phonenumber);
         columnNameToValue.put("Birthday", birthday);
         columnNameToValue.put("UserName", username);
@@ -799,7 +799,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         //Überlegen, macht eine address spezifische suche sinn ? 
         columnNameToValue.put("Zip", zip);
         columnNameToValue.put("Street", street);
-        columnNameToValue.put("Country", country);
         columnNameToValue.put("Shift", shiftStr);
         String tempUserType;
 
@@ -961,12 +960,13 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                     String street = jTextFieldStreet.getText();
                     String zip = jTextFieldZIP.getText();
                     String city = jTextFieldCity.getText();
-                    String country = jTextFieldCountry.getText();
+                    String countryCode = jTextFieldCountry.getText();
                     String phoneNumber = jTextFieldPhoneNumber.getText();
                     String birthdayStr = jTextFieldBirthday.getText();
                     String username = jTextFieldUsername.getText();
                     String email = jTextFieldEMail.getText();
-
+                    int countryId = userManager.getCountryId(countryCode);
+                    
                     boolean validEmail = methods.isValidEmail(email);
                     if (validEmail) {
 
@@ -993,7 +993,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                         }
                         if ((!changePassword || (password.length() >= 8))) {
                             //System.err.println("City: " + city + "             Zip: " + zip + "              Street: " + street);
-                            if (userManager.searchAddressId(zip, street, city) == -1) {
+                            if (userManager.searchAddressId(zip, street, city, countryId) == -1) {
                                 JOptionPane.showConfirmDialog(null, "Wollen Sie die Adresse wirklich einfügen?\n"
                                         + "Straße: " + street + "\n"
                                         + "PLZ: " + zip + "\n"
@@ -1001,7 +1001,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                             }
 
                             salutation = methods.stringToSalutation(salutationStr);
-                            Address tempAddress = new Address(street, country, zip, city);
+                            Address tempAddress = new Address(street, countryId, zip, city);
                             Date birthday = Date.valueOf(birthdayStr);
                             User tempUser = new User(username, firstname, lastname, email, phoneNumber, salutation, birthday, password, tempAddress);
 
@@ -1250,7 +1250,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelBirthday;
     private javax.swing.JLabel jLabelCity;
     private javax.swing.JLabel jLabelConfirmPassword;
-    private javax.swing.JLabel jLabelCountry;
+    private javax.swing.JLabel jLabelCountryCode;
     private javax.swing.JLabel jLabelEMail;
     private javax.swing.JLabel jLabelFirstname;
     private javax.swing.JLabel jLabelID;

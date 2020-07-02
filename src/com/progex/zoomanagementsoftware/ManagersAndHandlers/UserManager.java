@@ -110,11 +110,11 @@ public class UserManager {
                 String zip = resultSet.getString("Zip");
                 String street = resultSet.getString("Street");
                 String city = resultSet.getString("City");
-                String country = resultSet.getString("Country");
+                String countryID = resultSet.getString("CountryID");
                 Timestamp lastLogDate = resultSet.getTimestamp("LastLogDate");
                 String hashedPassword = resultSet.getString("hashedPassword");
-
-                Address address = new Address(id, street, country, zip, city);
+                
+                Address address = new Address(id, street, Integer.parseInt(countryID), zip, city);
                 Salutation salutation = methods.stringToSalutation(salutationStr);
                 Shift shift = methods.stringToShift(shiftStr);
 
@@ -152,7 +152,7 @@ public class UserManager {
      */
     public boolean addUser(User user, String shift, String userType) {
         //Get the address with street,zip,city --> I guess country not requird
-        int addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity());
+        int addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity(), user.getAddress().getCountryID());
 
         boolean retVal;
 
@@ -160,8 +160,8 @@ public class UserManager {
 
         String hashedPassword = hasher.hashString(user.getHashedPassword());
         if (addressId == -1) {
-            retVal = addAddress(user.getAddress().getZip(), user.getAddress().getCity(), user.getAddress().getCountry(), user.getAddress().getStreet());
-            addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity());
+            retVal = addAddress(user.getAddress().getZip(), user.getAddress().getCity(), user.getAddress().getCountryID(), user.getAddress().getStreet());
+            addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity(), user.getAddress().getCountryID());
             //Falls die Adresse nicht eingefügt werden konnte
             if (retVal == false) {
                 return retVal;
@@ -190,19 +190,44 @@ public class UserManager {
         return retVal;
     }
 
+    
+    /**
+     * This method is used to return the id of a country code.
+     * @param countryCode
+     * @return country id
+     */
+    public int getCountryId(String countryCode){
+        
+        String query = "SELECT id FROM country WHERE code = '" + countryCode + "'";
+        System.out.println(query);
+        
+        ResultSet resultSet = connectionHandler.performQuery(query);
+        int countryId;
+        try {
+            resultSet.next();
+            countryId = resultSet.getInt("ID");
+            return countryId;
+        } catch (SQLException sqlException) {
+            System.err.println("SQL Exception in getCountryId()");
+            System.out.println(sqlException.getMessage());
+        }
+        return 0;
+    }
+    
+    
     /**
      * Method to add an address in the database.
      *
      * @param zip
      * @param city
-     * @param country
+     * @param countryId
      * @param street
      * @return true if operation was successful, else false
      */
-    public boolean addAddress(String zip, String city, String country, String street) {
+    public boolean addAddress(String zip, String city, int countryId, String street) {
 
-        String insertAddressQuery = "INSERT INTO Address (Zip, Street, Country, City)"
-                + "VALUES ('" + zip + "','" + street + "','" + country + "','" + city + "')";
+        String insertAddressQuery = "INSERT INTO Address (Zip, Street, CountryId, City)"
+                + "VALUES ('" + zip + "','" + street + "'," + countryId + ",'" + city + "')";
         System.out.println(insertAddressQuery);
         boolean retVal = connectionHandler.manipulateDB(insertAddressQuery);
         return retVal;
@@ -215,20 +240,22 @@ public class UserManager {
      * @param zip
      * @param street
      * @param city
+     * @param countryId
      * @return the addressId if its found, else -1
      */
-    public int searchAddressId(String zip, String street, String city) {
+    public int searchAddressId(String zip, String street, String city, int countryId) {
 
         int addressId = -1; //-1 as initial error value
 
         String addressQuery = "SELECT ID FROM Address "
                 + "WHERE Zip = '" + zip + "'"
                 + " AND Street = '" + street + "'"
-                + " AND City = '" + city + "'";
+                + " AND City = '" + city + "'"
+                + " AND CountryId = " + countryId;
 
         ResultSet addressResultSet = connectionHandler.performQuery(addressQuery);
         if (addressResultSet == null) {
-            return addressId; //Message ? 
+            return addressId;
         }
         try {
             addressResultSet.next();
@@ -257,7 +284,7 @@ public class UserManager {
         MD5Hash hasher = new MD5Hash();
         String hashedPassword = hasher.hashString(user.getHashedPassword());
 
-        int addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity());
+        int addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity(),user.getAddress().getCountryID());
         //Check if username changed and if yes, check if new username already used     
         String oldUsername = " ";
         String userNameQuery = "SELECT UserName FROM USER WHERE ID = " + id;
@@ -284,8 +311,8 @@ public class UserManager {
         }
 
         if (addressId == -1) {
-            retVal = addAddress(user.getAddress().getZip(), user.getAddress().getCity(), user.getAddress().getCountry(), user.getAddress().getStreet());
-            addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity());
+            retVal = addAddress(user.getAddress().getZip(), user.getAddress().getCity(), user.getAddress().getCountryID(), user.getAddress().getStreet());
+            addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity(),user.getAddress().getCountryID());
             if (retVal == false) {
                 return retVal;
             }
