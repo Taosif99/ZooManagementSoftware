@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 
 /**
@@ -19,10 +20,6 @@ import java.sql.Timestamp;
  * next feeding time information, update the lastlogdate of a user. Moreover
  * this manager class provides functions to add, delete update from the DB and
  * for getting users of the DB.
- *
- *
- *
- *
  */
 public class UserManager {
 
@@ -60,6 +57,29 @@ public class UserManager {
         this.loggedInUser = loggedInUser;
     }
 
+    public ArrayList<String> loadCountryCodes(){
+        
+        ArrayList<String> countryCodes = new ArrayList<String>(); 
+    
+        String query = "SELECT code FROM Country ORDER BY code";
+        
+        ResultSet resultSet = connectionHandler.performQuery(query);
+        
+         try {
+            String countryCode; 
+            while (resultSet.next()) {
+                countryCode = resultSet.getString("code");
+                countryCodes.add(countryCode);
+            }
+         }catch (SQLException sqlException) {
+            System.err.println("SQL Exception in loadCountryCodes()");
+            System.out.print(sqlException.getMessage());
+        }
+
+         return countryCodes;
+    }
+    
+    
     //TODO Überlegen ob es Sinn macht addressen auch hier zu verwalten,wäre
     //praktisch machbar...
     /**
