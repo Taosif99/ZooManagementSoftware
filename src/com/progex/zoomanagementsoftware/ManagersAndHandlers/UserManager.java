@@ -110,11 +110,11 @@ public class UserManager {
                 String zip = resultSet.getString("Zip");
                 String street = resultSet.getString("Street");
                 String city = resultSet.getString("City");
-                String countryID = resultSet.getString("CountryID");
+                int countryID = resultSet.getInt("CountryID");
                 Timestamp lastLogDate = resultSet.getTimestamp("LastLogDate");
                 String hashedPassword = resultSet.getString("hashedPassword");
                 
-                Address address = new Address(id, street, Integer.parseInt(countryID), zip, city);
+                Address address = new Address(id, street,countryID, zip, city);
                 Salutation salutation = methods.stringToSalutation(salutationStr);
                 Shift shift = methods.stringToShift(shiftStr);
 
@@ -141,7 +141,6 @@ public class UserManager {
         return users;
     }
 
-    //TODO MAKE SMALLER METHOD (one which takes a user as parameter for example)!!!
     /**
      * Method to add an user in the database.
      *
@@ -151,8 +150,13 @@ public class UserManager {
      * @return true if operation was successful, else false
      */
     public boolean addUser(User user, String shift, String userType) {
-        //Get the address with street,zip,city --> I guess country not requird
-        int addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity(), user.getAddress().getCountryID());
+        
+        String zip = user.getAddress().getZip();
+        String street = user.getAddress().getStreet();
+        String city = user.getAddress().getCity();
+        int countryId  = user.getAddress().getCountryID();
+        
+        int addressId = searchAddressId(zip,street,city,countryId);
 
         boolean retVal;
 
@@ -160,8 +164,8 @@ public class UserManager {
 
         String hashedPassword = hasher.hashString(user.getHashedPassword());
         if (addressId == -1) {
-            retVal = addAddress(user.getAddress().getZip(), user.getAddress().getCity(), user.getAddress().getCountryID(), user.getAddress().getStreet());
-            addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity(), user.getAddress().getCountryID());
+            retVal = addAddress(zip, city, countryId,street);
+            addressId = searchAddressId(zip,street,city,countryId);
             //Falls die Adresse nicht eingefügt werden konnte
             if (retVal == false) {
                 return retVal;
@@ -206,7 +210,7 @@ public class UserManager {
             String countryCode = resultSet.getString("Code");
             return countryCode;
         } catch (SQLException sqlException) {
-            System.err.println("SQL Exception in getCountryId()");
+            System.err.println("SQL Exception in getCountryCode()");
             System.out.println(sqlException.getMessage());
         }
         return null;
@@ -216,7 +220,7 @@ public class UserManager {
     /**
      * This method is used to return the id of a country code.
      * @param countryCode
-     * @return country id
+     * @return country id or 0 if it does not exist
      */
     public int getCountryId(String countryCode){
         
@@ -306,7 +310,15 @@ public class UserManager {
         MD5Hash hasher = new MD5Hash();
         String hashedPassword = hasher.hashString(user.getHashedPassword());
 
-        int addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity(),user.getAddress().getCountryID());
+        String zip = user.getAddress().getZip();
+        String street = user.getAddress().getStreet();
+        String city = user.getAddress().getCity();
+        int countryId  = user.getAddress().getCountryID();
+        
+
+        
+        
+        int addressId = searchAddressId(zip,street,city,countryId);
         //Check if username changed and if yes, check if new username already used     
         String oldUsername = " ";
         String userNameQuery = "SELECT UserName FROM USER WHERE ID = " + id;
@@ -351,7 +363,6 @@ public class UserManager {
                 + "Birthday = '" + user.getBirthday().toString() + "',\n"
                 + "Email = '" + user.getEmail() + "',\n"
                 + "Salutation = '" + salutation + "',\n"
-                //+ "HashedPassword = '" + hashedPassword + "',\n"
                 + "AddressID = " + addressId + ",\n";
 
         if (userType.equals("Admin")) {
