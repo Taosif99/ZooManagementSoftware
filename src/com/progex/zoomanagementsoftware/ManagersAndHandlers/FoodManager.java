@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Class which handles foods in our program.
@@ -25,6 +26,41 @@ public class FoodManager {
         this.connectionHandler = connectionHandler;
         this.zooManager = zooManager;
     }
+    
+    
+    
+    
+    
+    
+    /**
+     * Method which is used to load a List of food names from the database. 
+     * @return The ordered list if successfull, else an empty arraylist
+     */
+    public ArrayList<String> loadFoodNames(){
+        
+        ArrayList <String> foodNames = new ArrayList<String>(); 
+    
+        String query = "Select Name from Food Order by Name";
+        
+        ResultSet resultSet = connectionHandler.performQuery(query);
+        
+         try {
+            String foodName; 
+            while (resultSet.next()) {
+                foodName = resultSet.getString("Name");
+                foodNames.add(foodName);
+            }
+         }catch (SQLException sqlException) {
+            System.err.println("SQL Exception in loadFoodNames()");
+            System.out.print(sqlException.getMessage());
+        }
+
+         return foodNames;
+    }
+    
+    
+    
+    
 
     private LinkedList<Food> createFoods(ResultSet resultSet) {
         LinkedList<Food> foods = new LinkedList<Food>();

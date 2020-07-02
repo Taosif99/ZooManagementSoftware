@@ -51,16 +51,15 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(jComboBoxCountryCode);
         
         ArrayList <String> countryCodes = userManager.loadCountryCodes();
-        
-        
         jComboBoxCountryCode.setModel(new DefaultComboBoxModel<String>(countryCodes.toArray(new String[0])));
+        jComboBoxCountryCode.setSelectedItem("DE");
     }
 
     private void viewUsers(LinkedList<User> users) {
 
         methods.clearTable(jTableUserData);
         DefaultTableModel model = (DefaultTableModel) jTableUserData.getModel();
-        Object[] row = new Object[13]; // Spalten
+        Object[] row = new Object[13]; //Spalten
 
         for (User user : users) {
 
@@ -513,11 +512,11 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                                     .addComponent(jButtonDeleteUser, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                         .addComponent(jPasswordFieldConfirm)
-                                                        .addComponent(jComboBoxShift, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(jTextFieldBirthday)
                                                         .addComponent(jTextFieldUsername)
                                                         .addComponent(jTextFieldEMail)
-                                                        .addComponent(jPasswordFieldEnteredPW, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                        .addComponent(jPasswordFieldEnteredPW, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                                                        .addComponent(jComboBoxShift, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1234,6 +1233,9 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         String dbName = "zoo";
 
         ZooManager zooManager = new ZooManager(url, dbName, username, password);
+        zooManager.getConnectionHandler().connect();
+        
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

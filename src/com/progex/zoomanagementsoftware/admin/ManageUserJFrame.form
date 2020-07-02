@@ -106,11 +106,11 @@
                                                   <Component id="jButtonDeleteUser" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                       <Component id="jPasswordFieldConfirm" max="32767" attributes="0"/>
-                                                      <Component id="jComboBoxShift" min="-2" pref="91" max="-2" attributes="0"/>
                                                       <Component id="jTextFieldBirthday" max="32767" attributes="0"/>
                                                       <Component id="jTextFieldUsername" alignment="0" max="32767" attributes="0"/>
                                                       <Component id="jTextFieldEMail" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="jPasswordFieldEnteredPW" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
+                                                      <Component id="jPasswordFieldEnteredPW" alignment="0" pref="141" max="32767" attributes="0"/>
+                                                      <Component id="jComboBoxShift" alignment="0" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>

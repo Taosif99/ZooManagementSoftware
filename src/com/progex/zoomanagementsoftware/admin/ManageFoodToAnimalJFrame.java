@@ -5,15 +5,18 @@ import com.progex.zoomanagementsoftware.ManagersAndHandlers.FoodManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.FoodToAnimalManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
@@ -35,6 +38,11 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
         myInitComponents();
+        
+         AutoCompleteDecorator.decorate(jComboBoxFoodNames);
+         ArrayList <String> foodNames = zooManager.getFoodManager().loadFoodNames();        
+        jComboBoxFoodNames.setModel(new DefaultComboBoxModel<String>(foodNames.toArray(new String[0])));
+        
     }
 
     private void myInitComponents() {
@@ -96,7 +104,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
     private void cleanFields() {
 
-        jTextFieldFood.setText("");
+
         jTextFieldStartFeedingTime.setText("");
         jTextFieldEndFeedingTime.setText("");
         jTextFieldAmountFood.setText("");
@@ -145,7 +153,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         jLabelSearch = new javax.swing.JLabel();
         jLabelFood = new javax.swing.JLabel();
         jLabelAmountFood = new javax.swing.JLabel();
-        jTextFieldFood = new javax.swing.JTextField();
         jTextFieldAmountFood = new javax.swing.JTextField();
         jButtonSearchAnimal = new javax.swing.JButton();
         jScrollPaneAnimalTable = new javax.swing.JScrollPane();
@@ -162,6 +169,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         jRadioButtonGTable = new javax.swing.JRadioButton();
         jLabelAmountUnitTable = new javax.swing.JLabel();
         jLabelClickedAnimal = new javax.swing.JLabel();
+        jComboBoxFoodNames = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Futter-Tier-Beziehung verwalten");
@@ -492,21 +500,21 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                                 .addGap(3, 3, 3)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabelFood)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTextFieldFood, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabelEndFeedingTime)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jTextFieldEndFeedingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabelStartFeedingTime)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTextFieldStartFeedingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabelAmountFood)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTextFieldAmountFood, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jTextFieldAmountFood, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabelStartFeedingTime)
+                                            .addComponent(jLabelFood))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTextFieldStartFeedingTime, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                                            .addComponent(jComboBoxFoodNames, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanelAmountUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -579,7 +587,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelFood)
-                            .addComponent(jTextFieldFood, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxFoodNames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldStartFeedingTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -592,7 +600,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldAmountFood, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelAmountFood))))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelShowDateTime)
@@ -625,11 +633,11 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
         if (selectedAnimalID != null) {
             try {
-                JTextField textFields[] = {jTextFieldFood, jTextFieldStartFeedingTime,
+                JTextField textFields[] = {jTextFieldStartFeedingTime,
                     jTextFieldEndFeedingTime, jTextFieldAmountFood};
                 boolean textFieldsVerified = methods.verifyTextFields(textFields);
                 if (textFieldsVerified) {
-                    String foodName = jTextFieldFood.getText();
+                    String foodName = jComboBoxFoodNames.getSelectedItem().toString();
                     String startFeedingTime = jTextFieldStartFeedingTime.getText() + ":00";
                     String endFeedingTime = jTextFieldEndFeedingTime.getText() + ":00";
                     double amount = Double.parseDouble(jTextFieldAmountFood.getText());
@@ -712,7 +720,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
         if (selectedAnimalID != null) {
 
-            String food = jTextFieldFood.getText().trim();
+            String food = jComboBoxFoodNames.getSelectedItem().toString();
             String startFeedingTime = jTextFieldStartFeedingTime.getText().trim();
             String endFeedingTime = jTextFieldEndFeedingTime.getText().trim();
             String amountStr = "";
@@ -791,12 +799,12 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 keys.put("StartFeedingTime", startFeedingTimeKey);
                 keys.put("FoodID", foodIDKey);
 
-                JTextField textFields[] = {jTextFieldFood, jTextFieldStartFeedingTime,
+                JTextField textFields[] = {jTextFieldStartFeedingTime,
                     jTextFieldEndFeedingTime, jTextFieldAmountFood,};
 
                 boolean textFieldsVerified = methods.verifyTextFields(textFields);
                 if (textFieldsVerified) {
-                    String foodName = jTextFieldFood.getText();
+                    String foodName = jComboBoxFoodNames.getSelectedItem().toString();
                     String startFeedingTime = jTextFieldStartFeedingTime.getText() + ":00";
                     String endFeedingTime = jTextFieldEndFeedingTime.getText() + ":00";
                     double amount = Double.parseDouble(jTextFieldAmountFood.getText());
@@ -888,7 +896,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
                     lastClickRecords = records;
                     viewRelationTable(records);
-                    jTextFieldFood.setText("");
                     jTextFieldStartFeedingTime.setText("");
                     jTextFieldEndFeedingTime.setText("");
                     jTextFieldAmountFood.setText("");
@@ -955,7 +962,9 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         /*Updating the textfields correspondingly*/
         int rowIndex = jTableFoodToAnimalData.getSelectedRow();
         TableModel model = jTableFoodToAnimalData.getModel();
-        jTextFieldFood.setText(model.getValueAt(rowIndex, 0).toString());
+        
+        String foodName = model.getValueAt(rowIndex, 0).toString();
+        jComboBoxFoodNames.setSelectedItem(foodName);
         jTextFieldFoodID.setText(model.getValueAt(rowIndex, 1).toString());
         jTextFieldAnimalID.setText(model.getValueAt(rowIndex, 2).toString());
         String startFeedingTime = model.getValueAt(rowIndex, 3).toString();
@@ -996,13 +1005,18 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         selectedAnimalID = null;
         jLabelClickedAnimal.setText("Kein Tier ausgewählt!");
         jTextFieldAnimalName.setText(jTextFieldAnimalName.getText().trim());
-        methods.clearTable(jTableFoodToAnimalData); //jTable
+        methods.clearTable(jTableFoodToAnimalData); 
         LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
         String animalName = jTextFieldAnimalName.getText();
+        
+   
+  
         columnNameToValue.put("AnimalName", animalName);
         LinkedList<Animal> animals = animalManager.searchAnimals(columnNameToValue);
         viewAnimals(animals);
 
+        
+        
     }//GEN-LAST:event_jButtonSearchAnimalActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -1099,7 +1113,8 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         String dbName = "zoo";
 
         ZooManager zooManager = new ZooManager(url, dbName, username, password);
-
+        zooManager.getConnectionHandler().connect();
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -1119,6 +1134,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtonSearchAnimal;
     private javax.swing.JButton jButtonUpdate;
+    private javax.swing.JComboBox<String> jComboBoxFoodNames;
     private javax.swing.JLabel jLabelAmountFood;
     private javax.swing.JLabel jLabelAmountUnitTable;
     private javax.swing.JLabel jLabelAnimalID;
@@ -1151,7 +1167,6 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldAnimalName;
     private javax.swing.JTextField jTextFieldDateTimeID;
     private javax.swing.JTextField jTextFieldEndFeedingTime;
-    private javax.swing.JTextField jTextFieldFood;
     private javax.swing.JTextField jTextFieldFoodID;
     private javax.swing.JTextField jTextFieldStartFeedingTime;
     // End of variables declaration//GEN-END:variables

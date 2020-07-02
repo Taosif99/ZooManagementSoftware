@@ -40,7 +40,7 @@ public class AnimalManager {
      */
     public LinkedList<Animal> getAnimals() {
 
-        String query = "SELECT Animal.ID,Animal.AnimalName,Animal.Sex,Animal.Birthday,Species.Description,Compound.Name as CompoundName\n"
+        String query = "SELECT Animal.ID,Animal.AnimalName,Animal.Sex,Animal.Birthday,Species.Description,Compound.Name as CompoundName, visibleForGuest\n"
                 + "FROM Animal,Compound,Species\n"
                 + "WHERE Animal.CompoundID = Compound.ID AND\n"
                 + "Animal.SpeciesID = Species.ID";
@@ -51,6 +51,10 @@ public class AnimalManager {
         return animals;
     }
 
+    /**
+     * Method which is used to load a List of animal names from the database.
+     * @return The ordered list if successfull, else an empty arraylist
+     */
     public ArrayList<String> loadAnimalNames(){
         
         ArrayList <String> animalNames = new ArrayList<String>(); 
