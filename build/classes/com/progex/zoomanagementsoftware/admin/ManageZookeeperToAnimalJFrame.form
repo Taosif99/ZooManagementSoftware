@@ -58,7 +58,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabelAskAnimalName" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextFieldAnimalName" min="-2" pref="190" max="-2" attributes="0"/>
+                              <Component id="jComboBoxAnimalName" min="-2" pref="200" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jButtonAddTakesCare" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
@@ -143,7 +143,7 @@
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabelAskAnimalName" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldAnimalName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jComboBoxAnimalName" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jButtonAddTakesCare" min="-2" pref="40" max="-2" attributes="0"/>
@@ -420,8 +420,6 @@
         <Property name="text" type="java.lang.String" value="Bitte Tiernamen eingeben"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldAnimalName">
-    </Component>
     <Component class="javax.swing.JButton" name="jButtonAddTakesCare">
       <Properties>
         <Property name="text" type="java.lang.String" value="Hinzuf&#xfc;gen"/>
@@ -474,6 +472,16 @@
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="jComboBoxAnimalName">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

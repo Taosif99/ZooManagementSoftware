@@ -8,6 +8,7 @@ import com.progex.zoomanagementsoftware.datatypes.Species;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
@@ -50,6 +51,30 @@ public class AnimalManager {
         return animals;
     }
 
+    public ArrayList<String> loadAnimalNames(){
+        
+        ArrayList <String> animalNames = new ArrayList<String>(); 
+    
+        String query = "SELECT DISTINCT AnimalName FROM animal ORDER BY AnimalName";
+        
+        ResultSet resultSet = connectionHandler.performQuery(query);
+        
+         try {
+            String animalName; 
+            while (resultSet.next()) {
+                animalName = resultSet.getString("AnimalName");
+                animalNames.add(animalName);
+            }
+         }catch (SQLException sqlException) {
+            System.err.println("SQL Exception in loadAnimalNames()");
+            System.out.print(sqlException.getMessage());
+        }
+
+         return animalNames;
+    }
+    
+    
+    
     /**
      * Method to add an animal to the database.
      *
