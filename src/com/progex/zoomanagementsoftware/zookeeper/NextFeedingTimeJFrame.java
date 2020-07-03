@@ -7,9 +7,8 @@ import com.progex.zoomanagementsoftware.datatypes.ZookeeperInfo;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
-/**
- *
- * @author khalid
+/** 
+ * Class that handles all displaying function of NextFeedingTimeJFrame in a proper way.
  */
 public class NextFeedingTimeJFrame extends javax.swing.JFrame {
 
@@ -36,7 +35,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
 
     
     /**
-     * Method is used to display feedingInfo. Method gets all information from zooManager.
+     * Method is used to display feedingInfo in gram. Method gets all information from zooManager.
      */
     public void setFeedingInfoInGramm() {
 
@@ -70,7 +69,9 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         }
     }
     
-    
+    /**
+     * Method is used to display feedingInfo in Kilogram. Method gets all information from zooManager.
+     */    
     public void setFeedingInfoInKiloGramm() {
 
         ZookeeperInfo zookeeperInfo = userManager.getNextFeedingInfo();
@@ -103,7 +104,9 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         }
     }
     
-    
+    /**
+     * Sets all label when there is no feeding anymore.
+     */    
     public void setLabelsNoFeeding() {
         nextFeedingTimeTakesPlaceIn.setText("Keine Fütterung für heute mehr");
         futter.setText("");
@@ -130,7 +133,6 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         int y = (int) tk.getScreenSize().getHeight();
         setSize(x, y);
 
-        //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc).
         if (x == 1920 && y == 1080) {
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 32));
 
@@ -346,11 +348,6 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-   
-    /**
-     * Button "Logout" pressed
-     * @param evt 
-     */
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
         
         userManager.logout();
@@ -360,10 +357,6 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 
    
-    /**
-     * Button show AllFeedingTime pressed
-     * @param evt 
-     */
     private void jButtonNextFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeActionPerformed
        
 
@@ -382,10 +375,6 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonNextFeedingTimeActionPerformed
 
-    /**
-     * Button "zurück is pressed".
-     * @param evt 
-     */
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
         
         zookeeperModeHomePageFrame.setVisible(true);
