@@ -4,11 +4,18 @@ import com.progex.zoomanagementsoftware.ManagersAndHandlers.GuestModeManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import com.progex.zoomanagementsoftware.main.ZooMapJFrame;
+import java.awt.Graphics2D;
 //import com.progex.zoomanagementsoftware.main.ZooMapJFrame;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class ChooseBothJFrame extends javax.swing.JFrame {
@@ -61,6 +68,41 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
 
         //Load all relevant Data in Label: compound and food
         viewAnimalTime();
+        
+        String filePath = ZooMapJFrame.class.getResource("ZooMap.jpg").toString().substring(5);
+      //System.out.println(filePath);
+        BufferedImage img = null;
+        //Hier werte testen...
+        int scaledWidth = 1000;
+        int scaledHeight = 600;
+        
+        try {
+            
+            
+            img = ImageIO.read(new File(filePath));
+             BufferedImage outputImage = new BufferedImage(scaledWidth,
+             scaledHeight, img.getType());
+           
+         // scales the input image to the output image
+         
+         
+         
+            Graphics2D g2d = outputImage.createGraphics();
+            
+            
+            
+            g2d.drawImage(img, 0, 0, scaledWidth, scaledHeight, null);
+            g2d.dispose();
+ 
+            
+        ImageIcon icon = new ImageIcon(outputImage);      
+        imageLabel.setIcon(icon);
+            } catch (IOException ex) {
+            System.err.println("IO Exception");
+            System.out.println(ex.getMessage());
+            }
+        
+        
     }
 
     /*Load all relevant Data in Label: compound and food*/
@@ -104,6 +146,7 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
         jLabelTime = new javax.swing.JLabel();
         jLabelCompoundStatic = new javax.swing.JLabel();
         jLabelCompound = new javax.swing.JLabel();
+        imageLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -150,6 +193,9 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
         jLabelCompound.setText("xxx Gehege");
         jLabelCompound.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imageLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -159,10 +205,10 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 625, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 635, Short.MAX_VALUE)
                         .addComponent(jLabelShowDateTime))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabelCompoundStatic, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabelAnimal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -172,7 +218,8 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
                             .addComponent(jLabelTime)
                             .addComponent(jLabelCompound)
                             .addComponent(jLabelFeed))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE))
+                    .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -194,7 +241,9 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFeedStatic)
                     .addComponent(jLabelFeed))
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -252,6 +301,7 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel imageLabel;
     private javax.swing.JButton jButtonBack;
     private javax.swing.JLabel jLabelAnimal;
     private javax.swing.JLabel jLabelCompound;
