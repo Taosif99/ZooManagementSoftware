@@ -29,13 +29,13 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="zookeeperName" max="32767" attributes="0"/>
+                  <Component id="jLabelZookeeperNameAndHallo" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="letzteAnmeldung" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelLastLogDate" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabelLastLoginTime" min="-2" pref="113" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
-                      <Component id="dateLabel" min="-2" pref="240" max="-2" attributes="0"/>
+                      <Component id="jLabelDate" min="-2" pref="240" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                       <Component id="jLabeDate" min="-2" pref="47" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
@@ -43,10 +43,10 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="attentionJLabel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jLabelAttention" alignment="0" max="32767" attributes="0"/>
                           <Component id="jButtonNextFeedingTime" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jButtonAllFeedingTime1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="nächsteFütterungIn" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jButtonAllFeedingTime" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jLabelNextFeedingTime" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   </Group>
@@ -62,9 +62,9 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="letzteAnmeldung" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelLastLogDate" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelLastLoginTime" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="dateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelDate" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
@@ -77,22 +77,22 @@
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-              <Component id="zookeeperName" min="-2" max="-2" attributes="0"/>
+              <Component id="jLabelZookeeperNameAndHallo" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="nächsteFütterungIn" min="-2" max="-2" attributes="0"/>
+              <Component id="jLabelNextFeedingTime" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="attentionJLabel" min="-2" max="-2" attributes="0"/>
+              <Component id="jLabelAttention" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Component id="jButtonNextFeedingTime" pref="135" max="32767" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="jButtonAllFeedingTime1" pref="131" max="32767" attributes="0"/>
+              <Component id="jButtonAllFeedingTime" pref="131" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="letzteAnmeldung">
+    <Component class="javax.swing.JLabel" name="jLabelLastLogDate">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="14" style="1"/>
@@ -107,7 +107,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="n&#xe4;chsteF&#xfc;tterungIn">
+    <Component class="javax.swing.JLabel" name="jLabelNextFeedingTime">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="24" style="1"/>
@@ -122,7 +122,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonAllFeedingTime1">
+    <Component class="javax.swing.JButton" name="jButtonAllFeedingTime">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="24" style="1"/>
@@ -139,7 +139,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAllFeedingTime1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAllFeedingTimeActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonLogout">
@@ -150,7 +150,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonLogoutActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="zookeeperName">
+    <Component class="javax.swing.JLabel" name="jLabelZookeeperNameAndHallo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="36" style="1"/>
@@ -170,14 +170,14 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonNextFeedingTimeActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="attentionJLabel">
+    <Component class="javax.swing.JLabel" name="jLabelAttention">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="12" style="1"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="dateLabel">
+    <Component class="javax.swing.JLabel" name="jLabelDate">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="14" style="1"/>
