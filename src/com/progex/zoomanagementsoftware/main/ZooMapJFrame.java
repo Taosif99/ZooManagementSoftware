@@ -2,11 +2,10 @@
 package com.progex.zoomanagementsoftware.main;;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -36,19 +35,19 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         setSize(x,y);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
-      	
-        
-       String filePath = ZooMapJFrame.class.getResource("ZooMap.jpg").toString().substring(5);
-      //System.out.println(filePath);
+       
+        InputStream inputStream = ZooMapJFrame.class.getResourceAsStream("ZooMap.jpg");
+     
         BufferedImage img = null;
         //Hier werte testen...
-        int scaledWidth = 1450;
-        int scaledHeight = 800;
+       int scaledWidth = 700;
+       int scaledHeight = 400;
         
         try {
             
             
-            img = ImageIO.read(new File(filePath));
+            //img = ImageIO.read(new File(filePath));
+             img = ImageIO.read(inputStream);
              BufferedImage outputImage = new BufferedImage(scaledWidth,
              scaledHeight, img.getType());
            

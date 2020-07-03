@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -69,27 +70,22 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
         //Load all relevant Data in Label: compound and food
         viewAnimalTime();
         
-        String filePath = ZooMapJFrame.class.getResource("ZooMap.jpg").toString().substring(5);
-      //System.out.println(filePath);
+        InputStream inputStream = ZooMapJFrame.class.getResourceAsStream("ZooMap.jpg");
         BufferedImage img = null;
         //Hier werte testen...
         int scaledWidth = 1000;
-        int scaledHeight = 600;
+        int scaledHeight = 300;
         
         try {
             
             
-            img = ImageIO.read(new File(filePath));
+            img = ImageIO.read(inputStream);
              BufferedImage outputImage = new BufferedImage(scaledWidth,
              scaledHeight, img.getType());
            
          // scales the input image to the output image
-         
-         
-         
+        
             Graphics2D g2d = outputImage.createGraphics();
-            
-            
             
             g2d.drawImage(img, 0, 0, scaledWidth, scaledHeight, null);
             g2d.dispose();
