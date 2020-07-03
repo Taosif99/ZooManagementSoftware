@@ -8,8 +8,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
- *
- * @author khali
+ * Class that handles displaying functions on ZookeeperModeHomePageJFrame in a proper way.
  */
 public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
 
@@ -33,7 +32,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         // set lastlogdate from user
         setLastLogDate();
         
-                // display date properly
+        // display date properly
         Methods methods = new Methods();
         methods.showTimeAndDate(dateLabel);
 
@@ -44,12 +43,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     }
 
     
-    
-    /**
-     * this methods gets from the zoomangager the nextfeedingtime and is displayed accordingly.
-     * 
-     * 
-     */
+   
     private void setNextFeedingTimeInfo()  {
 
 
@@ -70,21 +64,12 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
     }
     }
 
-    /**
-     * name of zookeeper is displayed accordingly.
-     * 
-     */
     private void setNameLabel() {
 
         zookeeperName.setText("Hallo " + userManager.getLoggedInUser().getFirstname() + "!");
 
     }
 
-    
-    /**
-     *  lastlogdate of zookeeper is displayed accordingly.
-     * 
-     */
     private void setLastLogDate() {
 
         User loggedInUser = userManager.getLoggedInUser();
@@ -98,10 +83,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
 
     }
 
-    // 
-    /**
-     * resolution settings
-     */
     private void myInitComponents() {
 
         Toolkit tk = Toolkit.getDefaultToolkit();
@@ -240,12 +221,7 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-   
-    /**
-     * Nächste Fütterung anzeigen Button Click Event
-     * @param evt 
-     */
+
     private void jButtonNextFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeActionPerformed
         
         JFrame thisFrame = this;
@@ -262,10 +238,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonNextFeedingTimeActionPerformed
 
-    /**
-     * "Alle Fütterungen Anzeigen" Button is pressed.
-     * @param evt 
-     */
     private void jButtonAllFeedingTime1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAllFeedingTime1ActionPerformed
         // TODO add your handling code here:
 
@@ -278,10 +250,6 @@ public class ZookeeperModeHomePageJFrame extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButtonAllFeedingTime1ActionPerformed
 
-    /**
-     * "LOGOUT" Button is pressed.
-     * @param evt 
-     */
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
 
         userManager.logout();
