@@ -1,61 +1,54 @@
-
 package com.progex.zoomanagementsoftware.guest;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.GuestModeManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
-import com.progex.zoomanagementsoftware.main.ZooMapJFrame;
+//import com.progex.zoomanagementsoftware.main.ZooMapJFrame;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 
-
-
 public class ChooseBothJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ChooseBothJFrame
-     * @param goBackFrame
-     * @param zooManager
-     * @param animal
-     * @param time
+     *
+     * @param goBackFrame The frame which will appear when the go back button is
+     * used
+     * @param zooManager The zooManager of the current programm session which
+     * serves as interface
+     * @param animalName
+     * @param feedingTime
      */
-    public ChooseBothJFrame(JFrame goBackFrame, ZooManager zooManager, String animal, String time) {
+    public ChooseBothJFrame(JFrame goBackFrame, ZooManager zooManager, String animalName, String feedingTime) {
 
         this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
         this.guestModeManager = zooManager.getGuestModeManager();
-        this.animal = animal;
-        this.time = time;
-        
+        this.animalName = animalName;
+        this.feedingTime = feedingTime;
+
         initComponents();
         myInitComponents();
-
     }
 
     private void myInitComponents() {
-        
-        
+
         Toolkit tk = Toolkit.getDefaultToolkit();
         int x = (int) tk.getScreenSize().getWidth();
         int y = (int) tk.getScreenSize().getHeight();
         setSize(x, y);
         //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc)
         if (x == 1920 && y == 1080) {
-            
-            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18));
-            
 
+            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18));
         }
         if (x == 1280 && y == 720) {
-            
+
             jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 16));
-
-            
-
         }
 
         Methods methods = new Methods();
@@ -63,18 +56,17 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         //Labels get values
-        jLabelAnimal.setText(animal + ": ");
-        jLabelTime.setText(time + " Uhr");
+        jLabelAnimal.setText(animalName + ": ");
+        jLabelTime.setText(feedingTime + " Uhr");
 
         //Load all relevant Data in Label: compound and food
         viewAnimalTime();
-
     }
 
     /*Load all relevant Data in Label: compound and food*/
     private void viewAnimalTime() {
 
-        String tmp = time.concat(":00");
+        String tmp = feedingTime.concat(":00");
         SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
         String str = dateformat.format(new Date());
         String day = str.substring(0, 2);
@@ -82,27 +74,22 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
         String year = str.substring(6, 10);
         String last = (year + "-" + month + "-" + day + " ").concat(tmp);
 
-        LinkedList<FeedingInfo> feedingInfos = guestModeManager.getAnimalTimeFeedingInfo(last, animal);
+        LinkedList<FeedingInfo> feedingInfos = guestModeManager.getAnimalTimeFeedingInfo(last, animalName);
         if (!feedingInfos.isEmpty()) {
 
-            
             String com = feedingInfos.getFirst().getCompundName();
             LinkedList<String> foods = new LinkedList<String>();
 
             for (FeedingInfo feedingInfo : feedingInfos) {
-                
 
                 foods.add(feedingInfo.getFoodName());
-
             }
 
             jLabelCompound.setText(com);
 
             String foodNames = foods.toString();
             jLabelFeed.setText(foodNames);
-
         }
-
     }
 
     @SuppressWarnings("unchecked")
@@ -214,7 +201,7 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-        // TODO add your handling code here:
+
         goBackFrame.setVisible(true);
         //Close frame
         this.dispose();
@@ -247,7 +234,6 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-       
 
         /* Create and display the form */
         String url = "jdbc:mysql://localhost/";
@@ -278,7 +264,7 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
     private javax.swing.JFrame goBackFrame;
     private ZooManager zooManager;
     private GuestModeManager guestModeManager;
-    private String time;
-    private String animal;
-    private javax.swing.JFrame mapFrame;
+    private String feedingTime;
+    private String animalName;
+    //private javax.swing.JFrame mapFrame;
 }

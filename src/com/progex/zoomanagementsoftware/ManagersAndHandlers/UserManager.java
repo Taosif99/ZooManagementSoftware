@@ -601,7 +601,7 @@ public class UserManager {
     }
 
     /**
-     * Updates the lastlogdate from the logged in user
+     * Updates the lastlogdate from the logged in user.
      *
      *
      */

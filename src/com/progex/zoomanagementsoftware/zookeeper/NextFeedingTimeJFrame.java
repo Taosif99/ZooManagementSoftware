@@ -7,36 +7,38 @@ import com.progex.zoomanagementsoftware.datatypes.ZookeeperInfo;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
-/**
- *
- * @author khalid
- */
 public class NextFeedingTimeJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form NächsteFütterungJFrame
+     * Creates new form NextFeedingTimeJFrame.
+     *
+     * @param goBackToMainMenuJFrame
+     * @param goBackZookeeperModeHomePageJFrame
+     * @param goBackAllFeedingTimeJFrame
+     * @param zooManager The zooManager of the current programm session which
+     * serves as interface
      */
-    public NextFeedingTimeJFrame(JFrame goBackToMainMenuJFrame, JFrame goBackZookeeperModeHomePageJFrame, JFrame goBackAllFeedingTimeJFrame, ZooManager zooManager){
+    public NextFeedingTimeJFrame(JFrame goBackToMainMenuJFrame, JFrame goBackZookeeperModeHomePageJFrame, JFrame goBackAllFeedingTimeJFrame, ZooManager zooManager) {
         initComponents();
-        
+
         // init resolution
         myInitComponents();
-        
+
         // init references and paramteters
         mainMenuJFrame = goBackToMainMenuJFrame;
         zookeeperModeHomePageFrame = goBackZookeeperModeHomePageJFrame;
         allFeedingTimeFrame = goBackAllFeedingTimeJFrame;
         this.zooManager = zooManager;
         this.userManager = zooManager.getUserManager();
-        
+
         // display feedingInfo
         setFeedingInfoInKiloGramm();
 
     }
 
-    
     /**
-     * Method is used to display feedingInfo. Method gets all information from zooManager.
+     * Method is used to display feedingInfo in gram. Method gets all
+     * information from zooManager.
      */
     public void setFeedingInfoInGramm() {
 
@@ -52,12 +54,12 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
 
             // If nextfeedingInfo has valid minute time then display it        
             if (nextFeedingTimeInMinutes != null) {
-                nextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung in (HH:MM) : " + nextFeedingTimeInMinutes);
-                futter.setText("Futter: " + food);
-                abstellraumnummer.setText("Abstellraumnummer: " + storageRoom);
-                futtermenge.setText("Menge in Gramm: " + amount);
-                gehege.setText("Gehege: " + compound);
-                tierName.setText("Tier: " + animalName);
+                jLabelNextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung in (HH:MM) : " + nextFeedingTimeInMinutes);
+                jLabelFood.setText("Futter: " + food);
+                jLabelStorageRoomNumber.setText("Abstellraumnummer: " + storageRoom);
+                jLabelFoodAmount.setText("Menge in Gramm: " + amount);
+                jLabelCompound.setText("Gehege: " + compound);
+                jLabelAnimalName.setText("Tier: " + animalName);
                 if (zookeeperInfo.isIsMultipleFeeding()) {
                     attentionLabel.setText("Achtung, mehrere Fütterungen gleichzeitig!");
                 }
@@ -69,8 +71,11 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
             setLabelsNoFeeding();
         }
     }
-    
-    
+
+    /**
+     * Method is used to display feedingInfo in kilogram. Method gets all
+     * information from zooManager.
+     */
     public void setFeedingInfoInKiloGramm() {
 
         ZookeeperInfo zookeeperInfo = userManager.getNextFeedingInfo();
@@ -85,12 +90,12 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
 
             // If nextfeedingInfo has valid minute time then display it        
             if (nextFeedingTimeInMinutes != null) {
-                nextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung in (HH:MM) : " + nextFeedingTimeInMinutes);
-                futter.setText("Futter: " + food);
-                abstellraumnummer.setText("Abstellraumnummer: " + storageRoom);
-                futtermenge.setText("Menge in Kilogramm: " + amount/1000);
-                gehege.setText("Gehege: " + compound);
-                tierName.setText("Tier: " + animalName);
+                jLabelNextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung in (HH:MM) : " + nextFeedingTimeInMinutes);
+                jLabelFood.setText("Futter: " + food);
+                jLabelStorageRoomNumber.setText("Abstellraumnummer: " + storageRoom);
+                jLabelFoodAmount.setText("Menge in Kilogramm: " + amount / 1000);
+                jLabelCompound.setText("Gehege: " + compound);
+                jLabelAnimalName.setText("Tier: " + animalName);
                 if (zookeeperInfo.isIsMultipleFeeding()) {
                     attentionLabel.setText("Achtung, mehrere Fütterungen gleichzeitig!");
                 }
@@ -102,26 +107,24 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
             setLabelsNoFeeding();
         }
     }
-    
-    
+
+    /**
+     * Sets all label when there is no feeding anymore.
+     */
     public void setLabelsNoFeeding() {
-        nextFeedingTimeTakesPlaceIn.setText("Keine Fütterung für heute mehr");
-        futter.setText("");
-        abstellraumnummer.setText("");
-        futtermenge.setText("");
-        gehege.setText("");
-        tierName.setText("");
+        jLabelNextFeedingTimeTakesPlaceIn.setText("Keine Fütterung für heute mehr");
+        jLabelFood.setText("");
+        jLabelStorageRoomNumber.setText("");
+        jLabelFoodAmount.setText("");
+        jLabelCompound.setText("");
+        jLabelAnimalName.setText("");
     }
 
-
-    
-    
     /**
      * resolution settings
      */
     public void myInitComponents() {
 
-        //setUndecorated(true);
         setAlwaysOnTop(true);
         setResizable(false);
         setVisible(true);
@@ -130,27 +133,26 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         int y = (int) tk.getScreenSize().getHeight();
         setSize(x, y);
 
-        //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc).
         if (x == 1920 && y == 1080) {
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 32));
 
-            abstellraumnummer.setFont(new java.awt.Font("Calibri", 0, 32));
-            futter.setFont(new java.awt.Font("Calibri", 0, 32));
-            futtermenge.setFont(new java.awt.Font("Calibri", 0, 32));
-            gehege.setFont(new java.awt.Font("Calibri", 0, 32));
-            tierName.setFont(new java.awt.Font("Calibri", 0, 32));
+            jLabelStorageRoomNumber.setFont(new java.awt.Font("Calibri", 0, 32));
+            jLabelFood.setFont(new java.awt.Font("Calibri", 0, 32));
+            jLabelFoodAmount.setFont(new java.awt.Font("Calibri", 0, 32));
+            jLabelCompound.setFont(new java.awt.Font("Calibri", 0, 32));
+            jLabelAnimalName.setFont(new java.awt.Font("Calibri", 0, 32));
 
         }
+        
         if (x == 1280 && y == 720) {
 
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 28));
 
-            abstellraumnummer.setFont(new java.awt.Font("Calibri", 0, 28));
-            futter.setFont(new java.awt.Font("Calibri", 0, 28));
-            futtermenge.setFont(new java.awt.Font("Calibri", 0, 28));
-            gehege.setFont(new java.awt.Font("Calibri", 0, 28));
-            tierName.setFont(new java.awt.Font("Calibri", 0, 28));
-
+            jLabelStorageRoomNumber.setFont(new java.awt.Font("Calibri", 0, 28));
+            jLabelFood.setFont(new java.awt.Font("Calibri", 0, 28));
+            jLabelFoodAmount.setFont(new java.awt.Font("Calibri", 0, 28));
+            jLabelCompound.setFont(new java.awt.Font("Calibri", 0, 28));
+            jLabelAnimalName.setFont(new java.awt.Font("Calibri", 0, 28));
         }
 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -158,44 +160,38 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         // display date properly
         Methods methods = new Methods();
         methods.showTimeAndDate(jLabelTime);
-
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jButtonGoBack = new javax.swing.JButton();
+        jButtonGoBackToMainMenue = new javax.swing.JButton();
         jButtonLogout = new javax.swing.JButton();
         jLabelTime = new javax.swing.JLabel();
         jButtonNextFeedingTime = new javax.swing.JButton();
         jPanelNextFeedingTimeInfo = new javax.swing.JPanel();
-        futter = new javax.swing.JLabel();
-        abstellraumnummer = new javax.swing.JLabel();
-        futtermenge = new javax.swing.JLabel();
-        tierName = new javax.swing.JLabel();
-        gehege = new javax.swing.JLabel();
-        nextFeedingTimeTakesPlaceIn = new javax.swing.JLabel();
+        jLabelFood = new javax.swing.JLabel();
+        jLabelStorageRoomNumber = new javax.swing.JLabel();
+        jLabelFoodAmount = new javax.swing.JLabel();
+        jLabelAnimalName = new javax.swing.JLabel();
+        jLabelCompound = new javax.swing.JLabel();
+        jLabelNextFeedingTimeTakesPlaceIn = new javax.swing.JLabel();
         attentionLabel = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButtonKg = new javax.swing.JRadioButton();
+        jRadioButtonGramm = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nächste Fütterung");
         setUndecorated(true);
         setResizable(false);
 
-        jButtonGoBack.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        jButtonGoBack.setText("Zurück zum Hauptmenü");
-        jButtonGoBack.addActionListener(new java.awt.event.ActionListener() {
+        jButtonGoBackToMainMenue.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        jButtonGoBackToMainMenue.setText("Zurück zum Hauptmenü");
+        jButtonGoBackToMainMenue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGoBackActionPerformed(evt);
+                jButtonGoBackToMainMenueActionPerformed(evt);
             }
         });
 
@@ -220,29 +216,29 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
             }
         });
 
-        futter.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        futter.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        futter.setText("Futter:");
+        jLabelFood.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabelFood.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelFood.setText("Futter:");
 
-        abstellraumnummer.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        abstellraumnummer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        abstellraumnummer.setText("Abstellraumnummer:");
+        jLabelStorageRoomNumber.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabelStorageRoomNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelStorageRoomNumber.setText("Abstellraumnummer:");
 
-        futtermenge.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        futtermenge.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        futtermenge.setText("Futtermenge:");
+        jLabelFoodAmount.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabelFoodAmount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelFoodAmount.setText("Futtermenge:");
 
-        tierName.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        tierName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tierName.setText("Tiername:");
+        jLabelAnimalName.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabelAnimalName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelAnimalName.setText("Tiername:");
 
-        gehege.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        gehege.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        gehege.setText("Gehege:");
+        jLabelCompound.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabelCompound.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCompound.setText("Gehege:");
 
-        nextFeedingTimeTakesPlaceIn.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        nextFeedingTimeTakesPlaceIn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung findet statt in: ");
+        jLabelNextFeedingTimeTakesPlaceIn.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabelNextFeedingTimeTakesPlaceIn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelNextFeedingTimeTakesPlaceIn.setText("Nächste Fütterung findet statt in: ");
 
         attentionLabel.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         attentionLabel.setForeground(new java.awt.Color(255, 0, 0));
@@ -255,12 +251,12 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
             .addGroup(jPanelNextFeedingTimeInfoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelNextFeedingTimeInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nextFeedingTimeTakesPlaceIn, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
-                    .addComponent(gehege, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tierName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(abstellraumnummer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(futtermenge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(futter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelNextFeedingTimeTakesPlaceIn, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                    .addComponent(jLabelCompound, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelAnimalName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelStorageRoomNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelFoodAmount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelFood, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(attentionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -268,36 +264,36 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
             jPanelNextFeedingTimeInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelNextFeedingTimeInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(nextFeedingTimeTakesPlaceIn)
+                .addComponent(jLabelNextFeedingTimeTakesPlaceIn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(attentionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(futter, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelFood, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(abstellraumnummer, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelStorageRoomNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(futtermenge, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelFoodAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
-                .addComponent(tierName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelAnimalName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(gehege)
+                .addComponent(jLabelCompound)
                 .addContainerGap())
         );
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Futtermenge in Kilogramm");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(jRadioButtonKg);
+        jRadioButtonKg.setSelected(true);
+        jRadioButtonKg.setText("Futtermenge in Kilogramm");
+        jRadioButtonKg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                jRadioButtonKgActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Futtermenge in Gramm");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(jRadioButtonGramm);
+        jRadioButtonGramm.setText("Futtermenge in Gramm");
+        jRadioButtonGramm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                jRadioButtonGrammActionPerformed(evt);
             }
         });
 
@@ -311,15 +307,15 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
                     .addComponent(jPanelNextFeedingTimeInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonGoBack)
+                        .addComponent(jButtonGoBackToMainMenue)
                         .addGap(18, 18, 18)
                         .addComponent(jLabelTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonLogout))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
+                        .addComponent(jRadioButtonKg)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2)
+                        .addComponent(jRadioButtonGramm)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -328,15 +324,15 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGoBack)
+                    .addComponent(jButtonGoBackToMainMenue)
                     .addComponent(jButtonLogout)
                     .addComponent(jLabelTime))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanelNextFeedingTimeInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(jRadioButtonKg)
+                    .addComponent(jRadioButtonGramm))
                 .addGap(18, 18, 18)
                 .addComponent(jButtonNextFeedingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
@@ -346,26 +342,16 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-   
-    /**
-     * Button "Logout" pressed
-     * @param evt 
-     */
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
-        
+
         userManager.logout();
         mainMenuJFrame.setVisible(true);
         this.dispose();
 
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 
-   
-    /**
-     * Button show AllFeedingTime pressed
-     * @param evt 
-     */
+
     private void jButtonNextFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeActionPerformed
-       
 
         if (allFeedingTimeFrame != null) {
             allFeedingTimeFrame.setVisible(true);
@@ -382,26 +368,21 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonNextFeedingTimeActionPerformed
 
-    /**
-     * Button "zurück is pressed".
-     * @param evt 
-     */
-    private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
-        
+    private void jButtonGoBackToMainMenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackToMainMenueActionPerformed
+
         zookeeperModeHomePageFrame.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jButtonGoBackActionPerformed
+    }//GEN-LAST:event_jButtonGoBackToMainMenueActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-       
-                
+    private void jRadioButtonKgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonKgActionPerformed
+
         setFeedingInfoInKiloGramm();
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_jRadioButtonKgActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
+    private void jRadioButtonGrammActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonGrammActionPerformed
+
         setFeedingInfoInGramm();
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_jRadioButtonGrammActionPerformed
 
     /**
      * @param args the command line arguments
@@ -430,40 +411,34 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               
-                    new NextFeedingTimeJFrame(null, null, null, null).setVisible(true);
-                
+
+                new NextFeedingTimeJFrame(null, null, null, null).setVisible(true);
+
             }
         });
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel abstellraumnummer;
     private javax.swing.JLabel attentionLabel;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel futter;
-    private javax.swing.JLabel futtermenge;
-    private javax.swing.JLabel gehege;
-    private javax.swing.JButton jButtonGoBack;
+    private javax.swing.JButton jButtonGoBackToMainMenue;
     private javax.swing.JButton jButtonLogout;
     private javax.swing.JButton jButtonNextFeedingTime;
+    private javax.swing.JLabel jLabelAnimalName;
+    private javax.swing.JLabel jLabelCompound;
+    private javax.swing.JLabel jLabelFood;
+    private javax.swing.JLabel jLabelFoodAmount;
+    private javax.swing.JLabel jLabelNextFeedingTimeTakesPlaceIn;
+    private javax.swing.JLabel jLabelStorageRoomNumber;
     private javax.swing.JLabel jLabelTime;
     private javax.swing.JPanel jPanelNextFeedingTimeInfo;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JLabel nextFeedingTimeTakesPlaceIn;
-    private javax.swing.JLabel tierName;
+    private javax.swing.JRadioButton jRadioButtonGramm;
+    private javax.swing.JRadioButton jRadioButtonKg;
     // End of variables declaration//GEN-END:variables
 
     private javax.swing.JFrame mainMenuJFrame;
@@ -471,5 +446,4 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
     private javax.swing.JFrame allFeedingTimeFrame;
     private ZooManager zooManager;
     private UserManager userManager;
-
 }

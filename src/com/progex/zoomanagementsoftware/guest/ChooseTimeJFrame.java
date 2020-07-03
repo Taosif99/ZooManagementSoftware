@@ -1,4 +1,3 @@
-
 package com.progex.zoomanagementsoftware.guest;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.GuestModeManager;
@@ -14,21 +13,23 @@ import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-
 public class ChooseTimeJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form ZeitjFrame
-     * @param goBackFrame
-     * @param zooManager
-     * @param time
+     * Creates new form ChooseTimeJFrame.
+     *
+     * @param goBackFrame The frame which will appear when the go back button is
+     * used
+     * @param zooManager The zooManager of the current programm session which
+     * serves as interface
+     * @param feedingTime
      */
-    public ChooseTimeJFrame(JFrame goBackFrame, ZooManager zooManager, String time) {
+    public ChooseTimeJFrame(JFrame goBackFrame, ZooManager zooManager, String feedingTime) {
 
         this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
         this.guestModeManager = zooManager.getGuestModeManager();
-        this.time = time;
+        this.feedingTime = feedingTime;
 
         initComponents();
         myInitComponents();
@@ -37,14 +38,13 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
 
     private void myInitComponents() {
 
-        
         Toolkit tk = Toolkit.getDefaultToolkit();
         int x = (int) tk.getScreenSize().getWidth();
         int y = (int) tk.getScreenSize().getHeight();
         setSize(x, y);
-        
+
         if (x == 1920 && y == 1080) {
-            
+
             jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 32));
         }
         if (x == 1280 && y == 720) {
@@ -55,9 +55,8 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
         Font headerFont = new Font("Calibri", 0, 22);
         tableHeader.setFont(headerFont);
 
-        
-        jLabelTime.setText("Fütterungen um " +time + " Uhr");
-        
+        jLabelTime.setText("Fütterungen um " + feedingTime + " Uhr");
+
         jTableTimeData.setRowHeight(40);
 
         Methods methods = new Methods();
@@ -69,7 +68,7 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
     private void viewTimes() {
 
         //Time String in Date String 
-        String tmp = time.concat(":00");
+        String tmp = feedingTime.concat(":00");
         SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
         String str = dateformat.format(new Date());
         String day = str.substring(0, 2);
@@ -85,19 +84,14 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
         Object[] row = new Object[3];
 
         for (FeedingInfo feedingInfo : feedingInfos) {
-            
+
             row[0] = feedingInfo.getAnimalName();
-            System.out.println(row[0]);
             row[1] = feedingInfo.getCompundName();
-            System.out.println(row[1]);
             row[2] = feedingInfo.getFoodName();
-            System.out.println(row[2]);
             defaultTableModel.addRow(row);
-
         }
-
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -186,7 +180,7 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-        // TODO add your handling code here:
+
         goBackFrame.setVisible(true);
         //Close frame
         this.dispose();
@@ -246,6 +240,5 @@ public class ChooseTimeJFrame extends javax.swing.JFrame {
     private javax.swing.JFrame goBackFrame;
     private ZooManager zooManager;
     private GuestModeManager guestModeManager;
-    private String time;
-
+    private String feedingTime;
 }

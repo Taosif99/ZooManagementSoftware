@@ -1,5 +1,5 @@
-
 package com.progex.zoomanagementsoftware.guest;
+
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.GuestModeManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
@@ -11,95 +11,78 @@ import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-
 public class ChooseAnimalJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form ChooseAnimalJFrame
-     * @param goBackFrame
-     * @param zooManager
-     * @param animal
+     * Creates new form ChooseAnimalJFrame.
+     *
+     * @param goBackFrame The frame which will appear when the go back button is
+     * used
+     * @param zooManager The zooManager of the current programm session which
+     * serves as interface
+     * @param animalName
      * @param feedingInfos
      */
-    public ChooseAnimalJFrame(JFrame goBackFrame,ZooManager zooManager,String animal,LinkedList<FeedingInfo> feedingInfos) {
-        
+    public ChooseAnimalJFrame(JFrame goBackFrame, ZooManager zooManager, String animalName, LinkedList<FeedingInfo> feedingInfos) {
+
         initComponents();
-        this.animal = animal;
-        this.goBackFrame = goBackFrame; 
+        this.animalName = animalName;
+        this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
         this.guestModeManager = zooManager.getGuestModeManager();
         myInitComponents();
         viewAnimals(feedingInfos);
-        
-        
-        
     }
 
-     private void myInitComponents(){
+    private void myInitComponents() {
+
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int x = (int) tk.getScreenSize().getWidth();
+        int y = (int) tk.getScreenSize().getHeight();
+        setSize(x, y);
+
+        //resolution
+        if (x == 1920 && y == 1080) {
+
+            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18));
+        }
+        if (x == 1280 && y == 720) {
+
+            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 16));
+        }
         
-            
-            
-            Toolkit tk = Toolkit.getDefaultToolkit();
-            int x =(int)tk.getScreenSize().getWidth();
-            int y =(int)tk.getScreenSize().getHeight();
-            setSize(x,y);
-            
-            //resolution
-            if(x == 1920 && y == 1080){
-                
-                jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18));
-                
-                
-            }
-            if(x == 1280 && y == 720){
-                
-                jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 16));
-                
-            }
-            //Table change Font
-            JTableHeader tableHeader = jTableAninmalData.getTableHeader();
-            Font headerFont = new Font("Calibri", 0, 22);
-            tableHeader.setFont(headerFont);
-            jTableAninmalData.setRowHeight(40);
-            
-            //Date Method
-            methods = new Methods();
-            methods.showTimeAndDate(jLabelShowDateTime);
-            this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            
-            //label init
-            jLabelAnimal.setText("Fütterungszeiten für " + animal);
-            
-            
-        
+        //Table change Font
+        JTableHeader tableHeader = jTableAninmalData.getTableHeader();
+        Font headerFont = new Font("Calibri", 0, 22);
+        tableHeader.setFont(headerFont);
+        jTableAninmalData.setRowHeight(40);
+
+        //Date Method
+        methods = new Methods();
+        methods.showTimeAndDate(jLabelShowDateTime);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        //label init
+        jLabelAnimal.setText("Fütterungszeiten für " + animalName);
     }
-     
-    /* Load all relevant Data in the model*/ 
+
+    /* Load all relevant Data in the model*/
     private void viewAnimals(LinkedList<FeedingInfo> feedingInfos) {
-        
-        
-            DefaultTableModel defaultTableModel = (DefaultTableModel)jTableAninmalData.getModel();
-            
-            Object[] row = new Object[5];
-            
-            
-            for (FeedingInfo feedingInfo : feedingInfos){
-                //Hier bekommt man die Spalten der Zeile
-                row[0] = feedingInfo.getCompundName();
-                System.out.println(row[0]);
-                row[1] = feedingInfo.getStartFeedingTime();
-                System.out.println(row[1]);
-                row[2] = feedingInfo.getEndFeedingTime();
-                System.out.println(row[2]);
-                row[3] = feedingInfo.getFoodName();
-                System.out.println(row[3]);
-                defaultTableModel.addRow(row);
 
-            }
-    
-    } 
-     
-   
+        DefaultTableModel defaultTableModel = (DefaultTableModel) jTableAninmalData.getModel();
+
+        Object[] row = new Object[5];
+
+        for (FeedingInfo feedingInfo : feedingInfos) {
+            //Hier bekommt man die Spalten der Zeile
+            row[0] = feedingInfo.getCompundName();
+            row[1] = feedingInfo.getStartFeedingTime();
+            row[2] = feedingInfo.getEndFeedingTime();
+            row[3] = feedingInfo.getFoodName();
+            defaultTableModel.addRow(row);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -190,7 +173,7 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-        
+
         goBackFrame.setVisible(true);
         //Close frame
         this.dispose();
@@ -225,17 +208,17 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        String url ="jdbc:mysql://localhost/";
-         String username = "root";
-         String password = "0000";
-         String dbName = "zoo";
-        
-         ZooManager zooManager = new ZooManager(url,dbName,username,password);
+        String url = "jdbc:mysql://localhost/";
+        String username = "root";
+        String password = "0000";
+        String dbName = "zoo";
+
+        ZooManager zooManager = new ZooManager(url, dbName, username, password);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChooseAnimalJFrame(null,zooManager,null,null).setVisible(true);
+                new ChooseAnimalJFrame(null, zooManager, null, null).setVisible(true);
             }
         });
     }
@@ -251,8 +234,5 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
     private ZooManager zooManager;
     private GuestModeManager guestModeManager;
     private Methods methods;
-    private String animal;
-
-
+    private String animalName;
 }
-

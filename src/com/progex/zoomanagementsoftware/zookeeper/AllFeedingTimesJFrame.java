@@ -3,21 +3,23 @@ package com.progex.zoomanagementsoftware.zookeeper;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
-
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import net.proteanit.sql.DbUtils;
 
-/**
- *
- * @author khali
- */
 public class AllFeedingTimesJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form NächsteFütterungJFrame
+     * Creates new form AllFeedingTimesJFrame.
+     *
+     * @param mainMenuJFrame
+     * @param zookeeperModeHomePageFrame
+     * @param nextFeedingTimeFrame
+     * @param zooManager The zooManager of the current programm session which
+     * serves as interface
      */
     public AllFeedingTimesJFrame(JFrame mainMenuJFrame, JFrame zookeeperModeHomePageFrame, JFrame nextFeedingTimeFrame, ZooManager zooManager) {
+
         initComponents();
         myInitComponents();
 
@@ -27,7 +29,6 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
         this.nextFeedingTimeFrame = nextFeedingTimeFrame;
         this.zooManager = zooManager;
         this.userManager = zooManager.getUserManager();
-        
 
         // Display Date
         Methods methods = new Methods();
@@ -36,12 +37,8 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
         // populate the table with default amount in Kilogram
         populateTableInKG();
         jTableAlleFütterungen.setDefaultEditor(Object.class, null);
-        
-        
     }
-    /**
-     * Settings for resolution
-     */
+
     private void myInitComponents() {
 
         Toolkit tk = Toolkit.getDefaultToolkit();
@@ -50,35 +47,24 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
         setSize(x, y);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        //abfrage welche auflösung dann grösse der komponenten anpassen (text grösse etc).
         if (x == 1920 && y == 1080) {
 
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 18));
-
         }
         if (x == 1280 && y == 720) {
 
             jLabelTime.setFont(new java.awt.Font("Calibri", 0, 16));
-
         }
-
     }
 
-    /**
-     * populate the jtable by getting the resultSet from zooManager and populating it with a lib.
-     */
     private void populateTableInKG() {
+
         jTableAlleFütterungen.setModel(DbUtils.resultSetToTableModel(userManager.getAllFeedingTimeInKG()));
     }
 
-    
-    /**
-     * populate the jtable by getting the resultSet from zooManager and populating it with a lib.
-     */
     private void populateTableInGramm() {
 
         jTableAlleFütterungen.setModel(DbUtils.resultSetToTableModel(userManager.getAllFeedingTimeInGramm()));
-
     }
 
     /**
@@ -240,41 +226,24 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     private void jLabelTimeAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabelTimeAncestorAdded
     }//GEN-LAST:event_jLabelTimeAncestorAdded
 
-    /**
-     * When Pressing "zurück" Button
-     * @param evt 
-     */
     private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
-        
+
         zookeeperModeHomePageFrame.setVisible(true);
         this.setVisible(false);
-      
+
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
-    /**
-     *  When pressing Radiobutton "Menge in Kilogramm".
-     * @param evt 
-     */
     private void jRadioButtonAmountOfFoodInKiloGrammActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAmountOfFoodInKiloGrammActionPerformed
         populateTableInKG();
 
     }//GEN-LAST:event_jRadioButtonAmountOfFoodInKiloGrammActionPerformed
 
-    /**
-     * When pressing "Logout" Button.
-     * @param evt 
-     */
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
         userManager.logout();
         this.dispose();
         mainMenuJFrame.setVisible(true);
-
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 
-    /**
-     * When pressing Button "Näcshste Fütterung anzeigen".
-     * @param evt 
-     */
     private void jButtonNextFeedingTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextFeedingTimeActionPerformed
 
         if (nextFeedingTimeFrame != null) {
@@ -286,21 +255,13 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
 
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                   
-                        new NextFeedingTimeJFrame(mainMenuJFrame, zookeeperModeHomePageFrame, thisFrame, zooManager).setVisible(true);
-                    
+                    new NextFeedingTimeJFrame(mainMenuJFrame, zookeeperModeHomePageFrame, thisFrame, zooManager).setVisible(true);
                 }
             });
             this.setVisible(false);
         }
-
-
     }//GEN-LAST:event_jButtonNextFeedingTimeActionPerformed
 
-    /**
-     *  Pressing Radiobutton "Menge in gramm anzeigen".
-     * @param evt 
-     */
     private void jRadioButtonAmountOfFoodInGrammActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAmountOfFoodInGrammActionPerformed
         populateTableInGramm();
     }//GEN-LAST:event_jRadioButtonAmountOfFoodInGrammActionPerformed
@@ -331,8 +292,7 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(AllFeedingTimesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-       
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -359,6 +319,4 @@ public class AllFeedingTimesJFrame extends javax.swing.JFrame {
     private javax.swing.JFrame nextFeedingTimeFrame;
     private ZooManager zooManager;
     private UserManager userManager;
-    
-
 }
