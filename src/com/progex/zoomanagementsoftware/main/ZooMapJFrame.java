@@ -2,6 +2,7 @@
 package com.progex.zoomanagementsoftware.main;;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -41,8 +42,8 @@ public class ZooMapJFrame extends javax.swing.JFrame {
       //System.out.println(filePath);
         BufferedImage img = null;
         //Hier werte testen...
-        int scaledWidth = x;
-        int scaledHeight = y;
+        int scaledWidth = 1450;
+        int scaledHeight = 800;
         
         try {
             
@@ -52,9 +53,15 @@ public class ZooMapJFrame extends javax.swing.JFrame {
              scaledHeight, img.getType());
            
          // scales the input image to the output image
-        Graphics2D g2d = outputImage.createGraphics();
-        g2d.drawImage(img, 0, 0, scaledWidth, scaledHeight, null);
-        g2d.dispose();
+         
+         
+         
+            Graphics2D g2d = outputImage.createGraphics();
+            
+            
+            
+            g2d.drawImage(img, 0, 0, scaledWidth, scaledHeight, null);
+            g2d.dispose();
  
             
        ImageIcon icon = new ImageIcon(outputImage);      
