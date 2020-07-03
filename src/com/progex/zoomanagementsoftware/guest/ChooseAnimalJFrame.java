@@ -11,10 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-/**
- *
- * @author Oliver Hindahl
- */
+
 public class ChooseAnimalJFrame extends javax.swing.JFrame {
 
     /**

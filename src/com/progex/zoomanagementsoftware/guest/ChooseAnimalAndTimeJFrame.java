@@ -13,10 +13,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Oliver Hindahl
- */
+
 public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
     /**

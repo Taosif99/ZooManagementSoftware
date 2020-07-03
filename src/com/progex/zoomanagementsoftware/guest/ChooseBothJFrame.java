@@ -5,6 +5,7 @@ import com.progex.zoomanagementsoftware.ManagersAndHandlers.GuestModeManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
+import com.progex.zoomanagementsoftware.main.ZooMapJFrame;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,9 +13,7 @@ import java.util.LinkedList;
 import javax.swing.JFrame;
 
 
-/**
- * @author Oliver Hindahl
- */
+
 public class ChooseBothJFrame extends javax.swing.JFrame {
 
     /**
@@ -31,7 +30,7 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
         this.guestModeManager = zooManager.getGuestModeManager();
         this.animal = animal;
         this.time = time;
-
+        
         initComponents();
         myInitComponents();
 
@@ -135,23 +134,34 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelShowDateTime.setText("TIME");
 
-        jLabelFeedStatic.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
+        jLabelFeedStatic.setFont(new java.awt.Font("Calibri", 0, 60)); // NOI18N
+        jLabelFeedStatic.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelFeedStatic.setText("Futter:");
+        jLabelFeedStatic.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabelFeed.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
+        jLabelFeed.setFont(new java.awt.Font("Calibri", 0, 60)); // NOI18N
+        jLabelFeed.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelFeed.setText("xxx Futter");
 
-        jLabelAnimal.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
+        jLabelAnimal.setFont(new java.awt.Font("Calibri", 0, 60)); // NOI18N
+        jLabelAnimal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelAnimal.setText("Tiername :");
+        jLabelAnimal.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabelTime.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
+        jLabelTime.setFont(new java.awt.Font("Calibri", 0, 60)); // NOI18N
+        jLabelTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTime.setText("Zeit XX:XX -XX:XX");
+        jLabelTime.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabelCompoundStatic.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
+        jLabelCompoundStatic.setFont(new java.awt.Font("Calibri", 0, 60)); // NOI18N
+        jLabelCompoundStatic.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCompoundStatic.setText("Gehege:");
+        jLabelCompoundStatic.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabelCompound.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
+        jLabelCompound.setFont(new java.awt.Font("Calibri", 0, 60)); // NOI18N
+        jLabelCompound.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCompound.setText("xxx Gehege");
+        jLabelCompound.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -164,8 +174,8 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
                         .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelShowDateTime))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 98, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 57, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabelAnimal)
                             .addComponent(jLabelCompoundStatic, javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,7 +185,7 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
                             .addComponent(jLabelTime)
                             .addComponent(jLabelCompound)
                             .addComponent(jLabelFeed))
-                        .addGap(0, 48, Short.MAX_VALUE)))
+                        .addGap(0, 7, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -185,7 +195,7 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelShowDateTime)
                     .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(80, 80, 80)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelAnimal)
                     .addComponent(jLabelTime))
@@ -197,7 +207,7 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFeedStatic)
                     .addComponent(jLabelFeed))
-                .addGap(138, 138, 138))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         pack();
@@ -270,4 +280,5 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
     private GuestModeManager guestModeManager;
     private String time;
     private String animal;
+    private javax.swing.JFrame mapFrame;
 }

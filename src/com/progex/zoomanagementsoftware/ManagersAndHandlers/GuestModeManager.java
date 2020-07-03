@@ -81,7 +81,7 @@ public class GuestModeManager {
                 }
 
             } catch (SQLException ex) {
-                System.err.println("SQL Error in the database in Function : connectionHandler.performQuery()");
+                System.err.println("SQL Error in getAnimalFeedingInfos()");
                 System.out.println(ex.getMessage());
             }
             
@@ -119,7 +119,7 @@ public class GuestModeManager {
 
                 }
             } catch (SQLException e) {
-                System.err.println("SQL Error in the database. Function : connectionHandler.performQuery(query) ");
+                System.err.println("SQL Error in getAnimalNames()");
                 System.out.println(e.getMessage());
             }
         }
@@ -170,11 +170,11 @@ public class GuestModeManager {
 
                 }
             } catch (SQLException e) {
-                System.err.println("SQL Error in the database : connectionHandler.performQuery(query);");
+                System.err.println("SQL Error in getAvailableFeedingTimes()");
                 System.out.println(e.getMessage());
 
             } catch (ParseException ex) {
-                System.err.println("Error. Function parse(resultTimes.getString(\"startFeedingTime\")");
+                System.err.println("Error in getAvailableFeedingTimes()");
                 System.out.println(ex.getMessage());
             }
 
@@ -216,7 +216,7 @@ public class GuestModeManager {
                 }
 
             } catch (SQLException e) {
-                System.err.println("SQL Error in the database. Function :connectionHandler.performQuery(query);");
+                System.err.println("SQL Error in getTimeFeedingInfo()");
                 System.out.println(e.getMessage());
             }
         }
@@ -259,7 +259,7 @@ public class GuestModeManager {
                 }
 
             } catch (SQLException e) {
-                System.err.println("SQL Error in the database. Function : connectionHandler.performQuery(query);");
+                System.err.println("SQL Error in getAnimalTimeFeedingInfo()");
                 System.out.println(e.getMessage());
             }
         }
@@ -315,10 +315,10 @@ public class GuestModeManager {
                 }
 
             } catch (SQLException e) {
-                System.err.println("SQL Error in the database Function : connectionHandler.performQuery(query);");
+                System.err.println("SQL Error in getUniqueFeedingTimes()");
                 System.out.println(e.getMessage());
             } catch (ParseException ex) {
-                System.err.println("Error. Function : parse(resultFeeding.getString(\"StartFeedingTime\"));");
+                System.err.println("Error in getUniqueFeedingTimes()");
                 System.out.println(ex.getMessage());
             }
 
