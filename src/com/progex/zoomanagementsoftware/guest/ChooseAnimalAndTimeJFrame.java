@@ -1,4 +1,3 @@
-
 package com.progex.zoomanagementsoftware.guest;
 
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ConnectionHandler;
@@ -7,113 +6,95 @@ import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.datatypes.FeedingInfo;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import java.awt.Toolkit;
-import java.text.ParseException;
 import java.util.LinkedList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
 public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form ChooseAnimalAndTimeJFrame
-     * @param goBackFrame
-     * @param zooManager
+     * Creates new form ChooseAnimalAndTimeJFrame.
+     *
+     * @param goBackFrame The frame which will appear when the go back button is
+     * used
+     * @param zooManager The zooManager of the current programm session which
+     * serves as interface
      */
     public ChooseAnimalAndTimeJFrame(JFrame goBackFrame, ZooManager zooManager) {
 
         initComponents();
         myInitComponents();
-        
-        
+
         this.goBackFrame = goBackFrame;
         this.zooManager = zooManager;
         this.guestModeManager = zooManager.getGuestModeManager();
 
         //Fulfill Comboboxes
-        SetComboxAnimals();
-        SetComboxTime();
-
+        setComboxAnimals();
+        setComboxTime();
     }
 
-    
-    /* Individual initialization*/
     private void myInitComponents() {
-        
+
         Toolkit tk = Toolkit.getDefaultToolkit();
         int x = (int) tk.getScreenSize().getWidth();
         int y = (int) tk.getScreenSize().getHeight();
         setSize(x, y);
-        
-        if (x == 1920 && y == 1080) {
-            
-            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18));
-            
 
+        if (x == 1920 && y == 1080) {
+
+            jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 18));
         }
         if (x == 1280 && y == 720) {
-            
+
             jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 0, 16));
-
-            
-
         }
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         //get Date
         Methods methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
-      
-        
 
         jButtonSearch.setEnabled(false);
-
     }
 
     /*Fullfil Combobox with animals*/
-    private void SetComboxAnimals() {
+    private void setComboxAnimals() {
 
         LinkedList<String> animals = guestModeManager.getAnimalNames();
 
-        String[] anames = new String[animals.size() + 1];
-        anames[0] = "Tier auswählen";
+        String[] animalNames = new String[animals.size() + 1];
+        animalNames[0] = "Tier auswählen";
 
         for (int i = 0; i < animals.size(); i++) {
 
-            anames[i + 1] = animals.get(i);
+            animalNames[i + 1] = animals.get(i);
 
         }
-        DefaultComboBoxModel defaultTableModel = new DefaultComboBoxModel(anames);
+        DefaultComboBoxModel defaultTableModel = new DefaultComboBoxModel(animalNames);
         jComboBoxName.setModel(defaultTableModel);
 
     }
 
     /*Fullfil Combobox with available feeding times*/
-    private void SetComboxTime() {
+    private void setComboxTime() {
 
         LinkedList<String> times;
-     
-            times = guestModeManager.getAvailableFeedingTimes();
-            
 
-            String[] atimes = new String[times.size() + 1];
-            atimes[0] = "Zeit auswählen";
+        times = guestModeManager.getAvailableFeedingTimes();
 
-            for (int i = 0; i < times.size(); i++) {
+        String[] feedingTimes = new String[times.size() + 1];
+        feedingTimes[0] = "Zeit auswählen";
 
-                atimes[i + 1] = times.get(i);
+        for (int i = 0; i < times.size(); i++) {
 
-            }
-            DefaultComboBoxModel defaultTableModel = new DefaultComboBoxModel(atimes);
-            jComboTime.setModel(defaultTableModel);
-            
-            
-                
-
-        
-
+            feedingTimes[i + 1] = times.get(i);
+        }
+        DefaultComboBoxModel defaultTableModel = new DefaultComboBoxModel(feedingTimes);
+        jComboTime.setModel(defaultTableModel);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -251,11 +232,11 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxNameActionPerformed
-        
+
         //Search button visible or not
         String animal = jComboBoxName.getSelectedItem().toString();
         String feedingTime = jComboTime.getSelectedItem().toString();
-        
+
         if (!feedingTime.equals("Zeit auswählen") || !animal.equals("Tier auswählen")) {
             jButtonSearch.setEnabled(true);
         } else {
@@ -264,37 +245,30 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
         //If Animal choosed, load times only the available times
         if (!animal.equals("Tier auswählen")) {
 
-          
-                LinkedList<String> times = guestModeManager.getUniqueFeedingTimes(animal);
+            LinkedList<String> times = guestModeManager.getUniqueFeedingTimes(animal);
 
-                String[] timesArr = new String[times.size()+1];
-                timesArr[0] = "Zeit auswählen";
-                
-                for (int i = 0; i < times.size(); i++) {
+            String[] timesArr = new String[times.size() + 1];
+            timesArr[0] = "Zeit auswählen";
 
-                    timesArr[i+1] = times.get(i);
-                }
+            for (int i = 0; i < times.size(); i++) {
 
-                DefaultComboBoxModel defaultTableModel = new DefaultComboBoxModel(timesArr);
-                jComboTime.setModel(defaultTableModel);
+                timesArr[i + 1] = times.get(i);
+            }
 
-         
+            DefaultComboBoxModel defaultTableModel = new DefaultComboBoxModel(timesArr);
+            jComboTime.setModel(defaultTableModel);
 
         } else {
-
-            SetComboxTime();
-
+            setComboxTime();
         }
-
-
     }//GEN-LAST:event_jComboBoxNameActionPerformed
 
     private void jComboTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboTimeActionPerformed
         //Search button visible or not
-        String animal = jComboBoxName.getSelectedItem().toString();
+        String animalName = jComboBoxName.getSelectedItem().toString();
         String feedingTime = jComboTime.getSelectedItem().toString();
-        
-        if (!feedingTime.equals("Zeit auswählen") || !animal.equals("Tier auswählen")) {
+
+        if (!feedingTime.equals("Zeit auswählen") || !animalName.equals("Tier auswählen")) {
             jButtonSearch.setEnabled(true);
         } else {
             jButtonSearch.setEnabled(false);
@@ -304,68 +278,55 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
 
         //Close connection in the main menu
-         //Connect to database
         ConnectionHandler connectionHandler = zooManager.getConnectionHandler();
         connectionHandler.disconnect();
-        
+
         goBackFrame.setVisible(true);
         //Close frame
         this.dispose();
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
-       
-                                                  
 
-        String animal = jComboBoxName.getSelectedItem().toString();
-        System.out.println(animal);
+        String animalName = jComboBoxName.getSelectedItem().toString();
         String feedingTime = jComboTime.getSelectedItem().toString();
-        System.out.println(feedingTime);
-        
-        //choosed animal
-        if (!animal.equals("Tier auswählen")&& feedingTime.equals("Zeit auswählen")) {
 
-        
-                
-                LinkedList<FeedingInfo> feedingInfos = guestModeManager.getAnimalFeedingInfos(animal);
+        //choosed animalName
+        if (!animalName.equals("Tier auswählen") && feedingTime.equals("Zeit auswählen")) {
 
-                if (feedingInfos.isEmpty()) {
+            LinkedList<FeedingInfo> feedingInfos = guestModeManager.getAnimalFeedingInfos(animalName);
 
-                    JOptionPane.showMessageDialog(rootPane, "Keine Fütterungen für " + animal + " heute mehr ", "Schade :(", JOptionPane.INFORMATION_MESSAGE);
+            if (feedingInfos.isEmpty()) {
 
-                } else {
-                    
+                JOptionPane.showMessageDialog(rootPane, "Keine Fütterungen für " + animalName + " heute mehr ", "Schade :(", JOptionPane.INFORMATION_MESSAGE);
 
-                    JFrame thisFrame = this;
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                            new ChooseAnimalJFrame(thisFrame, zooManager, animal, feedingInfos).setVisible(true);
-                        }
-                    });
-                    
-                    this.setVisible(false);
-                }
-             
+            } else {
 
+                JFrame thisFrame = this;
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new ChooseAnimalJFrame(thisFrame, zooManager, animalName, feedingInfos).setVisible(true);
+                    }
+                });
+
+                this.setVisible(false);
+            }
         }
 
         ///choosed time   
-        if (animal.equals("Tier auswählen") && !feedingTime.equals("Zeit auswählen")) {
-
-           
+        if (animalName.equals("Tier auswählen") && !feedingTime.equals("Zeit auswählen")) {
 
             JFrame thisFrame = this;
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new ChooseTimeJFrame(thisFrame, zooManager, (String)jComboTime.getSelectedItem()).setVisible(true);
+                    new ChooseTimeJFrame(thisFrame, zooManager, (String) jComboTime.getSelectedItem()).setVisible(true);
                 }
             });
-            
-            this.setVisible(false); 
+
+            this.setVisible(false);
         }
         ///choosed both
-        if (!animal.equals("Tier auswählen") && !feedingTime.equals("Zeit auswählen")) {
-           
+        if (!animalName.equals("Tier auswählen") && !feedingTime.equals("Zeit auswählen")) {
 
             JFrame thisFrame = this;
             java.awt.EventQueue.invokeLater(new Runnable() {
@@ -373,8 +334,8 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
                     new ChooseBothJFrame(thisFrame, zooManager, (String) jComboBoxName.getSelectedItem(), (String) jComboTime.getSelectedItem()).setVisible(true);
                 }
             });
-            
-            this.setVisible(false); 
+
+            this.setVisible(false);
         }
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
@@ -435,6 +396,4 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
     private javax.swing.JFrame goBackFrame;
     private ZooManager zooManager;
     private GuestModeManager guestModeManager;
-
-
 }
