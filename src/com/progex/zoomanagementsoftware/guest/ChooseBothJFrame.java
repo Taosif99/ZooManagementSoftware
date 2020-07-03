@@ -122,7 +122,7 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
         jLabelShowDateTime.setText("TIME");
 
         jLabelFeedStatic.setFont(new java.awt.Font("Calibri", 0, 60)); // NOI18N
-        jLabelFeedStatic.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelFeedStatic.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelFeedStatic.setText("Futter:");
         jLabelFeedStatic.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -131,9 +131,9 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
         jLabelFeed.setText("xxx Futter");
 
         jLabelAnimal.setFont(new java.awt.Font("Calibri", 0, 60)); // NOI18N
-        jLabelAnimal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelAnimal.setText("Tiername :");
-        jLabelAnimal.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabelAnimal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelAnimal.setText("Tier :");
+        jLabelAnimal.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         jLabelTime.setFont(new java.awt.Font("Calibri", 0, 60)); // NOI18N
         jLabelTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -141,7 +141,7 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
         jLabelTime.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabelCompoundStatic.setFont(new java.awt.Font("Calibri", 0, 60)); // NOI18N
-        jLabelCompoundStatic.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCompoundStatic.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelCompoundStatic.setText("Gehege:");
         jLabelCompoundStatic.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -159,20 +159,20 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 625, Short.MAX_VALUE)
                         .addComponent(jLabelShowDateTime))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 57, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelAnimal)
-                            .addComponent(jLabelCompoundStatic, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelFeedStatic, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabelCompoundStatic, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelAnimal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelFeedStatic, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelTime)
                             .addComponent(jLabelCompound)
                             .addComponent(jLabelFeed))
-                        .addGap(0, 7, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -182,7 +182,7 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelShowDateTime)
                     .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelAnimal)
                     .addComponent(jLabelTime))
