@@ -26,7 +26,7 @@ public class Methods {
 
     }
 
-    //Mustapha start
+
     
     /**
      * Method which changes time every second.

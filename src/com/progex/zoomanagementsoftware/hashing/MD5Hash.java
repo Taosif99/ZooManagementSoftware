@@ -13,26 +13,7 @@ import javax.xml.bind.DatatypeConverter; //We are also using the JAXB API
  */
 public class MD5Hash {
     
-    
-    /**
-	 * Main class for testing purposes
-	 * @param args
-	 */
-	public static void main(String[] args) {
-	
-	    MD5Hash myHasher = new MD5Hash();
-	    //Hashing a password list..., here you can add values
-	    String[] passwordList = {"gdrz567","123","0000","progEX"};
-	    String[] hashes = myHasher.hashPasswords(passwordList);
-	    
-	    //Printing all passwords, hashed passwords and check
-	    for (int i = 0; i < passwordList.length;i++) { 	
-	    	boolean check =  myHasher.checkHash(hashes[i],passwordList[i]);
-	    	System.out.println("Password: " + passwordList[i] + " Hash: " + hashes[i] + " Check: " + check);
-	    	
-	    }
-	    
-	}
+
 	
 	/**
 	 * Method which is used to hash a String
@@ -51,8 +32,8 @@ public class MD5Hash {
 	    
 		} catch (NoSuchAlgorithmException e) {
 			
-			System.err.println(e.getMessage());
-			e.printStackTrace();
+			System.err.println("Exception in hashString()");
+			System.out.println(e.getMessage());
 			return null;	
 		}
 	}
@@ -70,17 +51,4 @@ public class MD5Hash {
 		return hashPassword.equals(hash);
 	}
 	
-	/**
-	 * Method which is used to hash a given list passwords
-	 * @param passwords
-	 * @return the hashed passwords
-	 */
-	public String[] hashPasswords(String[] passwords) {
-		
-		String hashes[] = new String[passwords.length];
-		for(int i = 0; i < passwords.length; i++) {	
-			hashes[i] = this.hashString(passwords[i]);
-		}
-		return hashes;
-	}
 }
