@@ -171,7 +171,7 @@ public class GuestModeManager {
      * Method to return TimefeedingInfo for ChooseTimeJFrame.
      *
      * @param feedingTime
-     * @return Linked List with FeedingInfos attributes: animal,compound,food or
+     * @return LinkedList with FeedingInfos attributes: animal,compound,food or
      * null
      */
     public LinkedList<FeedingInfo> getTimeFeedingInfo(String feedingTime) {
