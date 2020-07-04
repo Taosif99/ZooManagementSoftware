@@ -1,4 +1,3 @@
-
 package com.progex.zoomanagementsoftware.ManagersAndHandlers;
 
 import com.progex.zoomanagementsoftware.datatypes.FoodToAnimalR;
@@ -8,30 +7,27 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
-
 /**
  * Class which handles the the food to animal relation in our program.
  */
 public class FoodToAnimalManager {
-    
-    
-      private ConnectionHandler connectionHandler;
-      private ZooManager zooManager;
 
-      
-     /**
-     * Creates an FoodToAnimalManager with corresponding 
-     * reference to connection and main interface handlers.
+    private ConnectionHandler connectionHandler;
+    private ZooManager zooManager;
+
+    /**
+     * Creates an FoodToAnimalManager with corresponding reference to connection
+     * and main interface handlers.
+     *
      * @param connectionHandler
-     * @param zooManager 
-     */  
+     * @param zooManager
+     */
     public FoodToAnimalManager(ConnectionHandler connectionHandler, ZooManager zooManager) {
+
         this.connectionHandler = connectionHandler;
         this.zooManager = zooManager;
     }
-    
-      
-    /*Methods concerning Food to Animal relation start here*/
+
     /**
      * Method which has been implemented to get all requiered information for
      * the food to animal admin view.
@@ -55,7 +51,7 @@ public class FoodToAnimalManager {
     }
 
     /**
-     * Method which adds an FoodToAnimal relation to the database
+     * Method which adds an FoodToAnimal relation to the database.
      *
      * @param animalID
      * @param foodName
@@ -84,68 +80,61 @@ public class FoodToAnimalManager {
                     .append("'").append(endFeedingTime).append("'").append(",").append(amount).append(")");
             String query = querySB.toString();
             System.out.println(query);
-            
-        
+
             boolean retValInsertIntoEats = connectionHandler.manipulateDB(query);
 
-            
             //Decrease the stock amount of food
-            String updateFoodQuery = "UPDATE Food set stock = stock -" + amount + "WHERE ID = " + foodID;   
+            String updateFoodQuery = "UPDATE Food set stock = stock -" + amount + "WHERE ID = " + foodID;
             boolean retValUpdateFood = connectionHandler.manipulateDB(updateFoodQuery);
-            
+
             //Return if both operations successfull
             boolean retVal = retValInsertIntoEats && retValUpdateFood;
 
-            
-            /*
-        if (retVal){
-        System.out.println("Einfügen erfolgreich") ;
-        }else System.out.println("Einfügen misslungen");*/
             return retVal;
         } catch (SQLException ex) {
 
             System.err.println("SQL Exception in addFoodToAnimal()");
             System.out.println(ex.getMessage());
-            
         }
 
         return false;
     }
-    
-    
+
     /**
-     * Method to check if there is enough stock for the feeding
+     * Method to check if there is enough stock for the feeding.
+     *
      * @param foodName
      * @param requiredAmount
-     * @return true, if there is enough food,food exists and amount is positive, else false
+     * @return true, if there is enough food,food exists and amount is positive,
+     * else false
      */
-    public boolean isEnoghtStock(String foodName,double requiredAmount){
-    
-        if (requiredAmount > 0){
-        
-          try {
-              String query = "SELECT stock FROM Food WHERE name = '" + foodName + "'";
-              
-              ResultSet resultSet = connectionHandler.performQuery(query);
-              
-              resultSet.next();
-              
-              double stock = resultSet.getDouble("stock");
-              
-              if ((stock-requiredAmount)< 0) return false;
-              else return true;
-              
-          } catch (SQLException ex) {
-                 System.err.println("SQL Exception in isEnoughStock()");
-                 System.out.println(ex.getMessage());
-          }
+    public boolean isEnoughStock(String foodName, double requiredAmount) {
+
+        if (requiredAmount > 0) {
+
+            try {
+                String query = "SELECT stock FROM Food WHERE name = '" + foodName + "'";
+
+                ResultSet resultSet = connectionHandler.performQuery(query);
+
+                resultSet.next();
+
+                double stock = resultSet.getDouble("stock");
+
+                if ((stock - requiredAmount) < 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+
+            } catch (SQLException ex) {
+                System.err.println("SQL Exception in isEnoughStock()");
+                System.out.println(ex.getMessage());
+            }
         }
-        
+
         return false;
-        
     }
-    
-    
 
     /**
      * Method which has been implemented to update the food to animal relation
@@ -160,8 +149,8 @@ public class FoodToAnimalManager {
      * @param differenceForStock
      * @return true if operation is successful, else false
      */
-    public boolean updateFoodToAnimal(String animalID, String foodName, String startFeedingTime, String endFeedingTime, 
-            double amount, HashMap<String, String> keys,double differenceForStock) {
+    public boolean updateFoodToAnimal(String animalID, String foodName, String startFeedingTime, String endFeedingTime,
+            double amount, HashMap<String, String> keys, double differenceForStock) {
 
         /*Get compoundID and species ID TODO method to shorten code*/
         try {
@@ -179,9 +168,7 @@ public class FoodToAnimalManager {
             resultSet.next();
             int foodID = resultSet.getInt("ID");
 
-            
             //Update the stock
-         
             String updateFoodQuery = "UPDATE Food set stock = stock +" + differenceForStock + "WHERE ID = " + foodID;
             boolean retValUpdateFood = connectionHandler.manipulateDB(updateFoodQuery);
 
@@ -207,7 +194,6 @@ public class FoodToAnimalManager {
             System.err.println("SQL Exception in updateFoodToAnimal()");
             System.out.println(ex.getMessage());
         }
-
         return false;
     }
 
@@ -221,27 +207,24 @@ public class FoodToAnimalManager {
      * @param updateStockVal
      * @return True if operation successful, else false
      */
-    public boolean deleteFoodToAnimal(String foodID, String animalID, String startFeedingTime,double updateStockVal) {
+    public boolean deleteFoodToAnimal(String foodID, String animalID, String startFeedingTime, double updateStockVal) {
 
         boolean updateStockRetVal = true; //Make positive assumption
-        
-        if (updateStockVal != 0){
-        String updateStockQuery = "UPDATE Food set stock = stock + "+updateStockVal + "WHERE ID = " + foodID;
-         updateStockRetVal = connectionHandler.manipulateDB(updateStockQuery);
+
+        if (updateStockVal != 0) {
+            String updateStockQuery = "UPDATE Food set stock = stock + " + updateStockVal + "WHERE ID = " + foodID;
+            updateStockRetVal = connectionHandler.manipulateDB(updateStockQuery);
         }
-        
-        
+
         String query = "DELETE FROM Eats "
                 + "WHERE FoodID = " + foodID
                 + " AND AnimalID= " + animalID
                 + " AND StartFeedingTime = '" + startFeedingTime + "'";
         boolean deleteRetVal = connectionHandler.manipulateDB(query);
-        
+
         return deleteRetVal && updateStockRetVal;
     }
-    
-    
-    
+
     /**
      * This method searches for FoodToAnimal records in the database.
      *
@@ -268,9 +251,8 @@ public class FoodToAnimalManager {
 
         return records;
     }
-    
-      /**
-     * *
+
+    /**
      * Method which has been implemented to create a FoodToAnimalR datastructure
      * from a resultSet which has all requiered attributes.
      *
@@ -294,15 +276,11 @@ public class FoodToAnimalManager {
                 FoodToAnimalR record = new FoodToAnimalR(foodName, foodID, animalID, startFeedingTime, endFeedingTime, amount);
                 records.add(record);
             }
-
         } catch (SQLException e) {
             System.err.println("SQL Exception createFoodToAnimal()");
             System.out.println(e.getMessage());
-
         }
 
         return records;
     }
-    
-      
 }

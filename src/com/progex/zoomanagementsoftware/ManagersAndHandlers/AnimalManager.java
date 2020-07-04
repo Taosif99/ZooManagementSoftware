@@ -21,7 +21,7 @@ public class AnimalManager {
     private ZooManager zooManager;
     
      /**
-     * Creates an AnimalManager manager with corresponding 
+     * Creates an AnimalManager with corresponding 
      * reference to connection and main interface handlers.
      * @param connectionHandler
      * @param zooManager 
@@ -76,9 +76,7 @@ public class AnimalManager {
 
          return animalNames;
     }
-    
-    
-    
+   
     /**
      * Method to add an animal to the database.
      *
@@ -127,7 +125,7 @@ public class AnimalManager {
             return retVal;
         } catch (SQLException ex) {
 
-            System.err.println("SQL Exception");
+            System.err.println("SQL Exception in addAnimal()");
             System.out.println(ex.getMessage());
         }
 
@@ -146,7 +144,7 @@ public class AnimalManager {
      * @param visibility
      * @return true if update operation successful,else false
      */
-    public boolean updateAnimal(int ID, String animalName, String compoundName, String birthday, String sex, String species,String visibility) {
+    public boolean updateAnimal(int ID, String animalName, String compoundName, String birthday, String sex, String species, String visibility) {
 
         /*Get compoundID and species ID*/
         try {
@@ -231,7 +229,6 @@ public class AnimalManager {
             return this.getAnimals();
         }
         return animals;
-
     }
 
     /**

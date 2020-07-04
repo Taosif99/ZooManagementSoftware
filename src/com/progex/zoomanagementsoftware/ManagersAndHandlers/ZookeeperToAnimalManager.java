@@ -10,15 +10,22 @@ import java.util.LinkedList;
  * Class which handles the the zookeeper to animal relation in our program.
  */
 public class ZookeeperToAnimalManager {
-    
+
     private ConnectionHandler connectionHandler;
     private ZooManager zooManager;
 
+    /**
+     * Creates an ZookeeperToAnimalManager with corresponding reference to
+     * connection and main interface handlers.
+     *
+     * @param connectionHandler
+     * @param zooManager
+     */
     public ZookeeperToAnimalManager(ConnectionHandler connectionHandler, ZooManager zooManager) {
         this.connectionHandler = connectionHandler;
         this.zooManager = zooManager;
     }
-    
+
     /**
      * This method is used to get all animal ids with the same animal name.
      *
@@ -27,7 +34,7 @@ public class ZookeeperToAnimalManager {
      */
     public LinkedList<Integer> getAnimalIds(String animalName) {
 
-        LinkedList<Integer> animalIds = new LinkedList<Integer>();
+        LinkedList<Integer> animalIds = new LinkedList<>();
 
         try {
 
@@ -38,7 +45,6 @@ public class ZookeeperToAnimalManager {
             if (resultSet != null) {
                 while (resultSet.next()) {
                     animalIds.add(resultSet.getInt("id"));
-                    //System.out.println(resultSet.getInt("id"));
                 }
             }
         } catch (SQLException sqlException) {
@@ -53,44 +59,40 @@ public class ZookeeperToAnimalManager {
      *
      * @param animalIds
      * @param zookeeperId
-     * @return If the operation was successfull
+     * @return If true the operation was successfull, else false
      */
     public boolean addZookeeperToAnimal(LinkedList<Integer> animalIds, String zookeeperId) {
         String query;
-        System.out.println("add zookeeperId  : " + zookeeperId);
         for (Integer animalId : animalIds) {
             query = "INSERT INTO takesCare(UserID,AnimalID) VALUES(" + zookeeperId + "," + animalId + ")";
-            System.out.println("In add: " + animalId);
             if (!connectionHandler.manipulateDB(query)) {
                 return false;
             }
         }
-
         return true;
     }
 
     /**
-     * This method is used to delete a takes care relation
+     * This method is used to delete a takes care relation.
      *
      * @param animalIds
      * @param zookeeperId
-     * @return If the operation was successfull
+     * @return If true the operation was successfull, else false
      */
     public boolean deleteZookeeperToAnimal(LinkedList<Integer> animalIds, int zookeeperId) {
 
         boolean retVal = false;
         String query;
-        System.out.println("delete zookeeperId  : " + zookeeperId);
         for (Integer animalId : animalIds) {
             query = "DELETE FROM takesCare WHERE userId = " + zookeeperId + " AND animalId = " + animalId;
-            System.out.println("In delete: " + animalId);
             retVal = connectionHandler.manipulateDB(query);
         }
         return retVal;
     }
 
     private LinkedList<ZookeeperToAnimalR> createZookeeperToAnimal(ResultSet resultSet) {
-        LinkedList<ZookeeperToAnimalR> records = new LinkedList<ZookeeperToAnimalR>();
+
+        LinkedList<ZookeeperToAnimalR> records = new LinkedList<>();
         try {
             while (resultSet.next()) {
                 int userId = resultSet.getInt("userId");
@@ -156,13 +158,12 @@ public class ZookeeperToAnimalManager {
      *
      * @param animalName
      * @param zookeeperId
-     * @return True if the relation exists and false if the relation doesnt
+     * @return True if the relation exists and false if the relation does not
      * exist
      */
     public boolean checkZookeeperToAnimalExists(String animalName, int zookeeperId) {
 
         LinkedList<Integer> animalIds = getAnimalIds(animalName);
-        System.out.println("check:   " + zookeeperId);
         String query;
 
         try {

@@ -12,9 +12,7 @@ import java.util.LinkedHashMap;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-
 /**
- *
  * Class is used to manage all related functions regarding the user. Beneath the
  * functionalites are the Login/Logout, Show all feeding times information, show
  * next feeding time information, update the lastlogdate of a user. Moreover
@@ -27,18 +25,19 @@ public class UserManager {
 
     private ConnectionHandler connectionHandler;
 
-    private ZooManager zooManager; //Knows the reference to its owner, probably todo: rethink structcure
+    private ZooManager zooManager;
 
     private Thread updateLastLogThread;
 
     /**
-     * Creates an UserManager manager with corresponding reference to connection
-     * and main interface.
+     * Creates an UserManager with corresponding reference to connection and
+     * main interface.
      *
      * @param connectionHandler
      * @param zooManager
      */
     public UserManager(ConnectionHandler connectionHandler, ZooManager zooManager) {
+
         this.loggedInUser = null;
         this.connectionHandler = connectionHandler;
         this.zooManager = zooManager;
@@ -57,33 +56,29 @@ public class UserManager {
         this.loggedInUser = loggedInUser;
     }
 
-    public ArrayList<String> loadCountryCodes(){
-        
-        ArrayList<String> countryCodes = new ArrayList<String>(); 
-    
+    public ArrayList<String> loadCountryCodes() {
+
+        ArrayList<String> countryCodes = new ArrayList<>();
+
         String query = "SELECT code FROM Country ORDER BY code";
-        
+
         ResultSet resultSet = connectionHandler.performQuery(query);
-        
-         try {
-            String countryCode; 
+
+        try {
+            String countryCode;
             while (resultSet.next()) {
                 countryCode = resultSet.getString("code");
                 countryCodes.add(countryCode);
             }
-         }catch (SQLException sqlException) {
+        } catch (SQLException sqlException) {
             System.err.println("SQL Exception in loadCountryCodes()");
             System.out.print(sqlException.getMessage());
         }
-
-         return countryCodes;
+        return countryCodes;
     }
-    
-    
-    //TODO Überlegen ob es Sinn macht addressen auch hier zu verwalten,wäre
-    //praktisch machbar...
+
     /**
-     * Method which access the users which are stored in the database
+     * Method which access the users which are stored in the database.
      *
      * @return A LinkedList of User objects
      */
@@ -102,15 +97,15 @@ public class UserManager {
     }
 
     /**
-     * Method which has been implemented to create a user datastructure from a
-     * resultSet which has all requiered attributes.
+     * Method which has been implemented to create a user data structure from a
+     * result set which has all requiered attributes.
      *
      * @param resultSet
      * @return A LinkedList which contains all users depending on the result set
      */
     private LinkedList<User> createUsers(ResultSet resultSet) {
 
-        LinkedList<User> users = new LinkedList<User>();
+        LinkedList<User> users = new LinkedList<>();
         Methods methods = new Methods();
 
         try {
@@ -133,8 +128,8 @@ public class UserManager {
                 int countryID = resultSet.getInt("CountryID");
                 Timestamp lastLogDate = resultSet.getTimestamp("LastLogDate");
                 String hashedPassword = resultSet.getString("hashedPassword");
-                
-                Address address = new Address(id, street,countryID, zip, city);
+
+                Address address = new Address(id, street, countryID, zip, city);
                 Salutation salutation = methods.stringToSalutation(salutationStr);
                 Shift shift = methods.stringToShift(shiftStr);
 
@@ -153,7 +148,6 @@ public class UserManager {
                         break;
                 }
             }
-
         } catch (SQLException sqlException) {
             System.err.println("SQL Exception in createUsers()");
             System.out.print(sqlException.getMessage());
@@ -170,13 +164,12 @@ public class UserManager {
      * @return true if operation was successful, else false
      */
     public boolean addUser(User user, String shift, String userType) {
-        
+
         String zip = user.getAddress().getZip();
         String street = user.getAddress().getStreet();
         String city = user.getAddress().getCity();
-        int countryId  = user.getAddress().getCountryID();
-        
-        int addressId = searchAddressId(zip,street,city,countryId);
+        int countryId = user.getAddress().getCountryID();
+        int addressId = searchAddressId(zip, street, city, countryId);
 
         boolean retVal;
 
@@ -184,8 +177,8 @@ public class UserManager {
 
         String hashedPassword = hasher.hashString(user.getHashedPassword());
         if (addressId == -1) {
-            retVal = addAddress(zip, city, countryId,street);
-            addressId = searchAddressId(zip,street,city,countryId);
+            retVal = addAddress(zip, city, countryId, street);
+            addressId = searchAddressId(zip, street, city, countryId);
             //Falls die Adresse nicht eingefügt werden konnte
             if (retVal == false) {
                 return retVal;
@@ -216,14 +209,15 @@ public class UserManager {
 
     /**
      * This method is used to get the country code.
+     *
      * @param countryId
      * @return country code or null if it doesnt exist
      */
-    public String getCountryCode(int countryId){
-        
+    public String getCountryCode(int countryId) {
+
         String query = "SELECT code FROM country WHERE id = " + countryId;
         System.out.println(query);
-        
+
         ResultSet resultSet = connectionHandler.performQuery(query);
         try {
             resultSet.next();
@@ -235,18 +229,18 @@ public class UserManager {
         }
         return null;
     }
-    
-    
+
     /**
      * This method is used to return the id of a country code.
+     *
      * @param countryCode
      * @return country id or 0 if it does not exist
      */
-    public int getCountryId(String countryCode){
-        
+    public int getCountryId(String countryCode) {
+
         String query = "SELECT id FROM country WHERE code = '" + countryCode + "'";
         System.out.println(query);
-        
+
         ResultSet resultSet = connectionHandler.performQuery(query);
         int countryId;
         try {
@@ -259,8 +253,7 @@ public class UserManager {
         }
         return 0;
     }
-    
-    
+
     /**
      * Method to add an address in the database.
      *
@@ -314,7 +307,6 @@ public class UserManager {
         return addressId;
     }
 
-    //TODO COUNTRY WIRD GAR NICHT GEBRAUCHT ???
     /**
      * Method to update an user in the database.
      *
@@ -333,12 +325,9 @@ public class UserManager {
         String zip = user.getAddress().getZip();
         String street = user.getAddress().getStreet();
         String city = user.getAddress().getCity();
-        int countryId  = user.getAddress().getCountryID();
-        
+        int countryId = user.getAddress().getCountryID();
 
-        
-        
-        int addressId = searchAddressId(zip,street,city,countryId);
+        int addressId = searchAddressId(zip, street, city, countryId);
         //Check if username changed and if yes, check if new username already used     
         String oldUsername = " ";
         String userNameQuery = "SELECT UserName FROM USER WHERE ID = " + id;
@@ -351,7 +340,6 @@ public class UserManager {
                 if (resultSet.next()) {
                     oldUsername = resultSet.getString("UserName");
                 }
-
             } catch (SQLException sqlException) {
                 System.err.println("SQL Exception in updateUser()");
                 System.out.println(sqlException.getMessage());
@@ -365,8 +353,8 @@ public class UserManager {
         }
 
         if (addressId == -1) {
-            retVal = addAddress(user.getAddress().getZip(), user.getAddress().getCity(), user.getAddress().getCountryID(), user.getAddress().getStreet());
-            addressId = searchAddressId(user.getAddress().getZip(), user.getAddress().getStreet(), user.getAddress().getCity(),user.getAddress().getCountryID());
+            retVal = addAddress(zip, city, countryId, user.getAddress().getStreet());
+            addressId = searchAddressId(zip, street, city, countryId);
             if (retVal == false) {
                 return retVal;
             }
@@ -436,9 +424,9 @@ public class UserManager {
                 + "CountryID,LastLogDate,HashedPassword\n"
                 + "FROM User\n"
                 + "INNER JOIN Address ON User.AddressID = Address.ID WHERE ";
-        String query = zooManager.generateSearchQuery(columnValueMap, begin,"LastLogDate DESC LIMIT " + limit);
+        String query = zooManager.generateSearchQuery(columnValueMap, begin, "LastLogDate DESC LIMIT " + limit);
 
-       // query = query + " ORDER BY LastLogDate DESC LIMIT " + limit;
+        // query = query + " ORDER BY LastLogDate DESC LIMIT " + limit;
         System.out.println(query);
 
         LinkedList<User> users = null;
@@ -465,7 +453,7 @@ public class UserManager {
                 + "CountryID,LastLogDate,HashedPassword\n"
                 + "FROM User\n"
                 + "INNER JOIN Address ON User.AddressID = Address.ID WHERE ";
-        String query = zooManager.generateSearchQuery(columnValueMap, begin,"User.ID");
+        String query = zooManager.generateSearchQuery(columnValueMap, begin, "User.ID");
 
         System.out.println(query);
 
@@ -516,7 +504,6 @@ public class UserManager {
     public User login(String username, String hashedPassword) {
 
         try {
-
             connectionHandler.connect();
 
             //Set query
@@ -561,9 +548,7 @@ public class UserManager {
                         startUpdateThread();
                         return zookeeper;
                     }
-
                 }
-
             }
         } catch (SQLException sqlException) {
             System.err.println("SQL Exception in login()");
@@ -572,7 +557,6 @@ public class UserManager {
 
         connectionHandler.disconnect(); //Disconnect if it was not successfull
         return null;
-
     }
 
     //Start a thread that keeps updating the lastlogdate every 30 seconds.
@@ -631,7 +615,7 @@ public class UserManager {
     }
 
     /**
-     * 
+     *
      * Get NextFeedingInfo Object to display a zookeepers next feeding time.
      *
      * @return ZookeeperInfo that shows all important information for the next
@@ -658,12 +642,10 @@ public class UserManager {
 
             ResultSet resultSet = connectionHandler.performQuery(query);
 
-
             ZookeeperInfo zookeeperInfo = null;
 
             // set variables from resultset
             if (resultSet.next()) {
-
 
                 String animalName = resultSet.getString(2);
                 String food = resultSet.getString(3);

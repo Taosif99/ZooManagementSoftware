@@ -16,51 +16,44 @@ public class FoodManager {
     private ZooManager zooManager;
 
     /**
-     * Creates a FoodManager with corresponding reference to connection and main
-     * interface handlers.
+     * Creates a FoodManager with corresponding reference to connection
+     * and main interface handlers.
      *
      * @param connectionHandler
      * @param zooManager
      */
     public FoodManager(ConnectionHandler connectionHandler, ZooManager zooManager) {
+
         this.connectionHandler = connectionHandler;
         this.zooManager = zooManager;
     }
-    
-    
-    
-    
-    
-    
+
     /**
-     * Method which is used to load a List of food names from the database. 
+     * Method which is used to load a List of food names from the database.
+     *
      * @return The ordered list if successfull, else an empty arraylist
      */
-    public ArrayList<String> loadFoodNames(){
-        
-        ArrayList <String> foodNames = new ArrayList<String>(); 
-    
+    public ArrayList<String> loadFoodNames() {
+
+        ArrayList<String> foodNames = new ArrayList<>();
+
         String query = "Select Name from Food Order by Name";
-        
+
         ResultSet resultSet = connectionHandler.performQuery(query);
-        
-         try {
-            String foodName; 
+
+        try {
+            String foodName;
             while (resultSet.next()) {
                 foodName = resultSet.getString("Name");
                 foodNames.add(foodName);
             }
-         }catch (SQLException sqlException) {
+        } catch (SQLException sqlException) {
             System.err.println("SQL Exception in loadFoodNames()");
             System.out.print(sqlException.getMessage());
         }
 
-         return foodNames;
+        return foodNames;
     }
-    
-    
-    
-    
 
     private LinkedList<Food> createFoods(ResultSet resultSet) {
         LinkedList<Food> foods = new LinkedList<Food>();
@@ -76,7 +69,6 @@ public class FoodManager {
                     Food tempFood = new Food(tempID, tempName, tempStock, tempStorageRoomNumber);
                     foods.add(tempFood);
                 }
-
             } catch (SQLException sqlException) {
                 System.err.println("SQL Exception in createFoods()");
                 System.out.println(sqlException.getMessage());
@@ -93,7 +85,7 @@ public class FoodManager {
      */
     public LinkedList<Food> searchFoods(LinkedHashMap<String, String> columnValueMap) {
 
-        String query = zooManager.generateSearchQuery(columnValueMap, "SELECT id, storageRoomNumber, stock, name FROM food WHERE ","id");
+        String query = zooManager.generateSearchQuery(columnValueMap, "SELECT id, storageRoomNumber, stock, name FROM food WHERE ", "id");
         LinkedList<Food> foods = null;
         if (query != null) {
             ResultSet resultSet = connectionHandler.performQuery(query);
@@ -107,7 +99,7 @@ public class FoodManager {
     /**
      * Method to get all foods from the database.
      *
-     * @return A LinkedList of Food objects which contains all foods which are
+     * @return A LinkedList of food objects which contains all foods which are
      * stored in the database
      */
     public LinkedList<Food> getFoods() {

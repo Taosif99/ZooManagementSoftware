@@ -140,7 +140,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                                 throw new IllegalArgumentException("End feeding time cannot start before start feeding time");
                             }
 
-                            if (!foodToAnimalManager.isEnoghtStock(foodName, amount)) {
+                            if (!foodToAnimalManager.isEnoughStock(foodName, amount)) {
 
                                 throw new IllegalArgumentException("not enough stock");
 
@@ -896,7 +896,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
 
                                     //Check if there is enough for update
                                     double increaseAmount = differenceForStock * (-1);
-                                    if (!foodToAnimalManager.isEnoghtStock(foodName, increaseAmount)) {
+                                    if (!foodToAnimalManager.isEnoughStock(foodName, increaseAmount)) {
                                         throw new IllegalArgumentException("not enough stock");
                                     }
 

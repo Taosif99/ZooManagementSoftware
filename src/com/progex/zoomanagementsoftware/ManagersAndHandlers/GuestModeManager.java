@@ -21,11 +21,10 @@ public class GuestModeManager {
      * @param connectionHandler
      */
     public GuestModeManager(ConnectionHandler connectionHandler) {
-        this.connectionHandler = connectionHandler;
 
+        this.connectionHandler = connectionHandler;
     }
 
-    /*If User choose a animal, this is the function for the table(compound,start/end feedingtime, food.*/
     /**
      * Method to return FeedingInfo for ChooseAnimalAndTimeJframe.
      *
@@ -33,7 +32,7 @@ public class GuestModeManager {
      * @return LinkedList FeedingInfos with attributes :
      * compound,startFeedingTime,endFeedingTime,food or null
      */
-    public LinkedList<FeedingInfo> getAnimalFeedingInfos(String animal)  {
+    public LinkedList<FeedingInfo> getAnimalFeedingInfos(String animal) {
 
         LinkedList<FeedingInfo> feedingInfos = new LinkedList<FeedingInfo>();
         String query = "Select compound.name as Gehege ,eats.StartFeedingTime, eats.EndFeedingTime,food.name as Essen "
@@ -43,7 +42,6 @@ public class GuestModeManager {
         ResultSet resultFeeding = connectionHandler.performQuery(query);
 
         if (resultFeeding != null) {
-
             try {
                 while (resultFeeding.next()) {
 
@@ -83,22 +81,14 @@ public class GuestModeManager {
             } catch (SQLException ex) {
                 System.err.println("SQL Error in getAnimalFeedingInfos()");
                 System.out.println(ex.getMessage());
-            }
-            
-            catch (ParseException parseException){
-                System.err.println("parseException in getAnimalFeedingInfos()");
+            } catch (ParseException parseException) {
+                System.err.println("ParseException in getAnimalFeedingInfos()");
                 System.out.println(parseException.getMessage());
-                
             }
-            
-            
         }
-
         return feedingInfos;
-
     }
 
-    /*get all animals in db.*/
     /**
      * Method to return all distinct animals in a database.
      *
@@ -106,7 +96,7 @@ public class GuestModeManager {
      */
     public LinkedList<String> getAnimalNames() {
 
-        LinkedList<String> animals = new LinkedList<String>();
+        LinkedList<String> animals = new LinkedList<>();
         String query = "Select Distinct animalName from animal WHERE visibleForGuest = 'Ja' order by animalName ASC";
         ResultSet resultAnimals = connectionHandler.performQuery(query);
 
@@ -124,7 +114,6 @@ public class GuestModeManager {
             }
         }
         return animals;
-
     }
 
     /**
@@ -132,7 +121,6 @@ public class GuestModeManager {
      *
      * @return LinkedList with all available times in database from today or
      * null
-     *
      */
     public LinkedList<String> getAvailableFeedingTimes() {
         LinkedList<String> times = new LinkedList<String>();
@@ -140,9 +128,8 @@ public class GuestModeManager {
         String query = "Select distinct startFeedingTime from eats,animal "
                 + " WHERE eats.AnimalID = animal.ID  "
                 + " AND visibleForGuest = 'Ja' "
-                + " order by startFeedingTime ASC" ;
-        
-        
+                + " order by startFeedingTime ASC";
+
         ResultSet resultTimes = connectionHandler.performQuery(query);
 
         if (resultTimes != null) {
@@ -157,8 +144,8 @@ public class GuestModeManager {
                     //als String um Datum zu vergleichen
                     String time = timestampstart.toString();
                     String tmp = time.substring(0, 10);
-                    //Datum von heute in compStamp bzw tmpTwo speichern
 
+                    //Datum von heute in compStamp bzw tmpTwo speichern
                     java.sql.Timestamp compStamp = new java.sql.Timestamp(System.currentTimeMillis());
                     String tmpTwo = compStamp.toString().substring(0, 10);
 
@@ -167,29 +154,25 @@ public class GuestModeManager {
                         times.add(timeStart);
 
                     }
-
                 }
             } catch (SQLException e) {
-                System.err.println("SQL Error in getAvailableFeedingTimes()");
+                System.err.println("SQL Exception in getAvailableFeedingTimes()");
                 System.out.println(e.getMessage());
 
             } catch (ParseException ex) {
-                System.err.println("Error in getAvailableFeedingTimes()");
+                System.err.println("ParseException in getAvailableFeedingTimes()");
                 System.out.println(ex.getMessage());
             }
-
         }
         return times;
-
     }
 
-    /*If User choose a time, this is the function for the table(animalName,compund and food.*/
     /**
      * Method to return TimefeedingInfo for ChooseTimeJFrame.
      *
      * @param feedingTime
-     * @return Linked List with FeedingInfos attributes : animal,compound,food
-     * or null
+     * @return Linked List with FeedingInfos attributes: animal,compound,food or
+     * null
      */
     public LinkedList<FeedingInfo> getTimeFeedingInfo(String feedingTime) {
 
@@ -204,7 +187,6 @@ public class GuestModeManager {
         if (resultFeeding != null) {
             try {
                 while (resultFeeding.next()) {
-
                     String animal = resultFeeding.getString("animalName");
 
                     String com = resultFeeding.getString("gehege");
@@ -216,26 +198,24 @@ public class GuestModeManager {
                 }
 
             } catch (SQLException e) {
-                System.err.println("SQL Error in getTimeFeedingInfo()");
+                System.err.println("SQL Exception in getTimeFeedingInfo()");
                 System.out.println(e.getMessage());
             }
         }
-
         return feedingInfos;
     }
 
-    /*If User choose a animal and time, this is the function for the labels food and compound.*/
     /**
      * Method to return feedingInfo for ChooseBothJFrame.
      *
      * @param feedingTime
      * @param animalName
-     * @return LinkedList feedingInfo with attributes from Class feedingInfo :
+     * @return LinkedList feedingInfo with attributes from Class feedingInfo:
      * compound, food or null
      */
     public LinkedList<FeedingInfo> getAnimalTimeFeedingInfo(String feedingTime, String animalName) {
 
-        LinkedList<FeedingInfo> feedingInfos = new LinkedList<FeedingInfo>();
+        LinkedList<FeedingInfo> feedingInfos = new LinkedList<>();
         String query = "Select compound.name as gehege,food.name as essen FROM compound,food,eats,animal"
                 + " WHERE eats.AnimalID = animal.ID "
                 + "AND eats.FoodID = food.ID "
@@ -250,20 +230,16 @@ public class GuestModeManager {
                 while (resultFeeding.next()) {
 
                     String com = resultFeeding.getString("gehege");
-
                     String food = resultFeeding.getString("essen");
 
                     FeedingInfo newFeedingInfo = new FeedingInfo(com, food);
-
                     feedingInfos.add(newFeedingInfo);
                 }
-
             } catch (SQLException e) {
-                System.err.println("SQL Error in getAnimalTimeFeedingInfo()");
+                System.err.println("SQL Exception in getAnimalTimeFeedingInfo()");
                 System.out.println(e.getMessage());
             }
         }
-
         return feedingInfos;
     }
 
@@ -275,7 +251,7 @@ public class GuestModeManager {
      */
     public LinkedList<String> getUniqueFeedingTimes(String animal) {
 
-        LinkedList<String> feedingTimes = new LinkedList<String>();
+        LinkedList<String> feedingTimes = new LinkedList<>();
         String query = "Select distinct eats.StartFeedingTime "
                 + "FROM animal,eats,food "
                 + "WHERE eats.AnimalID = animal.ID "
@@ -299,8 +275,8 @@ public class GuestModeManager {
                     //als String um Datum zu vergleichen
                     String times = timestampstart.toString();
                     String tmp = times.substring(0, 10);
-                    //Datum von heute in compStamp bzw tmpTwo speichern
 
+                    //Datum von heute in compStamp bzw tmpTwo speichern
                     java.sql.Timestamp compStamp = new java.sql.Timestamp(System.currentTimeMillis());
                     String tmpTwo = compStamp.toString().substring(0, 10);
 
@@ -308,24 +284,17 @@ public class GuestModeManager {
                     if (tmpTwo.equals(tmp)) {
 
                         String timeStart = times.substring(11, 16);
-
                         feedingTimes.add(timeStart);
                     }
-
                 }
-
             } catch (SQLException e) {
-                System.err.println("SQL Error in getUniqueFeedingTimes()");
+                System.err.println("SQL Exception in getUniqueFeedingTimes()");
                 System.out.println(e.getMessage());
             } catch (ParseException ex) {
-                System.err.println("Error in getUniqueFeedingTimes()");
+                System.err.println("ParseException in getUniqueFeedingTimes()");
                 System.out.println(ex.getMessage());
             }
-
         }
-
         return feedingTimes;
-
     }
-
 }

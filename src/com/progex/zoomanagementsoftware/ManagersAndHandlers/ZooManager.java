@@ -1,7 +1,4 @@
-
 package com.progex.zoomanagementsoftware.ManagersAndHandlers;
-
-
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -9,7 +6,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Set;
-
 
 /**
  * This class serves as main interface to our zoo management software.
@@ -27,7 +23,7 @@ public class ZooManager {
 
     /**
      * Method to initalize our ZooManagement Interface, requires the MySql
-     * database information for initalizing connection
+     * database information for initalizing connection.
      *
      * @param url
      * @param username
@@ -65,30 +61,27 @@ public class ZooManager {
     public FoodToAnimalManager getFoodToAnimalManager() {
         return foodToAnimalManager;
     }
-    
+
     public ZookeeperToAnimalManager getZookeeperToAnimalManager() {
         return zookeeperToAnimalManager;
-    } 
+    }
 
     public FoodManager getFoodManager() {
         return foodManager;
     }
 
-    public ConnectionHandler getConnectionHandler(){
+    public ConnectionHandler getConnectionHandler() {
         return connectionHandler;
     }
-    
-    
 
-    /*Methods concerning Food to Animal relation end here*/
-    /*Own reused methods*/
     /**
      *
-     * Method which constructs a search query using the parameters
-     * and regular expressions. Please consider side possible side effects !
+     * Method which constructs a search query using the parameters and regular
+     * expressions. Please consider side possible side effects!
      *
      * @param columnValueMap
      * @param queryBegin
+     * @param orderByValue
      * @return The query as String, null if no String can be built
      */
     public String generateSearchQuery(LinkedHashMap<String, String> columnValueMap, String queryBegin, String orderByValue) {
@@ -133,13 +126,10 @@ public class ZooManager {
             }
 
             if (orderByValue != null) {
-            
-            querySb.append(" ORDER BY ").append(orderByValue);
-            
-            
+
+                querySb.append(" ORDER BY ").append(orderByValue);
             }
-            
-            
+
             System.out.println(querySb.toString());
             return querySb.toString();
 
@@ -150,5 +140,4 @@ public class ZooManager {
             return null;
         }
     }
-   
 }

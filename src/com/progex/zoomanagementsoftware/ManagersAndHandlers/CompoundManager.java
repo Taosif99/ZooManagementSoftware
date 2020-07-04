@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
-
 /**
  * Class which handles the compounds in our program.
  */
@@ -16,10 +15,11 @@ public class CompoundManager {
     private ZooManager zooManager;
 
     /**
-     * Creates a Compound manager with corresponding 
-     * reference to connection and main interface handlers.
+     * Creates a CompoundManager with corresponding reference to
+     * connection and main interface handlers.
+     *
      * @param connectionHandler
-     * @param zooManager 
+     * @param zooManager
      */
     public CompoundManager(ConnectionHandler connectionHandler, ZooManager zooManager) {
         this.connectionHandler = connectionHandler;
@@ -141,8 +141,8 @@ public class CompoundManager {
     }
 
     /**
-     * Method which has been implemented to create a compound data structure from
-     * a resultSet which has all requiered attributes.
+     * Method which has been implemented to create a compound data structure
+     * from a resultSet which has all requiered attributes.
      *
      * @param resultSet
      * @return A LinkedList which contains all compounds depending on the result
@@ -199,7 +199,7 @@ public class CompoundManager {
             }
 
             if (resultSet.next()) {
-              
+
                 return true;
 
             } else {
@@ -212,31 +212,31 @@ public class CompoundManager {
         }
         return false;
     }
-    
-    
+
     /**
      * Method to check if animals live in a compound or not.
+     *
      * @param CompoundId
      * @return true if atleast one animal lives in the compound, else false
      */
-    public boolean isEmpty(int CompoundId){
-    
-    
-           String compoundID = Integer.toString(CompoundId);
-           String queryToGetCurrentCapacity = "SELECT COUNT(CompoundID) as CurrentCapacity FROM Animal WHERE CompoundID = " + compoundID;
-           ResultSet currentCapacityResult = connectionHandler.performQuery(queryToGetCurrentCapacity);
-           
+    public boolean isEmpty(int CompoundId) {
+
+        String compoundID = Integer.toString(CompoundId);
+        String queryToGetCurrentCapacity = "SELECT COUNT(CompoundID) as CurrentCapacity FROM Animal WHERE CompoundID = " + compoundID;
+        ResultSet currentCapacityResult = connectionHandler.performQuery(queryToGetCurrentCapacity);
+
         try {
             currentCapacityResult.next();
             int currentCapacity = currentCapacityResult.getInt("CurrentCapacity");
-            if(currentCapacity>0) return false;
-            
+            if (currentCapacity > 0) {
+                return false;
+            }
+
         } catch (SQLException ex) {
             System.err.println("SQL Exception in isEmpty()");
             System.out.println(ex.getMessage());
 
         }
-     return true;
+        return true;
     }
-    
 }
