@@ -170,7 +170,6 @@ public class ConnectionHandler {
         } catch (SQLException ex) {
             System.err.println("SQL Exception in manipulateDB()");
             System.out.println(ex.getMessage());
-            ex.printStackTrace();
         }
 
         return false;
