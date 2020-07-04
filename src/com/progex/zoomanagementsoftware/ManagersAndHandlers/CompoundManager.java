@@ -46,7 +46,7 @@ public class CompoundManager {
      * @param area
      * @param constructionYear
      * @param maxCapacity
-     * @return true if successfull, else false
+     * @return True if successfull, else false
      */
     public boolean addCompound(String name, double area, int constructionYear, int maxCapacity) {
 
@@ -65,7 +65,7 @@ public class CompoundManager {
      * @param area
      * @param constructionYear
      * @param maxCapacity
-     * @return true if successful, else false
+     * @return True if successful, else false
      */
     public boolean updateCompound(int ID, String name, double area, int constructionYear, int maxCapacity) {
 
@@ -111,7 +111,7 @@ public class CompoundManager {
      * Method to delete a compound from the database.
      *
      * @param ID
-     * @return true if successful, else false
+     * @return True if successful, else false
      */
     public boolean deleteCompound(int ID) {
 
@@ -186,7 +186,7 @@ public class CompoundManager {
      * Method to check if a compound with the given name already exists.
      *
      * @param compoundName
-     * @return true if compound with this name is found, else false
+     * @return True if compound with this name is found, else false
      */
     public boolean compoundExists(String compoundName) {
 
@@ -206,9 +206,9 @@ public class CompoundManager {
                 return false;
             }
         } catch (SQLException ex) {
+            
             System.err.println("SQL Exception in compoundExists()");
             System.out.println(ex.getMessage());
-
         }
         return false;
     }
@@ -217,7 +217,7 @@ public class CompoundManager {
      * Method to check if animals live in a compound or not.
      *
      * @param CompoundId
-     * @return true if atleast one animal lives in the compound, else false
+     * @return True if atleast one animal lives in the compound, else false
      */
     public boolean isEmpty(int CompoundId) {
 

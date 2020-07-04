@@ -86,7 +86,7 @@ public class AnimalManager {
      * @param sex
      * @param species
      * @param visibility
-     * @return true if successfull, else false
+     * @return True if successfull, else false
      */
     public boolean addAnimal(String animalName, String compoundName, String birthday, String sex, String species,String visibility) {
 
@@ -142,7 +142,7 @@ public class AnimalManager {
      * @param sex
      * @param species
      * @param visibility
-     * @return true if update operation successful,else false
+     * @return True if update operation successful,else false
      */
     public boolean updateAnimal(int ID, String animalName, String compoundName, String birthday, String sex, String species, String visibility) {
 
@@ -195,7 +195,7 @@ public class AnimalManager {
      * Method which has been implemented to delete an animal from the database.
      *
      * @param ID
-     * @return true if delete operation is successful, else false
+     * @return True if delete operation is successful, else false
      */
     public boolean deleteAnimal(int ID) {
 

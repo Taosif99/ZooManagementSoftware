@@ -58,7 +58,7 @@ public class FoodToAnimalManager {
      * @param startFeedingTime
      * @param endFeedingTime
      * @param amount
-     * @return true if operation is successful, else false
+     * @return True if operation is successful, else false
      */
     public boolean addFoodToAnimal(String animalID, String foodName, String startFeedingTime, String endFeedingTime, double amount) {
 
@@ -105,7 +105,7 @@ public class FoodToAnimalManager {
      *
      * @param foodName
      * @param requiredAmount
-     * @return true, if there is enough food,food exists and amount is positive,
+     * @return True, if there is enough food,food exists and amount is positive,
      * else false
      */
     public boolean isEnoughStock(String foodName, double requiredAmount) {
@@ -147,7 +147,7 @@ public class FoodToAnimalManager {
      * @param amount
      * @param keys
      * @param differenceForStock
-     * @return true if operation is successful, else false
+     * @return True if operation is successful, else false
      */
     public boolean updateFoodToAnimal(String animalID, String foodName, String startFeedingTime, String endFeedingTime,
             double amount, HashMap<String, String> keys, double differenceForStock) {

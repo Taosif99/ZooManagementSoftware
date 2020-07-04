@@ -161,7 +161,7 @@ public class UserManager {
      * @param shift
      * @param user
      * @param userType
-     * @return true if operation was successful, else false
+     * @return True if operation was successful, else false
      */
     public boolean addUser(User user, String shift, String userType) {
 
@@ -211,7 +211,7 @@ public class UserManager {
      * This method is used to get the country code.
      *
      * @param countryId
-     * @return country code or null if it doesnt exist
+     * @return Country code or null if it doesnt exist
      */
     public String getCountryCode(int countryId) {
 
@@ -234,7 +234,7 @@ public class UserManager {
      * This method is used to return the id of a country code.
      *
      * @param countryCode
-     * @return country id or 0 if it does not exist
+     * @return Country id or 0 if it does not exist
      */
     public int getCountryId(String countryCode) {
 
@@ -261,7 +261,7 @@ public class UserManager {
      * @param city
      * @param countryId
      * @param street
-     * @return true if operation was successful, else false
+     * @return True if operation was successful, else false
      */
     public boolean addAddress(String zip, String city, int countryId, String street) {
 
@@ -280,7 +280,7 @@ public class UserManager {
      * @param street
      * @param city
      * @param countryId
-     * @return the addressId if its found, else -1
+     * @return The addressId if its found, else -1
      */
     public int searchAddressId(String zip, String street, String city, int countryId) {
 
@@ -315,7 +315,7 @@ public class UserManager {
      * @param shift
      * @param user
      * @param userType
-     * @return true if operation is sucessful, else false
+     * @return True if operation is sucessful, else false
      */
     public boolean updateUser(int id, User user, String shift, String userType, boolean changePassword) {
 
@@ -400,7 +400,7 @@ public class UserManager {
      * Method which deletes a user from the database.
      *
      * @param id
-     * @return true if operation is successful, else false
+     * @return True if operation is successful, else false
      */
     public boolean deleteUser(int id) {
 
@@ -471,7 +471,7 @@ public class UserManager {
      * Method to check if a username already exists in the database.
      *
      * @param username
-     * @return true if it exists, else false
+     * @return True if it exists, else false
      */
     public boolean usernameExists(String username) {
 
@@ -670,7 +670,7 @@ public class UserManager {
      * identical.
      *
      * @param multipleFeedingTimeResultSet
-     * @return a boolean that indicates the result of this method. The result
+     * @return A boolean that indicates the result of this method. The result
      * indicates wether the ResultSet contains multiple feeding (true) or not
      * (false) - depending on this the result is returned.
      */
@@ -750,7 +750,7 @@ public class UserManager {
     /**
      * Return minutes until next feeding time for zookeeper.
      *
-     * @return the next feeding time in minutes
+     * @return The next feeding time in minutes
      */
     public String getNextFeedingInfoInProperFormat() {
 
