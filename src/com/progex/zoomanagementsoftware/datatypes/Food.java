@@ -1,20 +1,28 @@
 package com.progex.zoomanagementsoftware.datatypes;
+
 /**
- *  Class which is used to model the food of the zoo in our zoo management software.
+ * Class which is used to model the food inventory of the zoo in our 
+ * zoo management software.
  */
+public class Food {
 
-public class Food
-{
-	private int id;
-	
-	private String name;
-	
-	private double stock;
-	
-	private String storageRoomNumber;
+    private int id;
 
+    private String name;
+
+    private double stock;
+
+    private String storageRoomNumber;
+
+    /**
+     * Standard constructor to model a food dataset.
+     * @param id
+     * @param name
+     * @param stock
+     * @param storageRoomNumber 
+     */
     public Food(int id, String name, double stock, String storageRoomNumber) {
-        
+
         this.id = id;
         this.name = name;
         this.stock = stock;
@@ -47,5 +55,5 @@ public class Food
 
     public void setStorageRoomNumber(String storageRoomNumber) {
         this.storageRoomNumber = storageRoomNumber;
-    }	
+    }
 }

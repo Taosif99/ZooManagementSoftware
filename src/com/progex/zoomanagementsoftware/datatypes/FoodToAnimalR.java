@@ -1,25 +1,27 @@
-
 package com.progex.zoomanagementsoftware.datatypes;
 
-
-
 /**
- *This class has been implemented to represent a record of
- * the relation between food and animal in an object oriented way.
- * @author Ouchen
+ * This class has been implemented to represent a record of the relation between
+ * food and animal in an object oriented way.
  */
 public class FoodToAnimalR {
-    
+
     String foodName;
     int foodID;
     int animalID;
     String startFeedingTime;
     String endFeedingTime;
     double amount;
-    
-    
-    
-    
+
+    /**
+     * Standard constructor to model the relation food to animal dataset.
+     * @param foodName
+     * @param foodID
+     * @param animalID
+     * @param startFeedingTime
+     * @param endFeedingTime
+     * @param amount 
+     */
     public FoodToAnimalR(String foodName, int foodID, int animalID, String startFeedingTime, String endFeedingTime, double amount) {
         this.foodName = foodName;
         this.foodID = foodID;
@@ -32,7 +34,7 @@ public class FoodToAnimalR {
     public String getFoodName() {
         return foodName;
     }
-    
+
     public int getFoodID() {
         return foodID;
     }
@@ -64,6 +66,4 @@ public class FoodToAnimalR {
     public void setAmount(double amount) {
         this.amount = amount;
     }
- 
-    
 }

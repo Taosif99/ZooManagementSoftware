@@ -30,6 +30,20 @@ public class User {
 
     private Timestamp lastLogDate;
 
+    /**
+     * Standard constructor to model a user dataset.
+     * @param username
+     * @param firstname
+     * @param lastname
+     * @param email
+     * @param phoneNumber
+     * @param id
+     * @param salutation
+     * @param birthday
+     * @param hashedPassword
+     * @param address
+     * @param lastLogDate 
+     */
     public User(String username, String firstname, String lastname, String email, String phoneNumber, int id, Salutation salutation, Date birthday, String hashedPassword, Address address, Timestamp lastLogDate) {
 
         this.username = username;
@@ -45,14 +59,34 @@ public class User {
         this.lastLogDate = lastLogDate;
     }
     
-    public User(String username, String firstname, Timestamp lastlogdate){
+    /**
+     * This constructor is used to model a user with the attrbutes username,
+     * lastname and lastLogDate.
+     * @param username
+     * @param firstname
+     * @param lastLogDate 
+     */
+    public User(String username, String firstname, Timestamp lastLogDate){
         
         this.username = username;
         this.firstname = firstname;
-        this.lastLogDate = lastlogdate;
-        
+        this.lastLogDate = lastLogDate;
+
     }
 
+    /**
+     * This constructor is used to model a user dataset without the attributes 
+     * id and lastLogDate.
+     * @param username
+     * @param firstname
+     * @param lastname
+     * @param email
+     * @param phoneNumber
+     * @param salutation
+     * @param birthday
+     * @param hashedPassword
+     * @param address 
+     */
     public User(String username, String firstname, String lastname, String email, String phoneNumber, Salutation salutation, Date birthday, String hashedPassword, Address address) {
 
         this.username = username;

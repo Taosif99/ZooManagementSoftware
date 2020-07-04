@@ -42,15 +42,6 @@ public class Animal {
         this.visibleForGuest = visibleForGuest;
     }
 
-    
-    
-
-
-
-
-    
-    
-    
     public int getId() {
         return id;
     }

@@ -15,6 +15,14 @@ public class Address {
 
     private String city;
 
+    /**
+     * Standard constructor to model a compound dataset.
+     * @param id
+     * @param street
+     * @param countryID
+     * @param zip
+     * @param city 
+     */
     public Address(int id, String street, int countryID, String zip, String city) {
           
         this.id = id;
@@ -24,7 +32,15 @@ public class Address {
         this.city = city;
     }
 
+    /**
+     * This constructor is used to create an Address object without the id.
+     * @param street
+     * @param countryID
+     * @param zip
+     * @param city 
+     */
     public Address(String street, int countryID, String zip, String city){
+        
         this.street = street;
         this.countryID = countryID;
         this.zip = zip;

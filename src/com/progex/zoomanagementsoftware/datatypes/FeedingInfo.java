@@ -1,68 +1,87 @@
 package com.progex.zoomanagementsoftware.datatypes;
 
 /**
- *  Class which is used to model an Feeding info for a guest in our zoo management software.
+ * Class which is used to model an Feeding info for a guest in our zoo
+ * management software.
  */
+public class FeedingInfo {
 
-public class FeedingInfo
-{
-	private String animalName;
-        
-        private int ID;
-	
-	private String animalBirthday;
-	
-	private String animalSex;
-	
-	private String compoundName;
-	
-	private String startFeedingTime; 
-	
-	private String foodName;
-	
-	private String endFeedingTime;
+    private String animalName;
 
-    
-    
-    
-    public FeedingInfo(String compoundName,String startFeedingTime, String endFeedingTime, String foodName) {
-   
-        
+    private int ID;
+
+    private String animalBirthday;
+
+    private String animalSex;
+
+    private String compoundName;
+
+    private String startFeedingTime;
+
+    private String foodName;
+
+    private String endFeedingTime;
+
+    /**
+     * Constructor to model feeding info with the attributes compound name, start feeding time, 
+     * end feeding time and food name.
+     * @param compoundName
+     * @param startFeedingTime
+     * @param endFeedingTime
+     * @param foodName 
+     */
+    public FeedingInfo(String compoundName, String startFeedingTime, String endFeedingTime, String foodName) {
+
         this.compoundName = compoundName;
         this.startFeedingTime = startFeedingTime;
         this.foodName = foodName;
         this.endFeedingTime = endFeedingTime;
     }
-    
-    public FeedingInfo(String animal,String compoundName, String foodName) {
-   
-        this.animalName =animal;
-        this.compoundName = compoundName;
-        this.foodName = foodName;
-        
-    }
-    
-    public FeedingInfo(String compoundName, String foodName) {
-   
-        this.compoundName = compoundName;
-        this.foodName = foodName;
-        
-    }
-    
-    public FeedingInfo(String animalName) {
-   
+
+    /**
+     * Constructor to model feeding info with the attributes animal name, 
+     * compound name and food name.
+     * @param animalName
+     * @param compoundName
+     * @param foodName 
+     */
+    public FeedingInfo(String animalName, String compoundName, String foodName) {
+
         this.animalName = animalName;
-        
+        this.compoundName = compoundName;
+        this.foodName = foodName;
     }
-    
-    
-    
-    public FeedingInfo(int ID){
-        
+
+    /**
+     * Constructor to model feeding info with the attributes compound name and 
+     * food name.
+     * @param compoundName
+     * @param foodName 
+     */
+    public FeedingInfo(String compoundName, String foodName) {
+
+        this.compoundName = compoundName;
+        this.foodName = foodName;
+    }
+
+    /**
+     * Constructor to model feeding info with the attribute animal name.
+     * @param animalName 
+     */
+    /*public FeedingInfo(String animalName) {
+
+        this.animalName = animalName;
+    }*/
+
+    /**
+     * Constructor to model feeding info with the attribute ID.
+     * @param ID 
+     */
+    /*public FeedingInfo(int ID) {
+
         this.ID = ID;
-        
-    }
-    
+    }*/
+
     public int getID() {
         return ID;
     }
@@ -122,5 +141,4 @@ public class FeedingInfo
     public void setEndFeedingTime(String endFeedingTime) {
         this.endFeedingTime = endFeedingTime;
     }
-
 }

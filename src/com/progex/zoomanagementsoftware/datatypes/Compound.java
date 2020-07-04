@@ -1,7 +1,5 @@
 package com.progex.zoomanagementsoftware.datatypes;
 
-
-
 /**
  * Class which is used to model a compound in our zoo management software.
  */
@@ -37,19 +35,14 @@ public class Compound {
         this.name = name;
     }
        
-    
     /**
-     * Simple compound  constructor which is used when only the name is needed.
+     * Simple compound constructor which is used when only the name is needed.
      * @param name 
      */
     public Compound(String name){
     
         this.name = name;
-    
     }
-    
-    
-    
     
     public int getId() {
         return id;

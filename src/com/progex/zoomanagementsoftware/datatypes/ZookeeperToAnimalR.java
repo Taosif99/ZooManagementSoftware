@@ -1,19 +1,25 @@
-
 package com.progex.zoomanagementsoftware.datatypes;
 
 /**
- * This class is used to represent a record of
- * the relation between zookeeper and animal in an object oriented way.
- * @author taosi
+ * This class is used to represent a record of the relation between zookeeper
+ * and animal in an object oriented way.
  */
 public class ZookeeperToAnimalR {
-    
+
     int userId;
     String firstname;
     String lastname;
     int animalId;
     String animalName;
 
+    /**
+     * Standard constructor to model the relation zookeeper to animal dataset.
+     * @param userId
+     * @param firstname
+     * @param lastname
+     * @param animalId
+     * @param animalName 
+     */
     public ZookeeperToAnimalR(int userId, String firstname, String lastname, int animalId, String animalName) {
         this.userId = userId;
         this.firstname = firstname;

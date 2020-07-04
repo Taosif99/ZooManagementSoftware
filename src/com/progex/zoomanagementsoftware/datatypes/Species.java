@@ -6,11 +6,14 @@ package com.progex.zoomanagementsoftware.datatypes;
 public class Species {
 
     private int id;
-
-
-
+    
     private Description description;
 
+    /**
+     * Standard constructor to model a species dataset
+     * @param id
+     * @param description 
+     */
     public Species(int id, Description description) {
         this.id = id;
         this.description = description;
@@ -28,5 +31,4 @@ public class Species {
     public void setDescription(Description description) {
         this.description = description;
     }
-
 }
