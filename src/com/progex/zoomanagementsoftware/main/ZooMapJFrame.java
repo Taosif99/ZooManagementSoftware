@@ -1,5 +1,6 @@
+package com.progex.zoomanagementsoftware.main;
 
-package com.progex.zoomanagementsoftware.main;;
+;
 import com.progex.zoomanagementsoftware.datatypes.Methods;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
@@ -16,64 +17,54 @@ public class ZooMapJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ZooMapJFrame.
-     * @param goBackFrame The frame which will appear when the go back button is used
+     *
+     * @param goBackFrame The frame which will appear when the go back button is
+     * used
      */
     public ZooMapJFrame(JFrame goBackFrame) {
         initComponents();
         myInitComponents();
-        this.goBackFrame = goBackFrame;    
+        this.goBackFrame = goBackFrame;
         methods = new Methods();
         methods.showTimeAndDate(jLabelShowDateTime);
     }
-  
-    
-    private void myInitComponents(){
+
+    private void myInitComponents() {
 
         Toolkit tk = Toolkit.getDefaultToolkit();
-        int x =(int)tk.getScreenSize().getWidth();
-        int y =(int)tk.getScreenSize().getHeight();
-        setSize(x,y);
+        int x = (int) tk.getScreenSize().getWidth();
+        int y = (int) tk.getScreenSize().getHeight();
+        setSize(x, y);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
-       
+
         InputStream inputStream = ZooMapJFrame.class.getResourceAsStream("ZooMap.jpg");
-     
+
         BufferedImage img = null;
-        
-       int scaledWidth = 1450;
-       int scaledHeight = 800;
-        
+
+        int scaledWidth = 1450;
+        int scaledHeight = 800;
+
         try {
-            
-            
-            //img = ImageIO.read(new File(filePath));
-             img = ImageIO.read(inputStream);
-             BufferedImage outputImage = new BufferedImage(scaledWidth,
-             scaledHeight, img.getType());
-           
-         // scales the input image to the output image
-         
-         
-         
+            ;
+            img = ImageIO.read(inputStream);
+            BufferedImage outputImage = new BufferedImage(scaledWidth,
+                    scaledHeight, img.getType());
+
+            // scales the input image to the output image
             Graphics2D g2d = outputImage.createGraphics();
-            
-            
-            
+
             g2d.drawImage(img, 0, 0, scaledWidth, scaledHeight, null);
             g2d.dispose();
- 
-            
-       ImageIcon icon = new ImageIcon(outputImage);      
-       imageLabel.setIcon(icon);
+
+            ImageIcon icon = new ImageIcon(outputImage);
+            imageLabel.setIcon(icon);
         } catch (IOException ex) {
             System.err.println("IO Exception");
             System.out.println(ex.getMessage());
         }
-        
+
     }
-    
-    
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -144,51 +135,16 @@ public class ZooMapJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     /**
      * Method to return to the Main menu
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-        
+
         goBackFrame.setVisible(true);
         //Close frame
         this.dispose();
     }//GEN-LAST:event_jButtonBackActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ZooMapJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ZooMapJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ZooMapJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ZooMapJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ZooMapJFrame(null).setVisible(true);
-            }
-        });
-        
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel imageLabel;

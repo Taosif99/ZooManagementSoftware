@@ -14,7 +14,6 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-
 public class ManageAnimalJFrame extends javax.swing.JFrame {
 
     /**
@@ -22,7 +21,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
      *
      * @param goBackFrame The frame which will appear when the go back button is
      * used
-     * @param zooManager  The zooManager of the current Programm session which serves as interface
+     * @param zooManager The zooManager of the current Programm session which
+     * serves as interface
      */
     public ManageAnimalJFrame(JFrame goBackFrame, ZooManager zooManager) {
         initComponents();
@@ -53,7 +53,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         jTextFieldID.setText("");
     }
 
- 
     private void viewAnimals(LinkedList<Animal> animals) {
 
         methods.clearTable(jTableAnimalData);
@@ -457,7 +456,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             String sex = jComboBoxSex.getSelectedItem().toString();
             String species = jComboBoxSpecies.getSelectedItem().toString();
             String visibility = jComboBoxVisibleForGuests.getSelectedItem().toString();
-            
+
             boolean dateFormatCorrect = methods.isValidDateString(date);
             CompoundManager compoundManager = zooManager.getCompoundManager();
 
@@ -465,9 +464,8 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
             if (compoundNameExists) {
                 if (dateFormatCorrect) {
-                    
-                    
-                    if (animalManager.addAnimal(animalName, compoundName, date, sex, species,visibility)) {
+
+                    if (animalManager.addAnimal(animalName, compoundName, date, sex, species, visibility)) {
                         JOptionPane.showMessageDialog(null, "Tier konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                         cleanFields();
 
@@ -515,7 +513,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         String species = jComboBoxSpecies.getSelectedItem().toString();
         String ID = jTextFieldID.getText().trim();
         String visibility = jComboBoxVisibleForGuests.getSelectedItem().toString();
-        
+
         LinkedHashMap<String, String> columnNameToValue = new LinkedHashMap<String, String>();
         columnNameToValue.put("Animal.ID", ID);
         columnNameToValue.put("AnimalName", animalName);
@@ -523,21 +521,21 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         columnNameToValue.put("Birthday", birthday);
         columnNameToValue.put("Description", species);
         columnNameToValue.put("Name", compoundName);
-        columnNameToValue.put("visibleForGuest",visibility);
+        columnNameToValue.put("visibleForGuest", visibility);
 
         lastSearchMap = columnNameToValue;
 
         LinkedList<Animal> animals = animalManager.searchAnimals(columnNameToValue);
         if (!animals.isEmpty())
             viewAnimals(animals);
-        else{
+        else {
             JOptionPane.showMessageDialog(null, "Es wurden keine Einträge gefunden!", "Keine Ergebnisse", JOptionPane.INFORMATION_MESSAGE);
             methods.clearTable(jTableAnimalData);
         }
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonAssignFeedingTimesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssignFeedingTimesActionPerformed
-       
+
         this.setVisible(false);
         JFrame thisFrame = this;
         /* Create and display the JFrame FoodToAnimal*/
@@ -549,7 +547,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAssignFeedingTimesActionPerformed
 
     private void jButtonAssignZookeeperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssignZookeeperActionPerformed
-     
+
         this.setVisible(false);
         JFrame thisFrame = this;
         /* Create and display the JFrame MangeUser*/
@@ -590,7 +588,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                     if (dateFormatCorrect) {
                         int decision = JOptionPane.showConfirmDialog(null, "Wollen Sie den Datensatz wirklich ändern?", "Bestätigung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                         if (decision == 0) {
-                            if (animalManager.updateAnimal(ID, animalName, compoundName, date, sex, species,visibility)) {
+                            if (animalManager.updateAnimal(ID, animalName, compoundName, date, sex, species, visibility)) {
                                 JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                                 cleanFields();
                                 //Update table if old search exist
@@ -627,7 +625,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
 
             if (textFieldsVerified) {
 
-       
                 int decision = JOptionPane.showConfirmDialog(null,
                         "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -635,7 +632,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
                     if (animalManager.deleteAnimal(ID)) {
                         JOptionPane.showMessageDialog(null, "Tier wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                         cleanFields();
-                        
+
                         //Update table if old search exist
                         if (lastSearchMap != null) {
                             lastSearchedAnimals = animalManager.searchAnimals(lastSearchMap);
@@ -673,12 +670,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonHelpActionPerformed
 
-    /**
-     * This Method makes it possible to update the fields, depending which row
-     * is clicked.
-     *
-     * @param evt
-     */
+
     private void jTableAnimalDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAnimalDataMouseClicked
 
         if (!mode.equals(Mode.add)) {
@@ -689,7 +681,7 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
             jTextFieldAnimalName.setText(model.getValueAt(rowIndex, 1).toString());
             String sex = (model.getValueAt(rowIndex, 2).toString());
             jComboBoxSex.setSelectedItem(sex);
-            
+
             jTextFieldDateOfBirth.setText(model.getValueAt(rowIndex, 3).toString());
 
             String species = model.getValueAt(rowIndex, 4).toString();
@@ -701,13 +693,13 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         System.out.append("LOGOUT");
         zooManager.getUserManager().logout();
-        
+
     }//GEN-LAST:event_formWindowClosing
 
     private void updateButtonsAndLabels() {
 
         System.out.println("Animal Mode");
-        
+
         if (jRadioButtonAdd.isSelected()) {
             System.out.println("    Add mode");
             jButtonAddAnimal.setEnabled(true);
@@ -751,49 +743,6 @@ public class ManageAnimalJFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        String url = "jdbc:mysql://localhost/";
-        String username = "root";
-        String password = "0000";
-        String dbName = "zoo";
-
-        ZooManager zooManager = new ZooManager(url, dbName, username, password);
-        zooManager.getConnectionHandler().connect();
-        
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ManageAnimalJFrame(null, zooManager).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupOperation;

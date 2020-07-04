@@ -62,7 +62,7 @@
                               <Component id="jPasswordFieldPassword" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jTextFieldUsername" pref="92" max="32767" attributes="0"/>
+                          <Component id="jTextFieldUsername" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -117,9 +117,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldUsername">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldUsernameActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="jPasswordFieldPassword">
     </Component>

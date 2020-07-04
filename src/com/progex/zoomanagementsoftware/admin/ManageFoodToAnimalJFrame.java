@@ -93,11 +93,16 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             row[3] = methods.removeSeconds(record.getStartFeedingTime());
             row[4] = methods.removeSeconds(record.getEndFeedingTime());
 
+            double amount;
             if (jRadioButtonGTable.isSelected()) {
-                row[5] = record.getAmount() * 1000;
+                amount = record.getAmount() * 1000;
             } else {
-                row[5] = record.getAmount();
+                amount = record.getAmount();
             }
+            
+            //Rounding
+            row[5] = Math.round(amount * 100.0) / 100.0;
+            
             tableRelationModel.addRow(row);
         }
     }
@@ -353,7 +358,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             jPanelOperationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOperationLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelOperationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelOperationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanelOperationLayout.createSequentialGroup()
                         .addComponent(jLabelOperation)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -361,7 +366,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     .addGroup(jPanelOperationLayout.createSequentialGroup()
                         .addComponent(jRadioButtonDelete)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBoxIncreaseStock, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jCheckBoxIncreaseStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jRadioButtonUpdate)
                     .addComponent(jRadioButtonAdd))
                 .addContainerGap(38, Short.MAX_VALUE))
@@ -639,13 +644,13 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                                     .addComponent(jButtonSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(40, 40, 40))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPaneFoodToAnimalTable, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
+                        .addComponent(jScrollPaneFoodToAnimalTable)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonGoBack)
                 .addGap(3, 3, 3)
                 .addComponent(jLabelClickedAnimal)
@@ -683,7 +688,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldAmountFood, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelAmountFood))))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelShowDateTime)
