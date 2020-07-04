@@ -298,7 +298,7 @@ public class ChooseAnimalAndTimeJFrame extends javax.swing.JFrame {
 
             if (feedingInfos.isEmpty()) {
 
-                JOptionPane.showMessageDialog(rootPane, "Keine Fütterungen für " + animalName + " heute mehr ", "Schade :(", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Keine Fütterungszeiten mehr für das gewünschte Tier (" + animalName+ ") " , "Schade", JOptionPane.INFORMATION_MESSAGE);
 
             } else {
 
