@@ -64,7 +64,7 @@
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jPanelNextFeedingTimeInfo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="29" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jRadioButtonKg" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jRadioButtonGramm" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -152,15 +152,15 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="attentionLabel" min="-2" pref="42" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabelFood" min="-2" pref="30" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelStorageRoomNumber" min="-2" pref="30" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelFoodAmount" min="-2" pref="30" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Component id="jLabelAnimalName" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="jLabelFood" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabelCompound" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelStorageRoomNumber" min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabelFoodAmount" min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jLabelAnimalName" min="-2" pref="41" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jLabelCompound" min="-2" pref="41" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
