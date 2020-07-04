@@ -146,6 +146,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         jRadioButtonUpdate = new javax.swing.JRadioButton();
         jRadioButtonDelete = new javax.swing.JRadioButton();
         jButtonHelp = new javax.swing.JButton();
+        jCheckBoxIncreaseStock = new javax.swing.JCheckBox();
         jScrollPaneFoodToAnimalTable = new javax.swing.JScrollPane();
         jTableFoodToAnimalData = new javax.swing.JTable();
         jLabelShowDateTime = new javax.swing.JLabel();
@@ -268,6 +269,9 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             }
         });
 
+        jCheckBoxIncreaseStock.setText("Bestand wieder freigeben");
+        jCheckBoxIncreaseStock.setToolTipText("Falls man möchte, dass die Fütterung zurück genommen wird und der Bestand somit wieder erhört wird.");
+
         javax.swing.GroupLayout jPanelOperationLayout = new javax.swing.GroupLayout(jPanelOperation);
         jPanelOperation.setLayout(jPanelOperationLayout);
         jPanelOperationLayout.setHorizontalGroup(
@@ -279,7 +283,10 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                         .addComponent(jLabelOperation)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonHelp))
-                    .addComponent(jRadioButtonDelete)
+                    .addGroup(jPanelOperationLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonDelete)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCheckBoxIncreaseStock, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jRadioButtonUpdate)
                     .addComponent(jRadioButtonAdd))
                 .addContainerGap(38, Short.MAX_VALUE))
@@ -296,7 +303,9 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jRadioButtonUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButtonDelete)
+                .addGroup(jPanelOperationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButtonDelete)
+                    .addComponent(jCheckBoxIncreaseStock))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -561,7 +570,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(jButtonGoBack)
                 .addGap(3, 3, 3)
                 .addComponent(jLabelClickedAnimal)
@@ -599,7 +608,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldAmountFood, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelAmountFood))))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelShowDateTime)
@@ -654,6 +663,14 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                             if (!feedingOrderTimesOk) {
                                 throw new IllegalArgumentException("End feeding time cannot start before start feeding time");
                             }
+                            
+                            if(!foodToAnimalManager.isEnoghtStock(foodName, amount)){
+                            
+                            throw new IllegalArgumentException("not enough stock");
+                                     
+                            }
+                            
+                            
                             if (foodToAnimalManager.addFoodToAnimal(selectedAnimalID, foodName, startFeedingTime, endFeedingTime, amount)) {
                                 JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                                 int animalID = Integer.parseInt(selectedAnimalID);
@@ -685,6 +702,10 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     System.err.println("Illegal amount argument");
                     System.out.println(message);
                     JOptionPane.showMessageDialog(null, "Futtermenge kann nicht kleiner oder gleich 0 sein!", "Futtermenge unlogisch", JOptionPane.CANCEL_OPTION);
+                } else if (message.equals("not enough stock")){
+                    System.err.println("Illegal amount argument, not enough stock");
+                    System.out.println(message);
+                    JOptionPane.showMessageDialog(null, "Futtermenge übertrifft den Bestand !", "Futtermenge unlogisch", JOptionPane.CANCEL_OPTION);
                 }
             }
         } else {
@@ -763,7 +784,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                 viewRelationTable(records);
             }
 
-            //
+            
             } catch (NumberFormatException numberFormatException) {
 
                 System.err.println("NumberFormatException in SearchFoodToAnimal Button");
@@ -813,6 +834,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     if (amount < 0) {
                         throw new IllegalArgumentException("Amount must be greater or equal zero");
                     }
+               
                     //Check if gramm is selected
                     if (jRadioButtonG.isSelected()) {
                         amount /= 1000;
@@ -823,11 +845,38 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                             if (!feedingOrderTimesOk) {
                                 throw new IllegalArgumentException("End feeding time cannot start before start feeding time");
                             }
+                            
+                    //get the difference of oldAmount and newAmount
+                    double oldAmount =  Double.valueOf(model.getValueAt(rowIndex, 5).toString());
+                    
+                    //Check unit of right table
+                    if (jRadioButtonGTable.isSelected()){ 
+                    oldAmount /= 1000;
+                    }
+                    
+              
+                    double differenceForStock = oldAmount - amount;
+                   
+                    
+                    //Case difference positive -> stock increases                    
+                    //-->No need to check if enough stock
+                    
+                    //Case difference negative -> stock decreases
+                    if(differenceForStock < 0 ){
+                    
+                    //Check if there is enough for update
+                        double increaseAmount = differenceForStock*(-1);
+                        if(!foodToAnimalManager.isEnoghtStock(foodName,increaseAmount)){
+                            throw new IllegalArgumentException("not enough stock");
+                            }
+                    
+                    } 
+                                                        
                             int decision = JOptionPane.showConfirmDialog(null,
                                     "Wollen Sie den Datensatz wirklich ändern?", "Bestätigung",
                                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                             if (decision == 0) {
-                                if (foodToAnimalManager.updateFoodToAnimal(selectedAnimalID, foodName, startFeedingTime, endFeedingTime, amount, keys)) {
+                                if (foodToAnimalManager.updateFoodToAnimal(selectedAnimalID, foodName, startFeedingTime, endFeedingTime, amount, keys,differenceForStock)) {
                                     int animalID = Integer.parseInt(selectedAnimalID);
                                     LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
                                     lastClickRecords = records;
@@ -863,7 +912,11 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
                     System.err.println("Illegal amount argument");
                     System.out.println(message);
                     JOptionPane.showMessageDialog(null, "Futtermnege kann nicht kleiner oder gleich 0 sein!", "Futtermenge unlogisch", JOptionPane.CANCEL_OPTION);
-                }
+                }else if (message.equals("not enough stock")){
+                    System.err.println("Illegal amount argument, not enough stock");
+                    System.out.println(message);
+                    JOptionPane.showMessageDialog(null, "Neue Futtermenge übertrifft den Bestand !", "Futtermenge unlogisch", JOptionPane.CANCEL_OPTION);
+                } 
             } catch (ArrayIndexOutOfBoundsException arrOutOfBounds) {
                 System.err.println("No food relation selected");
                 System.out.println(arrOutOfBounds.getMessage());
@@ -883,13 +936,29 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
         String foodIDKey = model.getValueAt(rowIndex, 1).toString();
         String startFeedingTimeKey = model.getValueAt(rowIndex, 3).toString();
 
+        double updateStockVal = 0;
+        
+        if(jCheckBoxIncreaseStock.isSelected()){
+        
+           //get the old value from table
+               updateStockVal =  Double.valueOf(model.getValueAt(rowIndex, 5).toString());
+                    
+                    //Check unit of right table
+                    if (jRadioButtonGTable.isSelected()){ 
+                    updateStockVal /= 1000;
+                    }
+        
+        }
+        
+        
+        
         int decision = JOptionPane.showConfirmDialog(null,
                 "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (decision == 0) {
 
             
-                if (foodToAnimalManager.deleteFoodToAnimal(foodIDKey, selectedAnimalID, startFeedingTimeKey)) {
+                if (foodToAnimalManager.deleteFoodToAnimal(foodIDKey, selectedAnimalID, startFeedingTimeKey,updateStockVal)) {
                     JOptionPane.showMessageDialog(null, "Futter-Tier-Beziehung wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
                     int animalID = Integer.parseInt(selectedAnimalID);
                     LinkedList<FoodToAnimalR> records = foodToAnimalManager.getFoodToAnimalRecords(animalID);
@@ -1050,6 +1119,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             jTextFieldFoodID.setText("");
             jTextFieldAnimalID.setText("");
             jTextFieldDateTimeID.setText("");
+            jCheckBoxIncreaseStock.setEnabled(false);
 
             mode = Mode.add;
 
@@ -1063,6 +1133,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(true);
             jLabelAnimalID.setEnabled(true);
             jLabelDateTimeID.setEnabled(true);
+            jCheckBoxIncreaseStock.setEnabled(false);
             mode = Mode.update;
 
         } else if (jRadioButtonDelete.isSelected()) {
@@ -1075,6 +1146,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
             jButtonSearch.setEnabled(true);
             jLabelAnimalID.setEnabled(true);
             jLabelDateTimeID.setEnabled(true);
+            jCheckBoxIncreaseStock.setEnabled(true);
             mode = Mode.delete;
         }
     }
@@ -1133,6 +1205,7 @@ public class ManageFoodToAnimalJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtonSearchAnimal;
     private javax.swing.JButton jButtonUpdate;
+    private javax.swing.JCheckBox jCheckBoxIncreaseStock;
     private javax.swing.JComboBox<String> jComboBoxFoodNames;
     private javax.swing.JLabel jLabelAmountFood;
     private javax.swing.JLabel jLabelAmountUnitTable;

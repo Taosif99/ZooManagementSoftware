@@ -164,9 +164,9 @@ public class ConnectionHandler {
         Statement statement;
         try {
             statement = connection.createStatement();
-            if ((statement.executeUpdate(query)) == 1) {
-                return true;
-            }
+            statement.executeUpdate(query);
+            return true;
+            
         } catch (SQLException ex) {
             System.err.println("SQL Exception in manipulateDB()");
             System.out.println(ex.getMessage());

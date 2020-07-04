@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
+
 /**
  * Class which handles the the food to animal relation in our program.
  */
@@ -83,9 +84,19 @@ public class FoodToAnimalManager {
                     .append("'").append(endFeedingTime).append("'").append(",").append(amount).append(")");
             String query = querySB.toString();
             System.out.println(query);
+            
+        
+            boolean retValInsertIntoEats = connectionHandler.manipulateDB(query);
 
-            boolean retVal = connectionHandler.manipulateDB(query);
+            
+            //Decrease the stock amount of food
+            String updateFoodQuery = "UPDATE Food set stock = stock -" + amount + "WHERE ID = " + foodID;   
+            boolean retValUpdateFood = connectionHandler.manipulateDB(updateFoodQuery);
+            
+            //Return if both operations successfull
+            boolean retVal = retValInsertIntoEats && retValUpdateFood;
 
+            
             /*
         if (retVal){
         System.out.println("Einfügen erfolgreich") ;
@@ -100,6 +111,41 @@ public class FoodToAnimalManager {
 
         return false;
     }
+    
+    
+    /**
+     * Method to check if there is enough stock for the feeding
+     * @param foodName
+     * @param requiredAmount
+     * @return true, if there is enough food,food exists and amount is positive, else false
+     */
+    public boolean isEnoghtStock(String foodName,double requiredAmount){
+    
+        if (requiredAmount > 0){
+        
+          try {
+              String query = "SELECT stock FROM Food WHERE name = '" + foodName + "'";
+              
+              ResultSet resultSet = connectionHandler.performQuery(query);
+              
+              resultSet.next();
+              
+              double stock = resultSet.getDouble("stock");
+              
+              if ((stock-requiredAmount)< 0) return false;
+              else return true;
+              
+          } catch (SQLException ex) {
+                 System.err.println("SQL Exception in isEnoughStock()");
+                 System.out.println(ex.getMessage());
+          }
+        }
+        
+        return false;
+        
+    }
+    
+    
 
     /**
      * Method which has been implemented to update the food to animal relation
@@ -111,9 +157,11 @@ public class FoodToAnimalManager {
      * @param endFeedingTime
      * @param amount
      * @param keys
+     * @param differenceForStock
      * @return true if operation is successful, else false
      */
-    public boolean updateFoodToAnimal(String animalID, String foodName, String startFeedingTime, String endFeedingTime, double amount, HashMap<String, String> keys) {
+    public boolean updateFoodToAnimal(String animalID, String foodName, String startFeedingTime, String endFeedingTime, 
+            double amount, HashMap<String, String> keys,double differenceForStock) {
 
         /*Get compoundID and species ID TODO method to shorten code*/
         try {
@@ -131,6 +179,12 @@ public class FoodToAnimalManager {
             resultSet.next();
             int foodID = resultSet.getInt("ID");
 
+            
+            //Update the stock
+         
+            String updateFoodQuery = "UPDATE Food set stock = stock +" + differenceForStock + "WHERE ID = " + foodID;
+            boolean retValUpdateFood = connectionHandler.manipulateDB(updateFoodQuery);
+
             //Know the relation can be updated
             StringBuilder querySB = new StringBuilder();
             querySB.append("UPDATE Eats ")
@@ -145,9 +199,8 @@ public class FoodToAnimalManager {
 
             String query = querySB.toString();
             System.out.println(query);
-
-            boolean retVal = connectionHandler.manipulateDB(query);
-            return retVal;
+            boolean retValUpdateEats = connectionHandler.manipulateDB(query);
+            return retValUpdateEats && retValUpdateFood;
 
         } catch (SQLException ex) {
 
@@ -165,16 +218,26 @@ public class FoodToAnimalManager {
      * @param foodID
      * @param animalID
      * @param startFeedingTime
+     * @param updateStockVal
      * @return True if operation successful, else false
      */
-    public boolean deleteFoodToAnimal(String foodID, String animalID, String startFeedingTime) {
+    public boolean deleteFoodToAnimal(String foodID, String animalID, String startFeedingTime,double updateStockVal) {
 
+        boolean updateStockRetVal = true; //Make positive assumption
+        
+        if (updateStockVal != 0){
+        String updateStockQuery = "UPDATE Food set stock = stock + "+updateStockVal + "WHERE ID = " + foodID;
+         updateStockRetVal = connectionHandler.manipulateDB(updateStockQuery);
+        }
+        
+        
         String query = "DELETE FROM Eats "
                 + "WHERE FoodID = " + foodID
                 + " AND AnimalID= " + animalID
                 + " AND StartFeedingTime = '" + startFeedingTime + "'";
-        boolean retVal = connectionHandler.manipulateDB(query);
-        return retVal;
+        boolean deleteRetVal = connectionHandler.manipulateDB(query);
+        
+        return deleteRetVal && updateStockRetVal;
     }
     
     
@@ -240,5 +303,6 @@ public class FoodToAnimalManager {
 
         return records;
     }
+    
       
 }

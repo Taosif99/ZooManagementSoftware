@@ -84,7 +84,6 @@ public class ZooMapJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabelShowDateTime = new javax.swing.JLabel();
-        jLabelLegend = new javax.swing.JLabel();
         jButtonBack = new javax.swing.JButton();
         imageLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -98,9 +97,6 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         jLabelShowDateTime.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabelShowDateTime.setText("TIME  and Date");
         jLabelShowDateTime.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-
-        jLabelLegend.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabelLegend.setText("Legende:");
 
         jButtonBack.setText("Zurück");
         jButtonBack.addActionListener(new java.awt.event.ActionListener() {
@@ -117,9 +113,7 @@ public class ZooMapJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabelLegend))
+                .addComponent(jLabel1)
                 .addGap(40, 478, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(300, Short.MAX_VALUE)
@@ -143,9 +137,7 @@ public class ZooMapJFrame extends javax.swing.JFrame {
                 .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                 .addGap(121, 121, 121)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabelLegend)
-                .addGap(56, 56, 56))
+                .addGap(97, 97, 97))
         );
 
         pack();
@@ -202,7 +194,6 @@ public class ZooMapJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel imageLabel;
     private javax.swing.JButton jButtonBack;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelLegend;
     private javax.swing.JLabel jLabelShowDateTime;
     // End of variables declaration//GEN-END:variables
 

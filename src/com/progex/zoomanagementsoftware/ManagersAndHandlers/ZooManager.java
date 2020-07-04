@@ -83,9 +83,9 @@ public class ZooManager {
     /*Methods concerning Food to Animal relation end here*/
     /*Own reused methods*/
     /**
-     * https://www.geeksforgeeks.org/mysql-regular-expressions-regexp/ zum
-     * Nachgucken Method which constructs a search query using the parameters
-     * and regular expressions.
+     *
+     * Method which constructs a search query using the parameters
+     * and regular expressions. Please consider side possible side effects !
      *
      * @param columnValueMap
      * @param queryBegin

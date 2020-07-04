@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.ListModel;
+
 
 public class ChooseBothJFrame extends javax.swing.JFrame {
 
@@ -72,7 +72,7 @@ public class ChooseBothJFrame extends javax.swing.JFrame {
         
         InputStream inputStream = ZooMapJFrame.class.getResourceAsStream("ZooMap.jpg");
         BufferedImage img = null;
-        //Hier werte testen...
+        
         int scaledWidth = 1000;
         int scaledHeight = 300;
         

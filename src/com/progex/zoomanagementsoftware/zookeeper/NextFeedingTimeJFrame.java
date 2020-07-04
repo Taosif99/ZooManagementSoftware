@@ -111,7 +111,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
     /**
      * Sets all label when there is no feeding anymore.
      */
-    public void setLabelsNoFeeding() {
+    private void setLabelsNoFeeding() {
         jLabelNextFeedingTimeTakesPlaceIn.setText("Keine Fütterung für heute mehr");
         jLabelFood.setText("");
         jLabelStorageRoomNumber.setText("");
@@ -123,7 +123,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
     /**
      * resolution settings
      */
-    public void myInitComponents() {
+    private void myInitComponents() {
 
         setAlwaysOnTop(true);
         setResizable(false);
