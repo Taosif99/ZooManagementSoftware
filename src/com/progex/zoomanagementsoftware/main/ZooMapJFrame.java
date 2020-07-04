@@ -39,9 +39,9 @@ public class ZooMapJFrame extends javax.swing.JFrame {
         InputStream inputStream = ZooMapJFrame.class.getResourceAsStream("ZooMap.jpg");
      
         BufferedImage img = null;
-        //Hier werte testen...
-       int scaledWidth = 700;
-       int scaledHeight = 400;
+        
+       int scaledWidth = 1450;
+       int scaledHeight = 800;
         
         try {
             
