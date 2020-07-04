@@ -1,6 +1,5 @@
 package com.progex.zoomanagementsoftware.main;
 
-import com.progex.zoomanagementsoftware.ManagersAndHandlers.ConnectionHandler;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.UserManager;
 import com.progex.zoomanagementsoftware.ManagersAndHandlers.ZooManager;
 import com.progex.zoomanagementsoftware.admin.AdminHomepageJFrame;
@@ -19,9 +18,11 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ZooKeeperModeLogin
-     * @param zooManager The zooManager of the current Programm session which serves as interface
-     * @param goBackMainMenuJFrame The frame which will appear when the logout back button is
-     * used
+     *
+     * @param zooManager The zooManager of the current Programm session which
+     * serves as interface
+     * @param goBackMainMenuJFrame The frame which will appear when the logout
+     * back button is used
      */
     public LoginJFrame(JFrame goBackMainMenuJFrame, ZooManager zooManager) {
 
@@ -37,8 +38,8 @@ public class LoginJFrame extends javax.swing.JFrame {
     }
 
     private void myInitComponents() {
-        
-        //Submission with enter button
+
+        //when enter button is pushed
         KeyListener pressEnterListener = new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent evt) {
@@ -85,12 +86,6 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         passwort.setText("Passwort");
 
-        jTextFieldUsername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldUsernameActionPerformed(evt);
-            }
-        });
-
         login.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         login.setText("Login");
 
@@ -123,7 +118,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPasswordFieldPassword)
                                 .addGap(1, 1, 1))
-                            .addComponent(jTextFieldUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)))
+                            .addComponent(jTextFieldUsername)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addComponent(jButtonLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -156,20 +151,12 @@ public class LoginJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldUsernameActionPerformed
-
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
+
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_formWindowClosing
 
-    /**
-     * login Button pressed.
-     *
-     * @param evt
-     */
+
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
 
         // Get username from input field
@@ -179,11 +166,6 @@ public class LoginJFrame extends javax.swing.JFrame {
         MD5Hash hasher = new MD5Hash();
         String hashedPw = hasher.hashString(new String(jPasswordFieldPassword.getPassword()));
 
-        
-        //Connect to database
-        //ConnectionHandler connectionHandler = userManager.getConnectionHandler();
-        //connectionHandler.connect();
-        
         // Check if username and password match data in database and if user is zookeepr 
         User user = userManager.login(username, hashedPw);
 
@@ -191,7 +173,7 @@ public class LoginJFrame extends javax.swing.JFrame {
 
             userManager.setLoggedInUser(user);
 
-            //                //Open admin window here
+            //Open admin window here
             /* Create and display Admin Homepage form */
             // Open AdminHomePage when Login successful and pass zooManager reference
             java.awt.EventQueue.invokeLater(new Runnable() {
@@ -226,42 +208,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-        /*TODO CREATE NEW MANAGER FOR TESTING in main...*/
- /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginJFrame(null, null).setVisible(true);
-            }
-        });
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

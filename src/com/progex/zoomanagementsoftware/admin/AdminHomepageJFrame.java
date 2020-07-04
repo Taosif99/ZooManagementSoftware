@@ -33,16 +33,9 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     private void myInitComponents() {
 
         methods.showTimeAndDate(jLabelShowDateTime);
-
-        try {
-            User loggedInUser = userManager.getLoggedInUser();
-
+        User loggedInUser = userManager.getLoggedInUser();
             jLabelWelcomeAdmin.setText("Hallo " + loggedInUser.getFirstname());
-        } catch (NullPointerException nullPointerException) {
-            System.out.println("DEBUG");
-
-            jLabelWelcomeAdmin.setText("Hallo Superuser !");
-        }
+   
 
     }
 
@@ -411,7 +404,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        System.out.append("LOGOUT");
+        System.out.println("LOGOUT");
         userManager.logout();
     }//GEN-LAST:event_formWindowClosing
 
@@ -427,47 +420,7 @@ public class AdminHomepageJFrame extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jButtonManageEatsActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminHomepageJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminHomepageJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminHomepageJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminHomepageJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        String url = "jdbc:mysql://localhost/";
-        String username = "root";
-        String password = "0000";
-        String dbName = "zoo";
-
-        ZooManager zooManager = new ZooManager(url, dbName, username, password);
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AdminHomepageJFrame(null, zooManager).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonLogout;

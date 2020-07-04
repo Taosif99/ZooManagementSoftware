@@ -49,8 +49,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         UIManager.put("OptionPane.okButtonText", "OK");
         UIManager.put("OptionPane.yesButtonText", "Ja");
         AutoCompleteDecorator.decorate(jComboBoxCountryCode);
-        
-        ArrayList <String> countryCodes = userManager.loadCountryCodes();
+
+        ArrayList<String> countryCodes = userManager.loadCountryCodes();
         jComboBoxCountryCode.setModel(new DefaultComboBoxModel<String>(countryCodes.toArray(new String[0])));
         jComboBoxCountryCode.setSelectedItem("DE");
     }
@@ -95,7 +95,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         jTextFieldLastname.setText("");
         jTextFieldStreet.setText("");
         jTextFieldZIP.setText("");
-        jTextFieldCity.setText("");       
+        jTextFieldCity.setText("");
         jTextFieldPhoneNumber.setText("");
         jTextFieldBirthday.setText("");
         jTextFieldUsername.setText("");
@@ -693,7 +693,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 String username = jTextFieldUsername.getText();
                 String email = jTextFieldEMail.getText();
                 int countryId = userManager.getCountryId(countryCode);
-                
+
                 boolean validEmail = methods.isValidEmail(email);
 
                 if (validEmail) {
@@ -724,7 +724,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                             + "Straße: " + street + "\n"
                                             + "PLZ: " + zip + "\n"
                                             + "Stadt: " + city + "\n"
-                                            + "Länder Code: " + countryCode, "Adresse nicht in der Datenbank vorhanden", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE); 
+                                            + "Länder Code: " + countryCode, "Adresse nicht in der Datenbank vorhanden", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                                 }
                                 salutation = methods.stringToSalutation(salutationStr);
                                 Address tempAddress = new Address(street, countryId, zip, city);
@@ -745,8 +745,8 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
                             String message = illegalArgumentException.getMessage();
                             System.err.println("Illegal Argument in jButtonAddUserActionPerformed()");
-                            
-                            if (message.equals("invalidDate")) {   
+
+                            if (message.equals("invalidDate")) {
                                 System.out.println(message);
                                 JOptionPane.showMessageDialog(null, "Falsches Datumformat!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                             }
@@ -783,7 +783,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         String salutationStr = jComboBoxSalutation.getSelectedItem().toString();
         String userID = jTextFieldID.getText().trim();
         int countryId = userManager.getCountryId(countryCode);
-        
+
         String shiftStr = getGermanShiftString();
 
         int addressIdInt = userManager.searchAddressId(zip, street, city, countryId);
@@ -797,9 +797,10 @@ public class ManageUserJFrame extends javax.swing.JFrame {
         columnNameToValue.put("FirstName", firstname);
         columnNameToValue.put("LastName", lastname);
         //Wird benötigt, wenn country code nicht existiert und somit country Id 0 ist
-        if(countryId != 0)
+        if (countryId != 0) {
             columnNameToValue.put("CountryId", String.valueOf(countryId));
-        
+        }
+
         columnNameToValue.put("PhoneNumber", phonenumber);
         columnNameToValue.put("Birthday", birthday);
         columnNameToValue.put("UserName", username);
@@ -971,7 +972,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                     String username = jTextFieldUsername.getText();
                     String email = jTextFieldEMail.getText();
                     int countryId = userManager.getCountryId(countryCode);
-                    
+
                     boolean validEmail = methods.isValidEmail(email);
                     if (validEmail) {
 
@@ -1003,7 +1004,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                                         + "Straße: " + street + "\n"
                                         + "PLZ: " + zip + "\n"
                                         + "Stadt: " + city + "\n"
-                                        + "Länder Code: " + countryCode, "Adresse nicht in der Datenbank vorhanden", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE); 
+                                        + "Länder Code: " + countryCode, "Adresse nicht in der Datenbank vorhanden", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                             }
 
                             salutation = methods.stringToSalutation(salutationStr);
@@ -1044,13 +1045,13 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
                 if (message.equals("passwords not identical")) {
                     JOptionPane.showMessageDialog(null, "Passwörter sind nicht identisch!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-                } else if(message.equals("invalidDate")) {
+                } else if (message.equals("invalidDate")) {
                     JOptionPane.showMessageDialog(null, "Bitte Geburtstag im Format yyyy-MM-dd eintragen!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-                } else if (message.equals("invalidPhoneNumber")){
-                    
-                  System.out.println(message);
-                  JOptionPane.showMessageDialog(null, "Keine Sonderzeichen in der Telefonnummer erlaubt!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-                
+                } else if (message.equals("invalidPhoneNumber")) {
+
+                    System.out.println(message);
+                    JOptionPane.showMessageDialog(null, "Keine Sonderzeichen in der Telefonnummer erlaubt!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+
                 }
             }
         }
@@ -1058,8 +1059,6 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
     private void jButtonAnimalsToZookeeperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnimalsToZookeeperActionPerformed
 
-        //TODO IN IMPLEMENTATION PHASE:
-        //GETTING ID OF INSERTED USER AND PASS IT TO THE MANAGEZOOKEEPERTOANIMAL JFRAME
         this.setVisible(false);
         JFrame thisFrame = this;
         /* Create and display the JFrame MangeZookeeperToAnimal*/
@@ -1200,49 +1199,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        String url = "jdbc:mysql://localhost/";
-        String username = "root";
-        String password = "0000";
-        String dbName = "zoo";
-
-        ZooManager zooManager = new ZooManager(url, dbName, username, password);
-        zooManager.getConnectionHandler().connect();
-        
-        
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ManageUserJFrame(null, zooManager).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupOperation;

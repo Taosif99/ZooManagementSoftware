@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public class MainMenuJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form MainMenuJFrame
+     * Creates new form MainMenuJFrame.
      */
     public MainMenuJFrame() {
         initComponents();
@@ -51,7 +51,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
             
             
         }
-        /*Init the our wrapper class, which will be used in the Program, which
+        /*Init the our wrapper class, which will be used in the Program, that
         will be passed to the corresponding frames*/   
         zooManager = new ZooManager(url, dbName, username, password);
         checkConnection();
@@ -210,9 +210,9 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         
        
         
-          //Connect to database
+        //Connect to database
         ConnectionHandler connectionHandler = zooManager.getConnectionHandler();
-        boolean connected = connectionHandler.connect();
+        connectionHandler.connect();
 
 
          //Set Main Menue to not visible
@@ -254,6 +254,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
     /**
+     * This method is the entry point to our graphical user interface implementation.
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -281,6 +282,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainMenuJFrame().setVisible(true);

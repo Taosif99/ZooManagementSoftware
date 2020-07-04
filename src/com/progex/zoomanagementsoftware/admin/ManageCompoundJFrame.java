@@ -11,7 +11,6 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-
 public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     /**
@@ -19,7 +18,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
      *
      * @param goBackFrame The frame which will appear when the go back button is
      * used
-     * @param zooManager The zooManager of the current programm session which serves as interface
+     * @param zooManager The zooManager of the current programm session which
+     * serves as interface
      */
     public ManageCompoundJFrame(JFrame goBackFrame, ZooManager zooManager) {
         initComponents();
@@ -32,7 +32,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     }
 
- 
     private void myInitComponents() {
         updateButtonsAndLabels();
         UIManager.put("OptionPane.cancelButtonText", "Abbrechen");
@@ -41,8 +40,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         UIManager.put("OptionPane.yesButtonText", "Ja");
     }
 
-    
- 
     private void cleanFields() {
         jTextFieldID.setText("");
         jTextFieldCompoundName.setText("");
@@ -51,7 +48,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         jTextFieldArea.setText("");
     }
 
-  
     private void viewCompounds(LinkedList<Compound> compounds) {
 
         methods.clearTable(jTableCompoundData);
@@ -61,7 +57,8 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         for (Compound compound : compounds) {
             row[0] = compound.getId();
             row[1] = compound.getName();
-            row[2] = compound.getArea();
+            double area = compound.getArea();
+            row[2] = Math.round(area * 100.0) / 100.0;
             row[3] = compound.getConstructionYear();
             row[4] = compound.getMaxCapacity();
             row[5] = compound.getCurrentCapacity();
@@ -69,7 +66,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         }
 
     }
-
 
     private boolean checkGreaterZero(int constructionYear, int maxCapacity, double area) {
 
@@ -399,7 +395,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-  
+
     private void jButtonAddCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddCompoundActionPerformed
 
         jTextFieldID.setText("");
@@ -424,16 +420,12 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                         throw new IllegalArgumentException("Negative values not allowed");
                     }
 
-                    
-                   
-                    
                     if (compoundManager.addCompound(compoundName, area, constructionYear, maxCapacity)) {
 
                         JOptionPane.showMessageDialog(null, "Gehege konnte erfolgreich eingefügt werden!", "Einfügen erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                         cleanFields();
 
-                    } else 
-                    {
+                    } else {
                         JOptionPane.showMessageDialog(null, "Gehege konnte nicht eingefügt werden!", "Einfügen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
 
@@ -511,7 +503,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
         try {
 
-            
             JTextField textFields[] = {
                 jTextFieldArea,
                 jTextFieldCompoundName,
@@ -536,10 +527,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                         "Wollen Sie den Datensatz wirklich ändern?", "Bestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (decision == 0) {
-                    
-                  
-                    
-                    
+
                     if (compoundManager.updateCompound(ID, compoundName, area, constructionYear, maxCapacity)) {
 
                         JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich in der Datenbank aktualisiert!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
@@ -551,7 +539,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
                         }
                     } else {
 
-                        
                         JOptionPane.showMessageDialog(null, "Gehege konnte nicht geupdatet werden!", "Updaten fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
                 }
@@ -572,7 +559,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
     private void jButtonDeleteCompoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteCompoundActionPerformed
 
-        
         JTextField textFields[] = {jTextFieldID};
         boolean textFieldsVerified = methods.verifyTextFields(textFields);
 
@@ -581,33 +567,32 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
 
             if (textFieldsVerified) {
 
-               
                 int decision = JOptionPane.showConfirmDialog(null,
                         "Wollen Sie den Datensatz wirklich löschen?", "Löschbestätigung",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-                if (compoundManager.isEmpty(ID)){
-                if (decision == 0) {
-                    if (compoundManager.deleteCompound(ID)) {
-                      
-                        JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
-                        cleanFields();
+                if (compoundManager.isEmpty(ID)) {
+                    if (decision == 0) {
+                        if (compoundManager.deleteCompound(ID)) {
 
-                        //Update table if old search exist
-                        if (lastSearchMap != null) {
-                            lastSearchedCompounds = compoundManager.searchCompounds(lastSearchMap);
-                            viewCompounds(lastSearchedCompounds);
+                            JOptionPane.showMessageDialog(null, "Gehege wurde erfolgreich aus der Datenbank entfernt!", "Bestätigung", JOptionPane.INFORMATION_MESSAGE);
+                            cleanFields();
+
+                            //Update table if old search exist
+                            if (lastSearchMap != null) {
+                                lastSearchedCompounds = compoundManager.searchCompounds(lastSearchMap);
+                                viewCompounds(lastSearchedCompounds);
+                            }
+                        } else {
+
+                            JOptionPane.showMessageDialog(null, "Gehege konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                         }
-                    } else {
-                        
-                        JOptionPane.showMessageDialog(null, "Gehege konnte nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
                     }
-                }
-                
-            } else {
-                
-                JOptionPane.showMessageDialog(null, "Gehege in dem Tiere leben kann nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
-                
+
+                } else {
+
+                    JOptionPane.showMessageDialog(null, "Gehege in dem Tiere leben kann nicht gelöscht werden!", "Löschen fehlgeschlagen", JOptionPane.CANCEL_OPTION);
+
                 }
             }
         } catch (NumberFormatException numberFormatException) {
@@ -653,7 +638,7 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         System.out.append("LOGOUT");
         zooManager.getUserManager().logout();
-        
+
     }//GEN-LAST:event_formWindowClosing
 
     /**
@@ -698,49 +683,6 @@ public class ManageCompoundJFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageUserJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        String url = "jdbc:mysql://localhost/";
-        String username = "root";
-        String password = "0000";
-        String dbName = "zoo";
-
-        ZooManager zooManager = new ZooManager(url, dbName, username, password);
-        zooManager.getConnectionHandler().connect();
-        
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ManageCompoundJFrame(null, zooManager).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupOperation;

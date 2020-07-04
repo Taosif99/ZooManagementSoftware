@@ -8,7 +8,7 @@ import javax.xml.bind.DatatypeConverter; //We are also using the JAXB API
 
 /**
  *This class provides simple functions to hash a String and to verify
- * the hash of a String using MD5
+ * the hash of a String using MD5 algorithm.
  * 
  */
 public class MD5Hash {
