@@ -60,7 +60,7 @@ public class Methods {
      * Method to verify that the user inputs are not empty.
      *
      * @param textFields
-     * @return True if trimmed text fields not blank, else false
+     * @return true if trimmed text fields not blank, else false
      */
     public boolean verifyTextFields(JTextField[] textFields) {
 
@@ -313,7 +313,7 @@ public class Methods {
      *
      * @param startFeedingTime
      * @param endFeedingTime
-     * @return True if end feeding time is greater than start, else false
+     * @return true if end feeding time is greater than start, else false
      */
     public boolean isFeedingTimesGreater(String startFeedingTime, String endFeedingTime) {
 
