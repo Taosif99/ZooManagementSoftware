@@ -576,18 +576,13 @@ public class UserManager {
                         Thread.currentThread().interrupt(); // restore interrupted status
                     }
                 }
-
             }
         });
-
         updateLastLogThread.start();
-
     }
 
     /**
      * Updates the lastlogdate from the logged in user.
-     *
-     *
      */
     public void updateLastLogDateFromUser() {
 
@@ -597,16 +592,14 @@ public class UserManager {
 
         // perform query
         connectionHandler.manipulateDB(query);
-
     }
 
     /**
-     * Logsout the user and resets the user, also updates the lastlogdate when
+     * Logout the user and resets the user, also updates the lastlogdate when
      * logging out.
-     *
-     *
      */
     public void logout() {
+        
         updateLastLogDateFromUser();
         updateLastLogThread.interrupt();
         System.out.println("THREAD STOPPED");
@@ -615,12 +608,10 @@ public class UserManager {
     }
 
     /**
-     *
      * Get NextFeedingInfo Object to display a zookeepers next feeding time.
      *
      * @return ZookeeperInfo that shows all important information for the next
      * feeding info for the zookeeper
-     *
      */
     public ZookeeperInfo getNextFeedingInfo() {
 
@@ -654,7 +645,6 @@ public class UserManager {
                 String compound = resultSet.getString(6);
                 Timestamp feedingTimeInMinutes = resultSet.getTimestamp(1);
                 zookeeperInfo = new ZookeeperInfo(feedingTimeInMinutes, compound, animalName, food, storageRoomNumber, amount);
-
             }
 
             if (zookeeperInfo != null && resultSet.next()) {
@@ -668,7 +658,7 @@ public class UserManager {
             // create FeedingInfo based on Database Information and return it
             return zookeeperInfo;
         } catch (SQLException ex) {
-            System.err.println("SQL Exception in getNextFeedingInfo() ");
+            System.err.println("SQL Exception in getNextFeedingInfo()");
             System.out.println(ex.getMessage());
         }
 
@@ -708,8 +698,8 @@ public class UserManager {
     }
 
     /**
-     * This Methods returns a resultset of all Feeding Informations for a user
-     * -> amount is in Kilogramm, resultset is later used to populate the jtable
+     * This Methods returns a resultset of all Feeding Information for a user
+     * -> amount is in Kilogram, resultset is later used to populate the jtable.
      *
      * @return ResultSet witth allfeedingtimes to populate the resultset in
      * another method
@@ -730,12 +720,11 @@ public class UserManager {
                 + "ORDER BY case when diffMin<0 then 1 else 0 end,diffMin";
 
         return connectionHandler.performQuery(query);
-
     }
 
     /**
      * This Methods returns a resultset of all Feeding Informations for a user
-     * -> amount is in Gramm resultset is later used to populate the jtable.
+     * -> amount is in gram resultset is later used to populate the jtable.
      *
      * @return ResultSet with allfeedingtimes to populate the resultset in
      * another method.
@@ -756,7 +745,6 @@ public class UserManager {
                 + "ORDER BY case when diffMin<0 then 1 else 0 end,diffMin";
 
         return connectionHandler.performQuery(query);
-
     }
 
     /**
@@ -769,10 +757,8 @@ public class UserManager {
         Methods methods = new Methods();
 
         String unformattedTime = getNextFeedingInfo().getFeedingTime().toString();
-
         String formattedTime = methods.cutTimeNextFeeding(unformattedTime);
 
         return formattedTime;
-
     }
 }
