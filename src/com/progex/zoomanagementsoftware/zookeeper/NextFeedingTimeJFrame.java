@@ -63,7 +63,7 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
                 if (zookeeperInfo.isIsMultipleFeeding()) {
                     attentionLabel.setText("Achtung, mehrere Fütterungen gleichzeitig!");
                 }
-            } // else dont display it, instead display that there are no feedings anymore.
+            } // else do not display it, instead display that there are no feedings anymore.
             else {
                 setLabelsNoFeeding();
             }
@@ -108,9 +108,6 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * Sets all label when there is no feeding anymore.
-     */
     private void setLabelsNoFeeding() {
         jLabelNextFeedingTimeTakesPlaceIn.setText("Keine Fütterung für heute mehr");
         jLabelFood.setText("");
@@ -120,9 +117,6 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
         jLabelAnimalName.setText("");
     }
 
-    /**
-     * resolution settings
-     */
     private void myInitComponents() {
 
         setAlwaysOnTop(true);
@@ -383,9 +377,6 @@ public class NextFeedingTimeJFrame extends javax.swing.JFrame {
 
         setFeedingInfoInGramm();
     }//GEN-LAST:event_jRadioButtonGrammActionPerformed
-
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel attentionLabel;
