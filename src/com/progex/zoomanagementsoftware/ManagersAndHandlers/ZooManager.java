@@ -96,7 +96,6 @@ public class ZooManager {
                 String key = entry.getKey();
                 String value = entry.getValue();
                 if (!value.isEmpty()) {
-                    //textFieldMap.remove(key);
                     nonEmptyColumnValueMap.put(key, value);
                 }
             }
