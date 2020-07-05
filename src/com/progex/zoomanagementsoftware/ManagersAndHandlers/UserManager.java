@@ -56,6 +56,10 @@ public class UserManager {
         this.loggedInUser = loggedInUser;
     }
 
+    /**
+     * Method which loads the possible country codes from the database.
+     * @return A String ArrayList with all country codes
+     */
     public ArrayList<String> loadCountryCodes() {
 
         ArrayList<String> countryCodes = new ArrayList<>();
