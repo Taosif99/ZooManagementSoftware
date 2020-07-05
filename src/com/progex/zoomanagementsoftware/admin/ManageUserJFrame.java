@@ -215,7 +215,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Shift", "Anrede", "Benutzername", "Vorname", "Nachname", "Telefonnummer", "Geburtstag", "E-Mail", "Plz", "Straße", "Stadt", "Land Code"
+                "ID", "Schicht", "Anrede", "Benutzername", "Vorname", "Nachname", "Telefonnummer", "Geburtstag", "E-Mail", "Plz", "Straße", "Stadt", "Land Code"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -326,7 +326,7 @@ public class ManageUserJFrame extends javax.swing.JFrame {
                 .addGroup(jPanelOperationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelOperation)
                     .addComponent(jButtonHelp))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jRadioButtonAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jRadioButtonUpdate)
