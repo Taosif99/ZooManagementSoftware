@@ -64,23 +64,7 @@ public class FeedingInfo {
         this.foodName = foodName;
     }
 
-    /**
-     * Constructor to model feeding info with the attribute animal name.
-     * @param animalName 
-     */
-    /*public FeedingInfo(String animalName) {
-
-        this.animalName = animalName;
-    }*/
-
-    /**
-     * Constructor to model feeding info with the attribute ID.
-     * @param ID 
-     */
-    /*public FeedingInfo(int ID) {
-
-        this.ID = ID;
-    }*/
+ 
 
     public int getID() {
         return ID;

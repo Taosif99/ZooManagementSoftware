@@ -30,7 +30,7 @@ public class GuestModeManager {
      *
      * @param animal
      * @return LinkedList FeedingInfos with attributes :
-     * compound,startFeedingTime,endFeedingTime,food or null
+     * compound,startFeedingTime,endFeedingTime,food or null if in the database are no datasets
      */
     public LinkedList<FeedingInfo> getAnimalFeedingInfos(String animal) {
 
@@ -92,7 +92,7 @@ public class GuestModeManager {
     /**
      * Method to return all distinct animals in a database.
      *
-     * @return LinkedList with animals or null
+     * @return LinkedList with animals or null if in the database are no datasets
      */
     public LinkedList<String> getAnimalNames() {
 
@@ -120,7 +120,7 @@ public class GuestModeManager {
      * Method to return all available times for ChooseAnimalAndTimeJFrame.
      *
      * @return LinkedList with all available times in database from today or
-     * null
+     * null if in the database are no datasets
      */
     public LinkedList<String> getAvailableFeedingTimes() {
         LinkedList<String> times = new LinkedList<String>();
@@ -172,7 +172,7 @@ public class GuestModeManager {
      *
      * @param feedingTime
      * @return LinkedList with FeedingInfos attributes: animal,compound,food or
-     * null
+     * null if in the database are no datasets
      */
     public LinkedList<FeedingInfo> getTimeFeedingInfo(String feedingTime) {
 
@@ -211,7 +211,7 @@ public class GuestModeManager {
      * @param feedingTime
      * @param animalName
      * @return LinkedList feedingInfo with attributes from Class feedingInfo:
-     * compound, food or null
+     * compound, food or null if in the database are no datasets
      */
     public LinkedList<FeedingInfo> getAnimalTimeFeedingInfo(String feedingTime, String animalName) {
 
@@ -247,7 +247,7 @@ public class GuestModeManager {
      * Method to return a distinct feedingtime for ChooseAnimalAndTimeJFrame.
      *
      * @param animal
-     * @return LinkedList with all unique feeding times or null
+     * @return LinkedList with all unique feeding times or null if in the database are no datasets
      */
     public LinkedList<String> getUniqueFeedingTimes(String animal) {
 

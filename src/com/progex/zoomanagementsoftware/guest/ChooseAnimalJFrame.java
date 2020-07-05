@@ -74,7 +74,7 @@ public class ChooseAnimalJFrame extends javax.swing.JFrame {
         Object[] row = new Object[5];
 
         for (FeedingInfo feedingInfo : feedingInfos) {
-            //Hier bekommt man die Spalten der Zeile
+            //Hier bekommt man die Einträge der Zeile
             row[0] = feedingInfo.getCompundName();
             row[1] = feedingInfo.getStartFeedingTime();
             row[2] = feedingInfo.getEndFeedingTime();
